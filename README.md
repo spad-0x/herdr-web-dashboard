@@ -72,8 +72,8 @@ https://<YOUR-LOCAL-IP>:8088
 
 ### 3. Install as Native PWA
 
-- **iOS (Safari):** Tap **Share** (`⎙`) → **Add to Home Screen** (`➕`).
-- **Android (Chrome):** Tap **Menu** (`⋮`) → **Install App** / **Add to Home screen**.
+- **iOS:** Tap **Share** (`⎙`) → **Add to Home Screen** (`➕`).
+- **Android:** Tap **Menu** (`⋮`) → **Install App** / **Add to Home screen**.
 
 ---
 
