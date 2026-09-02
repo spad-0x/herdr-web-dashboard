@@ -1,0 +1,46 @@
+{
+  "name": "Herdr Mobile WebGUI",
+  "short_name": "Herdr",
+  "description": "Mobile-First AI Agent & Terminal Dashboard for Herdr",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#07080c",
+  "theme_color": "#07080c",
+  "categories": ["developer-tools", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Chat Agente",
+      "short_name": "Chat",
+      "description": "Apri conversazione con l'agente attivo",
+      "url": "/#chat",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Workspaces",
+      "short_name": "Spaces",
+      "description": "Gestisci i workspace di Herdr",
+      "url": "/#workspaces",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

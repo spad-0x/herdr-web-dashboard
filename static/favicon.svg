@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141522" />
+      <stop offset="50%" stop-color="#0e0f18" />
+      <stop offset="100%" stop-color="#08080d" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb07c" />
+      <stop offset="50%" stop-color="#ff9e64" />
+      <stop offset="100%" stop-color="#f7768e" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dcfff" />
+      <stop offset="100%" stop-color="#7aa2f7" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)" />
+  <rect x="3" y="3" width="506" height="506" rx="112" fill="none" stroke="rgba(255, 255, 255, 0.12)" stroke-width="6" />
+
+  <!-- Ambient Glow -->
+  <circle cx="256" cy="250" r="140" fill="url(#accentGrad)" opacity="0.16" filter="url(#glow)" />
+
+  <!-- Ram / Herdr Horns Emblem -->
+  <!-- Left Horn -->
+  <path d="M 190 285 C 150 280 110 230 115 175 C 120 120 170 95 220 110 C 260 122 280 160 260 195 C 245 220 215 225 195 210 C 175 195 175 170 190 155 C 200 145 215 145 220 155" 
+        fill="none" stroke="url(#accentGrad)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Right Horn -->
+  <path d="M 322 285 C 362 280 402 230 397 175 C 392 120 342 95 292 110 C 252 122 232 160 252 195 C 267 220 297 225 317 210 C 337 195 337 170 322 155 C 312 145 297 145 292 155" 
+        fill="none" stroke="url(#accentGrad)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Head / Face Shield -->
+  <path d="M 200 240 L 312 240 L 290 350 L 256 390 L 222 350 Z" 
+        fill="url(#cyanGrad)" opacity="0.92" />
+
+  <!-- Terminal Crown Chevron -->
+  <path d="M 230 295 L 256 320 L 282 295" 
+        fill="none" stroke="#090a0f" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Eyes Dots -->
+  <circle cx="232" cy="265" r="7" fill="#090a0f" />
+  <circle cx="280" cy="265" r="7" fill="#090a0f" />
+</svg>

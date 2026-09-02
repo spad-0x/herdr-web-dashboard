@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+    <meta name="theme-color" content="#07080c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Herdr">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Accedi — Herdr</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #07080c;
+            --bg-card: rgba(15, 18, 26, 0.85);
+            --bg-input: rgba(22, 27, 39, 0.7);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(0, 240, 255, 0.35);
+            --text-primary: #f0f4fc;
+            --text-secondary: #9aa5be;
+            --text-muted: #5e6982;
+            --accent-cyan: #00f0ff;
+            --accent-glow: 0 0 24px rgba(0, 240, 255, 0.25);
+            --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(ellipse at 50% 10%, rgba(0, 240, 255, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 90%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100dvh;
+            padding: 20px;
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 390px;
+            padding: 32px 28px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 1px rgba(255, 255, 255, 0.2) inset;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+        }
+
+        .login-header {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-logo {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(22, 28, 42, 0.9), rgba(12, 15, 24, 0.95));
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: var(--accent-glow);
+        }
+
+        .login-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .login-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 14px 16px;
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.15);
+            background: rgba(22, 27, 39, 0.95);
+        }
+
+        .remember-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .remember-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .remember-checkbox input {
+            accent-color: var(--accent-cyan);
+            width: 16px;
+            height: 16px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #00f0ff, #0099ff);
+            color: #050811;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            border-radius: 14px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .alert-box {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .footer-note a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(5, 8, 17, 0.3);
+            border-top-color: #050811;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-logo">🐏</div>
+            <h1 class="login-title">Herdr Dashboard</h1>
+            <p class="login-subtitle">Accedi per gestire i tuoi agenti e terminali da mobile in modo sicuro.</p>
+        </div>
+
+        <div id="alert-box" class="alert-box">
+            <span>⚠️</span>
+            <span id="alert-text">Credenziali non valide.</span>
+        </div>
+
+        <form id="login-form" autocomplete="on">
+            <div style="display: flex; flex-direction: column; gap: 18px;">
+                <div class="form-group">
+                    <label class="form-label" for="username">Nome Utente</label>
+                    <div class="input-wrapper">
+                        <input class="form-input" type="text" id="username" name="username" placeholder="admin" required autocomplete="username" autocapitalize="none" autocorrect="off">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input class="form-input" type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                    </div>
+                </div>
+
+                <div class="remember-row">
+                    <label class="remember-checkbox">
+                        <input type="checkbox" id="remember" checked>
+                        <span>Ricorda dispositivo</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit" id="btn-submit">
+                    <span id="btn-text">Accedi al Dashboard</span>
+                    <div class="spinner" id="btn-spinner"></div>
+                </button>
+            </div>
+        </form>
+
+        <div class="footer-note">
+            Certificato SSL locale attivo • <a href="/ca.crt" download>Scarica Certificato CA</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const alertBox = document.getElementById('alert-box');
+        const alertText = document.getElementById('alert-text');
+        const btnSubmit = document.getElementById('btn-submit');
+        const btnText = document.getElementById('btn-text');
+        const btnSpinner = document.getElementById('btn-spinner');
+
+        function showError(msg) {
+            alertText.textContent = msg;
+            alertBox.style.display = 'flex';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            alertBox.style.display = 'none';
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+
+            if (!username || !password) {
+                showError('Inserisci nome utente e password.');
+                return;
+            }
+
+            btnSubmit.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'block';
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, remember })
+                });
+
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    if (data.token) {
+                        localStorage.setItem('herdr_token', data.token);
+                    }
+                    window.location.href = '/';
+                } else {
+                    showError(data.message || 'Credenziali non valide.');
+                    btnSubmit.disabled = false;
+                    btnText.style.display = 'inline';
+                    btnSpinner.style.display = 'none';
+                }
+            } catch (err) {
+                showError('Errore di connessione con il server.');
+                btnSubmit.disabled = false;
+                btnText.style.display = 'inline';
+                btnSpinner.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+# ==============================================================================
+# Herdr Web Dashboard — Git Ignore Rules
+# ==============================================================================
+
+# --- Secrets & Credentials ---
+auth.json
+auth.json.*
+sessions.json
+sessions.json.*
+.env
+.env.*
+!.env.example
+
+# --- SSL Certificates & Private Keys ---
+certs/
+*.pem
+*.key
+*.crt
+*.csr
+*.ext
+*.srl
+
+# --- Logs & Runtime Data ---
+*.log
+logs/
+server.log
+.system_generated/
+
+# --- Uploads & User Media ---
+uploads/
+*.tmp
+
+# --- Python Bytecode & Environments ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# --- macOS System Files ---
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# --- IDE & Editor Configs ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- Legacy / Deprecated Archives ---
+static_old/
