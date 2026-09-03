@@ -702,6 +702,19 @@ function renderChatsList() {
                     <div class="settings-section-title">Suoni & Notifiche (sound & toasts)</div>
                     <div class="settings-item-row">
                         <div class="settings-item-left">
+                            <span class="settings-item-label">📲 Notifiche Push di Sistema (Web Push)</span>
+                            <span class="settings-item-desc" id="push-perm-status-desc">Ricevi avvisi su iPhone/PC quando un agente finisce o chiede conferma</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <button class="settings-install-btn" id="btn-test-push" style="display: none; padding: 6px 12px; font-size: 11px;">Test Notifica</button>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="cfg-push-notifications">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-item-row">
+                        <div class="settings-item-left">
                             <span class="settings-item-label">🔊 Suoni Agenti in Background</span>
                             <span class="settings-item-desc">Riproduci audio quando un agente termina o richiede attenzione</span>
                         </div>
@@ -906,6 +919,64 @@ function renderChatsList() {
                 sortEl.addEventListener('change', (e) => {
                     saveConfigDelta({ ui: { agent_panel_sort: e.target.value } });
                 });
+            }
+
+            // Push Notifications Toggle & Test
+            const pushEl = settingsWrap.querySelector('#cfg-push-notifications');
+            const testPushBtn = settingsWrap.querySelector('#btn-test-push');
+            const pushDesc = settingsWrap.querySelector('#push-perm-status-desc');
+
+            if (pushEl) {
+                const isPushSupported = ('Notification' in window);
+                const pushPref = localStorage.getItem('herdr_push_enabled') === 'true';
+                
+                if (!isPushSupported) {
+                    pushEl.disabled = true;
+                    if (pushDesc) pushDesc.textContent = 'Notifiche non supportate da questo browser (installa come PWA per iOS).';
+                } else {
+                    const currentPerm = Notification.permission;
+                    pushEl.checked = pushPref && (currentPerm === 'granted');
+                    if (currentPerm === 'granted') {
+                        if (testPushBtn) testPushBtn.style.display = 'inline-block';
+                        if (pushDesc) pushDesc.textContent = 'Notifiche attive. Riceverai avvisi quando un agente termina o aspetta conferma.';
+                    } else if (currentPerm === 'denied') {
+                        pushEl.checked = false;
+                        if (pushDesc) pushDesc.textContent = 'Permesso notifiche bloccato nelle impostazioni di sistema del browser.';
+                    }
+
+                    pushEl.addEventListener('change', async (e) => {
+                        if (e.target.checked) {
+                            const granted = await requestNotificationPermission();
+                            if (granted) {
+                                localStorage.setItem('herdr_push_enabled', 'true');
+                                if (testPushBtn) testPushBtn.style.display = 'inline-block';
+                                if (pushDesc) pushDesc.textContent = 'Notifiche push attivate con successo!';
+                                showPushNotification('Herdr Dashboard', {
+                                    body: 'Notifiche push attivate! Ti avviseremo quando un agente richiede attenzione.',
+                                    icon: '/icon-192.png'
+                                });
+                            } else {
+                                e.target.checked = false;
+                                localStorage.setItem('herdr_push_enabled', 'false');
+                                if (testPushBtn) testPushBtn.style.display = 'none';
+                                alert('Permesso notifiche non concesso. Verifica le impostazioni di Safari / iOS.');
+                            }
+                        } else {
+                            localStorage.setItem('herdr_push_enabled', 'false');
+                            if (testPushBtn) testPushBtn.style.display = 'none';
+                            if (pushDesc) pushDesc.textContent = 'Notifiche push disattivate.';
+                        }
+                    });
+
+                    if (testPushBtn) {
+                        testPushBtn.addEventListener('click', () => {
+                            showPushNotification('⚡ Herdr Agent Test', {
+                                body: 'Questo è un test delle notifiche push per Herdr!',
+                                icon: '/icon-192.png'
+                            });
+                        });
+                    }
+                }
             }
 
             // Sound
@@ -1359,6 +1430,11 @@ function handleStateUpdate(data) {
         renderChatsList();
     } else {
         updateActiveAgentsBadge();
+    }
+
+    // Monitor for automated Web Push notifications (agent completed / needs confirmation)
+    if (window.monitorAgentStateForNotifications) {
+        window.monitorAgentStateForNotifications(State.workspaces);
     }
 }
 
