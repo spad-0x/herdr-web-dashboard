@@ -1500,6 +1500,8 @@ function setupEventListeners() {
         if (!btn) return;
         if (btn.dataset.key) {
             sendKey(btn.dataset.key);
+        } else if (btn.dataset.cmd) {
+            sendQuickText(btn.dataset.cmd);
         } else if (btn.dataset.send) {
             const sendVal = btn.dataset.send;
             if (sendVal.startsWith('/')) {
@@ -1545,8 +1547,10 @@ function setupEventListeners() {
         }, 100);
     });
 
+    // Enter behavior: Enter creates a newline (especially on iPhone/mobile virtual keyboard).
+    // The prompt is sent exclusively via the action button on the side (or Ctrl/Cmd+Enter on desktop).
     DOM.promptInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
             e.preventDefault();
             sendPrompt();
         }

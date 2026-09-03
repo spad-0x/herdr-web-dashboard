@@ -788,6 +788,18 @@ html, body {
     color: #fff;
 }
 
+.cli-key.key-primary {
+    background: rgba(0, 168, 132, 0.15);
+    border-color: rgba(0, 168, 132, 0.4);
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.cli-key.key-primary:active {
+    background: var(--accent);
+    color: #ffffff;
+}
+
 .cli-key.key-chip {
     background: var(--bg-input);
     color: var(--cyan);
