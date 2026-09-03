@@ -82,20 +82,25 @@ class HerdrClient:
             return res["result"]["snapshot"]
         return res.get("result", {})
 
-    def read_pane(self, pane_id, lines=2000, source="recent_unwrapped"):
-        """Read full scrollback buffer content from a pane without truncation."""
+    def read_pane(self, pane_id, lines=2000, source="recent_unwrapped", format="ansi"):
+        """Read full scrollback buffer content from a pane."""
         resp = self.call("pane.read", {
             "pane_id": pane_id,
             "lines": lines,
-            "source": source
+            "source": source,
+            "format": format
         })
         text = ""
+        revision = 0
         if "result" in resp and "read" in resp["result"]:
-            raw_text = resp["result"]["read"].get("text", "")
-            text = strip_ansi(raw_text)
+            read_obj = resp["result"]["read"]
+            text = read_obj.get("text", "")
+            revision = read_obj.get("revision", 0)
         return {
             "pane_id": pane_id,
             "raw_text": text,
+            "clean_text": strip_ansi(text) if format == "ansi" else text,
+            "revision": revision,
             "lines": text.splitlines() if text else []
         }
 

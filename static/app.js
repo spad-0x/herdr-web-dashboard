@@ -1,6 +1,6 @@
 /**
- * Herdr Mobile WebGUI — Client Controller & Semantic Engine
- * High-performance Fullscreen PWA for mobile AI agent & terminal orchestration.
+ * Herdr Mobile Dashboard — Client Controller & Engine
+ * Native WhatsApp & Linear Hybrid Architecture
  */
 
 // =============================================================================
@@ -14,134 +14,137 @@ const State = {
     activeTabId: null,
     activePaneId: null,
     workspaces: [],
-    agents: [],
-    lastRawText: '',
-    parsedMessages: [],
-    currentView: 'view-chat',
-    autoScroll: true,
-    hapticEnabled: true,
-    voiceLanguage: 'it-IT',
+    tabs: [],
+    panes: [],
+    mode: 'chat', // 'chat' or 'terminal'
+    lastText: '',
+    lastCleanText: '',
+    lastRevision: -1,
+    fontSize: parseInt(localStorage.getItem('herdr_font_size') || '13', 10),
+    theme: localStorage.getItem('herdr_theme') || 'cyber-dark',
+    term: null,
+    fitAddon: null,
+    webLinksAddon: null,
+    sseSource: null,
     isRecordingVoice: false,
     speechRecognition: null,
-    currentAttachment: null,
-    lastUpdateHash: null,
-    sseSource: null,
-    pollTimer: null
+    isAtBottom: true,
+    pendingAttachment: null,
+    chatMessages: [] // Local user-sent message cache
 };
 
 // =============================================================================
-// DOM ELEMENTS
+// DOM CACHE
 // =============================================================================
 const DOM = {
-    appLayout: document.getElementById('app-layout'),
-    // Header
-    btnOpenDrawer: document.getElementById('btn-open-drawer'),
-    drawerTriggerBadge: document.getElementById('drawer-trigger-badge'),
-    headerWsName: document.getElementById('header-ws-name'),
-    headerTabName: document.getElementById('header-tab-name'),
-    headerStatusDot: document.getElementById('header-status-dot'),
-    headerStatusText: document.getElementById('header-status-text'),
-    btnToggleRaw: document.getElementById('btn-toggle-raw'),
-    labelModeIcon: document.getElementById('label-mode-icon'),
-    btnContextPicker: document.getElementById('btn-context-picker'),
-    btnRefresh: document.getElementById('btn-refresh'),
-    // Drawer
-    appDrawer: document.getElementById('app-drawer'),
-    drawerBackdrop: document.getElementById('drawer-backdrop'),
-    btnCloseDrawer: document.getElementById('btn-close-drawer'),
-    drawerVersion: document.getElementById('drawer-version'),
-    drawerNavItems: document.querySelectorAll('.drawer-nav-item'),
-    drawerWsBadge: document.getElementById('drawer-ws-badge'),
-    drawerAgentsBadge: document.getElementById('drawer-agents-badge'),
-    drawerWsQuickList: document.getElementById('drawer-ws-quick-list'),
-    btnDrawerAddWs: document.getElementById('btn-drawer-add-ws'),
-    btnDrawerLogout: document.getElementById('btn-drawer-logout'),
-    // Views
-    mainViewport: document.getElementById('main-viewport'),
-    viewPanels: document.querySelectorAll('.view-panel'),
-    viewChat: document.getElementById('view-chat'),
-    viewWorkspaces: document.getElementById('view-workspaces'),
-    viewAgents: document.getElementById('view-agents'),
-    viewTerminal: document.getElementById('view-terminal'),
-    viewSettings: document.getElementById('view-settings'),
-    alertOffline: document.getElementById('alert-offline'),
-    // Chat View
+    appRoot: document.getElementById('app-root'),
+    chatHeader: document.getElementById('chat-header'),
+    btnWsPicker: document.getElementById('btn-ws-picker'),
+    currentWsName: document.getElementById('current-ws-name'),
+    btnHeaderContact: document.getElementById('btn-header-contact'),
+    socketDot: document.getElementById('socket-dot'),
+    chatHeaderTitle: document.getElementById('chat-header-title'),
+    agentStatusText: document.getElementById('agent-status-text'),
+    btnModeToggle: document.getElementById('btn-mode-toggle'),
+    modeIcon: document.getElementById('mode-icon'),
+    modeLabel: document.getElementById('mode-label'),
+    btnOpenMenu: document.getElementById('btn-open-menu'),
+    // Tab Strip
+    tabStrip: document.getElementById('tab-strip'),
+    tabsContainer: document.getElementById('tabs-container'),
+    btnAddTab: document.getElementById('btn-add-tab'),
+    // Viewports
+    viewportWrapper: document.getElementById('viewport-wrapper'),
+    chatViewport: document.getElementById('chat-viewport'),
+    chatScrollContainer: document.getElementById('chat-scroll-container'),
     chatMessages: document.getElementById('chat-messages'),
-    chatWelcomeCard: document.getElementById('chat-welcome-card'),
+    btnChatScrollBottom: document.getElementById('btn-chat-scroll-bottom'),
+    terminalViewport: document.getElementById('terminal-viewport'),
+    terminalContainer: document.getElementById('terminal-container'),
     btnScrollBottom: document.getElementById('btn-scroll-bottom'),
-    actionChipsList: document.getElementById('action-chips-list'),
-    btnClearChat: document.getElementById('btn-clear-chat'),
+    // Confirm Banner
+    agentConfirmBanner: document.getElementById('agent-confirm-banner'),
+    confirmText: document.getElementById('confirm-text'),
+    btnConfirmYes: document.getElementById('btn-confirm-yes'),
+    btnConfirmNo: document.getElementById('btn-confirm-no'),
+    btnConfirmStop: document.getElementById('btn-confirm-stop'),
+    // CLI Keys Drawer
+    cliKeysDrawer: document.getElementById('cli-keys-drawer'),
+    // Attachment Preview Bar
     attachmentPreviewBar: document.getElementById('attachment-preview-bar'),
+    attachmentThumbWrap: document.getElementById('attachment-thumb-wrap'),
     attachmentThumb: document.getElementById('attachment-thumb'),
     attachmentName: document.getElementById('attachment-name'),
+    attachmentSize: document.getElementById('attachment-size'),
     btnRemoveAttachment: document.getElementById('btn-remove-attachment'),
     fileInput: document.getElementById('file-input'),
-    btnVoiceMic: document.getElementById('btn-voice-mic'),
+    // Footer & Input
+    chatFooter: document.getElementById('chat-footer'),
+    btnToggleActions: document.getElementById('btn-toggle-actions'),
     promptInput: document.getElementById('prompt-input'),
-    btnSendPrompt: document.getElementById('btn-send-prompt'),
-    // Workspaces View
-    wsTotalCount: document.getElementById('ws-total-count'),
-    workspacesGrid: document.getElementById('workspaces-grid'),
-    btnOpenNewWsModal: document.getElementById('btn-open-new-ws-modal'),
-    // Agents View
-    agentsTotalCount: document.getElementById('agents-total-count'),
-    agentsGrid: document.getElementById('agents-grid'),
-    // Terminal View
-    terminalPaneLabel: document.getElementById('terminal-pane-label'),
-    terminalRawText: document.getElementById('terminal-raw-text'),
-    btnCopyTerminal: document.getElementById('btn-copy-terminal'),
-    btnToggleAutoscroll: document.getElementById('btn-toggle-autoscroll'),
-    termKeyBtns: document.querySelectorAll('.term-key-btn'),
-    // Settings View
-    themeSelectorGroup: document.getElementById('theme-selector-group'),
-    voiceLangSelect: document.getElementById('voice-lang-select'),
-    settingHaptic: document.getElementById('setting-haptic'),
-    settingAutoscroll: document.getElementById('setting-autoscroll'),
-    infoSocketPath: document.getElementById('info-socket-path'),
-    infoDaemonVersion: document.getElementById('info-daemon-version'),
-    infoConnStatus: document.getElementById('info-conn-status'),
-    btnLogoutAction: document.getElementById('btn-logout-action'),
-    // Modals
-    modalContextPicker: document.getElementById('modal-context-picker'),
-    contextPickerList: document.getElementById('context-picker-list'),
-    btnCloseContextModal: document.getElementById('btn-close-context-modal'),
-    modalNewWs: document.getElementById('modal-new-ws'),
-    newWsPath: document.getElementById('new-ws-path'),
-    newWsLabel: document.getElementById('new-ws-label'),
-    btnCloseNewWsModal: document.getElementById('btn-close-new-ws-modal'),
-    btnCancelNewWs: document.getElementById('btn-cancel-new-ws'),
-    btnConfirmNewWs: document.getElementById('btn-confirm-new-ws'),
-    // Lightbox & Toast
-    lightboxOverlay: document.getElementById('lightbox-overlay'),
+    btnAttachImage: document.getElementById('btn-attach-image'),
+    btnActionMicSend: document.getElementById('btn-action-mic-send'),
+    iconMic: document.querySelector('.icon-mic'),
+    iconSend: document.querySelector('.icon-send'),
+    // Lightbox Modal
+    lightboxModal: document.getElementById('lightbox-modal'),
+    lightboxBackdrop: document.getElementById('lightbox-backdrop'),
     lightboxImg: document.getElementById('lightbox-img'),
-    btnCloseLightbox: document.getElementById('btn-close-lightbox'),
-    toastContainer: document.getElementById('toast-container')
+    btnLightboxClose: document.getElementById('btn-lightbox-close'),
+    // Bottom Sheet
+    sheetBackdrop: document.getElementById('sheet-backdrop'),
+    bottomSheet: document.getElementById('bottom-sheet'),
+    btnSheetClose: document.getElementById('btn-sheet-close'),
+    sheetWsList: document.getElementById('sheet-ws-list'),
+    sheetPanesList: document.getElementById('sheet-panes-list'),
+    btnCreateWs: document.getElementById('btn-create-ws'),
+    btnSplitHoriz: document.getElementById('btn-split-horiz'),
+    btnSplitVert: document.getElementById('btn-split-vert'),
+    btnFontDec: document.getElementById('btn-font-dec'),
+    btnFontInc: document.getElementById('btn-font-inc'),
+    fontSizeDisplay: document.getElementById('font-size-display'),
+    themeSelect: document.getElementById('theme-select'),
+    sheetDaemonVersion: document.getElementById('sheet-daemon-version'),
+    sheetSocketPath: document.getElementById('sheet-socket-path'),
+    btnLogout: document.getElementById('btn-logout'),
+    // New Workspace Dialog
+    dialogNewWs: document.getElementById('dialog-new-ws'),
+    inputNewWsCwd: document.getElementById('input-new-ws-cwd'),
+    inputNewWsLabel: document.getElementById('input-new-ws-label'),
+    btnDialogCancel: document.getElementById('btn-dialog-cancel'),
+    btnDialogConfirm: document.getElementById('btn-dialog-confirm'),
+    // Toast Shelf
+    toastShelf: document.getElementById('toast-shelf')
 };
 
 // =============================================================================
-// UTILITIES: HAPTIC, TOASTS, ESCAPE
+// UTILITIES (HAPTIC, TOAST, API, TIME)
 // =============================================================================
 function triggerHaptic(type = 'light') {
-    if (!State.hapticEnabled || !navigator.vibrate) return;
+    if (!navigator.vibrate) return;
     try {
-        if (type === 'light') navigator.vibrate(12);
-        else if (type === 'medium') navigator.vibrate(25);
-        else if (type === 'success') navigator.vibrate([15, 30, 15]);
-        else if (type === 'alert') navigator.vibrate([40, 40, 80]);
+        if (type === 'light') navigator.vibrate(10);
+        else if (type === 'medium') navigator.vibrate(22);
+        else if (type === 'success') navigator.vibrate([10, 20, 10]);
+        else if (type === 'danger') navigator.vibrate([35, 35, 50]);
     } catch (e) {}
 }
 
 function showToast(msg, duration = 2200) {
     const toast = document.createElement('div');
-    toast.className = 'toast-item';
-    toast.innerHTML = `<span>💬</span> <span>${escapeHtml(msg)}</span>`;
-    DOM.toastContainer.appendChild(toast);
+    toast.className = 'toast-message';
+    toast.textContent = msg;
+    DOM.toastShelf.appendChild(toast);
     setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateY(-10px)';
+        toast.style.transform = 'translateY(-6px)';
         toast.style.transition = 'all 0.2s ease';
         setTimeout(() => toast.remove(), 200);
     }, duration);
+}
+
+function formatTime(date = new Date()) {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
 function escapeHtml(str) {
@@ -154,1154 +157,1097 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
-function formatMarkdown(text) {
-    if (!text) return '';
-    let html = escapeHtml(text);
-    
-    // Code blocks ```code```
-    html = html.replace(/```([a-z0-9_-]*)\n([\s\S]*?)```/gi, (match, lang, code) => {
-        return `<pre class="code-block"><code class="language-${lang}">${code.trim()}</code></pre>`;
-    });
-
-    // Inline code `code`
-    html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
-
-    // Bold **bold**
-    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-
-    // Italic *italic*
-    html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-
-    // Lists - item
-    html = html.replace(/^-\s+(.+)$/gm, '<li>$1</li>');
-    html = html.replace(/(<li>.+<\/li>)/s, '<ul>$1</ul>');
-
-    // Paragraph breaks
-    html = html.replace(/\n\n+/g, '<br><br>');
-    html = html.replace(/\n/g, '<br>');
-
-    return html;
+function formatBytes(bytes) {
+    if (!bytes || bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 }
 
-// =============================================================================
-// ADVANCED SEMANTIC PARSER FOR ANTIGRAVITY, CLAUDE & SHELL OUTPUTS
-// =============================================================================
-class SemanticParser {
-    static parseScrollback(rawText) {
-        if (!rawText || !rawText.trim()) return [];
-
-        const lines = rawText.split('\n');
-        const items = [];
-        let current = null;
-
-        for (let i = 0; i < lines.length; i++) {
-            const rawLine = lines[i];
-            const line = rawLine.trim();
-
-            if (!line && !current) continue;
-
-            // 1. Skip terminal decorative lines, shortcut hints and ASCII banners
-            if (/^[─━═\-_]{5,}$/.test(line)) continue;
-            if (/^\?[ ]+for shortcuts/i.test(line)) continue;
-            if (/[▄▀]{3,}/.test(line)) continue;
-            if (/Antigravity CLI|Gemini 3\.|Google AI Pro/i.test(line)) continue;
-
-            // 2. User Prompt (e.g. "> prompt" or "❯ prompt" or "$ cmd")
-            if (/^(>|❯|\$)\s*(.+)/.test(line)) {
-                const userContent = line.replace(/^(>|❯|\$)\s*/, '').trim();
-                if (userContent) {
-                    if (current) items.push(current);
-                    current = { type: 'user', content: userContent, timestamp: new Date() };
-                    items.push(current);
-                    current = null;
-                }
-                continue;
-            }
-
-            // 3. Thinking / Reasoning Block (e.g., "▸ Thought for 4s...", "Thinking...", "*Thinking*")
-            if (/^[▸▶]\s*Thought\b/i.test(line) || /^\*Thinking\*/i.test(line) || /^Thinking\.\.\./i.test(line)) {
-                if (current) items.push(current);
-                current = {
-                    type: 'thought',
-                    header: line,
-                    lines: [],
-                    timestamp: new Date()
-                };
-                continue;
-            }
-
-            // 4. Tool Call (e.g., "● Read(...)", "● Run(...)", "● Edit(...)", "🛠️ View file")
-            if (/^[●•]\s*([A-Za-z0-9_]+)\((.*)\)/i.test(line) || /^[●•🛠️⚙️]\s*(Tool|Calling|Running|Read|Write|Edit|Run|Grep|View)/i.test(line)) {
-                if (current) items.push(current);
-                current = {
-                    type: 'tool',
-                    header: line,
-                    lines: [],
-                    timestamp: new Date()
-                };
-                continue;
-            }
-
-            // 5. Diff Block
-            if (line.startsWith('diff --git') || line.startsWith('--- a/') || line.startsWith('+++ b/')) {
-                if (!current || current.type !== 'diff') {
-                    if (current) items.push(current);
-                    current = { type: 'diff', lines: [rawLine], timestamp: new Date() };
-                } else {
-                    current.lines.push(rawLine);
-                }
-                continue;
-            }
-
-            // 6. Interactive Confirmation Prompt
-            if (/(\[y\/n\]|\(y\/n\)|\(Y\/n\)|\(yes\/no\)|Proceed\?|Approve\?|Continue\?)/i.test(line)) {
-                if (current) items.push(current);
-                current = {
-                    type: 'prompt_interactive',
-                    text: line,
-                    timestamp: new Date()
-                };
-                items.push(current);
-                current = null;
-                continue;
-            }
-
-            // Append lines to current item
-            if (current) {
-                if (current.type === 'thought') {
-                    // Indented lines belong to thought reasoning
-                    if (rawLine.startsWith('  ') && !line.startsWith('>')) {
-                        current.lines.push(line);
-                    } else {
-                        items.push(current);
-                        current = { type: 'agent', content: line, timestamp: new Date() };
-                    }
-                } else if (current.type === 'tool') {
-                    if (rawLine.startsWith('  ') || line.startsWith('(') || line.startsWith('{')) {
-                        current.lines.push(line);
-                    } else {
-                        items.push(current);
-                        current = { type: 'agent', content: line, timestamp: new Date() };
-                    }
-                } else if (current.type === 'diff') {
-                    if (/^[+\-@\s]/.test(rawLine)) {
-                        current.lines.push(rawLine);
-                    } else {
-                        items.push(current);
-                        current = { type: 'agent', content: line, timestamp: new Date() };
-                    }
-                } else if (current.type === 'agent') {
-                    current.content += '\n' + line;
-                }
-            } else {
-                if (line) {
-                    current = { type: 'agent', content: line, timestamp: new Date() };
-                }
-            }
-        }
-
-        if (current) items.push(current);
-        return items;
-    }
-}
-
-// =============================================================================
-// UI RENDERING: CHAT, WORKSPACES, AGENTS, TERMINAL
-// =============================================================================
-function renderChatStream(blocks) {
-    if (!blocks || blocks.length === 0) {
-        DOM.chatWelcomeCard.style.display = 'flex';
-        return;
-    }
-    DOM.chatWelcomeCard.style.display = 'none';
-
-    // Clear and re-render
-    DOM.chatMessages.innerHTML = '';
-
-    blocks.forEach((b) => {
-        const row = document.createElement('div');
-        row.className = 'msg-row';
-
-        if (b.type === 'user') {
-            row.classList.add('msg-user');
-            row.innerHTML = `<div class="msg-bubble">${formatMarkdown(b.content)}</div>`;
-        } else if (b.type === 'thought') {
-            row.classList.add('msg-agent');
-            const thoughtText = (b.lines.join('\n') || 'Ragionamento in corso...').trim();
-            row.innerHTML = `
-                <div class="msg-bubble">
-                    <details class="thinking-accordion" open>
-                        <summary class="accordion-summary">
-                            <div class="accordion-title-group">
-                                <span>🧠</span>
-                                <span>${escapeHtml(b.header || 'Ragionamento Agente')}</span>
-                            </div>
-                            <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </summary>
-                        <div class="accordion-body">${escapeHtml(thoughtText)}</div>
-                    </details>
-                </div>
-            `;
-        } else if (b.type === 'tool') {
-            row.classList.add('msg-agent');
-            const outText = (b.lines.join('\n') || 'Esecuzione completata').trim();
-            row.innerHTML = `
-                <div class="msg-bubble">
-                    <details class="tool-call-accordion">
-                        <summary class="accordion-summary tool-summary">
-                            <div class="accordion-title-group">
-                                <span>⚙️</span>
-                                <span><strong>${escapeHtml(b.header || 'Tool Call')}</strong></span>
-                            </div>
-                            <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </summary>
-                        <div class="tool-body">${escapeHtml(outText)}</div>
-                    </details>
-                </div>
-            `;
-        } else if (b.type === 'diff') {
-            row.classList.add('msg-agent');
-            let diffHtml = '<div class="diff-box"><div class="diff-header">Modifiche Codice</div>';
-            b.lines.forEach((dl) => {
-                let cls = '';
-                if (dl.startsWith('+')) cls = 'diff-add';
-                else if (dl.startsWith('-')) cls = 'diff-del';
-                diffHtml += `<div class="diff-line ${cls}">${escapeHtml(dl)}</div>`;
-            });
-            diffHtml += '</div>';
-            row.innerHTML = `<div class="msg-bubble">${diffHtml}</div>`;
-        } else if (b.type === 'prompt_interactive') {
-            row.classList.add('msg-agent');
-            row.innerHTML = `
-                <div class="msg-bubble">
-                    <div class="interactive-prompt-card">
-                        <div class="prompt-card-header">
-                            <span>⚡ Richiesta Conferma</span>
-                        </div>
-                        <div class="prompt-card-text">${escapeHtml(b.text)}</div>
-                        <div class="prompt-actions-row">
-                            <button class="btn-prompt-action btn-approve" onclick="sendQuickKey('y')">✓ Approva (Y)</button>
-                            <button class="btn-prompt-action btn-reject" onclick="sendQuickKey('n')">✗ Rifiuta (N)</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        } else {
-            // Standard Agent message
-            row.classList.add('msg-agent');
-            row.innerHTML = `
-                <div class="msg-bubble">
-                    <div class="msg-header">
-                        <div class="msg-agent-avatar">🤖</div>
-                        <span class="msg-agent-name">Agente</span>
-                    </div>
-                    <div class="msg-content">${formatMarkdown(b.content)}</div>
-                </div>
-            `;
-        }
-
-        DOM.chatMessages.appendChild(row);
-    });
-
-    if (State.autoScroll) {
-        scrollToBottom();
-    }
-}
-
-function scrollToBottom() {
-    setTimeout(() => {
-        DOM.chatMessages.scrollTop = DOM.chatMessages.scrollHeight;
-    }, 40);
-}
-
-function renderWorkspaces() {
-    DOM.wsTotalCount.textContent = State.workspaces.length;
-    DOM.drawerWsBadge.textContent = State.workspaces.length;
-    DOM.workspacesGrid.innerHTML = '';
-    DOM.drawerWsQuickList.innerHTML = '';
-
-    if (State.workspaces.length === 0) {
-        DOM.workspacesGrid.innerHTML = `<div class="chat-welcome-card"><p>Nessun workspace attivo. Crea uno nuovo spazio!</p></div>`;
-        return;
-    }
-
-    State.workspaces.forEach((ws) => {
-        const isFocused = ws.id === State.activeWorkspaceId;
-        
-        // Drawer quick list item
-        const drawerItem = document.createElement('div');
-        drawerItem.className = `drawer-ws-item ${isFocused ? 'active' : ''}`;
-        drawerItem.innerHTML = `<span>${escapeHtml(ws.name)}</span> ${isFocused ? '✓' : ''}`;
-        drawerItem.onclick = () => {
-            focusWorkspace(ws.id);
-            closeDrawer();
-            switchView('view-chat');
-        };
-        DOM.drawerWsQuickList.appendChild(drawerItem);
-
-        // Full grid card
-        const card = document.createElement('div');
-        card.className = `ws-card ${isFocused ? 'focused' : ''}`;
-
-        let tabsHtml = '';
-        if (ws.tabs && ws.tabs.length > 0) {
-            tabsHtml = '<div class="card-tabs-row">';
-            ws.tabs.forEach((t) => {
-                const isTabActive = t.tab_id === State.activeTabId;
-                tabsHtml += `<button class="tab-pill ${isTabActive ? 'active' : ''}" onclick="focusTab('${t.tab_id}', '${ws.id}'); switchView('view-chat');">${escapeHtml(t.label || 'Tab')}</button>`;
-            });
-            tabsHtml += `<button class="tab-pill" onclick="createNewTab('${ws.id}')">+ tab</button>`;
-            tabsHtml += '</div>';
-        }
-
-        card.innerHTML = `
-            <div class="card-top-row">
-                <div class="card-title-group">
-                    <span>🗂️</span>
-                    <h3 class="card-title">${escapeHtml(ws.name || 'Workspace')}</h3>
-                </div>
-                <div>
-                    <button class="btn-primary-action" onclick="focusWorkspace('${ws.id}'); switchView('view-chat');">${isFocused ? 'Attivo' : 'Seleziona'}</button>
-                </div>
-            </div>
-            <div class="card-cwd">${escapeHtml(ws.cwd || '~')}</div>
-            ${tabsHtml}
-        `;
-        DOM.workspacesGrid.appendChild(card);
-    });
-}
-
-function renderAgents() {
-    DOM.agentsTotalCount.textContent = State.agents.length;
-    DOM.agentsGrid.innerHTML = '';
-
-    let waitingCount = 0;
-
-    if (State.agents.length === 0) {
-        DOM.agentsGrid.innerHTML = `<div class="chat-welcome-card"><p>Nessun agente autonomo attivo rilevato nei terminali.</p></div>`;
-        DOM.drawerAgentsBadge.style.display = 'none';
-        DOM.drawerTriggerBadge.style.display = 'none';
-        return;
-    }
-
-    State.agents.forEach((ag) => {
-        const isWaiting = ag.status === 'blocked' || ag.status === 'waiting';
-        if (isWaiting) waitingCount++;
-
-        const card = document.createElement('div');
-        card.className = `agent-card ${isWaiting ? 'focused' : ''}`;
-
-        let statusBadgeClass = 'idle';
-        let statusLabel = 'Pronto';
-        if (ag.status === 'working') {
-            statusBadgeClass = 'working';
-            statusLabel = 'In Esecuzione';
-        } else if (isWaiting) {
-            statusBadgeClass = 'blocked';
-            statusLabel = 'In Attesa di Input';
-        }
-
-        card.innerHTML = `
-            <div class="card-top-row">
-                <div class="card-title-group">
-                    <span>🤖</span>
-                    <h3 class="card-title">${escapeHtml(ag.name || ag.title || 'Agente')}</h3>
-                </div>
-                <div class="agent-status-pill">
-                    <span class="status-pulse-dot ${statusBadgeClass}"></span>
-                    <span>${statusLabel}</span>
-                </div>
-            </div>
-            <div class="card-cwd">Spazio: <strong>${escapeHtml(ag.ws_name || 'Generale')}</strong> • Pane #${ag.pane_id}</div>
-            <div>
-                <button class="btn-primary-action" style="width: 100%;" onclick="focusTab('${ag.tab_id}', '${ag.workspace_id}'); switchView('view-chat');">
-                    💬 Apri Conversazione
-                </button>
-            </div>
-        `;
-        DOM.agentsGrid.appendChild(card);
-    });
-
-    if (waitingCount > 0) {
-        DOM.drawerAgentsBadge.textContent = waitingCount;
-        DOM.drawerAgentsBadge.style.display = 'inline-block';
-        DOM.drawerTriggerBadge.style.display = 'block';
-        triggerHaptic('alert');
-    } else {
-        DOM.drawerAgentsBadge.style.display = 'none';
-        DOM.drawerTriggerBadge.style.display = 'none';
-    }
-}
-
-function renderTerminalRaw(rawText) {
-    DOM.terminalPaneLabel.textContent = `Pane #${State.activePaneId || '1'}`;
-    DOM.terminalRawText.textContent = rawText || 'Nessun output registrato nel buffer.';
-    if (State.autoScroll && State.currentView === 'view-terminal') {
-        const container = DOM.terminalRawText.parentElement;
-        container.scrollTop = container.scrollHeight;
-    }
-}
-
-function renderContextPicker() {
-    DOM.contextPickerList.innerHTML = '';
-    State.workspaces.forEach((ws) => {
-        const isFocused = ws.id === State.activeWorkspaceId;
-        const item = document.createElement('div');
-        item.className = 'context-sheet-ws-item';
-
-        let tabsBtns = '';
-        (ws.tabs || []).forEach((t) => {
-            const isTabActive = t.tab_id === State.activeTabId;
-            tabsBtns += `
-                <button class="tab-pill ${isTabActive ? 'active' : ''}" onclick="focusTab('${t.tab_id}', '${ws.id}'); closeModal('modal-context-picker'); switchView('view-chat');">
-                    ${escapeHtml(t.label || 'Tab')}
-                </button>
-            `;
-        });
-
-        item.innerHTML = `
-            <div class="context-sheet-ws-header">
-                <strong>${escapeHtml(ws.name)}</strong>
-                <button class="btn-secondary-action" onclick="focusWorkspace('${ws.id}'); closeModal('modal-context-picker'); switchView('view-chat');">${isFocused ? '✓ Selezionato' : 'Seleziona'}</button>
-            </div>
-            <div class="card-cwd">${escapeHtml(ws.cwd || '~')}</div>
-            <div class="card-tabs-row" style="margin-top: 6px;">
-                ${tabsBtns}
-            </div>
-        `;
-        DOM.contextPickerList.appendChild(item);
-    });
-}
-
-// =============================================================================
-// REAL-TIME SYNC ENGINE (SSE + ADAPTIVE POLLING)
-// =============================================================================
-function handleStateUpdate(data) {
-    if (!data) return;
-
-    State.connected = data.connected || false;
-    State.version = data.version || '0.8.2';
-    State.socketPath = data.socket_path || '~/.config/herdr/herdr.sock';
-    State.workspaces = data.workspaces || [];
-    State.agents = data.agents || [];
-
-    // Update Header
-    if (!State.connected) {
-        DOM.alertOffline.style.display = 'flex';
-        DOM.headerStatusDot.className = 'status-pulse-dot offline';
-        DOM.headerStatusText.textContent = 'offline';
-        DOM.infoConnStatus.textContent = 'Disconnesso';
-        DOM.infoConnStatus.className = 'info-value'
-        DOM.infoConnStatus.style.color = 'var(--accent-red)';
-    } else {
-        DOM.alertOffline.style.display = 'none';
-        DOM.infoConnStatus.textContent = 'Attiva';
-        DOM.infoConnStatus.style.color = 'var(--accent-green)';
-    }
-
-    DOM.infoSocketPath.textContent = State.socketPath;
-    DOM.infoDaemonVersion.textContent = `v${State.version}`;
-    DOM.drawerVersion.textContent = `Daemon v${State.version}`;
-
-    // Auto-select focused workspace
-    let focusedWs = null;
-    if (State.activeWorkspaceId) {
-        focusedWs = State.workspaces.find((w) => w.id === State.activeWorkspaceId);
-    }
-    if (!focusedWs) {
-        focusedWs = State.workspaces.find((w) => w.focused) || State.workspaces[0];
-    }
-
-    if (focusedWs) {
-        State.activeWorkspaceId = focusedWs.id;
-        DOM.headerWsName.textContent = focusedWs.name || 'workspace';
-
-        // Auto-select focused tab (prefer active agent tab if available)
-        let focusedTab = null;
-        if (State.activeTabId) {
-            focusedTab = (focusedWs.tabs || []).find((t) => t.tab_id === State.activeTabId);
-        }
-        if (!focusedTab) {
-            // Find tab with agent first
-            focusedTab = (focusedWs.tabs || []).find((t) => (t.panes || []).some((p) => p.agent || p.status === 'working' || p.status === 'blocked')) ||
-                         (focusedWs.tabs || []).find((t) => t.focused) ||
-                         (focusedWs.tabs && focusedWs.tabs[0]);
-        }
-
-        if (focusedTab) {
-            State.activeTabId = focusedTab.tab_id;
-            DOM.headerTabName.textContent = focusedTab.label || 'tab 1';
-
-            // Find focused pane
-            let focusedPane = null;
-            if (State.activePaneId) {
-                focusedPane = (focusedTab.panes || []).find((p) => p.pane_id === State.activePaneId);
-            }
-            if (!focusedPane) {
-                focusedPane = (focusedTab.panes || []).find((p) => p.agent || p.status === 'working') ||
-                              (focusedTab.panes || []).find((p) => p.focused) ||
-                              (focusedTab.panes && focusedTab.panes[0]);
-            }
-
-            if (focusedPane) {
-                State.activePaneId = focusedPane.pane_id;
-
-                // Normalize Status dot in header
-                let rawStatus = (focusedPane.status || 'idle').toLowerCase();
-                let statusClass = 'idle';
-                let statusLabel = 'Pronto';
-
-                if (rawStatus === 'working') {
-                    statusClass = 'working';
-                    statusLabel = 'In Esecuzione';
-                } else if (rawStatus === 'blocked' || rawStatus === 'waiting') {
-                    statusClass = 'blocked';
-                    statusLabel = 'In Attesa';
-                }
-
-                DOM.headerStatusDot.className = `status-pulse-dot ${statusClass}`;
-                DOM.headerStatusText.textContent = statusLabel;
-
-                // Parse and update chat if text changed
-                const rawContent = focusedPane.raw_text || '';
-                if (rawContent !== State.lastRawText) {
-                    State.lastRawText = rawContent;
-                    const blocks = SemanticParser.parseScrollback(rawContent);
-                    renderChatStream(blocks);
-                    renderTerminalRaw(rawContent);
-                }
-            }
-        }
-    }
-
-    renderWorkspaces();
-    renderAgents();
-}
-
-// Universal API Request Wrapper with Session Token Auth
-function apiFetch(url, options = {}) {
-    const token = localStorage.getItem('herdr_token') || '';
-    const headers = Object.assign({}, options.headers || {});
-    if (token) {
-        headers['X-Session-Token'] = token;
-        headers['Authorization'] = `Bearer ${token}`;
-    }
-    options.headers = headers;
-    return fetch(url, options);
-}
-
-function startSync() {
-    const token = localStorage.getItem('herdr_token') || '';
-    const streamUrl = token ? `/api/stream?token=${encodeURIComponent(token)}` : '/api/stream';
-    if (window.EventSource) {
-        try {
-            if (State.sseSource) State.sseSource.close();
-            State.sseSource = new EventSource(streamUrl);
-            State.sseSource.addEventListener('state', (e) => {
-                try {
-                    const data = JSON.parse(e.data);
-                    handleStateUpdate(data);
-                } catch (err) {}
-            });
-            State.sseSource.onerror = () => {
-                startPollingFallback();
-            };
-        } catch (err) {
-            startPollingFallback();
-        }
-    } else {
-        startPollingFallback();
-    }
-}
-
-function startPollingFallback() {
-    if (State.pollTimer) clearInterval(State.pollTimer);
-    fetchState();
-    State.pollTimer = setInterval(fetchState, 1200);
-}
-
-async function fetchState() {
+async function apiCall(endpoint, payload = null, method = 'POST') {
     try {
-        const token = localStorage.getItem('herdr_token') || '';
-        const url = token ? `/api/state?token=${encodeURIComponent(token)}` : '/api/state';
-        const res = await apiFetch(url);
+        const options = {
+            method: payload ? 'POST' : method,
+            headers: { 'Content-Type': 'application/json' }
+        };
+        if (payload) {
+            options.body = JSON.stringify(payload);
+        }
+        const res = await fetch(endpoint, options);
         if (res.status === 401) {
             window.location.href = '/login';
-            return;
+            return null;
         }
-        if (res.ok) {
-            const data = await res.json();
-            handleStateUpdate(data);
-        }
-    } catch (e) {}
-}
-
-// =============================================================================
-// USER ACTIONS: SEND PROMPT, KEYS, UPLOAD, SPEECH
-// =============================================================================
-async function sendPrompt() {
-    const input = DOM.promptInput.value.trim();
-    if (!input && !State.currentAttachment) return;
-
-    let finalPrompt = input;
-    if (State.currentAttachment) {
-        finalPrompt = `[Allegato: ${State.currentAttachment.file_path}]\n` + finalPrompt;
-    }
-
-    triggerHaptic('medium');
-
-    DOM.promptInput.value = '';
-    DOM.promptInput.style.height = 'auto';
-    clearAttachment();
-
-    try {
-        const res = await apiFetch('/api/pane/text', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                pane_id: State.activePaneId,
-                text: finalPrompt,
-                auto_enter: true
-            })
-        });
-
-        if (res.ok) {
-            showToast('Prompt inviato!');
-            fetchState();
-        }
+        return await res.json();
     } catch (err) {
-        showToast('Errore di invio prompt');
+        console.error('API Error on ' + endpoint, err);
+        return null;
     }
 }
 
-async function sendQuickKey(keyName) {
-    triggerHaptic('light');
-    try {
-        const res = await apiFetch('/api/pane/keys', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                pane_id: State.activePaneId,
-                keys: [keyName]
-            })
-        });
-        if (res.ok) {
-            showToast(`Tasto inviato: ${keyName.toUpperCase()}`);
-            fetchState();
+// =============================================================================
+// THEMES & TERMINAL (XTERM.JS)
+// =============================================================================
+const TERMINAL_THEMES = {
+    'cyber-dark': {
+        background: '#07080c',
+        foreground: '#f0f4fc',
+        cursor: '#00f0ff',
+        selectionBackground: 'rgba(0, 240, 255, 0.25)',
+        black: '#161b26',
+        red: '#ff3d71',
+        green: '#00e676',
+        yellow: '#ffab00',
+        blue: '#00f0ff',
+        magenta: '#d066ff',
+        cyan: '#00f0ff',
+        white: '#f0f4fc'
+    },
+    'tokyo-night': {
+        background: '#1a1b26',
+        foreground: '#c0caf5',
+        cursor: '#7aa2f7',
+        selectionBackground: 'rgba(122, 162, 247, 0.3)',
+        black: '#15161e',
+        red: '#f7768e',
+        green: '#9ece6a',
+        yellow: '#e0af68',
+        blue: '#7aa2f7',
+        magenta: '#bb9af7',
+        cyan: '#7dcfff',
+        white: '#a9b1d6'
+    },
+    'obsidian-oled': {
+        background: '#000000',
+        foreground: '#ffffff',
+        cursor: '#ffffff',
+        selectionBackground: 'rgba(255, 255, 255, 0.3)',
+        black: '#222222',
+        red: '#ff5555',
+        green: '#50fa7b',
+        yellow: '#f1fa8c',
+        blue: '#bd93f9',
+        magenta: '#ff79c6',
+        cyan: '#8be9fd',
+        white: '#f8f8f2'
+    },
+    'synthwave': {
+        background: '#120c1a',
+        foreground: '#fbebf7',
+        cursor: '#ff2a85',
+        selectionBackground: 'rgba(255, 42, 133, 0.35)',
+        black: '#241432',
+        red: '#fe4450',
+        green: '#72f1b8',
+        yellow: '#fede5d',
+        blue: '#03edf9',
+        magenta: '#ff2a85',
+        cyan: '#03edf9',
+        white: '#fbebf7'
+    },
+    'matrix': {
+        background: '#040d06',
+        foreground: '#00ff66',
+        cursor: '#00ff66',
+        selectionBackground: 'rgba(0, 255, 102, 0.3)',
+        black: '#0a1c0d',
+        red: '#ff3333',
+        green: '#00ff66',
+        yellow: '#ccff00',
+        blue: '#00ccff',
+        magenta: '#cc00ff',
+        cyan: '#00ffcc',
+        white: '#e6ffe6'
+    }
+};
+
+function initTerminal() {
+    const selectedTheme = TERMINAL_THEMES[State.theme] || TERMINAL_THEMES['cyber-dark'];
+
+    State.term = new Terminal({
+        fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+        fontSize: State.fontSize,
+        lineHeight: 1.25,
+        cursorBlink: true,
+        cursorStyle: 'block',
+        theme: selectedTheme,
+        scrollback: 6000,
+        convertEol: true,
+        smoothScrollDuration: 100
+    });
+
+    State.fitAddon = new FitAddon.FitAddon();
+    State.term.loadAddon(State.fitAddon);
+
+    State.webLinksAddon = new WebLinksAddon.WebLinksAddon();
+    State.term.loadAddon(State.webLinksAddon);
+
+    State.term.open(DOM.terminalContainer);
+    
+    setTimeout(() => {
+        try { State.fitAddon.fit(); } catch (e) {}
+    }, 60);
+
+    State.term.onScroll(() => {
+        const buffer = State.term.buffer.active;
+        const atBottom = buffer.viewportY >= buffer.baseY;
+        DOM.btnScrollBottom.style.display = atBottom ? 'none' : 'flex';
+    });
+
+    State.term.onData(data => {
+        if (!State.activePaneId) return;
+        if (data === '\r') {
+            apiCall('/api/pane/keys', { pane_id: State.activePaneId, keys: ['enter'] });
+        } else if (data === '\x03') {
+            apiCall('/api/pane/keys', { pane_id: State.activePaneId, keys: ['ctrl+c'] });
+        } else if (data === '\x1b') {
+            apiCall('/api/pane/keys', { pane_id: State.activePaneId, keys: ['esc'] });
+        } else if (data === '\t') {
+            apiCall('/api/pane/keys', { pane_id: State.activePaneId, keys: ['tab'] });
+        } else {
+            apiCall('/api/pane/text', { pane_id: State.activePaneId, text: data, auto_enter: false });
         }
-    } catch (e) {}
-}
+    });
 
-window.sendQuickKey = sendQuickKey;
+    DOM.terminalContainer.addEventListener('click', () => {
+        State.term.focus();
+    });
 
-// Focus Actions
-async function focusWorkspace(wsId) {
-    triggerHaptic('light');
-    State.activeWorkspaceId = wsId;
-    try {
-        await apiFetch('/api/workspace/focus', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ workspace_id: wsId })
-        });
-        fetchState();
-    } catch (e) {}
+    DOM.btnScrollBottom.addEventListener('click', () => {
+        State.term.scrollToBottom();
+        DOM.btnScrollBottom.style.display = 'none';
+    });
 }
-window.focusWorkspace = focusWorkspace;
-
-async function focusTab(tabId, wsId) {
-    triggerHaptic('light');
-    State.activeTabId = tabId;
-    if (wsId) State.activeWorkspaceId = wsId;
-    try {
-        await apiFetch('/api/tab/focus', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ tab_id: tabId })
-        });
-        fetchState();
-    } catch (e) {}
-}
-window.focusTab = focusTab;
-
-async function createNewTab(wsId) {
-    triggerHaptic('medium');
-    try {
-        await apiFetch('/api/tab/create', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ workspace_id: wsId, label: 'tab' })
-        });
-        showToast('Nuova scheda creata');
-        fetchState();
-    } catch (e) {}
-}
-window.createNewTab = createNewTab;
 
 // =============================================================================
-// MOBILE FEATURES: SPEECH-TO-TEXT & CAMERA ATTACHMENTS
+// MODE SWITCHER: CHAT (WHATSAPP) vs TERMINAL (XTERM)
 // =============================================================================
-function initSpeechRecognition() {
-    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRec) {
-        DOM.btnVoiceMic.style.display = 'none';
+function toggleMode() {
+    triggerHaptic('light');
+    const newMode = State.mode === 'chat' ? 'terminal' : 'chat';
+    setMode(newMode);
+}
+
+function setMode(mode) {
+    State.mode = mode;
+    if (mode === 'chat') {
+        DOM.chatViewport.style.display = 'flex';
+        DOM.terminalViewport.style.display = 'none';
+        DOM.modeIcon.textContent = '💻';
+        DOM.modeLabel.textContent = 'Terminale';
+        DOM.btnToggleActions.style.display = 'flex';
+        scrollChatToBottom();
+    } else {
+        DOM.chatViewport.style.display = 'none';
+        DOM.terminalViewport.style.display = 'block';
+        DOM.modeIcon.textContent = '💬';
+        DOM.modeLabel.textContent = 'Chat';
+        DOM.cliKeysDrawer.style.display = 'flex'; // Auto show CLI keys in terminal mode
+        DOM.btnToggleActions.classList.add('active');
+        if (State.fitAddon) {
+            setTimeout(() => {
+                try {
+                    State.fitAddon.fit();
+                    State.term.focus();
+                } catch (e) {}
+            }, 30);
+        }
+    }
+}
+
+// =============================================================================
+// REAL-TIME STATE STREAMING & EVENT HANDLING
+// =============================================================================
+function connectStateStream() {
+    if (State.sseSource) {
+        State.sseSource.close();
+    }
+
+    State.sseSource = new EventSource('/api/stream');
+
+    State.sseSource.addEventListener('state', e => {
+        try {
+            const data = JSON.parse(e.data);
+            handleStateUpdate(data);
+        } catch (err) {
+            console.error('Failed to parse SSE state event', err);
+        }
+    });
+
+    State.sseSource.onopen = () => {
+        State.connected = true;
+        DOM.socketDot.className = 'socket-dot connected';
+    };
+
+    State.sseSource.onerror = () => {
+        State.connected = false;
+        DOM.socketDot.className = 'socket-dot';
+    };
+}
+
+function handleStateUpdate(data) {
+    State.connected = !!data.connected;
+    DOM.socketDot.className = State.connected ? 'socket-dot connected' : 'socket-dot';
+
+    if (data.version) {
+        State.version = data.version;
+        DOM.sheetDaemonVersion.textContent = `v${data.version}`;
+    }
+    if (data.socket_path) {
+        State.socketPath = data.socket_path;
+        DOM.sheetSocketPath.textContent = data.socket_path;
+    }
+
+    State.workspaces = data.workspaces || [];
+    if (State.workspaces.length === 0) return;
+
+    // Active workspace
+    let activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId) ||
+                    State.workspaces.find(w => w.focused) ||
+                    State.workspaces[0];
+
+    State.activeWorkspaceId = activeWs.id;
+    if (DOM.currentWsName) DOM.currentWsName.textContent = activeWs.name || `Workspace ${activeWs.id}`;
+
+    // Tabs for active workspace
+    State.tabs = activeWs.tabs || [];
+    renderTabs(State.tabs);
+
+    // Active tab
+    let activeTab = State.tabs.find(t => t.tab_id === State.activeTabId) ||
+                    State.tabs.find(t => t.focused) ||
+                    State.tabs[0];
+
+    if (activeTab) {
+        State.activeTabId = activeTab.tab_id;
+        State.panes = activeTab.panes || [];
+    } else {
+        State.panes = [];
+    }
+
+    // Active pane
+    let activePane = State.panes.find(p => p.pane_id === State.activePaneId) ||
+                     State.panes.find(p => p.focused) ||
+                     State.panes[0];
+
+    if (activePane) {
+        const paneChanged = (State.activePaneId !== activePane.pane_id);
+        State.activePaneId = activePane.pane_id;
+
+        updateHeaderInfo(activePane);
+        updateTerminalContent(activePane, paneChanged);
+        updateChatContent(activePane, paneChanged);
+        updateConfirmationBanner(activePane);
+    }
+
+    if (DOM.bottomSheet.classList.contains('active')) {
+        renderSheetWorkspaces();
+        renderSheetPanes();
+    }
+}
+
+function updateHeaderInfo(pane) {
+    const title = pane.agent || pane.title || 'Herdr Agent';
+    DOM.chatHeaderTitle.textContent = title;
+
+    const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId);
+    const wsName = (activeWs && (activeWs.name || activeWs.label)) || `Workspace ${State.activeWorkspaceId || ''}`;
+
+    const status = (pane.status || 'idle').toLowerCase();
+    if (status === 'working') {
+        DOM.agentStatusText.textContent = `${wsName} • ⚡ lavora...`;
+        DOM.agentStatusText.style.color = 'var(--cyan)';
+    } else if (status === 'blocked' || pane.waiting_confirm) {
+        DOM.agentStatusText.textContent = `${wsName} • ⚠️ conferma`;
+        DOM.agentStatusText.style.color = 'var(--warning)';
+    } else {
+        DOM.agentStatusText.textContent = wsName;
+        DOM.agentStatusText.style.color = 'var(--text-secondary)';
+    }
+}
+
+function updateConfirmationBanner(pane) {
+    const isWaiting = !!pane.waiting_confirm || (pane.status === 'blocked');
+    if (isWaiting) {
+        DOM.agentConfirmBanner.style.display = 'flex';
+    } else {
+        DOM.agentConfirmBanner.style.display = 'none';
+    }
+}
+
+function updateTerminalContent(pane, paneChanged) {
+    if (!State.term) return;
+    const rawText = pane.raw_text || '';
+    const revision = pane.revision || 0;
+
+    if (paneChanged) {
+        State.term.reset();
+        State.term.write(rawText);
+        State.lastText = rawText;
+        State.lastRevision = revision;
         return;
     }
 
-    State.speechRecognition = new SpeechRec();
-    State.speechRecognition.continuous = false;
-    State.speechRecognition.interimResults = true;
-    State.speechRecognition.lang = State.voiceLanguage;
-
-    State.speechRecognition.onstart = () => {
-        State.isRecordingVoice = true;
-        DOM.btnVoiceMic.classList.add('recording');
-        triggerHaptic('success');
-    };
-
-    State.speechRecognition.onresult = (e) => {
-        let transcript = '';
-        for (let i = e.resultIndex; i < e.results.length; i++) {
-            transcript += e.results[i][0].transcript;
+    if (rawText !== State.lastText || revision !== State.lastRevision) {
+        if (rawText.startsWith(State.lastText)) {
+            const delta = rawText.slice(State.lastText.length);
+            State.term.write(delta);
+        } else {
+            State.term.reset();
+            State.term.write(rawText);
         }
-        DOM.promptInput.value = transcript;
-        autoResizeTextarea(DOM.promptInput);
-    };
-
-    State.speechRecognition.onerror = () => {
-        stopVoiceRecording();
-    };
-
-    State.speechRecognition.onend = () => {
-        stopVoiceRecording();
-    };
-}
-
-function toggleVoiceRecording() {
-    if (!State.speechRecognition) return;
-    if (State.isRecordingVoice) {
-        State.speechRecognition.stop();
-        stopVoiceRecording();
-    } else {
-        State.speechRecognition.lang = State.voiceLanguage;
-        State.speechRecognition.start();
+        State.lastText = rawText;
+        State.lastRevision = revision;
     }
 }
 
-function stopVoiceRecording() {
-    State.isRecordingVoice = false;
-    DOM.btnVoiceMic.classList.remove('recording');
+// =============================================================================
+// CHAT RENDERING ENGINE (WHATSAPP BUBBLES)
+// =============================================================================
+function updateChatContent(pane, paneChanged) {
+    const cleanText = pane.clean_text || '';
+    if (!cleanText || cleanText === State.lastCleanText) return;
+    State.lastCleanText = cleanText;
+
+    // Parse clean terminal text into coherent conversation chunks
+    renderActiveChatFromTerminal(cleanText, pane);
 }
 
-// Camera / Image Upload
-function handleFileUpload(file) {
-    if (!file) return;
+function renderActiveChatFromTerminal(cleanText, pane) {
+    // Keep any user-sent local messages and append parsed agent output
+    const lines = cleanText.split('\n');
+    const tailLines = lines.slice(-40); // Last 40 lines for responsive context
+    const agentText = tailLines.join('\n').trim();
 
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-        const base64Data = e.target.result;
+    // Check if we already have the agent response bubble or need to update
+    let agentBubble = document.getElementById('active-agent-bubble');
+    if (!agentBubble) {
+        agentBubble = document.createElement('div');
+        agentBubble.id = 'active-agent-bubble';
+        agentBubble.className = 'chat-bubble bubble-agent';
+        DOM.chatMessages.appendChild(agentBubble);
+    }
 
-        DOM.attachmentThumb.src = base64Data;
-        DOM.attachmentName.textContent = file.name;
-        DOM.attachmentPreviewBar.style.display = 'flex';
+    const agentName = pane.agent || pane.title || 'Herdr Agent';
+    const timeStr = formatTime();
 
-        triggerHaptic('light');
+    // Format output with code block detection
+    let contentHtml = '';
+    if (agentText.includes('```') || agentText.includes('---') || agentText.includes('│')) {
+        contentHtml = `<pre class="bubble-code-block"><code>${escapeHtml(agentText)}</code></pre>`;
+    } else {
+        contentHtml = escapeHtml(agentText).replace(/\n/g, '<br>');
+    }
 
-        try {
-            const res = await apiFetch('/api/upload', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    image: base64Data,
-                    filename: file.name
-                })
-            });
+    agentBubble.innerHTML = `
+        <div class="bubble-avatar">🐏</div>
+        <div class="bubble-body">
+            <div class="bubble-sender">${escapeHtml(agentName)}</div>
+            <div class="bubble-content">${contentHtml}</div>
+            <div class="bubble-time">${timeStr}</div>
+        </div>
+    `;
 
-            if (res.ok) {
-                const data = await res.json();
-                State.currentAttachment = {
-                    file_path: data.file_path,
-                    url: data.url,
-                    filename: data.filename
-                };
-                showToast('Foto pronta per l\'invio');
-            }
-        } catch (err) {
-            showToast('Errore nel caricamento immagine');
+    scrollChatToBottom();
+}
+
+function appendUserBubble(text, imagePath = null) {
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-bubble bubble-user';
+
+    let imgHtml = '';
+    if (imagePath) {
+        imgHtml = `<img class="bubble-user-image" src="/api/file?path=${imagePath}" alt="Screenshot">`;
+    }
+
+    const timeStr = formatTime();
+
+    bubble.innerHTML = `
+        ${imgHtml}
+        <div class="bubble-content">${escapeHtml(text)}</div>
+        <div class="bubble-time">${timeStr} <span class="checkmarks">✓✓</span></div>
+    `;
+
+    // Add click to open image in lightbox
+    if (imagePath) {
+        const img = bubble.querySelector('.bubble-user-image');
+        if (img) {
+            img.addEventListener('click', () => openLightbox(`/api/file?path=${imagePath}`));
         }
+    }
+
+    DOM.chatMessages.appendChild(bubble);
+    scrollChatToBottom();
+}
+
+function scrollChatToBottom() {
+    DOM.chatScrollContainer.scrollTop = DOM.chatScrollContainer.scrollHeight;
+}
+
+// =============================================================================
+// TABS RENDERING
+// =============================================================================
+function renderTabs(tabs) {
+    DOM.tabsContainer.innerHTML = '';
+    tabs.forEach(tab => {
+        const pill = document.createElement('button');
+        pill.className = `tab-pill ${tab.tab_id === State.activeTabId ? 'active' : ''}`;
+        
+        let icon = '📑';
+        const hasAgent = tab.panes && tab.panes.some(p => p.agent || p.status === 'working' || p.status === 'blocked');
+        if (hasAgent) icon = '🤖';
+
+        pill.innerHTML = `
+            <span>${icon}</span>
+            <span>${tab.label || 'Tab'}</span>
+            <span class="tab-close-btn" title="Chiudi">✕</span>
+        `;
+
+        pill.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tab-close-btn')) {
+                e.stopPropagation();
+                triggerHaptic('medium');
+                apiCall('/api/tab/close', { tab_id: tab.tab_id });
+                return;
+            }
+            triggerHaptic('light');
+            State.activeTabId = tab.tab_id;
+            apiCall('/api/tab/focus', { tab_id: tab.tab_id });
+        });
+
+        DOM.tabsContainer.appendChild(pill);
+    });
+}
+
+// =============================================================================
+// ATTACHMENT & IMAGE UPLOAD HANDLING
+// =============================================================================
+function setAttachment(dataUrl, filename, size) {
+    State.pendingAttachment = {
+        dataUrl,
+        filename: filename || 'screenshot.png',
+        size: size || 0
+    };
+    DOM.attachmentThumb.src = dataUrl;
+    DOM.attachmentName.textContent = State.pendingAttachment.filename;
+    DOM.attachmentSize.textContent = formatBytes(State.pendingAttachment.size);
+    DOM.attachmentPreviewBar.style.display = 'flex';
+    updateInputState();
+    DOM.promptInput.focus();
+    triggerHaptic('success');
+    showToast('📷 Screenshot aggiunto');
+}
+
+function clearAttachment() {
+    State.pendingAttachment = null;
+    DOM.attachmentPreviewBar.style.display = 'none';
+    DOM.attachmentThumb.src = '';
+    DOM.fileInput.value = '';
+    updateInputState();
+}
+
+function openLightbox(imgSrc) {
+    if (!imgSrc) return;
+    DOM.lightboxImg.src = imgSrc;
+    DOM.lightboxModal.style.display = 'flex';
+}
+
+function closeLightbox() {
+    DOM.lightboxModal.style.display = 'none';
+    DOM.lightboxImg.src = '';
+}
+
+function handleImageFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        setAttachment(e.target.result, file.name || 'screenshot.png', file.size);
     };
     reader.readAsDataURL(file);
 }
 
-function clearAttachment() {
-    State.currentAttachment = null;
-    DOM.attachmentPreviewBar.style.display = 'none';
-    DOM.fileInput.value = '';
-}
+function handlePasteEvent(e) {
+    const clipboardData = e.clipboardData || window.clipboardData;
+    if (!clipboardData || !clipboardData.items) return;
 
-function autoResizeTextarea(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = Math.min(textarea.scrollHeight, 110) + 'px';
+    const items = clipboardData.items;
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+            e.preventDefault();
+            const file = items[i].getAsFile();
+            handleImageFile(file);
+            return;
+        }
+    }
 }
 
 // =============================================================================
-// NAVIGATION, DRAWER & VIEW SWITCHER
+// PROMPT & COMMAND DISPATCH (CONTENTEDITABLE / IOS ASSISTANT SAFE)
 // =============================================================================
-function openDrawer() {
-    triggerHaptic('light');
-    DOM.appDrawer.classList.add('open');
-    DOM.drawerBackdrop.classList.add('open');
+function getPromptText() {
+    return (DOM.promptInput.innerText || DOM.promptInput.textContent || '').trim();
 }
 
-function closeDrawer() {
-    DOM.appDrawer.classList.remove('open');
-    DOM.drawerBackdrop.classList.remove('open');
+function clearPromptInput() {
+    DOM.promptInput.textContent = '';
+    DOM.promptInput.innerHTML = '';
 }
 
-function switchView(targetViewId) {
-    triggerHaptic('light');
-    State.currentView = targetViewId;
+function setPromptText(text) {
+    DOM.promptInput.textContent = text;
+}
 
-    DOM.viewPanels.forEach((panel) => {
-        if (panel.id === targetViewId) {
-            panel.classList.add('active');
-        } else {
-            panel.classList.remove('active');
-        }
-    });
+function updateInputState() {
+    const text = getPromptText();
+    const hasContent = (text.length > 0) || (State.pendingAttachment !== null);
 
-    DOM.drawerNavItems.forEach((item) => {
-        if (item.getAttribute('data-target') === targetViewId) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
-        }
-    });
-
-    // Update Header Mode Icon
-    if (targetViewId === 'view-terminal') {
-        DOM.labelModeIcon.textContent = '💻';
+    if (hasContent) {
+        DOM.iconMic.style.display = 'none';
+        DOM.iconSend.style.display = 'block';
+        DOM.btnActionMicSend.title = 'Invia messaggio';
     } else {
-        DOM.labelModeIcon.textContent = '💬';
-    }
-
-    closeDrawer();
-
-    if (targetViewId === 'view-chat') {
-        scrollToBottom();
+        DOM.iconMic.style.display = 'block';
+        DOM.iconSend.style.display = 'none';
+        DOM.btnActionMicSend.title = 'Dettatura vocale';
     }
 }
 
-window.switchView = switchView;
+async function sendPrompt() {
+    const text = getPromptText();
+    if (!text && !State.pendingAttachment) return;
+    if (!State.activePaneId) return;
 
-function openModal(modalId) {
-    triggerHaptic('light');
-    const modal = document.getElementById(modalId);
-    if (modal) modal.classList.add('open');
-}
+    triggerHaptic('medium');
 
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) modal.classList.remove('open');
-}
-
-// =============================================================================
-// EVENT LISTENERS INITIALIZATION
-// =============================================================================
-function initEventListeners() {
-    // Drawer
-    DOM.btnOpenDrawer.addEventListener('click', openDrawer);
-    DOM.btnCloseDrawer.addEventListener('click', closeDrawer);
-    DOM.drawerBackdrop.addEventListener('click', closeDrawer);
-
-    DOM.drawerNavItems.forEach((item) => {
-        item.addEventListener('click', () => {
-            const target = item.getAttribute('data-target');
-            switchView(target);
+    let uploadedFilePath = null;
+    if (State.pendingAttachment) {
+        showToast('Caricamento immagine...');
+        const uploadRes = await apiCall('/api/upload', {
+            image: State.pendingAttachment.dataUrl,
+            filename: State.pendingAttachment.filename
         });
-    });
 
-    DOM.btnDrawerAddWs.addEventListener('click', () => {
-        closeDrawer();
-        openModal('modal-new-ws');
-    });
-
-    DOM.btnDrawerLogout.addEventListener('click', async () => {
-        triggerHaptic('medium');
-        try {
-            await apiFetch('/api/logout', { method: 'POST' });
-        } catch (e) {}
-        localStorage.removeItem('herdr_token');
-        window.location.href = '/login';
-    });
-
-    // Mode Toggle (Chat <-> Raw Terminal)
-    DOM.btnToggleRaw.addEventListener('click', () => {
-        if (State.currentView === 'view-chat') {
-            switchView('view-terminal');
-            showToast('Vista: Console Terminale');
+        if (uploadRes && uploadRes.success && uploadRes.file_path) {
+            uploadedFilePath = uploadRes.file_path;
         } else {
-            switchView('view-chat');
-            showToast('Vista: Smart Chat');
+            showToast('Errore nel caricamento immagine');
+            return;
+        }
+        clearAttachment();
+    }
+
+    clearPromptInput();
+    updateInputState();
+
+    // Append to local WhatsApp chat view immediately
+    appendUserBubble(text, uploadedFilePath);
+
+    let finalCommand = text;
+    if (uploadedFilePath) {
+        finalCommand = text ? `${text} ${uploadedFilePath}` : uploadedFilePath;
+    }
+
+    const res = await apiCall('/api/pane/text', {
+        pane_id: State.activePaneId,
+        text: finalCommand,
+        auto_enter: true
+    });
+
+    if (res && !res.error) {
+        showToast(uploadedFilePath ? '✓ Inviato con immagine' : 'Messaggio inviato');
+    }
+}
+
+async function sendKey(keyName) {
+    if (!State.activePaneId) return;
+    triggerHaptic('light');
+    await apiCall('/api/pane/keys', {
+        pane_id: State.activePaneId,
+        keys: [keyName]
+    });
+}
+
+async function sendQuickText(text) {
+    if (!State.activePaneId) return;
+    triggerHaptic('light');
+    appendUserBubble(text);
+    await apiCall('/api/pane/text', {
+        pane_id: State.activePaneId,
+        text: text,
+        auto_enter: true
+    });
+}
+
+// =============================================================================
+// SPEECH-TO-TEXT (VOICE DICTATION)
+// =============================================================================
+function initSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    State.speechRecognition = new SpeechRecognition();
+    State.speechRecognition.lang = 'it-IT';
+    State.speechRecognition.continuous = false;
+    State.speechRecognition.interimResults = false;
+
+    State.speechRecognition.onstart = () => {
+        State.isRecordingVoice = true;
+        DOM.btnActionMicSend.classList.add('recording');
+        triggerHaptic('medium');
+        showToast('🎙️ In ascolto...');
+    };
+
+    State.speechRecognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (transcript) {
+            const current = getPromptText();
+            setPromptText(current ? `${current} ${transcript}` : transcript);
+            updateInputState();
+            DOM.promptInput.focus();
+            triggerHaptic('success');
+        }
+    };
+
+    State.speechRecognition.onerror = () => {
+        State.isRecordingVoice = false;
+        DOM.btnActionMicSend.classList.remove('recording');
+    };
+
+    State.speechRecognition.onend = () => {
+        State.isRecordingVoice = false;
+        DOM.btnActionMicSend.classList.remove('recording');
+    };
+}
+
+function handleMicOrSendClick() {
+    const text = getPromptText();
+    const hasContent = (text.length > 0) || (State.pendingAttachment !== null);
+
+    if (hasContent) {
+        sendPrompt();
+    } else {
+        if (!State.speechRecognition) {
+            showToast('Dettatura non supportata in questo browser');
+            return;
+        }
+        if (State.isRecordingVoice) {
+            State.speechRecognition.stop();
+        } else {
+            State.speechRecognition.start();
+        }
+    }
+}
+
+// =============================================================================
+// BOTTOM SHEET MODAL (CONTROLS & SETTINGS)
+// =============================================================================
+function openBottomSheet() {
+    triggerHaptic('light');
+    renderSheetWorkspaces();
+    renderSheetPanes();
+    DOM.fontSizeDisplay.textContent = `${State.fontSize}px`;
+    DOM.themeSelect.value = State.theme;
+
+    DOM.sheetBackdrop.classList.add('active');
+    DOM.bottomSheet.classList.add('active');
+}
+
+function closeBottomSheet() {
+    DOM.sheetBackdrop.classList.remove('active');
+    DOM.bottomSheet.classList.remove('active');
+}
+
+function renderSheetWorkspaces() {
+    DOM.sheetWsList.innerHTML = '';
+    State.workspaces.forEach(ws => {
+        const item = document.createElement('div');
+        item.className = `sheet-list-item ${ws.id === State.activeWorkspaceId ? 'active' : ''}`;
+        item.innerHTML = `
+            <div>
+                <strong>${ws.name || `Workspace ${ws.id}`}</strong>
+                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${ws.cwd || '~'}</div>
+            </div>
+            <span style="font-size: 12px; color: var(--cyan); font-weight: 600;">${ws.id === State.activeWorkspaceId ? 'Attivo' : 'Passa'}</span>
+        `;
+        item.addEventListener('click', async () => {
+            triggerHaptic('light');
+            State.activeWorkspaceId = ws.id;
+            await apiCall('/api/workspace/focus', { workspace_id: ws.id });
+            closeBottomSheet();
+        });
+        DOM.sheetWsList.appendChild(item);
+    });
+}
+
+function renderSheetPanes() {
+    DOM.sheetPanesList.innerHTML = '';
+    if (State.panes.length === 0) {
+        DOM.sheetPanesList.innerHTML = '<div style="font-size: 12px; color: var(--text-muted);">Nessun pannello attivo</div>';
+        return;
+    }
+
+    State.panes.forEach(pane => {
+        const item = document.createElement('div');
+        item.className = `sheet-list-item ${pane.pane_id === State.activePaneId ? 'active' : ''}`;
+        item.innerHTML = `
+            <div>
+                <strong>${pane.title || pane.pane_id}</strong>
+                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${pane.cwd || '~'}</div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+                <span style="font-size: 11px; text-transform: uppercase; color: var(--cyan);">${pane.status}</span>
+                <button class="btn-mini-action btn-close-pane" style="color: var(--danger);">✕</button>
+            </div>
+        `;
+        item.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('btn-close-pane')) {
+                e.stopPropagation();
+                triggerHaptic('medium');
+                await apiCall('/api/pane/close', { pane_id: pane.pane_id });
+                showToast('Pannello chiuso');
+                return;
+            }
+            triggerHaptic('light');
+            State.activePaneId = pane.pane_id;
+            await apiCall('/api/pane/focus', { pane_id: pane.pane_id });
+            closeBottomSheet();
+        });
+        DOM.sheetPanesList.appendChild(item);
+    });
+}
+
+function updateTheme(newTheme) {
+    State.theme = newTheme;
+    localStorage.setItem('herdr_theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+
+    if (State.term) {
+        const t = TERMINAL_THEMES[newTheme] || TERMINAL_THEMES['cyber-dark'];
+        State.term.options.theme = t;
+    }
+}
+
+function updateFontSize(delta) {
+    const newSize = Math.max(9, Math.min(22, State.fontSize + delta));
+    State.fontSize = newSize;
+    localStorage.setItem('herdr_font_size', newSize.toString());
+    DOM.fontSizeDisplay.textContent = `${newSize}px`;
+
+    if (State.term) {
+        State.term.options.fontSize = newSize;
+        try { State.fitAddon.fit(); } catch (e) {}
+    }
+}
+
+// =============================================================================
+// SETUP EVENT LISTENERS
+// =============================================================================
+function setupEventListeners() {
+    // Mode Switcher
+    DOM.btnModeToggle.addEventListener('click', toggleMode);
+
+    // Workspace & Controls Menu
+    DOM.btnWsPicker.addEventListener('click', openBottomSheet);
+    DOM.btnHeaderContact.addEventListener('click', openBottomSheet);
+    DOM.btnOpenMenu.addEventListener('click', openBottomSheet);
+
+    // Tab Add
+    DOM.btnAddTab.addEventListener('click', () => {
+        triggerHaptic('light');
+        apiCall('/api/tab/create', { workspace_id: State.activeWorkspaceId, label: 'tab' });
+    });
+
+    // Confirmation Banner
+    DOM.btnConfirmYes.addEventListener('click', () => sendQuickText('y'));
+    DOM.btnConfirmNo.addEventListener('click', () => sendQuickText('n'));
+    DOM.btnConfirmStop.addEventListener('click', () => sendKey('ctrl+c'));
+
+    // '+' Action Button in Footer
+    DOM.btnToggleActions.addEventListener('click', () => {
+        triggerHaptic('light');
+        const isHidden = (DOM.cliKeysDrawer.style.display === 'none');
+        DOM.cliKeysDrawer.style.display = isHidden ? 'flex' : 'none';
+        DOM.btnToggleActions.classList.toggle('active', isHidden);
+    });
+
+    // CLI Drawer Keys
+    DOM.cliKeysDrawer.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        if (btn.dataset.key) {
+            sendKey(btn.dataset.key);
+        } else if (btn.dataset.send) {
+            const sendVal = btn.dataset.send;
+            if (sendVal.startsWith('/')) {
+                setPromptText(sendVal);
+                updateInputState();
+                DOM.promptInput.focus();
+            } else {
+                sendQuickText(sendVal);
+            }
         }
     });
 
-    // Context Picker Sheet
-    DOM.btnContextPicker.addEventListener('click', () => {
-        renderContextPicker();
-        openModal('modal-context-picker');
-    });
-    DOM.btnCloseContextModal.addEventListener('click', () => closeModal('modal-context-picker'));
-    DOM.modalContextPicker.addEventListener('click', (e) => {
-        if (e.target === DOM.modalContextPicker) closeModal('modal-context-picker');
+    // Input changes & Send/Mic
+    DOM.promptInput.addEventListener('input', () => {
+        updateInputState();
     });
 
-    // Refresh
-    DOM.btnRefresh.addEventListener('click', () => {
-        triggerHaptic('light');
-        fetchState();
-        showToast('Aggiornamento...');
+    DOM.promptInput.addEventListener('focus', () => {
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            if (window.visualViewport) {
+                const appRoot = document.getElementById('app-root');
+                if (appRoot) {
+                    appRoot.style.height = `${window.visualViewport.height}px`;
+                    appRoot.style.top = `${window.visualViewport.offsetTop}px`;
+                }
+            }
+            scrollChatToBottom();
+        }, 100);
     });
 
-    // Prompt Send
-    DOM.btnSendPrompt.addEventListener('click', sendPrompt);
+    DOM.promptInput.addEventListener('blur', () => {
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            const appRoot = document.getElementById('app-root');
+            if (appRoot) {
+                appRoot.style.height = '100vh';
+                appRoot.style.top = '0px';
+            }
+            if (State.fitAddon && State.mode === 'terminal') {
+                try { State.fitAddon.fit(); } catch (e) {}
+            }
+        }, 100);
+    });
+
     DOM.promptInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             sendPrompt();
         }
     });
-    DOM.promptInput.addEventListener('input', () => autoResizeTextarea(DOM.promptInput));
 
-    // Voice Mic
-    DOM.btnVoiceMic.addEventListener('click', toggleVoiceRecording);
+    DOM.btnActionMicSend.addEventListener('click', handleMicOrSendClick);
 
-    // Camera Upload
+    // Image Attachments & Paste
+    document.addEventListener('paste', handlePasteEvent);
+    DOM.promptInput.addEventListener('paste', handlePasteEvent);
+
+    DOM.btnAttachImage.addEventListener('click', () => {
+        DOM.fileInput.click();
+    });
+
     DOM.fileInput.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) {
-            handleFileUpload(e.target.files[0]);
+            handleImageFile(e.target.files[0]);
         }
     });
+
     DOM.btnRemoveAttachment.addEventListener('click', clearAttachment);
 
-    // Action Chips
-    DOM.actionChipsList.addEventListener('click', (e) => {
-        const btn = e.target.closest('.action-chip');
-        if (!btn) return;
-
-        const key = btn.getAttribute('data-key');
-        const text = btn.getAttribute('data-text');
-
-        if (key) {
-            sendQuickKey(key);
-        } else if (text) {
-            DOM.promptInput.value += text;
-            DOM.promptInput.focus();
-            autoResizeTextarea(DOM.promptInput);
+    DOM.attachmentThumbWrap.addEventListener('click', () => {
+        if (State.pendingAttachment && State.pendingAttachment.dataUrl) {
+            openLightbox(State.pendingAttachment.dataUrl);
         }
     });
 
-    // Welcome Chips
-    DOM.chatWelcomeCard.addEventListener('click', (e) => {
-        const chip = e.target.closest('.welcome-chip');
-        if (chip) {
-            const cmd = chip.getAttribute('data-command');
-            DOM.promptInput.value = cmd;
-            DOM.promptInput.focus();
-            autoResizeTextarea(DOM.promptInput);
+    DOM.btnLightboxClose.addEventListener('click', closeLightbox);
+    DOM.lightboxBackdrop.addEventListener('click', closeLightbox);
+
+    // Drag & Drop
+    document.addEventListener('dragover', (e) => e.preventDefault());
+    document.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            handleImageFile(e.dataTransfer.files[0]);
         }
     });
 
-    // Clean Chat
-    DOM.btnClearChat.addEventListener('click', () => {
-        triggerHaptic('light');
-        DOM.chatMessages.innerHTML = '';
-        DOM.chatWelcomeCard.style.display = 'flex';
-        showToast('Vista chat pulita');
-    });
+    // Bottom Sheet Controls
+    DOM.btnSheetClose.addEventListener('click', closeBottomSheet);
+    DOM.sheetBackdrop.addEventListener('click', closeBottomSheet);
 
-    // Scroll Bottom Floating Button
-    DOM.chatMessages.addEventListener('scroll', () => {
-        const distFromBottom = DOM.chatMessages.scrollHeight - DOM.chatMessages.scrollTop - DOM.chatMessages.clientHeight;
-        if (distFromBottom > 150) {
-            DOM.btnScrollBottom.style.display = 'flex';
-        } else {
-            DOM.btnScrollBottom.style.display = 'none';
-        }
-    });
-    DOM.btnScrollBottom.addEventListener('click', () => {
-        triggerHaptic('light');
-        scrollToBottom();
-    });
-
-    // Workspaces Modal
-    DOM.btnOpenNewWsModal.addEventListener('click', () => openModal('modal-new-ws'));
-    DOM.btnCloseNewWsModal.addEventListener('click', () => closeModal('modal-new-ws'));
-    DOM.btnCancelNewWs.addEventListener('click', () => closeModal('modal-new-ws'));
-    DOM.btnConfirmNewWs.addEventListener('click', async () => {
-        const cwd = DOM.newWsPath.value.trim();
-        const label = DOM.newWsLabel.value.trim();
-        if (!cwd) {
-            showToast('Inserisci il percorso della cartella');
-            return;
-        }
-        try {
-            const res = await apiFetch('/api/workspace/create', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cwd, label })
-            });
-            if (res.ok) {
-                showToast('Nuovo spazio creato!');
-                closeModal('modal-new-ws');
-                DOM.newWsPath.value = '';
-                DOM.newWsLabel.value = '';
-                fetchState();
-            }
-        } catch (e) {}
-    });
-
-    // Terminal Virtual Keys
-    DOM.termKeyBtns.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            const key = btn.getAttribute('data-key');
-            if (key) sendQuickKey(key);
-        });
-    });
-
-    // Terminal Copy
-    DOM.btnCopyTerminal.addEventListener('click', () => {
-        navigator.clipboard.writeText(DOM.terminalRawText.textContent).then(() => {
-            showToast('Scrollback copiato negli appunti!');
-        });
-    });
-
-    // Terminal Autoscroll Toggle
-    DOM.btnToggleAutoscroll.addEventListener('click', () => {
-        State.autoScroll = !State.autoScroll;
-        DOM.btnToggleAutoscroll.textContent = State.autoScroll ? '⬇️ Auto-scroll ON' : '⏸️ Auto-scroll OFF';
-        showToast(`Auto-scroll: ${State.autoScroll ? 'Attivo' : 'Disattivato'}`);
-    });
-
-    // Settings Theme Selector
-    DOM.themeSelectorGroup.addEventListener('click', (e) => {
-        const chip = e.target.closest('.theme-chip');
-        if (!chip) return;
-
-        const themeName = chip.getAttribute('data-set-theme');
-        document.documentElement.setAttribute('data-theme', themeName);
-        localStorage.setItem('herdr_theme', themeName);
-
-        DOM.themeSelectorGroup.querySelectorAll('.theme-chip').forEach((c) => c.classList.remove('active'));
-        chip.classList.add('active');
+    DOM.btnSplitHoriz.addEventListener('click', async () => {
         triggerHaptic('medium');
+        await apiCall('/api/pane/split', { pane_id: State.activePaneId, direction: 'right' });
+        showToast('Split orizzontale creato');
+        closeBottomSheet();
     });
 
-    // Settings Voice Language
-    DOM.voiceLangSelect.addEventListener('change', (e) => {
-        State.voiceLanguage = e.target.value;
-        localStorage.setItem('herdr_voice_lang', State.voiceLanguage);
-        if (State.speechRecognition) State.speechRecognition.lang = State.voiceLanguage;
-    });
-
-    // Settings Toggles
-    DOM.settingHaptic.addEventListener('change', (e) => {
-        State.hapticEnabled = e.target.checked;
-        localStorage.setItem('herdr_haptic', State.hapticEnabled);
-    });
-    DOM.settingAutoscroll.addEventListener('change', (e) => {
-        State.autoScroll = e.target.checked;
-        localStorage.setItem('herdr_autoscroll', State.autoScroll);
-    });
-
-    // Settings Logout
-    DOM.btnLogoutAction.addEventListener('click', async () => {
+    DOM.btnSplitVert.addEventListener('click', async () => {
         triggerHaptic('medium');
-        try {
-            await fetch('/api/logout', { method: 'POST' });
-        } catch (e) {}
-        localStorage.removeItem('herdr_token');
+        await apiCall('/api/pane/split', { pane_id: State.activePaneId, direction: 'down' });
+        showToast('Split verticale creato');
+        closeBottomSheet();
+    });
+
+    DOM.btnFontDec.addEventListener('click', () => updateFontSize(-1));
+    DOM.btnFontInc.addEventListener('click', () => updateFontSize(1));
+    DOM.themeSelect.addEventListener('change', (e) => updateTheme(e.target.value));
+
+    DOM.btnLogout.addEventListener('click', async () => {
+        await apiCall('/api/logout');
         window.location.href = '/login';
     });
 
-    // Global Desktop & Tablet Keyboard Shortcuts
-    document.addEventListener('keydown', (e) => {
-        // Cmd+K or Ctrl+K -> Context Picker
-        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-            e.preventDefault();
-            renderContextPicker();
-            openModal('modal-context-picker');
-            return;
+    // Workspace Dialog
+    DOM.btnCreateWs.addEventListener('click', () => {
+        closeBottomSheet();
+        DOM.inputNewWsCwd.disabled = false;
+        DOM.inputNewWsLabel.disabled = false;
+        DOM.dialogNewWs.showModal();
+    });
+
+    DOM.btnDialogCancel.addEventListener('click', () => {
+        DOM.dialogNewWs.close();
+        DOM.inputNewWsCwd.disabled = true;
+        DOM.inputNewWsLabel.disabled = true;
+    });
+
+    DOM.btnDialogConfirm.addEventListener('click', async () => {
+        const cwd = DOM.inputNewWsCwd.value.trim() || '~';
+        const label = DOM.inputNewWsLabel.value.trim() || undefined;
+        DOM.dialogNewWs.close();
+        DOM.inputNewWsCwd.disabled = true;
+        DOM.inputNewWsLabel.disabled = true;
+        triggerHaptic('success');
+        const res = await apiCall('/api/workspace/create', { cwd, label });
+        if (res && !res.error) showToast('Nuovo spazio creato');
+    });
+
+    // Mobile Viewport Resize Handling
+    // Mobile Viewport & Virtual Keyboard Manager (VisualViewport API)
+    if (window.visualViewport) {
+        function adjustToVisualViewport() {
+            const vp = window.visualViewport;
+            const appRoot = document.getElementById('app-root');
+            if (!appRoot) return;
+
+            // Lock app-root strictly to the visual viewport
+            appRoot.style.height = `${vp.height}px`;
+            appRoot.style.top = `${vp.offsetTop}px`;
+
+            // Prevent Safari from phantom scrolling the window behind fixed elements
+            if (window.scrollY !== 0 || window.scrollX !== 0) {
+                window.scrollTo(0, 0);
+            }
+
+            if (State.mode === 'chat') {
+                scrollChatToBottom();
+            } else if (State.fitAddon && State.mode === 'terminal') {
+                try { State.fitAddon.fit(); } catch (e) {}
+            }
         }
 
-        // Cmd+1..5 or Ctrl+1..5 -> Switch Views
-        if ((e.metaKey || e.ctrlKey) && ['1', '2', '3', '4', '5'].includes(e.key)) {
-            e.preventDefault();
-            const viewMap = {
-                '1': 'view-chat',
-                '2': 'view-workspaces',
-                '3': 'view-agents',
-                '4': 'view-terminal',
-                '5': 'view-settings'
-            };
-            switchView(viewMap[e.key]);
-            return;
-        }
+        window.visualViewport.addEventListener('resize', adjustToVisualViewport);
+        window.visualViewport.addEventListener('scroll', adjustToVisualViewport);
+    }
 
-        // Escape -> Close Modals, Lightbox & Drawer
-        if (e.key === 'Escape') {
-            closeDrawer();
-            closeModal('modal-context-picker');
-            closeModal('modal-new-ws');
-            DOM.lightboxOverlay.classList.remove('open');
+    window.addEventListener('resize', () => {
+        if (!window.visualViewport) {
+            if (State.fitAddon && State.mode === 'terminal') {
+                try { State.fitAddon.fit(); } catch (e) {}
+            }
         }
     });
-}
 
-// =============================================================================
-// INIT & BOOTSTRAP
-// =============================================================================
-function bootstrap() {
-    // Check if token in URL query (e.g. from iOS Web Clip redirect)
-    try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlToken = urlParams.get('token');
-        if (urlToken) {
-            localStorage.setItem('herdr_token', urlToken);
-            window.history.replaceState({}, document.title, window.location.pathname);
+    // Orientation Change & iOS Safe Area Handling
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+            fixIosSafeAreaAndChinGap();
+            window.scrollTo(0, 0);
+        }, 300);
+    });
+
+    // Prevent body pull-to-refresh but allow scrollable containers
+    document.body.addEventListener('touchmove', (e) => {
+        if (e.target.closest('.chat-scroll-container') || 
+            e.target.closest('.terminal-container') || 
+            e.target.closest('.sheet-body') ||
+            e.target.closest('.cli-keys-drawer') ||
+            e.target.closest('.cli-keys-scroll') ||
+            e.target.closest('.tabs-container')) {
+            return;
         }
-    } catch (e) {}
+        e.preventDefault();
+    }, { passive: false });
 
-    // Restore settings
-    const savedTheme = localStorage.getItem('herdr_theme') || 'cyber-dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    const themeBtn = DOM.themeSelectorGroup.querySelector(`[data-set-theme="${savedTheme}"]`);
-    if (themeBtn) {
-        DOM.themeSelectorGroup.querySelectorAll('.theme-chip').forEach((c) => c.classList.remove('active'));
-        themeBtn.classList.add('active');
-    }
+    // Disable pinch-to-zoom gestures on iOS WebKit
+    document.addEventListener('gesturestart', (e) => {
+        e.preventDefault();
+    }, { passive: false });
 
-    const savedVoiceLang = localStorage.getItem('herdr_voice_lang') || 'it-IT';
-    State.voiceLanguage = savedVoiceLang;
-    DOM.voiceLangSelect.value = savedVoiceLang;
+    document.addEventListener('gesturechange', (e) => {
+        e.preventDefault();
+    }, { passive: false });
 
-    if (localStorage.getItem('herdr_haptic') !== null) {
-        State.hapticEnabled = localStorage.getItem('herdr_haptic') === 'true';
-        DOM.settingHaptic.checked = State.hapticEnabled;
-    }
+    document.addEventListener('gestureend', (e) => {
+        e.preventDefault();
+    }, { passive: false });
 
-    if (localStorage.getItem('herdr_autoscroll') !== null) {
-        State.autoScroll = localStorage.getItem('herdr_autoscroll') === 'true';
-        DOM.settingAutoscroll.checked = State.autoScroll;
-    }
-
-    initEventListeners();
-    initSpeechRecognition();
-    startSync();
+    // Disable double-tap zoom on iOS WebKit
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            if (!e.target.closest('#prompt-input') && !e.target.closest('button') && !e.target.closest('input')) {
+                e.preventDefault();
+            }
+        }
+        lastTouchEnd = now;
+    }, { passive: false });
 }
 
-document.addEventListener('DOMContentLoaded', bootstrap);
+// =============================================================================
+// IOS PWA FULLSCREEN & SAFE AREA STABILIZATION (Reddit / WebKit Chin Gap Workaround)
+// =============================================================================
+function fixIosSafeAreaAndChinGap() {
+    const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isStandalone = window.navigator.standalone || 
+                         window.matchMedia('(display-mode: standalone)').matches;
+
+    if (isIos && isStandalone) {
+        // Toggle viewport-fit to force WebKit to recalculate env() values
+        // and eliminate the 59px negative offset chin gap on cold start
+        const meta = document.querySelector('meta[name="viewport"]');
+        if (meta) {
+            const original = meta.getAttribute('content');
+            if (original && original.includes('viewport-fit=cover')) {
+                meta.setAttribute('content', original.replace('viewport-fit=cover', 'viewport-fit=auto'));
+                requestAnimationFrame(() => {
+                    meta.setAttribute('content', original);
+                    requestAnimationFrame(() => {
+                        if (State.fitAddon && State.mode === 'terminal') {
+                            try { State.fitAddon.fit(); } catch (e) {}
+                        }
+                        if (State.mode === 'chat') {
+                            scrollChatToBottom();
+                        }
+                    });
+                });
+            }
+        }
+    }
+}
+
+// =============================================================================
+// APPLICATION BOOTSTRAP
+// =============================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    updateTheme(State.theme);
+    initTerminal();
+    initSpeechRecognition();
+    setupEventListeners();
+    updateInputState();
+    connectStateStream();
+
+    // iOS PWA Fullscreen & Safe Area Stabilization
+    fixIosSafeAreaAndChinGap();
+    setTimeout(fixIosSafeAreaAndChinGap, 100);
+    setTimeout(fixIosSafeAreaAndChinGap, 500);
+
+    console.log('🚀 Herdr Mobile Dashboard (WhatsApp Layout) avviato con successo.');
+});

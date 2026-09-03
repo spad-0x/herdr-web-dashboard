@@ -2,518 +2,362 @@
 <html lang="it" data-theme="cyber-dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
-    <meta name="theme-color" content="#07080c">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Herdr">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="msapplication-navbutton-color" content="#1a1a2e">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     
-    <!-- Universal & iOS Home Screen PWA Meta Tags -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Herdr">
-    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" href="/icon-180.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.json">
     
-    <!-- Icons for iOS Home Screen & All Browsers -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260903_1500">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260903_1500">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260903_1500">
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=20260903_1500">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=20260903_1500">
-    <link rel="manifest" href="/manifest.json?v=20260903_1500">
-    
-    <title>Herdr Web Dashboard</title>
+    <title>Herdr Agent Chat</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/style.css?v=20260903_1455">
+    <!-- Vendor xterm.js (Local for offline support) -->
+    <link rel="stylesheet" href="/vendor/xterm.css">
+    
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/style.css?v=20260903_1615">
 </head>
 <body>
-    <div class="app-layout" id="app-layout">
+    <div class="app-root" id="app-root">
+        
         <!-- =================================================================
-             TOP APP HEADER (Safe Area aware, Fullscreen)
+             1. TOP HEADER (Completely integrated in top / Safe Area aware)
              ================================================================= -->
-        <header class="app-header" id="app-header">
+        <header class="chat-header" id="chat-header">
             <div class="header-left">
-                <!-- Drawer Menu Button -->
-                <button class="btn-icon-header" id="btn-open-drawer" title="Menu Navigazione" aria-label="Menu">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                    <span class="drawer-trigger-badge" id="drawer-trigger-badge" style="display: none;"></span>
+                <!-- Back / Workspace Button (Chevron only) -->
+                <button class="btn-header-back" id="btn-ws-picker" title="Spazi di Lavoro" aria-label="Spazi di Lavoro">
+                    <span class="back-chevron">‹</span>
                 </button>
 
-                <div class="brand-badge" id="brand-badge" title="Herdr Dashboard">
-                    <span class="brand-icon">🐏</span>
-                    <span class="brand-title">herdr</span>
+                <!-- Agent & Workspace Info -->
+                <div class="header-contact" id="btn-header-contact" title="Dettagli Agente">
+                    <div class="contact-info">
+                        <div class="contact-title-row">
+                            <h2 class="contact-name" id="chat-header-title">Herdr Agent</h2>
+                            <span class="socket-dot" id="socket-dot" title="Stato Socket Herdr"></span>
+                        </div>
+                        <span class="contact-status" id="agent-status-text">workspace</span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Workspace & Tab Context Selector Pill -->
-            <div class="header-center">
-                <button class="context-pill" id="btn-context-picker" title="Seleziona Workspace e Tab (Ctrl+K)" aria-label="Seleziona Workspace e Tab">
-                    <span class="context-ws" id="header-ws-name">workspace</span>
-                    <span class="context-sep">/</span>
-                    <span class="context-tab" id="header-tab-name">tab 1</span>
-                    <span class="kbd-shortcut-hint">⌘K</span>
-                    <svg class="chevron-down" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
             </div>
 
             <div class="header-right">
-                <!-- Mode Toggle (Smart Chat vs Raw Console) -->
-                <button class="btn-icon-header" id="btn-toggle-raw" title="Passa tra Chat e Console Raw (Ctrl+4)">
-                    <span id="label-mode-icon">💬</span>
+                <!-- Mode Toggle (💬 Chat vs 💻 Terminal) -->
+                <button class="btn-mode-toggle" id="btn-mode-toggle" title="Passa tra Chat e Terminale Raw">
+                    <span id="mode-icon">💻</span>
+                    <span class="mode-label" id="mode-label">Terminale</span>
                 </button>
 
-                <!-- Live Agent Status Badge -->
-                <div class="agent-status-pill" id="header-agent-status" title="Stato Agente">
-                    <span class="status-pulse-dot" id="header-status-dot"></span>
-                    <span class="status-label" id="header-status-text">pronto</span>
-                </div>
-
-                <!-- Quick Refresh Button -->
-                <button class="btn-icon-header" id="btn-refresh" title="Ricarica Stato" aria-label="Ricarica">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-                        <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                <!-- More Options Menu -->
+                <button class="btn-icon-more" id="btn-open-menu" title="Menu e Impostazioni" aria-label="Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <circle cx="12" cy="12" r="1.5"></circle>
+                        <circle cx="12" cy="5" r="1.5"></circle>
+                        <circle cx="12" cy="19" r="1.5"></circle>
                     </svg>
                 </button>
             </div>
         </header>
 
         <!-- =================================================================
-             NAVIGATION DRAWER / SIDEBAR (Universal Navigation)
+             2. SLIM TAB STRIP (Tabs in active workspace)
              ================================================================= -->
-        <div class="drawer-backdrop" id="drawer-backdrop"></div>
-        <aside class="app-drawer" id="app-drawer">
-            <div class="drawer-header">
-                <div class="drawer-brand">
-                    <span class="brand-icon">🐏</span>
-                    <div class="drawer-brand-texts">
-                        <h3>Herdr Dashboard</h3>
-                        <span class="drawer-version" id="drawer-version">Daemon v0.8.2</span>
-                    </div>
-                </div>
-                <button class="btn-close-sheet" id="btn-close-drawer">✕</button>
+        <nav class="tab-strip" id="tab-strip">
+            <div class="tabs-container" id="tabs-container">
+                <!-- Tabs dynamically rendered here -->
             </div>
-
-            <div class="drawer-body">
-                <div class="drawer-nav-list">
-                    <button class="drawer-nav-item active" data-target="view-chat">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        <span>Chat Agente</span>
-                    </button>
-
-                    <button class="drawer-nav-item" data-target="view-workspaces">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        <span>Spazi di Lavoro (Workspaces)</span>
-                        <span class="drawer-nav-badge" id="drawer-ws-badge">1</span>
-                    </button>
-
-                    <button class="drawer-nav-item" data-target="view-agents">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="11" width="18" height="10" rx="2"></rect>
-                            <circle cx="12" cy="5" r="2"></circle>
-                            <path d="M12 7v4"></path>
-                        </svg>
-                        <span>Agenti Hub</span>
-                        <span class="drawer-nav-badge" id="drawer-agents-badge" style="display: none;">0</span>
-                    </button>
-
-                    <button class="drawer-nav-item" data-target="view-terminal">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="4 17 10 11 4 5"></polyline>
-                            <line x1="12" y1="19" x2="20" y2="19"></line>
-                        </svg>
-                        <span>Console Terminale</span>
-                    </button>
-
-                    <button class="drawer-nav-item" data-target="view-settings">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                        </svg>
-                        <span>Impostazioni & Temi</span>
-                    </button>
-                </div>
-
-                <!-- Quick Workspace Switcher in Drawer -->
-                <div class="drawer-section">
-                    <div class="drawer-section-title">
-                        <span>SPAZI DI LAVORO ATTIVI</span>
-                        <button class="btn-mini-add" id="btn-drawer-add-ws" title="Nuovo spazio">+</button>
-                    </div>
-                    <div class="drawer-ws-quick-list" id="drawer-ws-quick-list">
-                        <!-- Dynamic Workspaces -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="drawer-footer">
-                <button class="btn-drawer-logout" id="btn-drawer-logout">Esci dalla sessione</button>
-            </div>
-        </aside>
+            <button class="btn-add-tab" id="btn-add-tab" title="Nuova Tab">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </nav>
 
         <!-- =================================================================
-             MAIN VIEWPORT CONTAINER
+             3. MAIN VIEWPORTS: ACTIVE CHAT STREAM vs RAW TERMINAL
              ================================================================= -->
-        <main class="main-viewport" id="main-viewport">
+        <div class="viewport-wrapper" id="viewport-wrapper">
             
-            <!-- -------------------------------------------------------------
-                 VIEW 1: CHAT / CONVERSATION STREAM (Universal Fullscreen)
-                 ------------------------------------------------------------- -->
-            <section class="view-panel view-chat active" id="view-chat">
-                <!-- Daemon Offline Alert -->
-                <div class="alert-offline" id="alert-offline" style="display: none;">
-                    <div class="alert-offline-icon">⚠️</div>
-                    <div class="alert-offline-content">
-                        <strong>Herdr Socket non connesso</strong>
-                        <p>Verifica che il demone Herdr sia in esecuzione sulla macchina host (`herdr`).</p>
-                    </div>
-                </div>
-
-                <!-- Messages Stream Container -->
-                <div class="chat-messages-container" id="chat-messages">
-                    <div class="chat-welcome-card" id="chat-welcome-card">
-                        <div class="welcome-icon">🐏</div>
-                        <h2>Herdr Agent Chat</h2>
-                        <p>Benvenuto nella Web Dashboard di Herdr. Monitora i tuoi agenti autonomi, invia prompt o usa la dettatura vocale.</p>
-                        <div class="welcome-chips">
-                            <button class="welcome-chip" data-command="/plan ">📋 /plan</button>
-                            <button class="welcome-chip" data-command="/review ">🔍 /review</button>
-                            <button class="welcome-chip" data-command="/test ">🧪 /test</button>
-                            <button class="welcome-chip" data-command="git status">📦 git status</button>
+            <!-- VIEW A: ACTIVE CHAT (WhatsApp / iMessage layout) -->
+            <section class="chat-viewport active" id="chat-viewport">
+                <div class="chat-wallpaper"></div>
+                
+                <div class="chat-scroll-container" id="chat-scroll-container">
+                    <div class="chat-date-pill">Oggi</div>
+                    
+                    <!-- Dynamic Messages will render here -->
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Welcome message -->
+                        <div class="chat-bubble bubble-agent">
+                            <div class="bubble-avatar">🐏</div>
+                            <div class="bubble-body">
+                                <div class="bubble-sender">Herdr Agent</div>
+                                <div class="bubble-content">
+                                    Ciao signore! Sono pronto a lavorare sui tuoi progetti. Puoi inviarmi istruzioni, incollare screenshot o dettare tramite microfono.
+                                </div>
+                                <div class="bubble-time">15:20</div>
+                            </div>
                         </div>
                     </div>
-                    <!-- Dynamic Parsed Chat Messages will be rendered here -->
                 </div>
 
-                <!-- Floating Scroll-to-Bottom Pill -->
-                <button class="btn-scroll-bottom" id="btn-scroll-bottom" title="Scorri verso il basso" aria-label="Scorri in basso">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <!-- Floating Scroll-to-Bottom Button -->
+                <button class="btn-chat-scroll-bottom" id="btn-chat-scroll-bottom" style="display: none;" title="Vai ai messaggi più recenti">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
                         <polyline points="19 12 12 19 5 12"></polyline>
                     </svg>
                 </button>
-
-                <!-- Sticky Bottom Action & Input Bar (ALWAYS VISIBLE & CENTERED) -->
-                <div class="chat-input-sticky-container" id="chat-input-container">
-                    <div class="chat-input-inner">
-                        <!-- Action Chips Horizontal Carousel -->
-                        <div class="action-chips-wrapper">
-                            <div class="action-chips-scroll" id="action-chips-list">
-                                <button class="action-chip chip-confirm" data-key="y" title="Conferma / Approva">✓ Y (Approva)</button>
-                                <button class="action-chip chip-reject" data-key="n" title="Rifiuta">✗ N (Rifiuta)</button>
-                                <button class="action-chip chip-ctrlc" data-key="ctrl+c" title="Interrompi (Ctrl+C)">⛔ Ctrl+C</button>
-                                <button class="action-chip chip-key" data-key="esc" title="Tasto Esc">⎋ Esc</button>
-                                <button class="action-chip chip-key" data-key="tab" title="Tasto Tab">⇥ Tab</button>
-                                <button class="action-chip chip-slash" data-text="/plan ">📋 /plan</button>
-                                <button class="action-chip chip-slash" data-text="/test ">🧪 /test</button>
-                                <button class="action-chip chip-slash" data-text="/compact ">📦 /compact</button>
-                                <button class="action-chip chip-clear" id="btn-clear-chat" title="Pulisci vista chat">🧹 Pulisci</button>
-                            </div>
-                        </div>
-
-                        <!-- Image Attachment Preview Chip -->
-                        <div class="attachment-preview-bar" id="attachment-preview-bar" style="display: none;">
-                            <div class="attachment-chip">
-                                <img id="attachment-thumb" src="" alt="Allegato">
-                                <span class="attachment-name" id="attachment-name">immagine.png</span>
-                                <button class="btn-remove-attachment" id="btn-remove-attachment" title="Rimuovi allegato">✕</button>
-                            </div>
-                        </div>
-
-                        <!-- Input Controls Row -->
-                        <div class="input-controls-row">
-                            <!-- File / Image Upload Button -->
-                            <label class="btn-input-accessory" id="btn-upload-label" title="Allega o scatta immagine">
-                                <input type="file" id="file-input" accept="image/*" style="display: none;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                    <circle cx="12" cy="13" r="4"></circle>
-                                </svg>
-                            </label>
-
-                            <!-- Voice Mic Button (Web Speech API) -->
-                            <button class="btn-input-accessory btn-voice" id="btn-voice-mic" title="Dettatura Vocale (Tocca/clicca per parlare)">
-                                <div class="mic-wave-ring"></div>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                                    <line x1="12" y1="19" x2="12" y2="23"></line>
-                                    <line x1="8" y1="23" x2="16" y2="23"></line>
-                                </svg>
-                            </button>
-
-                            <!-- Auto-Expanding Prompt Textarea -->
-                            <div class="input-textarea-wrapper">
-                                <textarea id="prompt-input" rows="1" placeholder="Scrivi un prompt o comando (Invio per inviare, Shift+Invio per a capo)..." autocomplete="off" autocorrect="on"></textarea>
-                            </div>
-
-                            <!-- Send Button -->
-                            <button class="btn-send-prompt" id="btn-send-prompt" title="Invia Prompt (Enter)" aria-label="Invia">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </section>
 
-            <!-- -------------------------------------------------------------
-                 VIEW 2: WORKSPACES & SPACES
-                 ------------------------------------------------------------- -->
-            <section class="view-panel view-workspaces" id="view-workspaces">
-                <div class="panel-header-bar">
-                    <div class="panel-header-title">
-                        <button class="btn-back-to-chat" onclick="switchView('view-chat')">← Chat</button>
-                        <h2>Workspaces</h2>
-                        <span class="badge-count" id="ws-total-count">0</span>
-                    </div>
-                    <button class="btn-primary-action" id="btn-open-new-ws-modal">+ Nuovo Spazio</button>
-                </div>
-
-                <div class="workspaces-grid" id="workspaces-grid">
-                    <!-- Dynamic Workspace Cards -->
-                </div>
+            <!-- VIEW B: RAW TERMINAL (xterm.js) -->
+            <section class="terminal-viewport" id="terminal-viewport" style="display: none;">
+                <div class="terminal-container" id="terminal-container"></div>
+                
+                <button class="btn-scroll-bottom" id="btn-scroll-bottom" style="display: none;" title="Vai all'output più recente">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                    <span>Output più recente</span>
+                </button>
             </section>
-
-            <!-- -------------------------------------------------------------
-                 VIEW 3: AGENTS HUB
-                 ------------------------------------------------------------- -->
-            <section class="view-panel view-agents" id="view-agents">
-                <div class="panel-header-bar">
-                    <div class="panel-header-title">
-                        <button class="btn-back-to-chat" onclick="switchView('view-chat')">← Chat</button>
-                        <h2>Agenti Attivi</h2>
-                        <span class="badge-count" id="agents-total-count">0</span>
-                    </div>
-                </div>
-
-                <div class="agents-grid" id="agents-grid">
-                    <!-- Dynamic Agent Status Cards -->
-                </div>
-            </section>
-
-            <!-- -------------------------------------------------------------
-                 VIEW 4: RAW CONSOLE / TERMINAL
-                 ------------------------------------------------------------- -->
-            <section class="view-panel view-terminal" id="view-terminal">
-                <div class="panel-header-bar">
-                    <div class="panel-header-title">
-                        <button class="btn-back-to-chat" onclick="switchView('view-chat')">← Chat</button>
-                        <h2>Console Terminale</h2>
-                        <span class="badge-info" id="terminal-pane-label">Pane #1</span>
-                    </div>
-                    <div class="panel-header-actions">
-                        <button class="btn-secondary-action" id="btn-copy-terminal" title="Copia intero scrollback">📋 Copia</button>
-                        <button class="btn-secondary-action" id="btn-toggle-autoscroll" title="Auto-scroll attivo">⬇️ Auto-scroll</button>
-                    </div>
-                </div>
-
-                <div class="terminal-container">
-                    <pre class="terminal-output" id="terminal-raw-text">In attesa dei dati dal terminale Herdr...</pre>
-                </div>
-
-                <!-- Virtual Key Chords Toolbar -->
-                <div class="terminal-keys-toolbar">
-                    <button class="term-key-btn" data-key="ctrl+c">Ctrl+C</button>
-                    <button class="term-key-btn" data-key="ctrl+d">Ctrl+D</button>
-                    <button class="term-key-btn" data-key="esc">Esc</button>
-                    <button class="term-key-btn" data-key="tab">Tab</button>
-                    <button class="term-key-btn" data-key="up">▲ Su</button>
-                    <button class="term-key-btn" data-key="down">▼ Giù</button>
-                    <button class="term-key-btn" data-key="enter">↵ Invio</button>
-                </div>
-            </section>
-
-            <!-- -------------------------------------------------------------
-                 VIEW 5: SETTINGS & TOOLS
-                 ------------------------------------------------------------- -->
-            <section class="view-panel view-settings" id="view-settings">
-                <div class="panel-header-bar">
-                    <div class="panel-header-title">
-                        <button class="btn-back-to-chat" onclick="switchView('view-chat')">← Chat</button>
-                        <h2>Impostazioni</h2>
-                    </div>
-                </div>
-
-                <div class="settings-content">
-                    <!-- Theme Selector Card -->
-                    <div class="settings-card">
-                        <div class="settings-card-header">
-                            <span class="settings-icon">🎨</span>
-                            <div class="settings-title-group">
-                                <h3>Tema Interfaccia</h3>
-                                <p>Scegli la combinazione di colori preferita</p>
-                            </div>
-                        </div>
-                        <div class="theme-options-grid" id="theme-selector-group">
-                            <button class="theme-chip active" data-set-theme="cyber-dark">
-                                <span class="theme-preview-dot" style="background: #00f0ff;"></span>
-                                <span>Cyber Dark</span>
-                            </button>
-                            <button class="theme-chip" data-set-theme="tokyo-night">
-                                <span class="theme-preview-dot" style="background: #7aa2f7;"></span>
-                                <span>Tokyo Night</span>
-                            </button>
-                            <button class="theme-chip" data-set-theme="obsidian-oled">
-                                <span class="theme-preview-dot" style="background: #ffffff;"></span>
-                                <span>Obsidian OLED</span>
-                            </button>
-                            <button class="theme-chip" data-set-theme="synthwave">
-                                <span class="theme-preview-dot" style="background: #ff007f;"></span>
-                                <span>Synthwave</span>
-                            </button>
-                            <button class="theme-chip" data-set-theme="matrix">
-                                <span class="theme-preview-dot" style="background: #00ff66;"></span>
-                                <span>Matrix</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Voice Language Selector -->
-                    <div class="settings-card">
-                        <div class="settings-card-header">
-                            <span class="settings-icon">🎙️</span>
-                            <div class="settings-title-group">
-                                <h3>Lingua Dettatura Vocale</h3>
-                                <p>Lingua per il riconoscimento vocale Web Speech</p>
-                            </div>
-                        </div>
-                        <div class="settings-control">
-                            <select class="settings-select" id="voice-lang-select">
-                                <option value="it-IT" selected>🇮🇹 Italiano (it-IT)</option>
-                                <option value="en-US">🇺🇸 English (US)</option>
-                                <option value="es-ES">🇪🇸 Español (es-ES)</option>
-                                <option value="fr-FR">🇫🇷 Français (fr-FR)</option>
-                                <option value="de-DE">🇩🇪 Deutsch (de-DE)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Toggles Card -->
-                    <div class="settings-card">
-                        <div class="settings-card-header">
-                            <span class="settings-icon">⚡</span>
-                            <div class="settings-title-group">
-                                <h3>Feedback & Comportamento</h3>
-                                <p>Personalizza l'esperienza d'uso</p>
-                            </div>
-                        </div>
-                        <div class="settings-toggle-row">
-                            <span>Feedback Aptico (Vibrazione dispositivi compatibili)</span>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="setting-haptic" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-toggle-row">
-                            <span>Auto-scroll sui nuovi messaggi</span>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="setting-autoscroll" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Server Info Card -->
-                    <div class="settings-card">
-                        <div class="settings-card-header">
-                            <span class="settings-icon">🔌</span>
-                            <div class="settings-title-group">
-                                <h3>Stato Daemon & Socket</h3>
-                                <p>Dettagli connessione Herdr locale</p>
-                            </div>
-                        </div>
-                        <div class="info-data-list">
-                            <div class="info-data-item">
-                                <span class="info-label">Socket Unix</span>
-                                <span class="info-value" id="info-socket-path">~/.config/herdr/herdr.sock</span>
-                            </div>
-                            <div class="info-data-item">
-                                <span class="info-label">Versione Daemon</span>
-                                <span class="info-value" id="info-daemon-version">v0.8.2</span>
-                            </div>
-                            <div class="info-data-item">
-                                <span class="info-label">Connessione</span>
-                                <span class="info-value status-online-text" id="info-conn-status">Attiva</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Logout Button -->
-                    <div class="settings-actions">
-                        <button class="btn-danger-action" id="btn-logout-action">Disconnetti Sessione</button>
-                    </div>
-                </div>
-            </section>
-        </main>
+        </div>
 
         <!-- =================================================================
-             MODALS & BOTTOM SHEETS
+             4. AGENT QUICK CONFIRMATION BANNER (Contextual)
              ================================================================= -->
-        <!-- Workspace & Tab Context Sheet -->
-        <div class="modal-backdrop" id="modal-context-picker">
-            <div class="bottom-sheet">
-                <div class="sheet-drag-handle"></div>
-                <div class="sheet-header">
-                    <h3>Seleziona Spazio e Scheda</h3>
-                    <button class="btn-close-sheet" id="btn-close-context-modal">✕</button>
-                </div>
-                <div class="sheet-content" id="context-picker-list">
-                    <!-- Dynamic Context Tree -->
-                </div>
+        <div class="agent-confirm-banner" id="agent-confirm-banner" style="display: none;">
+            <div class="confirm-info">
+                <span class="confirm-pulse">⚠️</span>
+                <span class="confirm-text" id="confirm-text">L'agente richiede una conferma</span>
+            </div>
+            <div class="confirm-actions">
+                <button class="btn-confirm-yes" id="btn-confirm-yes">✓ Approva (Y)</button>
+                <button class="btn-confirm-no" id="btn-confirm-no">✗ Rifiuta (N)</button>
+                <button class="btn-confirm-stop" id="btn-confirm-stop">⛔ Ctrl+C</button>
             </div>
         </div>
 
-        <!-- Create Workspace Modal -->
-        <div class="modal-backdrop" id="modal-new-ws">
-            <div class="modal-card">
-                <div class="modal-header">
-                    <h3>Crea Nuovo Workspace</h3>
-                    <button class="btn-close-sheet" id="btn-close-new-ws-modal">✕</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="form-label">Percorso Cartella (CWD)</label>
-                        <input type="text" class="form-input" id="new-ws-path" placeholder="/percorso/del/progetto">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Etichetta Opzionale</label>
-                        <input type="text" class="form-input" id="new-ws-label" placeholder="frontend-app">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-secondary-action" id="btn-cancel-new-ws">Annulla</button>
-                    <button class="btn-primary-action" id="btn-confirm-new-ws">Crea Spazio</button>
-                </div>
+        <!-- =================================================================
+             5. CLI ACCESSORY DRAWER (Opens with '+' button in footer)
+             ================================================================= -->
+        <div class="cli-keys-drawer" id="cli-keys-drawer" style="display: none;">
+            <div class="cli-keys-scroll">
+                <button class="cli-key" data-key="esc" title="Escape">ESC</button>
+                <button class="cli-key" data-key="tab" title="Tab">TAB</button>
+                <button class="cli-key key-danger" data-key="ctrl+c" title="Interrupt">CTRL+C</button>
+                <button class="cli-key" data-key="up" title="Freccia Su (Storia)">↑</button>
+                <button class="cli-key" data-key="down" title="Freccia Giù">↓</button>
+                <button class="cli-key" data-key="left" title="Freccia Sinistra">←</button>
+                <button class="cli-key" data-key="right" title="Freccia Destra">→</button>
+                <button class="cli-key key-chip" data-send="y">y</button>
+                <button class="cli-key key-chip" data-send="n">n</button>
+                <button class="cli-key key-chip" data-send="/plan ">/plan</button>
+                <button class="cli-key key-chip" data-send="/test ">/test</button>
+                <button class="cli-key key-chip" data-send="git status">git st</button>
+                <button class="cli-key key-chip" data-send="clear">clear</button>
             </div>
         </div>
 
-        <!-- Image Lightbox Modal -->
-        <div class="lightbox-overlay" id="lightbox-overlay">
-            <img class="lightbox-image" id="lightbox-img" src="" alt="Anteprima">
-            <button class="btn-close-lightbox" id="btn-close-lightbox">✕</button>
+        <!-- =================================================================
+             6. ATTACHMENT PREVIEW BAR
+             ================================================================= -->
+        <div class="attachment-preview-bar" id="attachment-preview-bar" style="display: none;">
+            <div class="attachment-thumb-wrap" id="attachment-thumb-wrap" title="Tocca per ingrandire">
+                <img id="attachment-thumb" src="" alt="Screenshot">
+                <span class="attachment-zoom-badge">🔍</span>
+            </div>
+            <div class="attachment-meta">
+                <span class="attachment-name" id="attachment-name">screenshot.png</span>
+                <span class="attachment-size" id="attachment-size">0 KB</span>
+            </div>
+            <button class="btn-remove-attachment" id="btn-remove-attachment" title="Rimuovi immagine">✕</button>
         </div>
 
-        <!-- Toast Notifications Container -->
-        <div class="toast-container" id="toast-container"></div>
+        <!-- =================================================================
+             7. BOTTOM FOOTER (Completely integrated in bottom / Safe Area aware)
+             ================================================================= -->
+        <footer class="chat-footer" id="chat-footer">
+            <div class="footer-inner">
+                <!-- Action '+' Button (Toggles CLI Keys & Special Commands) -->
+                <button class="btn-footer-action" id="btn-toggle-actions" title="Tasti Speciali e Comandi">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+
+                <!-- Rounded Pill Input Container -->
+                <div class="footer-input-pill">
+                    <div 
+                        id="prompt-input" 
+                        contenteditable="plaintext-only" 
+                        role="textbox" 
+                        aria-multiline="true"
+                        data-placeholder="Messaggio" 
+                        autocomplete="off" 
+                        autocorrect="off" 
+                        autocapitalize="off" 
+                        spellcheck="false"></div>
+                    
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
+                    
+                    <!-- Camera / Screenshot Button -->
+                    <button class="btn-pill-camera" id="btn-attach-image" title="Scatta o allega screenshot">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- WhatsApp Style Mic / Send Morphing Button -->
+                <button class="btn-action-mic-send" id="btn-action-mic-send" title="Dettatura vocale">
+                    <!-- Mic Icon (Default when empty) -->
+                    <svg class="icon-mic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                    <!-- Send Arrow Icon (When text or attachment present) -->
+                    <svg class="icon-send" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="display: none;">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
+            </div>
+        </footer>
+
+        <!-- =================================================================
+             8. IMAGE LIGHTBOX MODAL
+             ================================================================= -->
+        <div class="lightbox-modal" id="lightbox-modal" style="display: none;">
+            <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+            <div class="lightbox-content">
+                <img id="lightbox-img" src="" alt="Screenshot completo">
+                <button class="btn-lightbox-close" id="btn-lightbox-close">✕</button>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             9. BOTTOM SHEET MODAL: WORKSPACES, PANES, SETTINGS
+             ================================================================= -->
+        <div class="sheet-backdrop" id="sheet-backdrop"></div>
+        <aside class="bottom-sheet" id="bottom-sheet">
+            <div class="sheet-handle-bar">
+                <div class="sheet-handle"></div>
+            </div>
+            
+            <div class="sheet-header">
+                <h3 class="sheet-title" id="sheet-title">Controlli Herdr</h3>
+                <button class="btn-sheet-close" id="btn-sheet-close">✕</button>
+            </div>
+
+            <div class="sheet-body">
+                <!-- Section: Workspaces -->
+                <div class="sheet-section">
+                    <div class="sheet-section-header">
+                        <h4>Spazi di Lavoro (Workspaces)</h4>
+                        <button class="btn-mini-action" id="btn-create-ws">+ Nuovo</button>
+                    </div>
+                    <div class="sheet-list" id="sheet-ws-list">
+                        <!-- Dynamic Workspaces -->
+                    </div>
+                </div>
+
+                <!-- Section: Panes in Current Tab -->
+                <div class="sheet-section">
+                    <div class="sheet-section-header">
+                        <h4>Pannelli (Panes) attivi</h4>
+                        <div class="sheet-section-actions">
+                            <button class="btn-mini-action" id="btn-split-horiz" title="Dividi orizzontalmente">⬌ Split</button>
+                            <button class="btn-mini-action" id="btn-split-vert" title="Dividi verticalmente">⬍ Split</button>
+                        </div>
+                    </div>
+                    <div class="sheet-list" id="sheet-panes-list">
+                        <!-- Dynamic Panes -->
+                    </div>
+                </div>
+
+                <!-- Section: Terminal Controls & Font -->
+                <div class="sheet-section">
+                    <div class="sheet-section-header">
+                        <h4>Impostazioni Visualizzazione</h4>
+                    </div>
+                    <div class="sheet-row-controls">
+                        <span class="control-label">Dimensione Font Terminale:</span>
+                        <div class="font-controls">
+                            <button class="btn-control-chip" id="btn-font-dec">A-</button>
+                            <span class="font-size-display" id="font-size-display">13px</span>
+                            <button class="btn-control-chip" id="btn-font-inc">A+</button>
+                        </div>
+                    </div>
+                    <div class="sheet-row-controls">
+                        <span class="control-label">Tema Visivo:</span>
+                        <select class="theme-select" id="theme-select">
+                            <option value="cyber-dark">Cyber Dark</option>
+                            <option value="tokyo-night">Tokyo Night</option>
+                            <option value="obsidian-oled">Obsidian OLED</option>
+                            <option value="synthwave">Synthwave</option>
+                            <option value="matrix">Matrix</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section: System & Logout -->
+                <div class="sheet-section">
+                    <div class="sheet-row-info">
+                        <span>Demone Herdr:</span>
+                        <span class="info-val" id="sheet-daemon-version">v0.8.2</span>
+                    </div>
+                    <div class="sheet-row-info">
+                        <span>Socket Unix:</span>
+                        <span class="info-val" id="sheet-socket-path">~/.config/herdr/herdr.sock</span>
+                    </div>
+                    <button class="btn-logout" id="btn-logout">Esci dalla sessione</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- New Workspace Dialog Modal -->
+        <dialog class="app-dialog" id="dialog-new-ws">
+            <div class="dialog-content">
+                <h3>Crea nuovo Spazio di Lavoro</h3>
+                <label>Directory del progetto (CWD):</label>
+                <input type="text" id="input-new-ws-cwd" placeholder="/Users/leospa/..." value="~" disabled tabindex="-1">
+                <label>Nome etichetta (opzionale):</label>
+                <input type="text" id="input-new-ws-label" placeholder="Es. api-service" disabled tabindex="-1">
+                <div class="dialog-buttons">
+                    <button class="btn-dialog-cancel" id="btn-dialog-cancel">Annulla</button>
+                    <button class="btn-dialog-confirm" id="btn-dialog-confirm">Crea Spazio</button>
+                </div>
+            </div>
+        </dialog>
+
+        <!-- Toast Notifications Shelf -->
+        <div class="toast-shelf" id="toast-shelf"></div>
     </div>
 
-    <!-- Frontend Controller Script -->
-    <script src="/app.js?v=20260903_1455"></script>
+    <!-- Vendor Scripts -->
+    <script src="/vendor/xterm.js"></script>
+    <script src="/vendor/addon-fit.js"></script>
+    <script src="/vendor/addon-web-links.js"></script>
+
+    <!-- Main Controller -->
+    <script src="/app.js?v=20260903_1615"></script>
 </body>
 </html>

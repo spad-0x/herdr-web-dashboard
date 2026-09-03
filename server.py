@@ -227,9 +227,16 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                     p_status = p.get("agent_status", "idle")
                     p_agent = p.get("agent")
                     
-                    p_read = herdr.read_pane(p_id, lines=lines, source=source)
+                    p_read = herdr.read_pane(p_id, lines=lines, source=source, format="ansi")
                     raw_content = p_read.get("raw_text", "")
-                    
+                    clean_content = p_read.get("clean_text", "")
+                    revision = p_read.get("revision", 0)
+
+                    clean_tail = clean_content[-400:].lower() if clean_content else ""
+                    waiting_confirm = any(kw in clean_tail for kw in [
+                        "[y/n]", "(y/n)", "[y,n]", "approve?", "proceed?", "apply these changes", "(yes/no)", "enter to confirm"
+                    ])
+
                     pane_obj = {
                         "pane_id": p_id,
                         "workspace_id": ws_id,
@@ -241,6 +248,9 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                         "status_label": p_status,
                         "focused": p.get("focused", False) or (p_id == focused_pane_id),
                         "raw_text": raw_content,
+                        "clean_text": clean_content,
+                        "revision": revision,
+                        "waiting_confirm": waiting_confirm,
                         "screen_text": raw_content,
                         "history": raw_content,
                         "lines": p_read.get("lines", [])
@@ -623,6 +633,23 @@ class DashboardHandler(BaseHTTPRequestHandler):
         if parsed.path == "/api/tab/focus":
             tab_id = payload.get("tab_id")
             res = herdr.tab_focus(tab_id)
+            return self.send_json(res)
+
+        # Pane Management
+        if parsed.path == "/api/pane/focus":
+            pane_id = payload.get("pane_id")
+            res = herdr.pane_focus(pane_id)
+            return self.send_json(res)
+
+        if parsed.path == "/api/pane/split":
+            pane_id = payload.get("pane_id")
+            direction = payload.get("direction", "right")
+            res = herdr.pane_split(pane_id, direction=direction)
+            return self.send_json(res)
+
+        if parsed.path == "/api/pane/close":
+            pane_id = payload.get("pane_id")
+            res = herdr.pane_close(pane_id)
             return self.send_json(res)
 
         # Upload Management (Images/Files)

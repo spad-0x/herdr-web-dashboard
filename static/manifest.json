@@ -6,10 +6,16 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#07080c",
-  "theme_color": "#07080c",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
   "categories": ["developer-tools", "productivity", "utilities"],
   "icons": [
+    {
+      "src": "/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/apple-touch-icon.png",
       "sizes": "180x180",
