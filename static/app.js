@@ -797,11 +797,11 @@ function handleStateUpdate(data) {
 
     if (data.version) {
         State.version = data.version;
-        DOM.sheetDaemonVersion.textContent = `v${data.version}`;
+        if (DOM.sheetDaemonVersion) DOM.sheetDaemonVersion.textContent = `v${data.version}`;
     }
     if (data.socket_path) {
         State.socketPath = data.socket_path;
-        DOM.sheetSocketPath.textContent = data.socket_path;
+        if (DOM.sheetSocketPath) DOM.sheetSocketPath.textContent = data.socket_path;
     }
 
     State.workspaces = data.workspaces || [];
@@ -1373,7 +1373,7 @@ function updateFontSize(delta) {
     const newSize = Math.max(9, Math.min(22, State.fontSize + delta));
     State.fontSize = newSize;
     localStorage.setItem('herdr_font_size', newSize.toString());
-    DOM.fontSizeDisplay.textContent = `${newSize}px`;
+    if (DOM.fontSizeDisplay) DOM.fontSizeDisplay.textContent = `${newSize}px`;
 
     if (State.term) {
         State.term.options.fontSize = newSize;
@@ -1585,8 +1585,8 @@ function setupEventListeners() {
         closeBottomSheet();
     });
 
-    DOM.btnFontDec.addEventListener('click', () => updateFontSize(-1));
-    DOM.btnFontInc.addEventListener('click', () => updateFontSize(1));
+    if (DOM.btnFontDec) DOM.btnFontDec.addEventListener('click', () => updateFontSize(-1));
+    if (DOM.btnFontInc) DOM.btnFontInc.addEventListener('click', () => updateFontSize(1));
 
     if (DOM.themeChipsList) {
         DOM.themeChipsList.addEventListener('click', (e) => {
@@ -1598,10 +1598,12 @@ function setupEventListeners() {
         });
     }
 
-    DOM.btnLogout.addEventListener('click', async () => {
-        await apiCall('/api/logout');
-        window.location.href = '/login';
-    });
+    if (DOM.btnLogout) {
+        DOM.btnLogout.addEventListener('click', async () => {
+            await apiCall('/api/logout');
+            window.location.href = '/login';
+        });
+    }
 
     // Workspace Dialog
     if (DOM.btnCreateWs) {
