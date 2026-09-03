@@ -3,12 +3,19 @@
   "short_name": "Herdr",
   "description": "Universal AI Agent & Terminal Web Dashboard for Herdr",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#07080c",
   "theme_color": "#07080c",
   "categories": ["developer-tools", "productivity", "utilities"],
   "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
