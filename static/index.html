@@ -6,34 +6,30 @@
     <meta name="theme-color" content="#07080c">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Herdr">
     <meta name="format-detection" content="telephone=no">
     
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.json">
     
-    <title>Herdr Mobile Dashboard</title>
+    <title>Herdr Web Dashboard</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/style.css?v=20260902_1350">
+    <link rel="stylesheet" href="/style.css?v=20260903_1440">
 </head>
 <body>
     <div class="app-layout" id="app-layout">
         <!-- =================================================================
-             TOP APP HEADER (Safe Area aware)
+             TOP APP HEADER (Universal, Responsive)
              ================================================================= -->
         <header class="app-header" id="app-header">
             <div class="header-left">
-                <!-- Drawer Menu Button -->
-                <button class="btn-icon-header" id="btn-open-drawer" title="Apri Menu" aria-label="Menu">
+                <!-- Drawer / Sidebar Menu Button -->
+                <button class="btn-icon-header" id="btn-open-drawer" title="Menu Navigazione" aria-label="Menu">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
                         <line x1="3" y1="12" x2="21" y2="12"></line>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -42,7 +38,7 @@
                     <span class="drawer-trigger-badge" id="drawer-trigger-badge" style="display: none;"></span>
                 </button>
 
-                <div class="brand-badge" id="brand-badge" title="Herdr Mobile">
+                <div class="brand-badge" id="brand-badge" title="Herdr Dashboard">
                     <span class="brand-icon">🐏</span>
                     <span class="brand-title">herdr</span>
                 </div>
@@ -50,10 +46,11 @@
 
             <!-- Workspace & Tab Context Selector Pill -->
             <div class="header-center">
-                <button class="context-pill" id="btn-context-picker" aria-label="Seleziona Workspace e Tab">
+                <button class="context-pill" id="btn-context-picker" title="Seleziona Workspace e Tab (Ctrl+K)" aria-label="Seleziona Workspace e Tab">
                     <span class="context-ws" id="header-ws-name">workspace</span>
                     <span class="context-sep">/</span>
                     <span class="context-tab" id="header-tab-name">tab 1</span>
+                    <span class="kbd-shortcut-hint">⌘K</span>
                     <svg class="chevron-down" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
@@ -61,8 +58,8 @@
             </div>
 
             <div class="header-right">
-                <!-- Mode Toggle (Smart Chat vs Raw CLI) -->
-                <button class="btn-icon-header" id="btn-toggle-raw" title="Passa a Console Raw / Chat">
+                <!-- Mode Toggle (Smart Chat vs Raw Console) -->
+                <button class="btn-icon-header" id="btn-toggle-raw" title="Passa tra Chat e Console Raw (Ctrl+4)">
                     <span id="label-mode-icon">💬</span>
                 </button>
 
@@ -82,7 +79,7 @@
         </header>
 
         <!-- =================================================================
-             NAVIGATION DRAWER (Slide-over Menu for native mobile navigation)
+             NAVIGATION DRAWER / SIDEBAR (Universal Navigation)
              ================================================================= -->
         <div class="drawer-backdrop" id="drawer-backdrop"></div>
         <aside class="app-drawer" id="app-drawer">
@@ -164,15 +161,15 @@
         <main class="main-viewport" id="main-viewport">
             
             <!-- -------------------------------------------------------------
-                 VIEW 1: CHAT / CONVERSATION STREAM (Default Fullscreen)
+                 VIEW 1: CHAT / CONVERSATION STREAM (Universal Fullscreen)
                  ------------------------------------------------------------- -->
             <section class="view-panel view-chat active" id="view-chat">
                 <!-- Daemon Offline Alert -->
                 <div class="alert-offline" id="alert-offline" style="display: none;">
                     <div class="alert-offline-icon">⚠️</div>
                     <div class="alert-offline-content">
-                        <strong>Herdr Socket non rilevato</strong>
-                        <p>Verifica che il demone Herdr sia in esecuzione sul Mac (`herdr`).</p>
+                        <strong>Herdr Socket non connesso</strong>
+                        <p>Verifica che il demone Herdr sia in esecuzione sulla macchina host (`herdr`).</p>
                     </div>
                 </div>
 
@@ -181,7 +178,7 @@
                     <div class="chat-welcome-card" id="chat-welcome-card">
                         <div class="welcome-icon">🐏</div>
                         <h2>Herdr Agent Chat</h2>
-                        <p>Benvenuto nell'interfaccia mobile di Herdr. Monitora i tuoi agenti autonomi o invia prompt vocali e testuali.</p>
+                        <p>Benvenuto nella Web Dashboard di Herdr. Monitora i tuoi agenti autonomi, invia prompt o usa la dettatura vocale.</p>
                         <div class="welcome-chips">
                             <button class="welcome-chip" data-command="/plan ">📋 /plan</button>
                             <button class="welcome-chip" data-command="/review ">🔍 /review</button>
@@ -200,66 +197,68 @@
                     </svg>
                 </button>
 
-                <!-- Sticky Bottom Action & Input Bar (ALWAYS VISIBLE) -->
+                <!-- Sticky Bottom Action & Input Bar (ALWAYS VISIBLE & CENTERED) -->
                 <div class="chat-input-sticky-container" id="chat-input-container">
-                    <!-- Action Chips Horizontal Carousel -->
-                    <div class="action-chips-wrapper">
-                        <div class="action-chips-scroll" id="action-chips-list">
-                            <button class="action-chip chip-confirm" data-key="y" title="Conferma / Approva">✓ Y (Approva)</button>
-                            <button class="action-chip chip-reject" data-key="n" title="Rifiuta">✗ N (Rifiuta)</button>
-                            <button class="action-chip chip-ctrlc" data-key="ctrl+c" title="Interrompi (Ctrl+C)">⛔ Ctrl+C</button>
-                            <button class="action-chip chip-key" data-key="esc" title="Tasto Esc">⎋ Esc</button>
-                            <button class="action-chip chip-key" data-key="tab" title="Tasto Tab">⇥ Tab</button>
-                            <button class="action-chip chip-slash" data-text="/plan ">📋 /plan</button>
-                            <button class="action-chip chip-slash" data-text="/test ">🧪 /test</button>
-                            <button class="action-chip chip-slash" data-text="/compact ">📦 /compact</button>
-                            <button class="action-chip chip-clear" id="btn-clear-chat" title="Pulisci vista chat">🧹 Pulisci</button>
-                        </div>
-                    </div>
-
-                    <!-- Image Attachment Preview Chip -->
-                    <div class="attachment-preview-bar" id="attachment-preview-bar" style="display: none;">
-                        <div class="attachment-chip">
-                            <img id="attachment-thumb" src="" alt="Allegato">
-                            <span class="attachment-name" id="attachment-name">foto.png</span>
-                            <button class="btn-remove-attachment" id="btn-remove-attachment" title="Rimuovi allegato">✕</button>
-                        </div>
-                    </div>
-
-                    <!-- Input Controls Row -->
-                    <div class="input-controls-row">
-                        <!-- Camera / Gallery Upload Button -->
-                        <label class="btn-input-accessory" id="btn-upload-label" title="Scatta o allega immagine">
-                            <input type="file" id="file-input" accept="image/*" style="display: none;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                                <circle cx="12" cy="13" r="4"></circle>
-                            </svg>
-                        </label>
-
-                        <!-- Voice Mic Button (Web Speech API) -->
-                        <button class="btn-input-accessory btn-voice" id="btn-voice-mic" title="Dettatura Vocale (Tocca per parlare)">
-                            <div class="mic-wave-ring"></div>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                                <line x1="12" y1="19" x2="12" y2="23"></line>
-                                <line x1="8" y1="23" x2="16" y2="23"></line>
-                            </svg>
-                        </button>
-
-                        <!-- Auto-Expanding Prompt Textarea -->
-                        <div class="input-textarea-wrapper">
-                            <textarea id="prompt-input" rows="1" placeholder="Scrivi un prompt o comandi..." autocomplete="off" autocorrect="on"></textarea>
+                    <div class="chat-input-inner">
+                        <!-- Action Chips Horizontal Carousel -->
+                        <div class="action-chips-wrapper">
+                            <div class="action-chips-scroll" id="action-chips-list">
+                                <button class="action-chip chip-confirm" data-key="y" title="Conferma / Approva">✓ Y (Approva)</button>
+                                <button class="action-chip chip-reject" data-key="n" title="Rifiuta">✗ N (Rifiuta)</button>
+                                <button class="action-chip chip-ctrlc" data-key="ctrl+c" title="Interrompi (Ctrl+C)">⛔ Ctrl+C</button>
+                                <button class="action-chip chip-key" data-key="esc" title="Tasto Esc">⎋ Esc</button>
+                                <button class="action-chip chip-key" data-key="tab" title="Tasto Tab">⇥ Tab</button>
+                                <button class="action-chip chip-slash" data-text="/plan ">📋 /plan</button>
+                                <button class="action-chip chip-slash" data-text="/test ">🧪 /test</button>
+                                <button class="action-chip chip-slash" data-text="/compact ">📦 /compact</button>
+                                <button class="action-chip chip-clear" id="btn-clear-chat" title="Pulisci vista chat">🧹 Pulisci</button>
+                            </div>
                         </div>
 
-                        <!-- Send Button -->
-                        <button class="btn-send-prompt" id="btn-send-prompt" title="Invia Prompt" aria-label="Invia">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                                <line x1="22" y1="2" x2="11" y2="13"></line>
-                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                            </svg>
-                        </button>
+                        <!-- Image Attachment Preview Chip -->
+                        <div class="attachment-preview-bar" id="attachment-preview-bar" style="display: none;">
+                            <div class="attachment-chip">
+                                <img id="attachment-thumb" src="" alt="Allegato">
+                                <span class="attachment-name" id="attachment-name">immagine.png</span>
+                                <button class="btn-remove-attachment" id="btn-remove-attachment" title="Rimuovi allegato">✕</button>
+                            </div>
+                        </div>
+
+                        <!-- Input Controls Row -->
+                        <div class="input-controls-row">
+                            <!-- File / Image Upload Button -->
+                            <label class="btn-input-accessory" id="btn-upload-label" title="Allega o scatta immagine">
+                                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                    <circle cx="12" cy="13" r="4"></circle>
+                                </svg>
+                            </label>
+
+                            <!-- Voice Mic Button (Web Speech API) -->
+                            <button class="btn-input-accessory btn-voice" id="btn-voice-mic" title="Dettatura Vocale (Tocca/clicca per parlare)">
+                                <div class="mic-wave-ring"></div>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                                </svg>
+                            </button>
+
+                            <!-- Auto-Expanding Prompt Textarea -->
+                            <div class="input-textarea-wrapper">
+                                <textarea id="prompt-input" rows="1" placeholder="Scrivi un prompt o comando (Invio per inviare, Shift+Invio per a capo)..." autocomplete="off" autocorrect="on"></textarea>
+                            </div>
+
+                            <!-- Send Button -->
+                            <button class="btn-send-prompt" id="btn-send-prompt" title="Invia Prompt (Enter)" aria-label="Invia">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -306,7 +305,7 @@
                 <div class="panel-header-bar">
                     <div class="panel-header-title">
                         <button class="btn-back-to-chat" onclick="switchView('view-chat')">← Chat</button>
-                        <h2>Console</h2>
+                        <h2>Console Terminale</h2>
                         <span class="badge-info" id="terminal-pane-label">Pane #1</span>
                     </div>
                     <div class="panel-header-actions">
@@ -349,7 +348,7 @@
                             <span class="settings-icon">🎨</span>
                             <div class="settings-title-group">
                                 <h3>Tema Interfaccia</h3>
-                                <p>Scegli la palette di colori preferita</p>
+                                <p>Scegli la combinazione di colori preferita</p>
                             </div>
                         </div>
                         <div class="theme-options-grid" id="theme-selector-group">
@@ -382,7 +381,7 @@
                             <span class="settings-icon">🎙️</span>
                             <div class="settings-title-group">
                                 <h3>Lingua Dettatura Vocale</h3>
-                                <p>Lingua per il riconoscimento speech-to-text</p>
+                                <p>Lingua per il riconoscimento vocale Web Speech</p>
                             </div>
                         </div>
                         <div class="settings-control">
@@ -402,18 +401,18 @@
                             <span class="settings-icon">⚡</span>
                             <div class="settings-title-group">
                                 <h3>Feedback & Comportamento</h3>
-                                <p>Personalizza l'esperienza mobile</p>
+                                <p>Personalizza l'esperienza d'uso</p>
                             </div>
                         </div>
                         <div class="settings-toggle-row">
-                            <span>Feedback Aptico (Vibrazione)</span>
+                            <span>Feedback Aptico (Vibrazione dispositivi compatibili)</span>
                             <label class="toggle-switch">
                                 <input type="checkbox" id="setting-haptic" checked>
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
                         <div class="settings-toggle-row">
-                            <span>Auto-scroll su nuovi messaggi</span>
+                            <span>Auto-scroll sui nuovi messaggi</span>
                             <label class="toggle-switch">
                                 <input type="checkbox" id="setting-autoscroll" checked>
                                 <span class="toggle-slider"></span>
@@ -481,7 +480,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="form-label">Percorso Cartella (CWD)</label>
-                        <input type="text" class="form-input" id="new-ws-path" placeholder="/Users/username/Projects/my-app">
+                        <input type="text" class="form-input" id="new-ws-path" placeholder="/percorso/del/progetto">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Etichetta Opzionale</label>
@@ -506,6 +505,6 @@
     </div>
 
     <!-- Frontend Controller Script -->
-    <script src="/app.js?v=20260902_1350"></script>
+    <script src="/app.js?v=20260903_1440"></script>
 </body>
 </html>

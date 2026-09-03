@@ -1210,6 +1210,39 @@ function initEventListeners() {
         localStorage.removeItem('herdr_token');
         window.location.href = '/login';
     });
+
+    // Global Desktop & Tablet Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Cmd+K or Ctrl+K -> Context Picker
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            renderContextPicker();
+            openModal('modal-context-picker');
+            return;
+        }
+
+        // Cmd+1..5 or Ctrl+1..5 -> Switch Views
+        if ((e.metaKey || e.ctrlKey) && ['1', '2', '3', '4', '5'].includes(e.key)) {
+            e.preventDefault();
+            const viewMap = {
+                '1': 'view-chat',
+                '2': 'view-workspaces',
+                '3': 'view-agents',
+                '4': 'view-terminal',
+                '5': 'view-settings'
+            };
+            switchView(viewMap[e.key]);
+            return;
+        }
+
+        // Escape -> Close Modals, Lightbox & Drawer
+        if (e.key === 'Escape') {
+            closeDrawer();
+            closeModal('modal-context-picker');
+            closeModal('modal-new-ws');
+            DOM.lightboxOverlay.classList.remove('open');
+        }
+    });
 }
 
 // =============================================================================

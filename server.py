@@ -370,7 +370,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
         path = parsed.path
         query = parse_qs(parsed.query)
 
-        # Download CA Certificate for iOS Profile Trust
+        # Download Root CA Certificate (Cross-Platform Trust)
         if path == "/ca.crt":
             if os.path.isfile(CA_CERT_FILE):
                 try:

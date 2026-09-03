@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
     <meta name="theme-color" content="#07080c">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Herdr">
+    <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
     <title>Accedi — Herdr</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +24,7 @@
             --text-muted: #5e6982;
             --accent-cyan: #00f0ff;
             --accent-glow: 0 0 24px rgba(0, 240, 255, 0.25);
-            --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
@@ -46,10 +45,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
             min-height: 100dvh;
             padding: 20px;
-            padding-top: max(20px, env(safe-area-inset-top));
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
         }
 
         .login-card {
@@ -59,8 +57,8 @@
             border: 1px solid var(--border-subtle);
             border-radius: 24px;
             width: 100%;
-            max-width: 390px;
-            padding: 32px 28px;
+            max-width: 400px;
+            padding: 36px 30px;
             box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 1px rgba(255, 255, 255, 0.2) inset;
             display: flex;
             flex-direction: column;
@@ -110,7 +108,7 @@
         .login-subtitle {
             font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.4;
+            line-height: 1.45;
         }
 
         .form-group {
@@ -191,6 +189,11 @@
             box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
         }
 
+        .btn-submit:hover {
+            filter: brightness(1.05);
+            box-shadow: 0 6px 24px rgba(0, 240, 255, 0.45);
+        }
+
         .btn-submit:active {
             transform: scale(0.98);
             box-shadow: 0 2px 10px rgba(0, 240, 255, 0.2);
@@ -216,7 +219,7 @@
 
         .footer-note {
             text-align: center;
-            font-size: 11px;
+            font-size: 11.5px;
             color: var(--text-muted);
             line-height: 1.5;
         }
@@ -224,6 +227,10 @@
         .footer-note a {
             color: var(--accent-cyan);
             text-decoration: none;
+        }
+
+        .footer-note a:hover {
+            text-decoration: underline;
         }
 
         .spinner {
@@ -246,7 +253,7 @@
         <div class="login-header">
             <div class="login-logo">🐏</div>
             <h1 class="login-title">Herdr Dashboard</h1>
-            <p class="login-subtitle">Accedi per gestire i tuoi agenti e terminali da mobile in modo sicuro.</p>
+            <p class="login-subtitle">Accedi per gestire i tuoi agenti e terminali su qualsiasi dispositivo.</p>
         </div>
 
         <div id="alert-box" class="alert-box">
@@ -285,7 +292,7 @@
         </form>
 
         <div class="footer-note">
-            Certificato SSL locale attivo • <a href="/ca.crt" download>Scarica Certificato CA</a>
+            Certificato HTTPS locale attivo • <a href="/ca.crt" download>Scarica Certificato Root CA</a>
         </div>
     </div>
 
