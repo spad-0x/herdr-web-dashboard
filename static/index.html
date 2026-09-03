@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/vendor/xterm.css">
     
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css?v=20260903_1734">
+    <link rel="stylesheet" href="/style.css?v=20260903_1739">
 </head>
 <body>
     <div class="app-root" id="app-root">
@@ -162,9 +162,15 @@
 
             <!-- VIEW B: RAW TERMINAL (Full Xterm.js interactive canvas) -->
             <section class="terminal-viewport" id="terminal-viewport" style="display: none;">
-                <div class="terminal-canvas-container" id="terminal-canvas-container">
-                    <!-- Xterm Canvas rendered dynamically -->
-                </div>
+                <div class="terminal-container" id="terminal-container"></div>
+                
+                <button class="btn-scroll-bottom" id="btn-scroll-bottom" style="display: none;" title="Vai all'output più recente">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                    <span>Output più recente</span>
+                </button>
             </section>
         </div>
 
@@ -392,6 +398,6 @@
     <script src="/vendor/addon-web-links.js"></script>
 
     <!-- Main Controller -->
-    <script src="/app.js?v=20260903_1734"></script>
+    <script src="/app.js?v=20260903_1739"></script>
 </body>
 </html>

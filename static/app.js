@@ -287,6 +287,8 @@ const TERMINAL_THEMES = {
 };
 
 function initTerminal() {
+    if (!DOM.terminalContainer) return;
+
     const selectedTheme = TERMINAL_THEMES[State.theme] || TERMINAL_THEMES['cyber-dark'];
 
     State.term = new Terminal({
@@ -301,22 +303,26 @@ function initTerminal() {
         smoothScrollDuration: 100
     });
 
-    State.fitAddon = new FitAddon.FitAddon();
-    State.term.loadAddon(State.fitAddon);
+    if (window.FitAddon && FitAddon.FitAddon) {
+        State.fitAddon = new FitAddon.FitAddon();
+        State.term.loadAddon(State.fitAddon);
+    }
 
-    State.webLinksAddon = new WebLinksAddon.WebLinksAddon();
-    State.term.loadAddon(State.webLinksAddon);
+    if (window.WebLinksAddon && WebLinksAddon.WebLinksAddon) {
+        State.webLinksAddon = new WebLinksAddon.WebLinksAddon();
+        State.term.loadAddon(State.webLinksAddon);
+    }
 
     State.term.open(DOM.terminalContainer);
     
     setTimeout(() => {
-        try { State.fitAddon.fit(); } catch (e) {}
+        try { if (State.fitAddon) State.fitAddon.fit(); } catch (e) {}
     }, 60);
 
     State.term.onScroll(() => {
         const buffer = State.term.buffer.active;
         const atBottom = buffer.viewportY >= buffer.baseY;
-        DOM.btnScrollBottom.style.display = atBottom ? 'none' : 'flex';
+        if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = atBottom ? 'none' : 'flex';
     });
 
     State.term.onData(data => {
@@ -338,10 +344,12 @@ function initTerminal() {
         State.term.focus();
     });
 
-    DOM.btnScrollBottom.addEventListener('click', () => {
-        State.term.scrollToBottom();
-        DOM.btnScrollBottom.style.display = 'none';
-    });
+    if (DOM.btnScrollBottom) {
+        DOM.btnScrollBottom.addEventListener('click', () => {
+            State.term.scrollToBottom();
+            DOM.btnScrollBottom.style.display = 'none';
+        });
+    }
 }
 
 // =============================================================================
@@ -1754,17 +1762,22 @@ function fixIosSafeAreaAndChinGap() {
 // APPLICATION BOOTSTRAP
 // =============================================================================
 document.addEventListener('DOMContentLoaded', () => {
-    updateTheme(State.theme);
-    initTerminal();
-    initSpeechRecognition();
-    setupEventListeners();
-    updateInputState();
+    // 1. Establish SSE stream immediately
     connectStateStream();
 
-    // iOS PWA Fullscreen & Safe Area Stabilization
-    fixIosSafeAreaAndChinGap();
-    setTimeout(fixIosSafeAreaAndChinGap, 100);
-    setTimeout(fixIosSafeAreaAndChinGap, 500);
+    // 2. Initialize subsystems safely
+    try { updateTheme(State.theme); } catch (e) { console.error('Theme error:', e); }
+    try { initTerminal(); } catch (e) { console.error('Terminal error:', e); }
+    try { initSpeechRecognition(); } catch (e) { console.error('Speech error:', e); }
+    try { setupEventListeners(); } catch (e) { console.error('Listeners error:', e); }
+    try { updateInputState(); } catch (e) { console.error('Input state error:', e); }
 
-    console.log('🚀 Herdr Mobile Dashboard (WhatsApp Layout) avviato con successo.');
+    // 3. iOS PWA Fullscreen & Safe Area Stabilization
+    try {
+        fixIosSafeAreaAndChinGap();
+        setTimeout(fixIosSafeAreaAndChinGap, 100);
+        setTimeout(fixIosSafeAreaAndChinGap, 500);
+    } catch (e) { console.error('Safe area error:', e); }
+
+    console.log('🚀 Herdr Mobile Dashboard avviato con successo.');
 });
