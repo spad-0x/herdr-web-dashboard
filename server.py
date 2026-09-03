@@ -179,6 +179,40 @@ def verify_user_password(username, password):
     except Exception:
         return False
 
+def get_git_branch(cwd):
+    """Fast lookup of current git branch from directory path without subprocess latency."""
+    if not cwd or cwd == "~":
+        return None
+    try:
+        curr = os.path.abspath(os.path.expanduser(cwd))
+        while curr and curr != "/":
+            head_file = os.path.join(curr, ".git", "HEAD")
+            if os.path.isfile(head_file):
+                with open(head_file, "r") as f:
+                    ref = f.read().strip()
+                    if ref.startswith("ref: refs/heads/"):
+                        return ref.replace("ref: refs/heads/", "")
+                    return ref[:8]
+            git_file = os.path.join(curr, ".git")
+            if os.path.isfile(git_file):
+                with open(git_file, "r") as f:
+                    c = f.read().strip()
+                    if c.startswith("gitdir:"):
+                        gitdir = c.split(":", 1)[1].strip()
+                        if not os.path.isabs(gitdir):
+                            gitdir = os.path.normpath(os.path.join(curr, gitdir))
+                        hf = os.path.join(gitdir, "HEAD")
+                        if os.path.isfile(hf):
+                            with open(hf, "r") as h:
+                                ref = h.read().strip()
+                                if ref.startswith("ref: refs/heads/"):
+                                    return ref.replace("ref: refs/heads/", "")
+                                return ref[:8]
+            curr = os.path.dirname(curr)
+    except Exception:
+        pass
+    return None
+
 def get_aggregated_state(lines=1500, source="recent_unwrapped"):
     """Fetch full aggregated state of workspaces, tabs, panes, and detected agents."""
     connected, msg = herdr.is_connected()
@@ -226,6 +260,8 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                     p_title = p.get("terminal_title_stripped") or p.get("terminal_title") or f"Pane {p_id}"
                     p_status = p.get("agent_status", "idle")
                     p_agent = p.get("agent")
+                    p_cwd = p.get("foreground_cwd") or p.get("cwd") or "~"
+                    p_branch = get_git_branch(p_cwd)
                     
                     p_read = herdr.read_pane(p_id, lines=lines, source=source, format="ansi")
                     raw_content = p_read.get("raw_text", "")
@@ -242,7 +278,9 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                         "workspace_id": ws_id,
                         "tab_id": t_id,
                         "title": p_title,
-                        "cwd": p.get("cwd", "~"),
+                        "command": p.get("terminal_title_stripped") or p.get("terminal_title"),
+                        "cwd": p_cwd,
+                        "branch": p_branch,
                         "agent": p_agent,
                         "status": p_status,
                         "status_label": p_status,
@@ -269,7 +307,8 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                             "name": p_agent or p_title,
                             "title": p_title,
                             "status": p_status,
-                            "cwd": p.get("cwd", "~")
+                            "cwd": p_cwd,
+                            "branch": p_branch
                         })
 
             ws_tabs.append({
@@ -279,10 +318,28 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                 "panes": tab_panes
             })
 
+        # Derive real workspace CWD from focused pane or any pane in workspace
+        ws_cwd = ws.get("cwd")
+        if not ws_cwd or ws_cwd == "~":
+            for p in raw_panes:
+                if p.get("workspace_id") == ws_id and p.get("focused"):
+                    ws_cwd = p.get("foreground_cwd") or p.get("cwd")
+                    if ws_cwd:
+                        break
+            if not ws_cwd or ws_cwd == "~":
+                for p in raw_panes:
+                    if p.get("workspace_id") == ws_id:
+                        ws_cwd = p.get("foreground_cwd") or p.get("cwd")
+                        if ws_cwd:
+                            break
+        ws_cwd = ws_cwd or "~"
+        ws_branch = get_git_branch(ws_cwd)
+
         workspaces.append({
             "id": ws_id,
             "name": ws_label,
-            "cwd": ws.get("cwd", "~"),
+            "cwd": ws_cwd,
+            "branch": ws_branch,
             "focused": ws.get("focused", False) or (ws_id == focused_ws_id),
             "tabs": ws_tabs,
             "panes": ws_all_panes

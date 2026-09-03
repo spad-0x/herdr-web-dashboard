@@ -112,6 +112,10 @@ const DOM = {
     contactHeroName: document.getElementById('contact-hero-name'),
     contactHeroSubtitle: document.getElementById('contact-hero-subtitle'),
     contactCwdVal: document.getElementById('contact-cwd-val'),
+    contactBranchVal: document.getElementById('contact-branch-val'),
+    contactPaneIdVal: document.getElementById('contact-pane-id-val'),
+    contactCmdVal: document.getElementById('contact-cmd-val'),
+    contactStatusVal: document.getElementById('contact-status-val'),
     btnQuickChat: document.getElementById('btn-quick-chat'),
     btnQuickTerm: document.getElementById('btn-quick-term'),
     btnQuickTab: document.getElementById('btn-quick-tab'),
@@ -400,10 +404,18 @@ function renderChatsList() {
 
     const filter = State.chatsFilter || 'panes';
 
-    // Update Header title based on active tab
+    // Update Header title and new chat button based on active tab
     if (DOM.chatsViewTitle) {
-        if (filter === 'workspaces') DOM.chatsViewTitle.textContent = 'Spazi';
-        else DOM.chatsViewTitle.textContent = 'Agenti';
+        if (filter === 'settings') {
+            DOM.chatsViewTitle.textContent = 'Impostazioni';
+            if (DOM.btnNewChat) DOM.btnNewChat.style.display = 'none';
+        } else if (filter === 'workspaces') {
+            DOM.chatsViewTitle.textContent = 'Spazi';
+            if (DOM.btnNewChat) DOM.btnNewChat.style.display = 'flex';
+        } else {
+            DOM.chatsViewTitle.textContent = 'Agenti';
+            if (DOM.btnNewChat) DOM.btnNewChat.style.display = 'flex';
+        }
     }
 
     // Sync tabbar active state
@@ -413,6 +425,146 @@ function renderChatsList() {
                 item.classList.toggle('active', item.dataset.filter === filter);
             }
         });
+    }
+
+    // Dedicated App Settings Screen
+    if (filter === 'settings') {
+        const settingsWrap = document.createElement('div');
+        settingsWrap.className = 'settings-page-wrapper';
+        settingsWrap.innerHTML = `
+            <!-- App Hero Card -->
+            <div class="settings-hero-card">
+                <div class="settings-hero-icon">🐏</div>
+                <div class="settings-hero-info">
+                    <div class="settings-hero-title">Herdr Web Dashboard</div>
+                    <div class="settings-hero-subtitle">Impostazioni Globali dell'Applicazione</div>
+                </div>
+            </div>
+
+            <!-- Group 1: Aspetto e Temi Visivi (App-wide) -->
+            <div class="settings-section-card">
+                <div class="settings-section-title">Aspetto e Temi Visivi</div>
+                <div class="settings-item-row column">
+                    <div class="settings-item-left">
+                        <span class="settings-item-label">🎨 Tema Grafico</span>
+                        <span class="settings-item-desc">Seleziona la palette dei colori per l'intera interfaccia</span>
+                    </div>
+                    <div class="theme-chips-list" id="settings-theme-chips" style="width: 100%;">
+                        <button type="button" class="theme-chip-btn ${State.currentTheme === 'cyber-dark' ? 'active' : ''}" data-theme="cyber-dark">Cyber Dark</button>
+                        <button type="button" class="theme-chip-btn ${State.currentTheme === 'tokyo-night' ? 'active' : ''}" data-theme="tokyo-night">Tokyo Night</button>
+                        <button type="button" class="theme-chip-btn ${State.currentTheme === 'obsidian-oled' ? 'active' : ''}" data-theme="obsidian-oled">Obsidian</button>
+                        <button type="button" class="theme-chip-btn ${State.currentTheme === 'synthwave' ? 'active' : ''}" data-theme="synthwave">Synthwave</button>
+                        <button type="button" class="theme-chip-btn ${State.currentTheme === 'matrix' ? 'active' : ''}" data-theme="matrix">Matrix</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group 2: Terminale e Visualizzazione -->
+            <div class="settings-section-card">
+                <div class="settings-section-title">Terminale e Testo</div>
+                <div class="settings-item-row">
+                    <div class="settings-item-left">
+                        <span class="settings-item-label">🔤 Dimensione Font Terminale</span>
+                        <span class="settings-item-desc">Regola la grandezza dei caratteri per xterm</span>
+                    </div>
+                    <div class="font-controls">
+                        <button class="btn-control-chip" id="settings-font-dec">A-</button>
+                        <span class="font-size-display" id="settings-font-display">${State.fontSize}px</span>
+                        <button class="btn-control-chip" id="settings-font-inc">A+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group 3: Funzionalità Avanzate & Prompt -->
+            <div class="settings-section-card">
+                <div class="settings-section-title">Personalizzazioni & Feature</div>
+                <div class="settings-item-row">
+                    <div class="settings-item-left">
+                        <span class="settings-item-label">⚡ Prompt Personalizzati</span>
+                        <span class="settings-item-desc">Scorciatoie e template di prompt rapidi per gli agenti</span>
+                    </div>
+                    <span class="badge-pill-tag">In arrivo</span>
+                </div>
+                <div class="settings-item-row">
+                    <div class="settings-item-left">
+                        <span class="settings-item-label">📳 Feedback Aptico</span>
+                        <span class="settings-item-desc">Vibrazione tattile al tocco dei pulsanti e all'invio</span>
+                    </div>
+                    <span class="settings-item-val highlight">Attivo</span>
+                </div>
+                <div class="settings-item-row">
+                    <div class="settings-item-left">
+                        <span class="settings-item-label">🎙️ Riconoscimento Vocale</span>
+                        <span class="settings-item-desc">Dettatura messaggi in chat con Whisper / Web Speech</span>
+                    </div>
+                    <span class="settings-item-val highlight">Disponibile</span>
+                </div>
+            </div>
+
+            <!-- Group 4: Informazioni Sistema & Demone -->
+            <div class="settings-section-card">
+                <div class="settings-section-title">Demone Herdr & Connessione</div>
+                <div class="settings-item-row">
+                    <span class="settings-item-label">Versione Demone</span>
+                    <span class="settings-item-val">v${State.version || '0.8.2'}</span>
+                </div>
+                <div class="settings-item-row">
+                    <span class="settings-item-label">Socket Unix</span>
+                    <span class="settings-item-val mono">${State.socketPath || '~/.config/herdr/herdr.sock'}</span>
+                </div>
+                <div class="settings-item-row">
+                    <span class="settings-item-label">Stato Connessione</span>
+                    <span class="settings-item-val highlight" style="color: var(--success);">🟢 Connesso</span>
+                </div>
+            </div>
+
+            <!-- Group 5: Sessione Utente -->
+            <div class="settings-section-card" style="padding: 12px; background: transparent; border: none;">
+                <button class="btn-app-logout" id="btn-settings-logout">Esci dalla sessione</button>
+            </div>
+        `;
+
+        // Wire event handlers inside settings
+        settingsWrap.querySelectorAll('.theme-chip-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                triggerHaptic('light');
+                const theme = btn.dataset.theme;
+                updateTheme(theme);
+                settingsWrap.querySelectorAll('.theme-chip-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        const fontDecBtn = settingsWrap.querySelector('#settings-font-dec');
+        const fontIncBtn = settingsWrap.querySelector('#settings-font-inc');
+        const fontDisplay = settingsWrap.querySelector('#settings-font-display');
+
+        if (fontDecBtn) {
+            fontDecBtn.addEventListener('click', () => {
+                adjustFontSize(-1);
+                if (fontDisplay) fontDisplay.textContent = `${State.fontSize}px`;
+            });
+        }
+        if (fontIncBtn) {
+            fontIncBtn.addEventListener('click', () => {
+                adjustFontSize(1);
+                if (fontDisplay) fontDisplay.textContent = `${State.fontSize}px`;
+            });
+        }
+
+        const logoutBtn = settingsWrap.querySelector('#btn-settings-logout');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                triggerHaptic('medium');
+                if (confirm('Vuoi davvero uscire dalla sessione di Herdr?')) {
+                    document.cookie = 'auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    window.location.href = '/login';
+                }
+            });
+        }
+
+        DOM.chatsListScroll.appendChild(settingsWrap);
+        return;
     }
 
     if (!State.workspaces || State.workspaces.length === 0) {
@@ -1112,24 +1264,42 @@ function handleMicOrSendClick() {
 function openContactInfo() {
     triggerHaptic('light');
 
-    const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId) || {};
+    const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId) || State.workspaces[0] || {};
     const wsName = activeWs.name || (activeWs.id ? `Workspace ${activeWs.id}` : 'workspace');
+    
+    // Find active pane
+    const activePane = State.panes.find(p => p.pane_id === State.activePaneId) || State.panes[0] || {};
+    const paneName = activePane.agent || activePane.title || 'Herdr Agent';
+    const cwd = activePane.cwd || activeWs.cwd || '~';
+    const branch = activePane.branch || activeWs.branch || null;
+    const cmd = activePane.command || activePane.title || '-';
 
     if (DOM.contactHeroName) {
-        DOM.contactHeroName.textContent = 'Herdr Agent';
+        DOM.contactHeroName.textContent = paneName;
     }
     if (DOM.contactHeroSubtitle) {
-        DOM.contactHeroSubtitle.textContent = `${wsName} • online`;
+        const isWorking = (activePane.status === 'working' || activePane.is_running);
+        DOM.contactHeroSubtitle.textContent = `${wsName} • ${isWorking ? '⚡ in esecuzione' : (activePane.status || 'online')}`;
     }
     if (DOM.contactCwdVal) {
-        DOM.contactCwdVal.textContent = activeWs.cwd || '~';
+        DOM.contactCwdVal.textContent = cwd;
+    }
+    if (DOM.contactBranchVal) {
+        DOM.contactBranchVal.textContent = branch ? `🌿 ${branch}` : 'Nessun branch git';
+    }
+    if (DOM.contactPaneIdVal) {
+        DOM.contactPaneIdVal.textContent = activePane.pane_id ? `#${activePane.pane_id}` : '-';
+    }
+    if (DOM.contactCmdVal) {
+        DOM.contactCmdVal.textContent = cmd;
+    }
+    if (DOM.contactStatusVal) {
+        const isWorking = (activePane.status === 'working' || activePane.is_running);
+        DOM.contactStatusVal.textContent = isWorking ? '⚡ In esecuzione' : (activePane.status || 'Pronto');
+        DOM.contactStatusVal.style.color = isWorking ? 'var(--warning)' : 'var(--success)';
     }
 
     renderSheetPanes();
-    renderThemeChips();
-    if (DOM.fontSizeDisplay) {
-        DOM.fontSizeDisplay.textContent = `${State.fontSize}px`;
-    }
 
     DOM.sheetBackdrop.classList.add('active');
     DOM.bottomSheet.classList.add('active');
@@ -1150,9 +1320,10 @@ function renderSheetPanes() {
     State.panes.forEach(pane => {
         const item = document.createElement('div');
         item.className = `sheet-list-item ${pane.pane_id === State.activePaneId ? 'active' : ''}`;
+        const branchBadge = pane.branch ? `<span style="color: var(--cyan); margin-left: 6px; font-size: 11px;">🌿 ${escapeHtml(pane.branch)}</span>` : '';
         item.innerHTML = `
             <div>
-                <strong>${escapeHtml(pane.title || `Pannello ${pane.pane_id}`)}</strong>
+                <strong>${escapeHtml(pane.agent || pane.title || `Pannello ${pane.pane_id}`)}</strong>${branchBadge}
                 <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${escapeHtml(pane.cwd || '~')}</div>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
@@ -1172,6 +1343,7 @@ function renderSheetPanes() {
             State.activePaneId = pane.pane_id;
             await apiCall('/api/pane/focus', { pane_id: pane.pane_id });
             closeBottomSheet();
+            setScreen('chat-active');
         });
         DOM.sheetPanesList.appendChild(item);
     });
@@ -1240,12 +1412,6 @@ function setupEventListeners() {
         DOM.chatsFilterChips.addEventListener('click', (e) => {
             const item = e.target.closest('.tabbar-item');
             if (!item) return;
-
-            if (item.id === 'btn-tabbar-settings' || item.id === 'btn-tabbar-info') {
-                triggerHaptic('light');
-                openContactInfo();
-                return;
-            }
 
             triggerHaptic('light');
             DOM.chatsFilterChips.querySelectorAll('.tabbar-item').forEach(c => c.classList.remove('active'));

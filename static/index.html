@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/vendor/xterm.css">
     
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css?v=20260903_1717">
+    <link rel="stylesheet" href="/style.css?v=20260903_1730">
 </head>
 <body>
     <div class="app-root" id="app-root">
@@ -66,7 +66,7 @@
                     <span class="tabbar-icon">📁</span>
                     <span class="tabbar-label">Spazi</span>
                 </button>
-                <button type="button" class="tabbar-item" id="btn-tabbar-settings">
+                <button type="button" class="tabbar-item" id="btn-tabbar-settings" data-filter="settings">
                     <span class="tabbar-icon">⚙️</span>
                     <span class="tabbar-label">Impostazioni</span>
                 </button>
@@ -142,10 +142,10 @@
                             <div class="bubble-avatar">🐏</div>
                             <div class="bubble-body">
                                 <div class="bubble-sender">Herdr Agent</div>
-                                <div class="bubble-content">
-                                    Ciao signore! Sono pronto a lavorare sui tuoi progetti. Puoi inviarmi istruzioni, incollare screenshot o dettare tramite microfono.
+                                <div class="bubble-text">Pronto. Digita un prompt o invia un comando per iniziare a lavorare.</div>
+                                <div class="bubble-meta">
+                                    <span class="bubble-time">Adesso</span>
                                 </div>
-                                <div class="bubble-time">15:20</div>
                             </div>
                         </div>
                     </div>
@@ -160,53 +160,47 @@
                 </button>
             </section>
 
-            <!-- VIEW B: RAW TERMINAL (xterm.js) -->
+            <!-- VIEW B: RAW TERMINAL (Full Xterm.js interactive canvas) -->
             <section class="terminal-viewport" id="terminal-viewport" style="display: none;">
-                <div class="terminal-container" id="terminal-container"></div>
-                
-                <button class="btn-scroll-bottom" id="btn-scroll-bottom" style="display: none;" title="Vai all'output più recente">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <polyline points="19 12 12 19 5 12"></polyline>
-                    </svg>
-                    <span>Output più recente</span>
-                </button>
+                <div class="terminal-canvas-container" id="terminal-canvas-container">
+                    <!-- Xterm Canvas rendered dynamically -->
+                </div>
             </section>
         </div>
 
         <!-- =================================================================
-             4. AGENT QUICK CONFIRMATION BANNER (Contextual)
+             4. AGENT QUICK CONFIRMATION BANNER
              ================================================================= -->
         <div class="agent-confirm-banner" id="agent-confirm-banner" style="display: none;">
             <div class="confirm-info">
-                <span class="confirm-pulse">⚠️</span>
-                <span class="confirm-text" id="confirm-text">L'agente richiede una conferma</span>
+                <span class="confirm-icon">⚠️</span>
+                <span class="confirm-text" id="confirm-prompt-text">L'agente richiede una conferma per procedere</span>
             </div>
             <div class="confirm-actions">
-                <button class="btn-confirm-yes" id="btn-confirm-yes">✓ Approva (Y)</button>
-                <button class="btn-confirm-no" id="btn-confirm-no">✗ Rifiuta (N)</button>
-                <button class="btn-confirm-stop" id="btn-confirm-stop">⛔ Ctrl+C</button>
+                <button class="btn-confirm-yes" id="btn-confirm-yes">Conferma (y)</button>
+                <button class="btn-confirm-no" id="btn-confirm-no">Annulla (n)</button>
+                <button class="btn-confirm-stop" id="btn-confirm-stop">Interrompi (^C)</button>
             </div>
         </div>
 
         <!-- =================================================================
-             5. CLI ACCESSORY DRAWER (Opens with '+' button in footer)
+             5. CLI KEYS DRAWER (Expandable with '+')
              ================================================================= -->
         <div class="cli-keys-drawer" id="cli-keys-drawer" style="display: none;">
             <div class="cli-keys-scroll">
-                <button class="cli-key" data-key="esc" title="Escape">ESC</button>
-                <button class="cli-key" data-key="tab" title="Tab">TAB</button>
-                <button class="cli-key key-danger" data-key="ctrl+c" title="Interrupt">CTRL+C</button>
-                <button class="cli-key" data-key="up" title="Freccia Su (Storia)">↑</button>
-                <button class="cli-key" data-key="down" title="Freccia Giù">↓</button>
-                <button class="cli-key" data-key="left" title="Freccia Sinistra">←</button>
-                <button class="cli-key" data-key="right" title="Freccia Destra">→</button>
-                <button class="cli-key key-chip" data-send="y">y</button>
-                <button class="cli-key key-chip" data-send="n">n</button>
-                <button class="cli-key key-chip" data-send="/plan ">/plan</button>
-                <button class="cli-key key-chip" data-send="/test ">/test</button>
-                <button class="cli-key key-chip" data-send="git status">git st</button>
-                <button class="cli-key key-chip" data-send="clear">clear</button>
+                <button class="cli-key key-danger" data-key="ctrl-c">^C</button>
+                <button class="cli-key" data-key="ctrl-d">^D</button>
+                <button class="cli-key" data-key="ctrl-z">^Z</button>
+                <button class="cli-key" data-key="tab">Tab ⇥</button>
+                <button class="cli-key" data-key="esc">Esc</button>
+                <button class="cli-key" data-key="up">▲</button>
+                <button class="cli-key" data-key="down">▼</button>
+                <button class="cli-key" data-key="left">◀</button>
+                <button class="cli-key" data-key="right">▶</button>
+                <button class="cli-key key-chip" data-cmd="clear">clear</button>
+                <button class="cli-key key-chip" data-cmd="ls -la">ls</button>
+                <button class="cli-key key-chip" data-cmd="git status">git st</button>
+                <button class="cli-key key-chip" data-cmd="git diff">git diff</button>
             </div>
         </div>
 
@@ -214,7 +208,7 @@
              6. ATTACHMENT PREVIEW BAR
              ================================================================= -->
         <div class="attachment-preview-bar" id="attachment-preview-bar" style="display: none;">
-            <div class="attachment-thumb-wrap" id="attachment-thumb-wrap" title="Tocca per ingrandire">
+            <div class="attachment-thumb-wrap" id="attachment-thumb-wrap">
                 <img id="attachment-thumb" src="" alt="Screenshot">
                 <span class="attachment-zoom-badge">🔍</span>
             </div>
@@ -293,7 +287,7 @@
         </div>
 
         <!-- =================================================================
-             9. WHATSAPP STYLE CONTACT INFO MODAL / SHEET
+             9. WHATSAPP STYLE CONTACT INFO MODAL / SHEET (FOR CURRENT AGENT)
              ================================================================= -->
         <div class="sheet-backdrop" id="sheet-backdrop"></div>
         <aside class="bottom-sheet contact-sheet" id="bottom-sheet">
@@ -332,20 +326,28 @@
             </div>
 
             <div class="sheet-body contact-body">
-                <!-- Group 1: Spazio di Lavoro Attivo -->
+                <!-- Group 1: Informazioni Agente & Spazio -->
                 <div class="contact-info-group">
-                    <div class="info-group-title">Spazio di Lavoro Attivo</div>
+                    <div class="info-group-title">Dettagli Agente & Directory</div>
                     <div class="info-group-row">
                         <span class="group-row-label">Cartella CWD</span>
                         <span class="group-row-val mono" id="contact-cwd-val">~</span>
                     </div>
                     <div class="info-group-row">
-                        <span class="group-row-label">Demone Herdr</span>
-                        <span class="group-row-val mono" id="sheet-daemon-version">v0.8.2</span>
+                        <span class="group-row-label">Git Branch</span>
+                        <span class="group-row-val mono" id="contact-branch-val" style="color: var(--cyan); font-weight: 600;">-</span>
                     </div>
                     <div class="info-group-row">
-                        <span class="group-row-label">Socket Unix</span>
-                        <span class="group-row-val mono" id="sheet-socket-path">~/.config/herdr/herdr.sock</span>
+                        <span class="group-row-label">Pannello ID</span>
+                        <span class="group-row-val mono" id="contact-pane-id-val">-</span>
+                    </div>
+                    <div class="info-group-row">
+                        <span class="group-row-label">Comando</span>
+                        <span class="group-row-val mono" id="contact-cmd-val">-</span>
+                    </div>
+                    <div class="info-group-row">
+                        <span class="group-row-label">Stato Agente</span>
+                        <span class="group-row-val" id="contact-status-val">Online</span>
                     </div>
                 </div>
 
@@ -361,34 +363,6 @@
                     <div class="sheet-list" id="sheet-panes-list">
                         <!-- Dynamic Panes -->
                     </div>
-                </div>
-
-                <!-- Group 3: Impostazioni Visualizzazione & Tema -->
-                <div class="contact-info-group">
-                    <div class="info-group-title">Visualizzazione & Terminale</div>
-                    <div class="info-group-row">
-                        <span class="group-row-label">Dimensione Font</span>
-                        <div class="font-controls">
-                            <button class="btn-control-chip" id="btn-font-dec">A-</button>
-                            <span class="font-size-display" id="font-size-display">13px</span>
-                            <button class="btn-control-chip" id="btn-font-inc">A+</button>
-                        </div>
-                    </div>
-                    <div class="info-group-row column">
-                        <span class="group-row-label">Tema Visivo</span>
-                        <div class="theme-chips-list" id="theme-chips-list">
-                            <button type="button" class="theme-chip-btn active" data-theme="cyber-dark">Cyber Dark</button>
-                            <button type="button" class="theme-chip-btn" data-theme="tokyo-night">Tokyo Night</button>
-                            <button type="button" class="theme-chip-btn" data-theme="obsidian-oled">Obsidian</button>
-                            <button type="button" class="theme-chip-btn" data-theme="synthwave">Synthwave</button>
-                            <button type="button" class="theme-chip-btn" data-theme="matrix">Matrix</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Group 4: Disconnessione Sessione -->
-                <div class="contact-info-group">
-                    <button class="btn-logout" id="btn-logout">Esci dalla sessione</button>
                 </div>
             </div>
         </aside>
@@ -418,6 +392,6 @@
     <script src="/vendor/addon-web-links.js"></script>
 
     <!-- Main Controller -->
-    <script src="/app.js?v=20260903_1717"></script>
+    <script src="/app.js?v=20260903_1730"></script>
 </body>
 </html>
