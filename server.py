@@ -13,6 +13,10 @@ import subprocess
 import secrets
 import hashlib
 import base64
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 from http.cookies import SimpleCookie
@@ -23,6 +27,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 CERTS_DIR = os.path.join(BASE_DIR, "certs")
 AUTH_FILE = os.path.join(BASE_DIR, "auth.json")
+HERDR_CONFIG_FILE = os.path.expanduser("~/.config/herdr/config.toml")
 SESSIONS_FILE = os.path.join(BASE_DIR, "sessions.json")
 CERT_FILE = os.path.join(CERTS_DIR, "cert.pem")
 KEY_FILE = os.path.join(CERTS_DIR, "key.pem")
@@ -212,6 +217,136 @@ def get_git_branch(cwd):
     except Exception:
         pass
     return None
+
+def load_herdr_config():
+    """Load ~/.config/herdr/config.toml as dictionary."""
+    if not os.path.exists(HERDR_CONFIG_FILE):
+        return {}
+    try:
+        with open(HERDR_CONFIG_FILE, "rb") as f:
+            return tomllib.load(f)
+    except Exception as e:
+        print(f"Error reading {HERDR_CONFIG_FILE}: {e}")
+        return {}
+
+def save_herdr_config(cfg):
+    """Save dictionary to ~/.config/herdr/config.toml and trigger herdr server reload-config."""
+    os.makedirs(os.path.dirname(HERDR_CONFIG_FILE), exist_ok=True)
+    lines = []
+    
+    # Root scalars
+    if "onboarding" in cfg:
+        lines.append(f"onboarding = {'true' if cfg['onboarding'] else 'false'}")
+    
+    # [theme]
+    theme_sec = cfg.get("theme", {})
+    if theme_sec:
+        lines.append("\n[theme]")
+        if "name" in theme_sec:
+            lines.append(f'name = "{theme_sec["name"]}"')
+        if "auto_switch" in theme_sec:
+            lines.append(f"auto_switch = {'true' if theme_sec['auto_switch'] else 'false'}")
+            
+    # [ui]
+    ui_sec = cfg.get("ui", {})
+    if ui_sec:
+        lines.append("\n[ui]")
+        if "status_indicators" in ui_sec:
+            lines.append(f'status_indicators = "{ui_sec["status_indicators"]}"')
+        if "pane_borders" in ui_sec:
+            lines.append(f"pane_borders = {'true' if ui_sec['pane_borders'] else 'false'}")
+        if "pane_outer_borders" in ui_sec:
+            lines.append(f"pane_outer_borders = {'true' if ui_sec['pane_outer_borders'] else 'false'}")
+        if "pane_scrollbars" in ui_sec:
+            lines.append(f"pane_scrollbars = {'true' if ui_sec['pane_scrollbars'] else 'false'}")
+        if "pane_gaps" in ui_sec:
+            lines.append(f"pane_gaps = {'true' if ui_sec['pane_gaps'] else 'false'}")
+        if "show_agent_labels_on_pane_borders" in ui_sec:
+            lines.append(f"show_agent_labels_on_pane_borders = {'true' if ui_sec['show_agent_labels_on_pane_borders'] else 'false'}")
+        if "agent_panel_sort" in ui_sec:
+            lines.append(f'agent_panel_sort = "{ui_sec["agent_panel_sort"]}"')
+        if "accent" in ui_sec:
+            lines.append(f'accent = "{ui_sec["accent"]}"')
+
+    # [ui.sound]
+    sound_sec = ui_sec.get("sound", {})
+    if sound_sec or "sound" in cfg:
+        s = sound_sec or cfg.get("sound", {})
+        lines.append("\n[ui.sound]")
+        if "enabled" in s:
+            lines.append(f"enabled = {'true' if s['enabled'] else 'false'}")
+            
+    # [ui.toast]
+    toast_sec = ui_sec.get("toast", {})
+    if toast_sec or "toast" in cfg:
+        t = toast_sec or cfg.get("toast", {})
+        lines.append("\n[ui.toast]")
+        if "delivery" in t:
+            lines.append(f'delivery = "{t["delivery"]}"')
+        if "delay_seconds" in t:
+            lines.append(f"delay_seconds = {int(t['delay_seconds'])}")
+
+    content = "\n".join(lines).strip() + "\n"
+    with open(HERDR_CONFIG_FILE, "w") as f:
+        f.write(content)
+        
+    # Reload herdr running server
+    reload_res = {"status": "unsupported"}
+    try:
+        proc = subprocess.run(["herdr", "server", "reload-config"], capture_output=True, text=True, timeout=5)
+        if proc.returncode == 0 and proc.stdout:
+            try:
+                reload_res = json.loads(proc.stdout)
+            except Exception:
+                reload_res = {"status": "ok", "raw": proc.stdout}
+        else:
+            reload_res = {"status": "error", "error": proc.stderr or proc.stdout}
+    except Exception as e:
+        reload_res = {"status": "error", "error": str(e)}
+        
+    return reload_res
+
+def get_herdr_integrations():
+    """Query herdr integration status for all supported AI agents."""
+    try:
+        proc = subprocess.run(["herdr", "integration", "status"], capture_output=True, text=True, timeout=5)
+        items = []
+        for line in proc.stdout.splitlines():
+            line = line.strip()
+            if not line or ":" not in line:
+                continue
+            name, rest = line.split(":", 1)
+            name = name.strip()
+            rest = rest.strip()
+            installed = not rest.startswith("not installed")
+            path = ""
+            if "(" in rest and ")" in rest:
+                path = rest[rest.find("(") + 1:rest.rfind(")")]
+            items.append({
+                "name": name,
+                "installed": installed,
+                "path": path,
+                "status_text": rest
+            })
+        return items
+    except Exception as e:
+        print(f"Error fetching integrations: {e}")
+        return []
+
+def get_herdr_plugins():
+    """Query herdr plugin list and return list of installed plugins."""
+    try:
+        proc = subprocess.run(["herdr", "plugin", "list"], capture_output=True, text=True, timeout=5)
+        plugins = []
+        for line in proc.stdout.splitlines():
+            line = line.strip()
+            if not line or "No plugins installed" in line or line.startswith("Install and run"):
+                continue
+            plugins.append(line)
+        return plugins
+    except Exception as e:
+        print(f"Error fetching plugins: {e}")
+        return []
 
 def check_is_agent(p, p_title, agent_pane_ids):
     """Determine with high confidence whether a pane is running an AI agent or is a raw shell."""
@@ -615,6 +750,29 @@ class DashboardHandler(BaseHTTPRequestHandler):
             state = get_aggregated_state(lines=lines, source=source)
             return self.send_json(state)
 
+        # API: Herdr Configuration & Settings
+        if path == "/api/config":
+            cfg = load_herdr_config()
+            return self.send_json({
+                "config": cfg,
+                "config_path": HERDR_CONFIG_FILE,
+                "supported_themes": [
+                    "catppuccin", "terminal", "tokyo-night", "dracula", "nord",
+                    "gruvbox", "one-dark", "solarized", "kanagawa", "rose-pine",
+                    "vesper"
+                ]
+            })
+
+        # API: Integrations Status
+        if path == "/api/integrations":
+            items = get_herdr_integrations()
+            return self.send_json({"integrations": items})
+
+        # API: Plugins List
+        if path == "/api/plugins":
+            plugins = get_herdr_plugins()
+            return self.send_json({"plugins": plugins})
+
         # Serve Application Dashboard
         if path in ("/", "/index.html"):
             return self.serve_static_file("index.html")
@@ -771,6 +929,69 @@ class DashboardHandler(BaseHTTPRequestHandler):
                     "filename": unique_filename,
                     "url": f"/api/file?path={file_path}"
                 })
+            except Exception as e:
+                return self.send_json({"error": str(e)}, status=500)
+
+        # API: Update Herdr Configuration
+        if parsed.path == "/api/config/update":
+            updates = payload.get("config", {})
+            if not isinstance(updates, dict):
+                return self.send_json({"error": "Invalid config payload"}, status=400)
+                
+            current_cfg = load_herdr_config()
+            # Deep merge sections
+            for k, v in updates.items():
+                if isinstance(v, dict) and isinstance(current_cfg.get(k), dict):
+                    current_cfg[k].update(v)
+                else:
+                    current_cfg[k] = v
+                    
+            res = save_herdr_config(current_cfg)
+            return self.send_json({"success": True, "config": current_cfg, "reload": res})
+
+        # API: Manage Herdr Agent Integrations (install/uninstall)
+        if parsed.path == "/api/integration/install":
+            name = payload.get("name")
+            if not name:
+                return self.send_json({"error": "Missing agent name"}, status=400)
+            try:
+                proc = subprocess.run(["herdr", "integration", "install", name], capture_output=True, text=True, timeout=10)
+                success = (proc.returncode == 0)
+                return self.send_json({"success": success, "output": proc.stdout or proc.stderr})
+            except Exception as e:
+                return self.send_json({"error": str(e)}, status=500)
+
+        if parsed.path == "/api/integration/uninstall":
+            name = payload.get("name")
+            if not name:
+                return self.send_json({"error": "Missing agent name"}, status=400)
+            try:
+                proc = subprocess.run(["herdr", "integration", "uninstall", name], capture_output=True, text=True, timeout=10)
+                success = (proc.returncode == 0)
+                return self.send_json({"success": success, "output": proc.stdout or proc.stderr})
+            except Exception as e:
+                return self.send_json({"error": str(e)}, status=500)
+
+        # API: Manage Herdr Plugins (install/uninstall)
+        if parsed.path == "/api/plugin/install":
+            repo = payload.get("repo")
+            if not repo:
+                return self.send_json({"error": "Missing plugin repository (owner/repo)"}, status=400)
+            try:
+                proc = subprocess.run(["herdr", "plugin", "install", "-y", repo], capture_output=True, text=True, timeout=20)
+                success = (proc.returncode == 0)
+                return self.send_json({"success": success, "output": proc.stdout or proc.stderr})
+            except Exception as e:
+                return self.send_json({"error": str(e)}, status=500)
+
+        if parsed.path == "/api/plugin/uninstall":
+            name = payload.get("name")
+            if not name:
+                return self.send_json({"error": "Missing plugin name"}, status=400)
+            try:
+                proc = subprocess.run(["herdr", "plugin", "uninstall", name], capture_output=True, text=True, timeout=10)
+                success = (proc.returncode == 0)
+                return self.send_json({"success": success, "output": proc.stdout or proc.stderr})
             except Exception as e:
                 return self.send_json({"error": str(e)}, status=500)
 
