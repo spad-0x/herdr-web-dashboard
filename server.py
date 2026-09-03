@@ -321,7 +321,11 @@ def get_herdr_integrations():
             installed = not rest.startswith("not installed")
             path = ""
             if "(" in rest and ")" in rest:
-                path = rest[rest.find("(") + 1:rest.rfind(")")]
+                # Get the last parenthesized block which contains the file path
+                last_open = rest.rfind("(")
+                last_close = rest.rfind(")")
+                if last_open != -1 and last_close > last_open:
+                    path = rest[last_open + 1:last_close]
             items.append({
                 "name": name,
                 "installed": installed,
@@ -335,18 +339,25 @@ def get_herdr_integrations():
 
 def get_herdr_plugins():
     """Query herdr plugin list and return list of installed plugins."""
+    plugins = []
     try:
         proc = subprocess.run(["herdr", "plugin", "list"], capture_output=True, text=True, timeout=5)
-        plugins = []
         for line in proc.stdout.splitlines():
             line = line.strip()
-            if not line or "No plugins installed" in line or line.startswith("Install and run"):
+            if not line or "No plugins installed" in line or line.startswith("Install and run") or line.startswith("usage:"):
                 continue
             plugins.append(line)
-        return plugins
     except Exception as e:
         print(f"Error fetching plugins: {e}")
-        return []
+
+    # Also inspect ~/.config/herdr/plugins
+    p_dir = os.path.expanduser("~/.config/herdr/plugins")
+    if os.path.isdir(p_dir):
+        for item in os.listdir(p_dir):
+            if not item.startswith(".") and item not in plugins:
+                plugins.append(item)
+
+    return plugins
 
 def check_is_agent(p, p_title, agent_pane_ids):
     """Determine with high confidence whether a pane is running an AI agent or is a raw shell."""
@@ -950,14 +961,19 @@ class DashboardHandler(BaseHTTPRequestHandler):
             return self.send_json({"success": True, "config": current_cfg, "reload": res})
 
         # API: Manage Herdr Agent Integrations (install/uninstall)
+        herdr_env = os.environ.copy()
+        herdr_env["PATH"] = f"/Library/Developer/CommandLineTools/usr/bin:/Library/Developer/CommandLineTools/usr/libexec/git-core:{os.path.expanduser('~/.local/bin')}:{herdr_env.get('PATH', '')}"
+        herdr_env["GIT_EXEC_PATH"] = "/Library/Developer/CommandLineTools/usr/libexec/git-core"
+
         if parsed.path == "/api/integration/install":
             name = payload.get("name")
             if not name:
                 return self.send_json({"error": "Missing agent name"}, status=400)
             try:
-                proc = subprocess.run(["herdr", "integration", "install", name], capture_output=True, text=True, timeout=10)
+                proc = subprocess.run(["herdr", "integration", "install", name], env=herdr_env, capture_output=True, text=True, timeout=15)
                 success = (proc.returncode == 0)
-                return self.send_json({"success": success, "output": proc.stdout or proc.stderr})
+                msg = (proc.stdout or proc.stderr or "").strip()
+                return self.send_json({"success": success, "output": msg, "error": msg if not success else None})
             except Exception as e:
                 return self.send_json({"error": str(e)}, status=500)
 
@@ -966,9 +982,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
             if not name:
                 return self.send_json({"error": "Missing agent name"}, status=400)
             try:
-                proc = subprocess.run(["herdr", "integration", "uninstall", name], capture_output=True, text=True, timeout=10)
+                proc = subprocess.run(["herdr", "integration", "uninstall", name], env=herdr_env, capture_output=True, text=True, timeout=15)
                 success = (proc.returncode == 0)
-                return self.send_json({"success": success, "output": proc.stdout or proc.stderr})
+                msg = (proc.stdout or proc.stderr or "").strip()
+                return self.send_json({"success": success, "output": msg, "error": msg if not success else None})
             except Exception as e:
                 return self.send_json({"error": str(e)}, status=500)
 
@@ -978,9 +995,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
             if not repo:
                 return self.send_json({"error": "Missing plugin repository (owner/repo)"}, status=400)
             try:
-                proc = subprocess.run(["herdr", "plugin", "install", "-y", repo], capture_output=True, text=True, timeout=20)
+                proc = subprocess.run(["herdr", "plugin", "install", repo, "-y"], env=herdr_env, capture_output=True, text=True, timeout=30)
                 success = (proc.returncode == 0)
-                return self.send_json({"success": success, "output": proc.stdout or proc.stderr})
+                msg = (proc.stdout or proc.stderr or "").strip()
+                return self.send_json({"success": success, "output": msg, "error": msg if not success else None})
             except Exception as e:
                 return self.send_json({"error": str(e)}, status=500)
 
@@ -989,9 +1007,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
             if not name:
                 return self.send_json({"error": "Missing plugin name"}, status=400)
             try:
-                proc = subprocess.run(["herdr", "plugin", "uninstall", name], capture_output=True, text=True, timeout=10)
+                proc = subprocess.run(["herdr", "plugin", "uninstall", name], env=herdr_env, capture_output=True, text=True, timeout=15)
                 success = (proc.returncode == 0)
-                return self.send_json({"success": success, "output": proc.stdout or proc.stderr})
+                msg = (proc.stdout or proc.stderr or "").strip()
+                return self.send_json({"success": success, "output": msg, "error": msg if not success else None})
             except Exception as e:
                 return self.send_json({"error": str(e)}, status=500)
 

@@ -983,7 +983,8 @@ function renderChatsList() {
                         showToast(`✓ Integrazione ${agentName} ${action === 'install' ? 'installata' : 'rimossa'}`);
                         renderChatsList(); // Re-render
                     } else {
-                        showToast(`Errore durante ${action} di ${agentName}`);
+                        const errMsg = (res && (res.error || res.output)) ? (res.error || res.output) : 'comando fallito';
+                        showToast(`Errore: ${errMsg}`);
                         btn.disabled = false;
                         btn.textContent = action === 'install' ? 'Installa' : 'Disinstalla';
                     }
