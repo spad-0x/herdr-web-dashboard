@@ -213,6 +213,25 @@ def get_git_branch(cwd):
         pass
     return None
 
+def check_is_agent(p, p_title, agent_pane_ids):
+    """Determine with high confidence whether a pane is running an AI agent or is a raw shell."""
+    if p.get("agent"):
+        return True
+    if p.get("pane_id") in agent_pane_ids:
+        return True
+    status = p.get("agent_status", "")
+    if status in ("working", "blocked"):
+        return True
+    title_lower = (p_title or "").lower().strip()
+    if title_lower in ["zsh", "bash", "fish", "sh", "login", "-zsh", "-bash"]:
+        return False
+    if "@" in title_lower and ":" in title_lower:
+        return False
+    for kw in ["agy", "claude", "codex", "gemini", "cursor", "aider", "openhands", "herdr agent"]:
+        if kw in title_lower:
+            return True
+    return False
+
 def get_aggregated_state(lines=1500, source="recent_unwrapped"):
     """Fetch full aggregated state of workspaces, tabs, panes, and detected agents."""
     connected, msg = herdr.is_connected()
@@ -229,6 +248,8 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
     raw_workspaces = snapshot.get("workspaces", [])
     raw_tabs = snapshot.get("tabs", [])
     raw_panes = snapshot.get("panes", [])
+    raw_agents = snapshot.get("agents", [])
+    daemon_agent_pane_ids = {a.get("pane_id") for a in raw_agents if a.get("pane_id")}
 
     focused_ws_id = snapshot.get("focused_workspace_id")
     focused_tab_id = snapshot.get("focused_tab_id")
@@ -262,6 +283,7 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                     p_agent = p.get("agent")
                     p_cwd = p.get("foreground_cwd") or p.get("cwd") or "~"
                     p_branch = get_git_branch(p_cwd)
+                    is_agent = check_is_agent(p, p_title, daemon_agent_pane_ids)
                     
                     p_read = herdr.read_pane(p_id, lines=lines, source=source, format="ansi")
                     raw_content = p_read.get("raw_text", "")
@@ -282,6 +304,7 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                         "cwd": p_cwd,
                         "branch": p_branch,
                         "agent": p_agent,
+                        "is_agent": is_agent,
                         "status": p_status,
                         "status_label": p_status,
                         "focused": p.get("focused", False) or (p_id == focused_pane_id),
@@ -296,7 +319,6 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                     tab_panes.append(pane_obj)
                     ws_all_panes.append(pane_obj)
 
-                    is_agent = bool(p_agent) or (p_status in ("working", "blocked")) or ("agy" in p_title.lower()) or ("claude" in p_title.lower()) or ("codex" in p_title.lower())
                     if is_agent:
                         all_detected_agents.append({
                             "id": f"agent_{p_id}",

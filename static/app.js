@@ -632,10 +632,23 @@ function renderChatsList() {
         }
     });
 
-    // Update badge in bottom tab bar
+    // Filter to real AI agents only (exclude raw shell terminals)
+    const agentPanes = allPanes.filter(p => {
+        if (p.is_agent === true) return true;
+        if (p.is_agent === false) return false;
+        if (p.agent) return true;
+        if (p.status === 'working' || p.status === 'blocked' || p.waiting_confirm) return true;
+        const title = (p.command || p.title || '').toLowerCase().trim();
+        if (['zsh', 'bash', 'fish', 'sh', 'login', '-zsh', '-bash'].includes(title)) return false;
+        if (title.includes('@') && title.includes(':')) return false;
+        return ['agy', 'claude', 'codex', 'gemini', 'cursor', 'aider', 'openhands'].some(kw => title.includes(kw));
+    });
+    const runningAgentsCount = agentPanes.filter(p => p.is_running || p.status === 'working').length;
+
+    // Update badge in bottom tab bar (showing running AGENTS count)
     if (DOM.badgeAgentCount) {
-        if (runningPanesCount > 0) {
-            DOM.badgeAgentCount.textContent = runningPanesCount;
+        if (runningAgentsCount > 0) {
+            DOM.badgeAgentCount.textContent = runningAgentsCount;
             DOM.badgeAgentCount.style.display = 'flex';
         } else {
             DOM.badgeAgentCount.style.display = 'none';
@@ -699,20 +712,20 @@ function renderChatsList() {
         });
     }
 
-    // 2. Agents / Panes (Agenti)
+    // 2. Agents List (ONLY real AI agents)
     if (filter === 'panes') {
-        if (allPanes.length === 0) {
+        if (agentPanes.length === 0) {
             DOM.chatsListScroll.innerHTML = `
                 <div style="padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 13px;">
-                    Nessun agente o terminale attivo.<br>
-                    Tocca <strong>Chat</strong> per visualizzare i tuoi spazi di lavoro.
+                    Nessun agente AI attivo al momento.<br>
+                    Tocca <strong>Spazi</strong> per visualizzare i tuoi terminali o crearne uno nuovo.
                 </div>
             `;
             return;
         }
 
-        // Sort: active pane first, then active workspace panes, then others
-        allPanes.sort((a, b) => {
+        // Sort: active agent first, then active workspace agents, then others
+        agentPanes.sort((a, b) => {
             if (a.pane_id === State.activePaneId) return -1;
             if (b.pane_id === State.activePaneId) return 1;
             if (a.is_active_ws && !b.is_active_ws) return -1;
@@ -720,7 +733,7 @@ function renderChatsList() {
             return 0;
         });
 
-        allPanes.forEach(pane => {
+        agentPanes.forEach(pane => {
             const isActive = (pane.pane_id === State.activePaneId);
             const isWorking = (pane.status === 'working' || pane.is_running);
             const isBlocked = (pane.status === 'blocked' || pane.waiting_confirm);
