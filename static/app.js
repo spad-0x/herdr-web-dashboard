@@ -935,7 +935,11 @@ function renderChatsList() {
                     if (pushDesc) pushDesc.textContent = 'Notifiche non supportate da questo browser (installa come PWA per iOS).';
                 } else {
                     const currentPerm = Notification.permission;
-                    pushEl.checked = pushPref && (currentPerm === 'granted');
+                    // Su iOS PWA se il permesso è granted, consideriamo attivo
+                    pushEl.checked = (currentPerm === 'granted') && (pushPref !== false);
+                    if (pushEl.checked) {
+                        localStorage.setItem('herdr_push_enabled', 'true');
+                    }
                     if (currentPerm === 'granted') {
                         if (testPushBtn) testPushBtn.style.display = 'inline-block';
                         if (pushDesc) pushDesc.textContent = 'Notifiche attive. Riceverai avvisi quando un agente termina o aspetta conferma.';

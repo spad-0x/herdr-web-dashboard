@@ -59,13 +59,19 @@ def send_web_push(title, body, data=None):
 
         success_count = 0
         valid_subs = []
+        from urllib.parse import urlparse
         for sub in subs:
             try:
+                endpoint = sub.get("endpoint", "")
+                aud = f"{urlparse(endpoint).scheme}://{urlparse(endpoint).netloc}"
                 webpush(
                     subscription_info=sub,
                     data=payload_data,
                     vapid_private_key=priv_key,
-                    vapid_claims={"sub": "mailto:admin@herdr.local"}
+                    vapid_claims={
+                        "sub": "mailto:admin@herdr.dev",
+                        "aud": aud
+                    }
                 )
                 success_count += 1
                 valid_subs.append(sub)
