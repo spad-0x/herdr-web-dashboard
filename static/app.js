@@ -1353,6 +1353,38 @@ function handleStateUpdate(data) {
         renderSheetWorkspaces();
         renderSheetPanes();
     }
+
+    // Real-time update for home chats list and active agents counter
+    if (State.currentScreen === 'chats-list' && State.chatsFilter !== 'settings') {
+        renderChatsList();
+    } else {
+        updateActiveAgentsBadge();
+    }
+}
+
+function updateActiveAgentsBadge() {
+    if (!DOM.badgeAgentCount || !State.workspaces) return;
+    let runningAgentsCount = 0;
+    const seenPaneIds = new Set();
+    State.workspaces.forEach(ws => {
+        const checkPane = p => {
+            if (!p || seenPaneIds.has(p.pane_id)) return;
+            seenPaneIds.add(p.pane_id);
+            const isAgent = (p.is_agent === true) || (p.is_agent !== false && (p.agent || p.status === 'working' || p.status === 'blocked' || p.waiting_confirm || ['agy', 'claude', 'codex', 'gemini', 'cursor', 'aider', 'openhands'].some(kw => (p.command || p.title || '').toLowerCase().includes(kw))));
+            if (isAgent && (p.is_running || p.status === 'working')) {
+                runningAgentsCount++;
+            }
+        };
+        if (ws.panes) ws.panes.forEach(checkPane);
+        if (ws.tabs) ws.tabs.forEach(t => { if (t.panes) t.panes.forEach(checkPane); });
+    });
+
+    if (runningAgentsCount > 0) {
+        DOM.badgeAgentCount.textContent = runningAgentsCount;
+        DOM.badgeAgentCount.style.display = 'flex';
+    } else {
+        DOM.badgeAgentCount.style.display = 'none';
+    }
 }
 
 function updateHeaderInfo(pane) {

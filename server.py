@@ -691,7 +691,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                         self.wfile.write(b": keepalive\n\n")
                         self.wfile.flush()
 
-                    time.sleep(0.6)
+                    time.sleep(0.3)
             except (ConnectionResetError, BrokenPipeError, ssl.SSLError):
                 pass
             return
