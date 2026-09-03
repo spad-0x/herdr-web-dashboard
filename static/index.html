@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/vendor/xterm.css">
     
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css?v=20260903_1615">
+    <link rel="stylesheet" href="/style.css?v=20260903_1640">
 </head>
 <body>
     <div class="app-root" id="app-root">
@@ -213,8 +213,6 @@
                         autocapitalize="sentences" 
                         spellcheck="true"></div>
                     
-                    <input type="file" id="file-input" accept="image/*" style="display: none;">
-                    
                     <!-- Camera / Screenshot Button -->
                     <button class="btn-pill-camera" id="btn-attach-image" title="Scatta o allega screenshot">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -308,7 +306,7 @@
                     </div>
                     <div class="sheet-row-controls">
                         <span class="control-label">Tema Visivo:</span>
-                        <select class="theme-select" id="theme-select">
+                        <select class="theme-select" id="theme-select" disabled tabindex="-1">
                             <option value="cyber-dark">Cyber Dark</option>
                             <option value="tokyo-night">Tokyo Night</option>
                             <option value="obsidian-oled">Obsidian OLED</option>
@@ -337,10 +335,7 @@
         <dialog class="app-dialog" id="dialog-new-ws">
             <div class="dialog-content">
                 <h3>Crea nuovo Spazio di Lavoro</h3>
-                <label>Directory del progetto (CWD):</label>
-                <input type="text" id="input-new-ws-cwd" placeholder="/Users/leospa/..." value="~" disabled tabindex="-1">
-                <label>Nome etichetta (opzionale):</label>
-                <input type="text" id="input-new-ws-label" placeholder="Es. api-service" disabled tabindex="-1">
+                <div id="dialog-new-ws-fields" class="dialog-fields-slot"></div>
                 <div class="dialog-buttons">
                     <button class="btn-dialog-cancel" id="btn-dialog-cancel">Annulla</button>
                     <button class="btn-dialog-confirm" id="btn-dialog-confirm">Crea Spazio</button>
@@ -358,6 +353,6 @@
     <script src="/vendor/addon-web-links.js"></script>
 
     <!-- Main Controller -->
-    <script src="/app.js?v=20260903_1615"></script>
+    <script src="/app.js?v=20260903_1640"></script>
 </body>
 </html>

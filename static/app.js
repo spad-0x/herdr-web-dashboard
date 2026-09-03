@@ -77,7 +77,7 @@ const DOM = {
     attachmentName: document.getElementById('attachment-name'),
     attachmentSize: document.getElementById('attachment-size'),
     btnRemoveAttachment: document.getElementById('btn-remove-attachment'),
-    fileInput: document.getElementById('file-input'),
+    fileInput: null, // Dynamically created on demand to keep DOM clean
     // Footer & Input
     chatFooter: document.getElementById('chat-footer'),
     btnToggleActions: document.getElementById('btn-toggle-actions'),
@@ -109,8 +109,7 @@ const DOM = {
     btnLogout: document.getElementById('btn-logout'),
     // New Workspace Dialog
     dialogNewWs: document.getElementById('dialog-new-ws'),
-    inputNewWsCwd: document.getElementById('input-new-ws-cwd'),
-    inputNewWsLabel: document.getElementById('input-new-ws-label'),
+    dialogNewWsFields: document.getElementById('dialog-new-ws-fields'),
     btnDialogCancel: document.getElementById('btn-dialog-cancel'),
     btnDialogConfirm: document.getElementById('btn-dialog-confirm'),
     // Toast Shelf
@@ -285,6 +284,14 @@ function initTerminal() {
 
     State.term.open(DOM.terminalContainer);
     
+    // Disable xterm internal helper textarea in Chat mode so Safari sees only 1 input
+    const helperTa = DOM.terminalContainer.querySelector('.xterm-helper-textarea');
+    if (helperTa && State.mode === 'chat') {
+        helperTa.disabled = true;
+        helperTa.tabIndex = -1;
+        helperTa.setAttribute('aria-hidden', 'true');
+    }
+
     setTimeout(() => {
         try { State.fitAddon.fit(); } catch (e) {}
     }, 60);
@@ -331,12 +338,18 @@ function toggleMode() {
 
 function setMode(mode) {
     State.mode = mode;
+    const xtermTextarea = DOM.terminalContainer ? DOM.terminalContainer.querySelector('.xterm-helper-textarea') : null;
     if (mode === 'chat') {
         DOM.chatViewport.style.display = 'flex';
         DOM.terminalViewport.style.display = 'none';
         DOM.modeIcon.textContent = '💻';
         DOM.modeLabel.textContent = 'Terminale';
         DOM.btnToggleActions.style.display = 'flex';
+        if (xtermTextarea) {
+            xtermTextarea.disabled = true;
+            xtermTextarea.tabIndex = -1;
+            xtermTextarea.setAttribute('aria-hidden', 'true');
+        }
         scrollChatToBottom();
     } else {
         DOM.chatViewport.style.display = 'none';
@@ -345,6 +358,11 @@ function setMode(mode) {
         DOM.modeLabel.textContent = 'Chat';
         DOM.cliKeysDrawer.style.display = 'flex'; // Auto show CLI keys in terminal mode
         DOM.btnToggleActions.classList.add('active');
+        if (xtermTextarea) {
+            xtermTextarea.disabled = false;
+            xtermTextarea.tabIndex = 0;
+            xtermTextarea.removeAttribute('aria-hidden');
+        }
         if (State.fitAddon) {
             setTimeout(() => {
                 try {
@@ -848,6 +866,10 @@ function openBottomSheet() {
     renderSheetPanes();
     DOM.fontSizeDisplay.textContent = `${State.fontSize}px`;
     DOM.themeSelect.value = State.theme;
+    if (DOM.themeSelect) {
+        DOM.themeSelect.disabled = false;
+        DOM.themeSelect.tabIndex = 0;
+    }
 
     DOM.sheetBackdrop.classList.add('active');
     DOM.bottomSheet.classList.add('active');
@@ -856,6 +878,10 @@ function openBottomSheet() {
 function closeBottomSheet() {
     DOM.sheetBackdrop.classList.remove('active');
     DOM.bottomSheet.classList.remove('active');
+    if (DOM.themeSelect) {
+        DOM.themeSelect.disabled = true;
+        DOM.themeSelect.tabIndex = -1;
+    }
 }
 
 function renderSheetWorkspaces() {
@@ -1036,13 +1062,18 @@ function setupEventListeners() {
     DOM.promptInput.addEventListener('paste', handlePasteEvent);
 
     DOM.btnAttachImage.addEventListener('click', () => {
-        DOM.fileInput.click();
-    });
-
-    DOM.fileInput.addEventListener('change', (e) => {
-        if (e.target.files && e.target.files[0]) {
-            handleImageFile(e.target.files[0]);
-        }
+        const tempFileInput = document.createElement('input');
+        tempFileInput.type = 'file';
+        tempFileInput.accept = 'image/*';
+        tempFileInput.style.display = 'none';
+        tempFileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleImageFile(e.target.files[0]);
+            }
+            tempFileInput.remove();
+        });
+        document.body.appendChild(tempFileInput);
+        tempFileInput.click();
     });
 
     DOM.btnRemoveAttachment.addEventListener('click', clearAttachment);
@@ -1095,23 +1126,36 @@ function setupEventListeners() {
     // Workspace Dialog
     DOM.btnCreateWs.addEventListener('click', () => {
         closeBottomSheet();
-        DOM.inputNewWsCwd.disabled = false;
-        DOM.inputNewWsLabel.disabled = false;
+        if (DOM.dialogNewWsFields) {
+            DOM.dialogNewWsFields.innerHTML = `
+                <label for="input-new-ws-cwd">Directory del progetto (CWD):</label>
+                <input type="text" id="input-new-ws-cwd" placeholder="/Users/leospa/..." value="~">
+                <label for="input-new-ws-label">Nome etichetta (opzionale):</label>
+                <input type="text" id="input-new-ws-label" placeholder="Es. api-service">
+            `;
+        }
         DOM.dialogNewWs.showModal();
+        const firstInput = document.getElementById('input-new-ws-cwd');
+        if (firstInput) firstInput.focus();
     });
 
-    DOM.btnDialogCancel.addEventListener('click', () => {
+    function closeAndCleanupNewWsDialog() {
         DOM.dialogNewWs.close();
-        DOM.inputNewWsCwd.disabled = true;
-        DOM.inputNewWsLabel.disabled = true;
+        if (DOM.dialogNewWsFields) {
+            DOM.dialogNewWsFields.innerHTML = '';
+        }
+    }
+
+    DOM.btnDialogCancel.addEventListener('click', () => {
+        closeAndCleanupNewWsDialog();
     });
 
     DOM.btnDialogConfirm.addEventListener('click', async () => {
-        const cwd = DOM.inputNewWsCwd.value.trim() || '~';
-        const label = DOM.inputNewWsLabel.value.trim() || undefined;
-        DOM.dialogNewWs.close();
-        DOM.inputNewWsCwd.disabled = true;
-        DOM.inputNewWsLabel.disabled = true;
+        const cwdInput = document.getElementById('input-new-ws-cwd');
+        const labelInput = document.getElementById('input-new-ws-label');
+        const cwd = (cwdInput && cwdInput.value.trim()) || '~';
+        const label = (labelInput && labelInput.value.trim()) || undefined;
+        closeAndCleanupNewWsDialog();
         triggerHaptic('success');
         const res = await apiCall('/api/workspace/create', { cwd, label });
         if (res && !res.error) showToast('Nuovo spazio creato');
