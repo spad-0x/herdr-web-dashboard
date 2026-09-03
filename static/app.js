@@ -41,6 +41,9 @@ const State = {
 const DOM = {
     // WhatsApp Multi-Screen Views
     screenChatsList: document.getElementById('screen-chats-list'),
+    chatsViewTitle: document.getElementById('chats-view-title'),
+    badgeAgentCount: document.getElementById('badge-agent-count'),
+    btnTabbarInfo: document.getElementById('btn-tabbar-info'),
     screenChatActive: document.getElementById('screen-chat-active'),
     btnNewChat: document.getElementById('btn-new-chat'),
     chatsListScroll: document.getElementById('chats-list-scroll'),
@@ -394,6 +397,24 @@ function renderChatsList() {
     if (!DOM.chatsListScroll) return;
     DOM.chatsListScroll.innerHTML = '';
 
+    const filter = State.chatsFilter || 'all';
+
+    // Update Header title based on active tab
+    if (DOM.chatsViewTitle) {
+        if (filter === 'panes') DOM.chatsViewTitle.textContent = 'Agenti';
+        else if (filter === 'workspaces') DOM.chatsViewTitle.textContent = 'Spazi di Lavoro';
+        else DOM.chatsViewTitle.textContent = 'Chat';
+    }
+
+    // Sync tabbar active state
+    if (DOM.chatsFilterChips) {
+        DOM.chatsFilterChips.querySelectorAll('.tabbar-item').forEach(item => {
+            if (item.dataset.filter) {
+                item.classList.toggle('active', item.dataset.filter === filter);
+            }
+        });
+    }
+
     if (!State.workspaces || State.workspaces.length === 0) {
         DOM.chatsListScroll.innerHTML = `
             <div style="padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 13px;">
@@ -404,9 +425,64 @@ function renderChatsList() {
         return;
     }
 
-    const filter = State.chatsFilter || 'all';
+    // Collect ALL panes across the active workspace and all workspaces
+    const allPanes = [];
+    let runningPanesCount = 0;
 
-    // 1. Workspaces as WhatsApp Chats
+    State.workspaces.forEach(ws => {
+        const isWsActive = (ws.id === State.activeWorkspaceId);
+        const seenPaneIds = new Set();
+        
+        // Check ws.panes
+        if (ws.panes && ws.panes.length > 0) {
+            ws.panes.forEach(p => {
+                if (!seenPaneIds.has(p.pane_id)) {
+                    seenPaneIds.add(p.pane_id);
+                    allPanes.push({
+                        ...p,
+                        workspace_id: ws.id,
+                        ws_name: ws.name || `Workspace ${ws.id}`,
+                        is_active_ws: isWsActive
+                    });
+                    if (p.is_running || p.status === 'working') runningPanesCount++;
+                }
+            });
+        }
+        
+        // Also check ws.tabs[].panes
+        if (ws.tabs) {
+            ws.tabs.forEach(tab => {
+                if (tab.panes) {
+                    tab.panes.forEach(p => {
+                        if (!seenPaneIds.has(p.pane_id)) {
+                            seenPaneIds.add(p.pane_id);
+                            allPanes.push({
+                                ...p,
+                                tab_id: tab.tab_id,
+                                tab_name: tab.name,
+                                workspace_id: ws.id,
+                                ws_name: ws.name || `Workspace ${ws.id}`,
+                                is_active_ws: isWsActive
+                            });
+                            if (p.is_running || p.status === 'working') runningPanesCount++;
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    // Update badge in bottom tab bar
+    if (DOM.badgeAgentCount) {
+        if (runningPanesCount > 0) {
+            DOM.badgeAgentCount.textContent = runningPanesCount;
+            DOM.badgeAgentCount.style.display = 'flex';
+        } else {
+            DOM.badgeAgentCount.style.display = 'none';
+        }
+    }
+
+    // 1. Workspaces as WhatsApp Chats (Tutti / Spazi)
     if (filter === 'all' || filter === 'workspaces') {
         State.workspaces.forEach(ws => {
             const isActive = (ws.id === State.activeWorkspaceId);
@@ -420,7 +496,7 @@ function renderChatsList() {
                     if (tab.panes) {
                         totalPanes += tab.panes.length;
                         tab.panes.forEach(p => {
-                            if (p.is_running) isRunning = true;
+                            if (p.is_running || p.status === 'working') isRunning = true;
                             if (p.command && !lastCommand) lastCommand = p.command;
                         });
                     }
@@ -463,43 +539,73 @@ function renderChatsList() {
         });
     }
 
-    // 2. Panes / Agents as WhatsApp Chats
+    // 2. Agents / Panes (Agenti)
     if (filter === 'panes') {
-        if (State.panes && State.panes.length > 0) {
-            State.panes.forEach(pane => {
-                const isActive = (pane.pane_id === State.activePaneId);
-                const item = document.createElement('div');
-                item.className = `chat-item-row ${isActive ? 'active' : ''}`;
-                
-                const preview = pane.clean_text ? pane.clean_text.slice(-50).trim() : (pane.is_running ? '⚡ In esecuzione' : 'In attesa');
-
-                item.innerHTML = `
-                    <div class="chat-item-avatar">
-                        <span>🤖</span>
-                        ${isActive ? '<span class="chat-item-online-dot"></span>' : ''}
-                    </div>
-                    <div class="chat-item-content">
-                        <div class="chat-item-top">
-                            <span class="chat-item-title">Pannello #${pane.pane_id} ${pane.command ? `(${escapeHtml(pane.command)})` : ''}</span>
-                            <span class="chat-item-time">Adesso</span>
-                        </div>
-                        <div class="chat-item-bottom">
-                            <span class="chat-item-preview">${escapeHtml(preview)}</span>
-                            <span class="chat-item-badge">${pane.is_running ? '⚡ attivo' : 'idle'}</span>
-                        </div>
-                    </div>
-                `;
-
-                item.addEventListener('click', async () => {
-                    triggerHaptic('light');
-                    State.activePaneId = pane.pane_id;
-                    await apiCall('/api/pane/focus', { pane_id: pane.pane_id });
-                    setScreen('chat-active');
-                });
-
-                DOM.chatsListScroll.appendChild(item);
-            });
+        if (allPanes.length === 0) {
+            DOM.chatsListScroll.innerHTML = `
+                <div style="padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 13px;">
+                    Nessun agente o terminale attivo.<br>
+                    Tocca <strong>Chat</strong> per visualizzare i tuoi spazi di lavoro.
+                </div>
+            `;
+            return;
         }
+
+        // Sort: active pane first, then active workspace panes, then others
+        allPanes.sort((a, b) => {
+            if (a.pane_id === State.activePaneId) return -1;
+            if (b.pane_id === State.activePaneId) return 1;
+            if (a.is_active_ws && !b.is_active_ws) return -1;
+            if (!a.is_active_ws && b.is_active_ws) return 1;
+            return 0;
+        });
+
+        allPanes.forEach(pane => {
+            const isActive = (pane.pane_id === State.activePaneId);
+            const isWorking = (pane.status === 'working' || pane.is_running);
+            const isBlocked = (pane.status === 'blocked' || pane.waiting_confirm);
+
+            const item = document.createElement('div');
+            item.className = `chat-item-row ${isActive ? 'active' : ''}`;
+            
+            let statusBadge = isWorking ? '⚡ lavora' : (isBlocked ? '⚠️ conferma' : 'pronto');
+            let preview = pane.clean_text ? pane.clean_text.slice(-60).trim() : (isWorking ? '⚡ In esecuzione...' : 'Pronto');
+            if (pane.command) preview = `▶ ${pane.command}`;
+
+            item.innerHTML = `
+                <div class="chat-item-avatar">
+                    <span>${isWorking ? '⚡' : '🤖'}</span>
+                    ${isActive ? '<span class="chat-item-online-dot"></span>' : ''}
+                </div>
+                <div class="chat-item-content">
+                    <div class="chat-item-top">
+                        <span class="chat-item-title">${escapeHtml(pane.agent || pane.title || `Agente #${pane.pane_id}`)}</span>
+                        <span class="chat-item-time">${escapeHtml(pane.ws_name || 'Spazio')}</span>
+                    </div>
+                    <div class="chat-item-bottom">
+                        <span class="chat-item-preview">${escapeHtml(preview)}</span>
+                        <span class="chat-item-badge">${escapeHtml(statusBadge)}</span>
+                    </div>
+                </div>
+            `;
+
+            item.addEventListener('click', async () => {
+                triggerHaptic('light');
+                if (pane.workspace_id && pane.workspace_id !== State.activeWorkspaceId) {
+                    State.activeWorkspaceId = pane.workspace_id;
+                    await apiCall('/api/workspace/focus', { workspace_id: pane.workspace_id });
+                }
+                if (pane.tab_id && pane.tab_id !== State.activeTabId) {
+                    State.activeTabId = pane.tab_id;
+                    await apiCall('/api/tab/focus', { tab_id: pane.tab_id });
+                }
+                State.activePaneId = pane.pane_id;
+                await apiCall('/api/pane/focus', { pane_id: pane.pane_id });
+                setScreen('chat-active');
+            });
+
+            DOM.chatsListScroll.appendChild(item);
+        });
     }
 }
 
@@ -863,7 +969,20 @@ function updateInputState() {
 async function sendPrompt() {
     const text = getPromptText();
     if (!text && !State.pendingAttachment) return;
-    if (!State.activePaneId) return;
+
+    if (!State.activePaneId) {
+        const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId) || State.workspaces[0];
+        if (activeWs && activeWs.panes && activeWs.panes.length > 0) {
+            State.activePaneId = activeWs.panes[0].pane_id;
+        } else if (State.panes && State.panes.length > 0) {
+            State.activePaneId = State.panes[0].pane_id;
+        }
+    }
+
+    if (!State.activePaneId) {
+        showToast('Nessun agente attivo su cui inviare');
+        return;
+    }
 
     triggerHaptic('medium');
 
@@ -1119,12 +1238,19 @@ function setupEventListeners() {
 
     if (DOM.chatsFilterChips) {
         DOM.chatsFilterChips.addEventListener('click', (e) => {
-            const chip = e.target.closest('.filter-chip');
-            if (!chip) return;
+            const item = e.target.closest('.tabbar-item');
+            if (!item) return;
+
+            if (item.id === 'btn-tabbar-info') {
+                triggerHaptic('light');
+                openContactInfo();
+                return;
+            }
+
             triggerHaptic('light');
-            DOM.chatsFilterChips.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            State.chatsFilter = chip.dataset.filter || 'all';
+            DOM.chatsFilterChips.querySelectorAll('.tabbar-item').forEach(c => c.classList.remove('active'));
+            item.classList.add('active');
+            State.chatsFilter = item.dataset.filter || 'all';
             renderChatsList();
         });
     }
