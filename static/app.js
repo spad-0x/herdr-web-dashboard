@@ -946,20 +946,19 @@ function renderChatsList() {
 
                     pushEl.addEventListener('change', async (e) => {
                         if (e.target.checked) {
-                            const granted = await requestNotificationPermission();
-                            if (granted) {
+                            const success = await window.subscribeUserToPush();
+                            if (success) {
                                 localStorage.setItem('herdr_push_enabled', 'true');
                                 if (testPushBtn) testPushBtn.style.display = 'inline-block';
-                                if (pushDesc) pushDesc.textContent = 'Notifiche push attivate con successo!';
-                                showPushNotification('Herdr Dashboard', {
-                                    body: 'Notifiche push attivate! Ti avviseremo quando un agente richiede attenzione.',
-                                    icon: '/icon-192.png'
-                                });
+                                if (pushDesc) pushDesc.textContent = 'Notifiche push attivate! Riceverai avvisi anche a schermo bloccato.';
+                                if (window.triggerServerPushTest) {
+                                    window.triggerServerPushTest();
+                                }
                             } else {
                                 e.target.checked = false;
                                 localStorage.setItem('herdr_push_enabled', 'false');
                                 if (testPushBtn) testPushBtn.style.display = 'none';
-                                alert('Permesso notifiche non concesso. Verifica le impostazioni di Safari / iOS.');
+                                alert('Permesso notifiche non concesso o non supportato. Se sei su iPhone, assicurati che la pagina sia stata aggiunta alla Home e che le notifiche per la Web App siano consentite in Impostazioni iOS.');
                             }
                         } else {
                             localStorage.setItem('herdr_push_enabled', 'false');
@@ -969,11 +968,12 @@ function renderChatsList() {
                     });
 
                     if (testPushBtn) {
-                        testPushBtn.addEventListener('click', () => {
-                            showPushNotification('⚡ Herdr Agent Test', {
-                                body: 'Questo è un test delle notifiche push per Herdr!',
-                                icon: '/icon-192.png'
-                            });
+                        testPushBtn.addEventListener('click', async () => {
+                            testPushBtn.textContent = 'Invio in corso...';
+                            if (window.triggerServerPushTest) {
+                                await window.triggerServerPushTest();
+                            }
+                            testPushBtn.textContent = 'Test Notifica';
                         });
                     }
                 }

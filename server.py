@@ -36,6 +36,55 @@ CA_KEY_FILE = os.path.join(CERTS_DIR, "ca_key.pem")
 
 herdr = HerdrClient()
 
+def send_web_push(title, body, data=None):
+    """Send push notification to all registered subscriptions using pywebpush."""
+    v_path = os.path.join(BASE_DIR, "vapid_keys.json")
+    s_path = os.path.join(BASE_DIR, "push_subscriptions.json")
+    if not os.path.exists(v_path) or not os.path.exists(s_path):
+        return 0
+    try:
+        from pywebpush import webpush, WebPushException
+        with open(v_path) as f:
+            v_keys = json.load(f)
+        with open(s_path) as f:
+            subs = json.load(f)
+        
+        priv_key = os.path.join(BASE_DIR, v_keys.get("private_key_file", "private_key.pem"))
+        payload_data = json.dumps({
+            "title": title,
+            "body": body,
+            "icon": "/icon-192.png",
+            "data": data or {}
+        })
+
+        success_count = 0
+        valid_subs = []
+        for sub in subs:
+            try:
+                webpush(
+                    subscription_info=sub,
+                    data=payload_data,
+                    vapid_private_key=priv_key,
+                    vapid_claims={"sub": "mailto:admin@herdr.local"}
+                )
+                success_count += 1
+                valid_subs.append(sub)
+            except WebPushException as ex:
+                if ex.response is not None and ex.response.status_code in (404, 410):
+                    pass
+                else:
+                    valid_subs.append(sub)
+            except Exception:
+                valid_subs.append(sub)
+
+        with open(s_path, "w") as f:
+            json.dump(valid_subs, f, indent=2)
+        return success_count
+    except Exception as e:
+        print("[WebPush Error]", e)
+        return 0
+
+
 def ensure_ssl_certificates():
     """Generate Root CA and SAN SSL certificates if they don't already exist."""
     os.makedirs(CERTS_DIR, exist_ok=True)
@@ -755,6 +804,13 @@ class DashboardHandler(BaseHTTPRequestHandler):
             return self.send_json(read_data)
 
         # API: Aggregated state for mobile app
+        if path == "/api/push/public-key":
+            if os.path.exists("vapid_keys.json"):
+                with open("vapid_keys.json") as f:
+                    keys = json.load(f)
+                return self.send_json({"publicKey": keys.get("public_key", "")})
+            return self.send_json({"error": "VAPID keys not configured"}, status=404)
+
         if path == "/api/state":
             lines = int(query.get("lines", [1500])[0])
             source = query.get("source", ["recent_unwrapped"])[0]
@@ -827,6 +883,33 @@ class DashboardHandler(BaseHTTPRequestHandler):
         # Protected POST routes
         if not self.check_auth():
             return self.send_json({"error": "Unauthorized"}, status=401)
+
+        # Push Notifications Subscription & Test
+        if parsed.path == "/api/push/subscribe":
+            sub = payload.get("subscription")
+            if not sub or not sub.get("endpoint"):
+                return self.send_json({"error": "Invalid subscription"}, status=400)
+            
+            subs = []
+            if os.path.exists("push_subscriptions.json"):
+                try:
+                    with open("push_subscriptions.json") as f:
+                        subs = json.load(f)
+                except Exception:
+                    subs = []
+            
+            # Avoid duplicate endpoints
+            subs = [s for s in subs if s.get("endpoint") != sub.get("endpoint")]
+            subs.append(sub)
+            with open("push_subscriptions.json", "w") as f:
+                json.dump(subs, f, indent=2)
+            return self.send_json({"success": True, "count": len(subs)})
+
+        if parsed.path == "/api/push/test":
+            title = payload.get("title", "⚡ Herdr Test")
+            body = payload.get("body", "Questo è un test push inviato direttamente dal server!")
+            sent = send_web_push(title, body)
+            return self.send_json({"success": True, "sent": sent})
 
         # Send text to a pane
         if parsed.path in ("/api/pane/text", "/api/pane/input"):
@@ -1054,7 +1137,66 @@ class DashboardHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b"404 Not Found")
 
+
+# Background thread to monitor agent states and push notifications to idle/standby devices
+_last_pane_states = {}
+
+def monitor_agents_background():
+    global _last_pane_states
+    while True:
+        try:
+            state = get_aggregated_state(lines=100)
+            workspaces = state.get("workspaces", [])
+            current_states = {}
+            for ws in workspaces:
+                ws_name = ws.get("name") or f"Workspace {ws.get('id')}"
+                ws_id = ws.get("id")
+                panes = []
+                if ws.get("panes"):
+                    panes.extend(ws.get("panes"))
+                for tab in ws.get("tabs", []):
+                    if tab.get("panes"):
+                        panes.extend(tab.get("panes"))
+                
+                for p in panes:
+                    pid = p.get("pane_id")
+                    if not pid: continue
+                    title = p.get("agent") or p.get("title") or p.get("command") or f"Agente {pid}"
+                    is_running = bool(p.get("is_running") or p.get("status") == "working")
+                    waiting_confirm = bool(p.get("waiting_confirm") or p.get("status") in ("waiting_confirm", "confirm", "blocked"))
+                    current_states[pid] = {
+                        "title": title,
+                        "ws_name": ws_name,
+                        "ws_id": ws_id,
+                        "is_running": is_running,
+                        "waiting_confirm": waiting_confirm
+                    }
+
+            for pid, curr in current_states.items():
+                prev = _last_pane_states.get(pid)
+                if prev:
+                    # Case 1: Agent asks confirmation
+                    if not prev["waiting_confirm"] and curr["waiting_confirm"]:
+                        send_web_push(
+                            f"⚠️ Richiesta Conferma: {curr['title']}",
+                            "L agente richiede la tua autorizzazione per procedere.",
+                            {"paneId": pid, "workspaceId": curr["ws_id"]}
+                        )
+                    # Case 2: Agent completed task
+                    elif prev["is_running"] and not curr["is_running"] and not curr["waiting_confirm"]:
+                        send_web_push(
+                            f"✅ Task Completato: {curr['title']}",
+                            "L agente ha terminato con successo!",
+                        )
+
+            _last_pane_states = current_states
+        except Exception:
+            pass
+        time.sleep(1.0)
+
 def run_server():
+    import threading
+    threading.Thread(target=monitor_agents_background, daemon=True).start()
     ensure_ssl_certificates()
     ensure_auth_credentials()
 
