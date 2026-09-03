@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
     <meta name="theme-color" content="#07080c">
+    
+    <!-- iOS Standalone & Android PWA Meta Tags -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Herdr">
+    
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+    <link rel="manifest" href="/manifest.json">
+    
     <title>Accedi — Herdr</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -35,7 +47,13 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
             background-color: var(--bg-base);
             background-image: 
                 radial-gradient(ellipse at 50% 10%, rgba(0, 240, 255, 0.12) 0%, transparent 60%),
@@ -45,9 +63,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            min-height: 100dvh;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 400px;
             padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .login-card {
@@ -57,12 +81,11 @@
             border: 1px solid var(--border-subtle);
             border-radius: 24px;
             width: 100%;
-            max-width: 400px;
-            padding: 36px 30px;
+            padding: 34px 28px;
             box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 1px rgba(255, 255, 255, 0.2) inset;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 22px;
             position: relative;
             overflow: hidden;
         }
@@ -249,50 +272,52 @@
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <div class="login-header">
-            <div class="login-logo">🐏</div>
-            <h1 class="login-title">Herdr Dashboard</h1>
-            <p class="login-subtitle">Accedi per gestire i tuoi agenti e terminali su qualsiasi dispositivo.</p>
-        </div>
-
-        <div id="alert-box" class="alert-box">
-            <span>⚠️</span>
-            <span id="alert-text">Credenziali non valide.</span>
-        </div>
-
-        <form id="login-form" autocomplete="on">
-            <div style="display: flex; flex-direction: column; gap: 18px;">
-                <div class="form-group">
-                    <label class="form-label" for="username">Nome Utente</label>
-                    <div class="input-wrapper">
-                        <input class="form-input" type="text" id="username" name="username" placeholder="admin" required autocomplete="username" autocapitalize="none" autocorrect="off">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="password">Password</label>
-                    <div class="input-wrapper">
-                        <input class="form-input" type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
-                    </div>
-                </div>
-
-                <div class="remember-row">
-                    <label class="remember-checkbox">
-                        <input type="checkbox" id="remember" checked>
-                        <span>Ricorda dispositivo</span>
-                    </label>
-                </div>
-
-                <button type="submit" class="btn-submit" id="btn-submit">
-                    <span id="btn-text">Accedi al Dashboard</span>
-                    <div class="spinner" id="btn-spinner"></div>
-                </button>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">🐏</div>
+                <h1 class="login-title">Herdr Dashboard</h1>
+                <p class="login-subtitle">Accedi per gestire i tuoi agenti e terminali su qualsiasi dispositivo.</p>
             </div>
-        </form>
 
-        <div class="footer-note">
-            Certificato HTTPS locale attivo • <a href="/ca.crt" download>Scarica Certificato Root CA</a>
+            <div id="alert-box" class="alert-box">
+                <span>⚠️</span>
+                <span id="alert-text">Credenziali non valide.</span>
+            </div>
+
+            <form id="login-form" autocomplete="on">
+                <div style="display: flex; flex-direction: column; gap: 18px;">
+                    <div class="form-group">
+                        <label class="form-label" for="username">Nome Utente</label>
+                        <div class="input-wrapper">
+                            <input class="form-input" type="text" id="username" name="username" placeholder="admin" required autocomplete="username" autocapitalize="none" autocorrect="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input class="form-input" type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                        </div>
+                    </div>
+
+                    <div class="remember-row">
+                        <label class="remember-checkbox">
+                            <input type="checkbox" id="remember" checked>
+                            <span>Ricorda dispositivo</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-submit">
+                        <span id="btn-text">Accedi al Dashboard</span>
+                        <div class="spinner" id="btn-spinner"></div>
+                    </button>
+                </div>
+            </form>
+
+            <div class="footer-note">
+                Certificato HTTPS locale attivo • <a href="/ca.crt" download>Scarica Certificato Root CA</a>
+            </div>
         </div>
     </div>
 
@@ -303,6 +328,18 @@
         const btnSubmit = document.getElementById('btn-submit');
         const btnText = document.getElementById('btn-text');
         const btnSpinner = document.getElementById('btn-spinner');
+
+        // Check if token already stored in localStorage (e.g. for iOS Web Clip)
+        const savedToken = localStorage.getItem('herdr_token');
+        if (savedToken) {
+            fetch(`/api/state?token=${encodeURIComponent(savedToken)}`, {
+                headers: { 'X-Session-Token': savedToken }
+            }).then(r => {
+                if (r.ok) {
+                    window.location.href = `/?token=${encodeURIComponent(savedToken)}`;
+                }
+            }).catch(() => {});
+        }
 
         function showError(msg) {
             alertText.textContent = msg;
@@ -337,8 +374,10 @@
                 if (res.ok && data.success) {
                     if (data.token) {
                         localStorage.setItem('herdr_token', data.token);
+                        window.location.href = `/?token=${encodeURIComponent(data.token)}`;
+                    } else {
+                        window.location.href = '/';
                     }
-                    window.location.href = '/';
                 } else {
                     showError(data.message || 'Credenziali non valide.');
                     btnSubmit.disabled = false;

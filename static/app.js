@@ -682,10 +682,25 @@ function handleStateUpdate(data) {
     renderAgents();
 }
 
+// Universal API Request Wrapper with Session Token Auth
+function apiFetch(url, options = {}) {
+    const token = localStorage.getItem('herdr_token') || '';
+    const headers = Object.assign({}, options.headers || {});
+    if (token) {
+        headers['X-Session-Token'] = token;
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    options.headers = headers;
+    return fetch(url, options);
+}
+
 function startSync() {
+    const token = localStorage.getItem('herdr_token') || '';
+    const streamUrl = token ? `/api/stream?token=${encodeURIComponent(token)}` : '/api/stream';
     if (window.EventSource) {
         try {
-            State.sseSource = new EventSource('/api/stream');
+            if (State.sseSource) State.sseSource.close();
+            State.sseSource = new EventSource(streamUrl);
             State.sseSource.addEventListener('state', (e) => {
                 try {
                     const data = JSON.parse(e.data);
@@ -711,7 +726,9 @@ function startPollingFallback() {
 
 async function fetchState() {
     try {
-        const res = await fetch('/api/state');
+        const token = localStorage.getItem('herdr_token') || '';
+        const url = token ? `/api/state?token=${encodeURIComponent(token)}` : '/api/state';
+        const res = await apiFetch(url);
         if (res.status === 401) {
             window.location.href = '/login';
             return;
@@ -742,7 +759,7 @@ async function sendPrompt() {
     clearAttachment();
 
     try {
-        const res = await fetch('/api/pane/text', {
+        const res = await apiFetch('/api/pane/text', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -764,7 +781,7 @@ async function sendPrompt() {
 async function sendQuickKey(keyName) {
     triggerHaptic('light');
     try {
-        const res = await fetch('/api/pane/keys', {
+        const res = await apiFetch('/api/pane/keys', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -786,7 +803,7 @@ async function focusWorkspace(wsId) {
     triggerHaptic('light');
     State.activeWorkspaceId = wsId;
     try {
-        await fetch('/api/workspace/focus', {
+        await apiFetch('/api/workspace/focus', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ workspace_id: wsId })
@@ -801,7 +818,7 @@ async function focusTab(tabId, wsId) {
     State.activeTabId = tabId;
     if (wsId) State.activeWorkspaceId = wsId;
     try {
-        await fetch('/api/tab/focus', {
+        await apiFetch('/api/tab/focus', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ tab_id: tabId })
@@ -814,7 +831,7 @@ window.focusTab = focusTab;
 async function createNewTab(wsId) {
     triggerHaptic('medium');
     try {
-        await fetch('/api/tab/create', {
+        await apiFetch('/api/tab/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ workspace_id: wsId, label: 'tab' })
@@ -895,7 +912,7 @@ function handleFileUpload(file) {
         triggerHaptic('light');
 
         try {
-            const res = await fetch('/api/upload', {
+            const res = await apiFetch('/api/upload', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -1016,7 +1033,7 @@ function initEventListeners() {
     DOM.btnDrawerLogout.addEventListener('click', async () => {
         triggerHaptic('medium');
         try {
-            await fetch('/api/logout', { method: 'POST' });
+            await apiFetch('/api/logout', { method: 'POST' });
         } catch (e) {}
         localStorage.removeItem('herdr_token');
         window.location.href = '/login';
@@ -1133,7 +1150,7 @@ function initEventListeners() {
             return;
         }
         try {
-            const res = await fetch('/api/workspace/create', {
+            const res = await apiFetch('/api/workspace/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ cwd, label })
@@ -1249,6 +1266,16 @@ function initEventListeners() {
 // INIT & BOOTSTRAP
 // =============================================================================
 function bootstrap() {
+    // Check if token in URL query (e.g. from iOS Web Clip redirect)
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlToken = urlParams.get('token');
+        if (urlToken) {
+            localStorage.setItem('herdr_token', urlToken);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    } catch (e) {}
+
     // Restore settings
     const savedTheme = localStorage.getItem('herdr_theme') || 'cyber-dark';
     document.documentElement.setAttribute('data-theme', savedTheme);

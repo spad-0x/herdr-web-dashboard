@@ -115,10 +115,10 @@
 }
 
 html, body {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     height: 100dvh;
-    min-height: 100vh;
+    min-height: 100%;
     min-height: 100dvh;
     overflow: hidden;
     background-color: var(--bg-base);
@@ -167,8 +167,13 @@ html, body {
     flex-direction: column;
     width: 100%;
     height: 100%;
+    height: 100dvh;
     overflow: hidden;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: var(--bg-base);
     background-image: 
         radial-gradient(ellipse at 50% 0%, rgba(0, 240, 255, 0.07) 0%, transparent 55%),
@@ -1303,7 +1308,7 @@ details[open] .accordion-chevron {
     outline: none;
     color: #fff;
     font-family: var(--font-sans);
-    font-size: 14.5px;
+    font-size: 16px; /* Prevents auto-zoom on iOS */
     line-height: 1.4;
     resize: none;
     max-height: 120px;
@@ -1931,7 +1936,7 @@ input:checked + .toggle-slider:before {
     padding: 10px 14px;
     color: #fff;
     font-family: var(--font-sans);
-    font-size: 14px;
+    font-size: 16px;
     outline: none;
     transition: border-color 0.2s ease;
 }

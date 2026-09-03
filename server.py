@@ -299,6 +299,16 @@ class DashboardHandler(BaseHTTPRequestHandler):
             pass
 
     def get_token_from_request(self):
+        # 1. URL Query parameter (e.g. for SSE EventSource / iOS Web Clip)
+        try:
+            parsed = urlparse(self.path)
+            query = parse_qs(parsed.query)
+            if "token" in query and query["token"]:
+                return query["token"][0].strip()
+        except Exception:
+            pass
+
+        # 2. Cookie header
         cookie_header = self.headers.get("Cookie")
         if cookie_header:
             cookie = SimpleCookie()
@@ -309,10 +319,12 @@ class DashboardHandler(BaseHTTPRequestHandler):
             except Exception:
                 pass
 
+        # 3. Authorization Bearer
         auth_header = self.headers.get("Authorization")
         if auth_header and auth_header.startswith("Bearer "):
             return auth_header.split(" ", 1)[1].strip()
 
+        # 4. Custom X-Session-Token header
         token_header = self.headers.get("X-Session-Token")
         if token_header:
             return token_header.strip()
@@ -386,6 +398,12 @@ class DashboardHandler(BaseHTTPRequestHandler):
                     pass
                 return
 
+        # Public Apple Touch Icons & Favicons (All variations for iOS Home Screen)
+        if path.startswith("/apple-touch-icon"):
+            return self.serve_static_file("apple-touch-icon.png")
+        if path == "/favicon.ico":
+            return self.serve_static_file("icon-192.png")
+
         # Public Login Page & Static Assets
         if path in ("/login", "/login.html"):
             if self.check_auth():
@@ -396,7 +414,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 return
             return self.serve_static_file("login.html")
 
-        if path in ("/manifest.json", "/style.css", "/app.js", "/favicon.ico", "/favicon.svg") or path.endswith(".js") or path.endswith(".css") or path.endswith(".png") or path.endswith(".svg"):
+        if path in ("/manifest.json", "/style.css", "/app.js", "/favicon.svg", "/icon-192.png", "/icon-512.png") or path.endswith(".js") or path.endswith(".css") or path.endswith(".png") or path.endswith(".svg"):
             return self.serve_static_file(path.lstrip("/"))
 
         # Authentication Check
