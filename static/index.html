@@ -25,50 +25,79 @@
     <link rel="stylesheet" href="/vendor/xterm.css">
     
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css?v=20260903_1615">
+    <link rel="stylesheet" href="/style.css?v=20260903_1703">
 </head>
 <body>
     <div class="app-root" id="app-root">
         
         <!-- =================================================================
-             1. TOP HEADER (Completely integrated in top / Safe Area aware)
+             SCREEN 1: WHATSAPP CHATS LIST (Workspaces & Agents)
              ================================================================= -->
-        <header class="chat-header" id="chat-header">
-            <div class="header-left">
-                <!-- Back / Workspace Button (Chevron only) -->
-                <button class="btn-header-back" id="btn-ws-picker" title="Spazi di Lavoro" aria-label="Spazi di Lavoro">
-                    <span class="back-chevron">‹</span>
-                </button>
+        <div class="screen-view" id="screen-chats-list" style="display: none;">
+            <header class="chats-screen-header">
+                <div class="chats-header-left">
+                    <span class="chats-header-brand">Herdr</span>
+                </div>
+                <h1 class="chats-screen-title">Chat</h1>
+                <div class="chats-header-right">
+                    <button class="btn-new-chat" id="btn-new-chat" title="Nuovo Spazio di Lavoro">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
+            </header>
 
-                <!-- Agent & Workspace Info -->
-                <div class="header-contact" id="btn-header-contact" title="Dettagli Agente">
-                    <div class="contact-info">
-                        <div class="contact-title-row">
-                            <h2 class="contact-name" id="chat-header-title">Herdr Agent</h2>
-                            <span class="socket-dot" id="socket-dot" title="Stato Socket Herdr"></span>
-                        </div>
-                        <span class="contact-status" id="agent-status-text">workspace</span>
-                    </div>
+            <!-- Search & Filter Bar -->
+            <div class="chats-filter-bar">
+                <div class="chats-filter-chips" id="chats-filter-chips">
+                    <button type="button" class="filter-chip active" data-filter="all">Tutti</button>
+                    <button type="button" class="filter-chip" data-filter="workspaces">Spazi</button>
+                    <button type="button" class="filter-chip" data-filter="panes">Agenti</button>
                 </div>
             </div>
 
-            <div class="header-right">
-                <!-- Mode Toggle (💬 Chat vs 💻 Terminal) -->
-                <button class="btn-mode-toggle" id="btn-mode-toggle" title="Passa tra Chat e Terminale Raw">
-                    <span id="mode-icon">💻</span>
-                    <span class="mode-label" id="mode-label">Terminale</span>
-                </button>
-
-                <!-- More Options Menu -->
-                <button class="btn-icon-more" id="btn-open-menu" title="Menu e Impostazioni" aria-label="Menu">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                        <circle cx="12" cy="12" r="1.5"></circle>
-                        <circle cx="12" cy="5" r="1.5"></circle>
-                        <circle cx="12" cy="19" r="1.5"></circle>
-                    </svg>
-                </button>
+            <!-- Conversations List -->
+            <div class="chats-list-scroll" id="chats-list-scroll">
+                <!-- Dynamically populated WhatsApp-style chat rows -->
             </div>
-        </header>
+        </div>
+
+        <!-- =================================================================
+             SCREEN 2: ACTIVE CHAT SCREEN (WhatsApp Style)
+             ================================================================= -->
+        <div class="screen-view active" id="screen-chat-active">
+            
+            <!-- TOP HEADER -->
+            <header class="chat-header" id="chat-header">
+                <div class="header-left">
+                    <!-- Back to Chats List Button (WhatsApp style: < Chat) -->
+                    <button class="btn-header-back" id="btn-ws-picker" title="Tutte le Chat" aria-label="Tutte le Chat">
+                        <span class="back-chevron">‹</span>
+                        <span class="back-label">Chat</span>
+                    </button>
+
+                    <!-- Agent & Workspace Info (Click opens WhatsApp Contact Card) -->
+                    <div class="header-contact" id="btn-header-contact" title="Tocca per info agente">
+                        <div class="header-avatar-mini" id="header-avatar-mini">🐏</div>
+                        <div class="contact-info">
+                            <div class="contact-title-row">
+                                <h2 class="contact-name" id="chat-header-title">Herdr Agent</h2>
+                                <span class="socket-dot" id="socket-dot" title="Stato Socket Herdr"></span>
+                            </div>
+                            <span class="contact-status" id="agent-status-text">workspace</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <!-- Mode Toggle (ONLY the icon: 💻 vs 💬) -->
+                    <button class="btn-mode-toggle" id="btn-mode-toggle" title="Passa tra Chat e Terminale Raw">
+                        <span id="mode-icon">💻</span>
+                    </button>
+                </div>
+            </header>
 
         <!-- =================================================================
              2. SLIM TAB STRIP (Tabs in active workspace)
@@ -241,6 +270,7 @@
                 </button>
             </div>
         </footer>
+        </div> <!-- End of screen-chat-active -->
 
         <!-- =================================================================
              8. IMAGE LIGHTBOX MODAL
@@ -254,35 +284,66 @@
         </div>
 
         <!-- =================================================================
-             9. BOTTOM SHEET MODAL: WORKSPACES, PANES, SETTINGS
+             9. WHATSAPP STYLE CONTACT INFO MODAL / SHEET
              ================================================================= -->
         <div class="sheet-backdrop" id="sheet-backdrop"></div>
-        <aside class="bottom-sheet" id="bottom-sheet">
+        <aside class="bottom-sheet contact-sheet" id="bottom-sheet">
             <div class="sheet-handle-bar">
                 <div class="sheet-handle"></div>
             </div>
             
-            <div class="sheet-header">
-                <h3 class="sheet-title" id="sheet-title">Controlli Herdr</h3>
-                <button class="btn-sheet-close" id="btn-sheet-close">✕</button>
+            <div class="contact-card-hero">
+                <button class="btn-sheet-close contact-sheet-close" id="btn-sheet-close">✕</button>
+                <div class="contact-hero-avatar">
+                    <span class="avatar-large-emoji">🐏</span>
+                    <span class="avatar-online-ring"></span>
+                </div>
+                <h2 class="contact-hero-name" id="contact-hero-name">Herdr Agent</h2>
+                <div class="contact-hero-subtitle" id="contact-hero-subtitle">workspace • online</div>
+
+                <!-- Quick Action Buttons (WhatsApp Style) -->
+                <div class="contact-quick-actions">
+                    <button class="quick-action-pill" id="btn-quick-chat">
+                        <span class="quick-action-icon">💬</span>
+                        <span class="quick-action-label">Chat</span>
+                    </button>
+                    <button class="quick-action-pill" id="btn-quick-term">
+                        <span class="quick-action-icon">💻</span>
+                        <span class="quick-action-label">Terminale</span>
+                    </button>
+                    <button class="quick-action-pill" id="btn-quick-tab">
+                        <span class="quick-action-icon">➕</span>
+                        <span class="quick-action-label">Nuova Tab</span>
+                    </button>
+                    <button class="quick-action-pill" id="btn-quick-split">
+                        <span class="quick-action-icon">⬌</span>
+                        <span class="quick-action-label">Split</span>
+                    </button>
+                </div>
             </div>
 
-            <div class="sheet-body">
-                <!-- Section: Workspaces -->
-                <div class="sheet-section">
-                    <div class="sheet-section-header">
-                        <h4>Spazi di Lavoro (Workspaces)</h4>
-                        <button class="btn-mini-action" id="btn-create-ws">+ Nuovo</button>
+            <div class="sheet-body contact-body">
+                <!-- Group 1: Spazio di Lavoro Attivo -->
+                <div class="contact-info-group">
+                    <div class="info-group-title">Spazio di Lavoro Attivo</div>
+                    <div class="info-group-row">
+                        <span class="group-row-label">Cartella CWD</span>
+                        <span class="group-row-val mono" id="contact-cwd-val">~</span>
                     </div>
-                    <div class="sheet-list" id="sheet-ws-list">
-                        <!-- Dynamic Workspaces -->
+                    <div class="info-group-row">
+                        <span class="group-row-label">Demone Herdr</span>
+                        <span class="group-row-val mono" id="sheet-daemon-version">v0.8.2</span>
+                    </div>
+                    <div class="info-group-row">
+                        <span class="group-row-label">Socket Unix</span>
+                        <span class="group-row-val mono" id="sheet-socket-path">~/.config/herdr/herdr.sock</span>
                     </div>
                 </div>
 
-                <!-- Section: Panes in Current Tab -->
-                <div class="sheet-section">
-                    <div class="sheet-section-header">
-                        <h4>Pannelli (Panes) attivi</h4>
+                <!-- Group 2: Panes Attivi in Questo Spazio -->
+                <div class="contact-info-group">
+                    <div class="info-group-title-row">
+                        <span class="info-group-title">Pannelli (Panes) attivi</span>
                         <div class="sheet-section-actions">
                             <button class="btn-mini-action" id="btn-split-horiz" title="Dividi orizzontalmente">⬌ Split</button>
                             <button class="btn-mini-action" id="btn-split-vert" title="Dividi verticalmente">⬍ Split</button>
@@ -293,41 +354,31 @@
                     </div>
                 </div>
 
-                <!-- Section: Terminal Controls & Font -->
-                <div class="sheet-section">
-                    <div class="sheet-section-header">
-                        <h4>Impostazioni Visualizzazione</h4>
-                    </div>
-                    <div class="sheet-row-controls">
-                        <span class="control-label">Dimensione Font Terminale:</span>
+                <!-- Group 3: Impostazioni Visualizzazione & Tema -->
+                <div class="contact-info-group">
+                    <div class="info-group-title">Visualizzazione & Terminale</div>
+                    <div class="info-group-row">
+                        <span class="group-row-label">Dimensione Font</span>
                         <div class="font-controls">
                             <button class="btn-control-chip" id="btn-font-dec">A-</button>
                             <span class="font-size-display" id="font-size-display">13px</span>
                             <button class="btn-control-chip" id="btn-font-inc">A+</button>
                         </div>
                     </div>
-                    <div class="sheet-row-controls">
-                        <span class="control-label">Tema Visivo:</span>
-                        <select class="theme-select" id="theme-select">
-                            <option value="cyber-dark">Cyber Dark</option>
-                            <option value="tokyo-night">Tokyo Night</option>
-                            <option value="obsidian-oled">Obsidian OLED</option>
-                            <option value="synthwave">Synthwave</option>
-                            <option value="matrix">Matrix</option>
-                        </select>
+                    <div class="info-group-row column">
+                        <span class="group-row-label">Tema Visivo</span>
+                        <div class="theme-chips-list" id="theme-chips-list">
+                            <button type="button" class="theme-chip-btn active" data-theme="cyber-dark">Cyber Dark</button>
+                            <button type="button" class="theme-chip-btn" data-theme="tokyo-night">Tokyo Night</button>
+                            <button type="button" class="theme-chip-btn" data-theme="obsidian-oled">Obsidian</button>
+                            <button type="button" class="theme-chip-btn" data-theme="synthwave">Synthwave</button>
+                            <button type="button" class="theme-chip-btn" data-theme="matrix">Matrix</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Section: System & Logout -->
-                <div class="sheet-section">
-                    <div class="sheet-row-info">
-                        <span>Demone Herdr:</span>
-                        <span class="info-val" id="sheet-daemon-version">v0.8.2</span>
-                    </div>
-                    <div class="sheet-row-info">
-                        <span>Socket Unix:</span>
-                        <span class="info-val" id="sheet-socket-path">~/.config/herdr/herdr.sock</span>
-                    </div>
+                <!-- Group 4: Disconnessione Sessione -->
+                <div class="contact-info-group">
                     <button class="btn-logout" id="btn-logout">Esci dalla sessione</button>
                 </div>
             </div>
@@ -358,6 +409,6 @@
     <script src="/vendor/addon-web-links.js"></script>
 
     <!-- Main Controller -->
-    <script src="/app.js?v=20260903_1615"></script>
+    <script src="/app.js?v=20260903_1703"></script>
 </body>
 </html>

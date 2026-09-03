@@ -30,6 +30,8 @@ const State = {
     speechRecognition: null,
     isAtBottom: true,
     pendingAttachment: null,
+    currentScreen: 'chat-active', // 'chat-active' or 'chats-list'
+    chatsFilter: 'all', // 'all', 'workspaces', 'panes'
     chatMessages: [] // Local user-sent message cache
 };
 
@@ -37,9 +39,17 @@ const State = {
 // DOM CACHE
 // =============================================================================
 const DOM = {
+    // WhatsApp Multi-Screen Views
+    screenChatsList: document.getElementById('screen-chats-list'),
+    screenChatActive: document.getElementById('screen-chat-active'),
+    btnNewChat: document.getElementById('btn-new-chat'),
+    chatsListScroll: document.getElementById('chats-list-scroll'),
+    chatsFilterChips: document.getElementById('chats-filter-chips'),
+    // Header Elements
     appRoot: document.getElementById('app-root'),
     chatHeader: document.getElementById('chat-header'),
     btnWsPicker: document.getElementById('btn-ws-picker'),
+    headerAvatarMini: document.getElementById('header-avatar-mini'),
     currentWsName: document.getElementById('current-ws-name'),
     btnHeaderContact: document.getElementById('btn-header-contact'),
     socketDot: document.getElementById('socket-dot'),
@@ -91,11 +101,17 @@ const DOM = {
     lightboxBackdrop: document.getElementById('lightbox-backdrop'),
     lightboxImg: document.getElementById('lightbox-img'),
     btnLightboxClose: document.getElementById('btn-lightbox-close'),
-    // Bottom Sheet
+    // WhatsApp Contact Info Modal / Sheet
     sheetBackdrop: document.getElementById('sheet-backdrop'),
     bottomSheet: document.getElementById('bottom-sheet'),
     btnSheetClose: document.getElementById('btn-sheet-close'),
-    sheetWsList: document.getElementById('sheet-ws-list'),
+    contactHeroName: document.getElementById('contact-hero-name'),
+    contactHeroSubtitle: document.getElementById('contact-hero-subtitle'),
+    contactCwdVal: document.getElementById('contact-cwd-val'),
+    btnQuickChat: document.getElementById('btn-quick-chat'),
+    btnQuickTerm: document.getElementById('btn-quick-term'),
+    btnQuickTab: document.getElementById('btn-quick-tab'),
+    btnQuickSplit: document.getElementById('btn-quick-split'),
     sheetPanesList: document.getElementById('sheet-panes-list'),
     btnCreateWs: document.getElementById('btn-create-ws'),
     btnSplitHoriz: document.getElementById('btn-split-horiz'),
@@ -103,7 +119,7 @@ const DOM = {
     btnFontDec: document.getElementById('btn-font-dec'),
     btnFontInc: document.getElementById('btn-font-inc'),
     fontSizeDisplay: document.getElementById('font-size-display'),
-    themeSelect: document.getElementById('theme-select'),
+    themeChipsList: document.getElementById('theme-chips-list'),
     sheetDaemonVersion: document.getElementById('sheet-daemon-version'),
     sheetSocketPath: document.getElementById('sheet-socket-path'),
     btnLogout: document.getElementById('btn-logout'),
@@ -335,14 +351,14 @@ function setMode(mode) {
         DOM.chatViewport.style.display = 'flex';
         DOM.terminalViewport.style.display = 'none';
         DOM.modeIcon.textContent = '💻';
-        DOM.modeLabel.textContent = 'Terminale';
+        if (DOM.modeLabel) DOM.modeLabel.textContent = 'Terminale';
         DOM.btnToggleActions.style.display = 'flex';
         scrollChatToBottom();
     } else {
         DOM.chatViewport.style.display = 'none';
         DOM.terminalViewport.style.display = 'block';
         DOM.modeIcon.textContent = '💬';
-        DOM.modeLabel.textContent = 'Chat';
+        if (DOM.modeLabel) DOM.modeLabel.textContent = 'Chat';
         DOM.cliKeysDrawer.style.display = 'flex'; // Auto show CLI keys in terminal mode
         DOM.btnToggleActions.classList.add('active');
         if (State.fitAddon) {
@@ -352,6 +368,137 @@ function setMode(mode) {
                     State.term.focus();
                 } catch (e) {}
             }, 30);
+        }
+    }
+}
+
+// =============================================================================
+// SCREEN NAVIGATION: WHATSAPP CHATS LIST vs ACTIVE CHAT
+// =============================================================================
+function setScreen(screenName) {
+    State.currentScreen = screenName;
+    if (screenName === 'chats-list') {
+        if (DOM.screenChatsList) DOM.screenChatsList.style.display = 'flex';
+        if (DOM.screenChatActive) DOM.screenChatActive.style.display = 'none';
+        renderChatsList();
+    } else {
+        if (DOM.screenChatsList) DOM.screenChatsList.style.display = 'none';
+        if (DOM.screenChatActive) DOM.screenChatActive.style.display = 'flex';
+        if (State.mode === 'chat') {
+            scrollChatToBottom();
+        }
+    }
+}
+
+function renderChatsList() {
+    if (!DOM.chatsListScroll) return;
+    DOM.chatsListScroll.innerHTML = '';
+
+    if (!State.workspaces || State.workspaces.length === 0) {
+        DOM.chatsListScroll.innerHTML = `
+            <div style="padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 13px;">
+                Nessun spazio di lavoro attivo.<br>
+                Tocca <strong>+</strong> in alto per crearne uno nuovo.
+            </div>
+        `;
+        return;
+    }
+
+    const filter = State.chatsFilter || 'all';
+
+    // 1. Workspaces as WhatsApp Chats
+    if (filter === 'all' || filter === 'workspaces') {
+        State.workspaces.forEach(ws => {
+            const isActive = (ws.id === State.activeWorkspaceId);
+            const totalTabs = (ws.tabs && ws.tabs.length) ? ws.tabs.length : 1;
+            
+            let totalPanes = 0;
+            let isRunning = false;
+            let lastCommand = '';
+            if (ws.tabs) {
+                ws.tabs.forEach(tab => {
+                    if (tab.panes) {
+                        totalPanes += tab.panes.length;
+                        tab.panes.forEach(p => {
+                            if (p.is_running) isRunning = true;
+                            if (p.command && !lastCommand) lastCommand = p.command;
+                        });
+                    }
+                });
+            }
+
+            const item = document.createElement('div');
+            item.className = `chat-item-row ${isActive ? 'active' : ''}`;
+            
+            let statusSnippet = isRunning ? '⚡ In esecuzione...' : (ws.cwd ? ws.cwd : 'Pronto');
+            if (lastCommand) statusSnippet = `▶ ${lastCommand}`;
+
+            item.innerHTML = `
+                <div class="chat-item-avatar">
+                    <span>📁</span>
+                    ${isActive ? '<span class="chat-item-online-dot"></span>' : ''}
+                </div>
+                <div class="chat-item-content">
+                    <div class="chat-item-top">
+                        <span class="chat-item-title">${escapeHtml(ws.name || `Workspace ${ws.id}`)}</span>
+                        <span class="chat-item-time">Oggi</span>
+                    </div>
+                    <div class="chat-item-bottom">
+                        <span class="chat-item-preview">${escapeHtml(statusSnippet)}</span>
+                        <span class="chat-item-badge">${totalTabs} tab</span>
+                    </div>
+                </div>
+            `;
+
+            item.addEventListener('click', async () => {
+                triggerHaptic('light');
+                if (ws.id !== State.activeWorkspaceId) {
+                    State.activeWorkspaceId = ws.id;
+                    await apiCall('/api/workspace/focus', { workspace_id: ws.id });
+                }
+                setScreen('chat-active');
+            });
+
+            DOM.chatsListScroll.appendChild(item);
+        });
+    }
+
+    // 2. Panes / Agents as WhatsApp Chats
+    if (filter === 'panes') {
+        if (State.panes && State.panes.length > 0) {
+            State.panes.forEach(pane => {
+                const isActive = (pane.pane_id === State.activePaneId);
+                const item = document.createElement('div');
+                item.className = `chat-item-row ${isActive ? 'active' : ''}`;
+                
+                const preview = pane.clean_text ? pane.clean_text.slice(-50).trim() : (pane.is_running ? '⚡ In esecuzione' : 'In attesa');
+
+                item.innerHTML = `
+                    <div class="chat-item-avatar">
+                        <span>🤖</span>
+                        ${isActive ? '<span class="chat-item-online-dot"></span>' : ''}
+                    </div>
+                    <div class="chat-item-content">
+                        <div class="chat-item-top">
+                            <span class="chat-item-title">Pannello #${pane.pane_id} ${pane.command ? `(${escapeHtml(pane.command)})` : ''}</span>
+                            <span class="chat-item-time">Adesso</span>
+                        </div>
+                        <div class="chat-item-bottom">
+                            <span class="chat-item-preview">${escapeHtml(preview)}</span>
+                            <span class="chat-item-badge">${pane.is_running ? '⚡ attivo' : 'idle'}</span>
+                        </div>
+                    </div>
+                `;
+
+                item.addEventListener('click', async () => {
+                    triggerHaptic('light');
+                    State.activePaneId = pane.pane_id;
+                    await apiCall('/api/pane/focus', { pane_id: pane.pane_id });
+                    setScreen('chat-active');
+                });
+
+                DOM.chatsListScroll.appendChild(item);
+            });
         }
     }
 }
@@ -840,14 +987,30 @@ function handleMicOrSendClick() {
 }
 
 // =============================================================================
-// BOTTOM SHEET MODAL (CONTROLS & SETTINGS)
 // =============================================================================
-function openBottomSheet() {
+// WHATSAPP STYLE CONTACT INFO MODAL (AGENT & WORKSPACE DETAILS)
+// =============================================================================
+function openContactInfo() {
     triggerHaptic('light');
-    renderSheetWorkspaces();
+
+    const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId) || {};
+    const wsName = activeWs.name || (activeWs.id ? `Workspace ${activeWs.id}` : 'workspace');
+
+    if (DOM.contactHeroName) {
+        DOM.contactHeroName.textContent = 'Herdr Agent';
+    }
+    if (DOM.contactHeroSubtitle) {
+        DOM.contactHeroSubtitle.textContent = `${wsName} • online`;
+    }
+    if (DOM.contactCwdVal) {
+        DOM.contactCwdVal.textContent = activeWs.cwd || '~';
+    }
+
     renderSheetPanes();
-    DOM.fontSizeDisplay.textContent = `${State.fontSize}px`;
-    DOM.themeSelect.value = State.theme;
+    renderThemeChips();
+    if (DOM.fontSizeDisplay) {
+        DOM.fontSizeDisplay.textContent = `${State.fontSize}px`;
+    }
 
     DOM.sheetBackdrop.classList.add('active');
     DOM.bottomSheet.classList.add('active');
@@ -858,32 +1021,10 @@ function closeBottomSheet() {
     DOM.bottomSheet.classList.remove('active');
 }
 
-function renderSheetWorkspaces() {
-    DOM.sheetWsList.innerHTML = '';
-    State.workspaces.forEach(ws => {
-        const item = document.createElement('div');
-        item.className = `sheet-list-item ${ws.id === State.activeWorkspaceId ? 'active' : ''}`;
-        item.innerHTML = `
-            <div>
-                <strong>${ws.name || `Workspace ${ws.id}`}</strong>
-                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${ws.cwd || '~'}</div>
-            </div>
-            <span style="font-size: 12px; color: var(--cyan); font-weight: 600;">${ws.id === State.activeWorkspaceId ? 'Attivo' : 'Passa'}</span>
-        `;
-        item.addEventListener('click', async () => {
-            triggerHaptic('light');
-            State.activeWorkspaceId = ws.id;
-            await apiCall('/api/workspace/focus', { workspace_id: ws.id });
-            closeBottomSheet();
-        });
-        DOM.sheetWsList.appendChild(item);
-    });
-}
-
 function renderSheetPanes() {
     DOM.sheetPanesList.innerHTML = '';
     if (State.panes.length === 0) {
-        DOM.sheetPanesList.innerHTML = '<div style="font-size: 12px; color: var(--text-muted);">Nessun pannello attivo</div>';
+        DOM.sheetPanesList.innerHTML = '<div style="font-size: 12px; color: var(--text-muted); padding: 6px 0;">Nessun pannello attivo</div>';
         return;
     }
 
@@ -892,11 +1033,11 @@ function renderSheetPanes() {
         item.className = `sheet-list-item ${pane.pane_id === State.activePaneId ? 'active' : ''}`;
         item.innerHTML = `
             <div>
-                <strong>${pane.title || pane.pane_id}</strong>
-                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${pane.cwd || '~'}</div>
+                <strong>${escapeHtml(pane.title || `Pannello ${pane.pane_id}`)}</strong>
+                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${escapeHtml(pane.cwd || '~')}</div>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
-                <span style="font-size: 11px; text-transform: uppercase; color: var(--cyan);">${pane.status}</span>
+                <span style="font-size: 11px; text-transform: uppercase; color: var(--cyan);">${escapeHtml(pane.status || 'idle')}</span>
                 <button class="btn-mini-action btn-close-pane" style="color: var(--danger);">✕</button>
             </div>
         `;
@@ -917,10 +1058,19 @@ function renderSheetPanes() {
     });
 }
 
+function renderThemeChips() {
+    if (!DOM.themeChipsList) return;
+    const buttons = DOM.themeChipsList.querySelectorAll('.theme-chip-btn');
+    buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.theme === State.theme);
+    });
+}
+
 function updateTheme(newTheme) {
     State.theme = newTheme;
     localStorage.setItem('herdr_theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
+    renderThemeChips();
 
     if (State.term) {
         const t = TERMINAL_THEMES[newTheme] || TERMINAL_THEMES['cyber-dark'];
@@ -944,13 +1094,73 @@ function updateFontSize(delta) {
 // SETUP EVENT LISTENERS
 // =============================================================================
 function setupEventListeners() {
-    // Mode Switcher
+    // Mode Switcher (Icon ONLY)
     DOM.btnModeToggle.addEventListener('click', toggleMode);
 
-    // Workspace & Controls Menu
-    DOM.btnWsPicker.addEventListener('click', openBottomSheet);
-    DOM.btnHeaderContact.addEventListener('click', openBottomSheet);
-    DOM.btnOpenMenu.addEventListener('click', openBottomSheet);
+    // WhatsApp Navigation: Back arrow navigates to Chats List
+    DOM.btnWsPicker.addEventListener('click', () => {
+        triggerHaptic('light');
+        setScreen('chats-list');
+    });
+
+    // WhatsApp Header Contact: Click opens Agent Contact Info Sheet
+    DOM.btnHeaderContact.addEventListener('click', openContactInfo);
+    if (DOM.btnOpenMenu) DOM.btnOpenMenu.addEventListener('click', openContactInfo);
+
+    // WhatsApp Chats List Screen Listeners
+    if (DOM.btnNewChat) {
+        DOM.btnNewChat.addEventListener('click', () => {
+            triggerHaptic('medium');
+            DOM.inputNewWsCwd.disabled = false;
+            DOM.inputNewWsLabel.disabled = false;
+            DOM.dialogNewWs.showModal();
+        });
+    }
+
+    if (DOM.chatsFilterChips) {
+        DOM.chatsFilterChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.filter-chip');
+            if (!chip) return;
+            triggerHaptic('light');
+            DOM.chatsFilterChips.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            State.chatsFilter = chip.dataset.filter || 'all';
+            renderChatsList();
+        });
+    }
+
+    // Contact Card Quick Action Buttons
+    if (DOM.btnQuickChat) {
+        DOM.btnQuickChat.addEventListener('click', () => {
+            triggerHaptic('light');
+            closeBottomSheet();
+            setMode('chat');
+        });
+    }
+
+    if (DOM.btnQuickTerm) {
+        DOM.btnQuickTerm.addEventListener('click', () => {
+            triggerHaptic('light');
+            closeBottomSheet();
+            setMode('terminal');
+        });
+    }
+
+    if (DOM.btnQuickTab) {
+        DOM.btnQuickTab.addEventListener('click', () => {
+            triggerHaptic('light');
+            closeBottomSheet();
+            DOM.btnAddTab.click();
+        });
+    }
+
+    if (DOM.btnQuickSplit) {
+        DOM.btnQuickSplit.addEventListener('click', () => {
+            triggerHaptic('light');
+            closeBottomSheet();
+            DOM.btnSplitHoriz.click();
+        });
+    }
 
     // Tab Add
     DOM.btnAddTab.addEventListener('click', () => {
@@ -1085,7 +1295,16 @@ function setupEventListeners() {
 
     DOM.btnFontDec.addEventListener('click', () => updateFontSize(-1));
     DOM.btnFontInc.addEventListener('click', () => updateFontSize(1));
-    DOM.themeSelect.addEventListener('change', (e) => updateTheme(e.target.value));
+
+    if (DOM.themeChipsList) {
+        DOM.themeChipsList.addEventListener('click', (e) => {
+            const btn = e.target.closest('.theme-chip-btn');
+            if (btn && btn.dataset.theme) {
+                triggerHaptic('light');
+                updateTheme(btn.dataset.theme);
+            }
+        });
+    }
 
     DOM.btnLogout.addEventListener('click', async () => {
         await apiCall('/api/logout');
@@ -1093,12 +1312,14 @@ function setupEventListeners() {
     });
 
     // Workspace Dialog
-    DOM.btnCreateWs.addEventListener('click', () => {
-        closeBottomSheet();
-        DOM.inputNewWsCwd.disabled = false;
-        DOM.inputNewWsLabel.disabled = false;
-        DOM.dialogNewWs.showModal();
-    });
+    if (DOM.btnCreateWs) {
+        DOM.btnCreateWs.addEventListener('click', () => {
+            closeBottomSheet();
+            DOM.inputNewWsCwd.disabled = false;
+            DOM.inputNewWsLabel.disabled = false;
+            DOM.dialogNewWs.showModal();
+        });
+    }
 
     DOM.btnDialogCancel.addEventListener('click', () => {
         DOM.dialogNewWs.close();
@@ -1166,6 +1387,8 @@ function setupEventListeners() {
         if (e.target.closest('.chat-scroll-container') || 
             e.target.closest('.terminal-container') || 
             e.target.closest('.sheet-body') ||
+            e.target.closest('.contact-sheet') ||
+            e.target.closest('.chats-list-scroll') ||
             e.target.closest('.cli-keys-drawer') ||
             e.target.closest('.cli-keys-scroll') ||
             e.target.closest('.tabs-container')) {
