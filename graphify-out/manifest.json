@@ -1,0 +1,137 @@
+{
+  "herdr_client.py": {
+    "mtime": 1788441181.6834273,
+    "ast_hash": "73f0a15eb06355a61890de05a57189ca",
+    "semantic_hash": ""
+  },
+  "server.py": {
+    "mtime": 1788467384.56653,
+    "ast_hash": "4ac0c152a28dbe13d1f73a33d8cb22e2",
+    "semantic_hash": ""
+  },
+  "static/app.js": {
+    "mtime": 1788467865.6663718,
+    "ast_hash": "6400d461fe8a6ee8eb86d10298cd6ba0",
+    "semantic_hash": ""
+  },
+  "static/js/app-init.js": {
+    "mtime": 1788467842.8562994,
+    "ast_hash": "dad5ce1f302c46098705ec0e4f97fff3",
+    "semantic_hash": ""
+  },
+  "static/js/chat.js": {
+    "mtime": 1788467842.8554575,
+    "ast_hash": "25db32bae8b61fb6e879c7fa26d56843",
+    "semantic_hash": ""
+  },
+  "static/js/chats-list.js": {
+    "mtime": 1788467842.8548682,
+    "ast_hash": "8fe2f5e8afb022f12e9ebb39c0fef547",
+    "semantic_hash": ""
+  },
+  "static/js/input-bar.js": {
+    "mtime": 1788467842.8557394,
+    "ast_hash": "62dd59146575bbaee69448e60842ab6b",
+    "semantic_hash": ""
+  },
+  "static/js/settings.js": {
+    "mtime": 1788467842.8545413,
+    "ast_hash": "7fff5a529c4f297941a7d48f5ef4a078",
+    "semantic_hash": ""
+  },
+  "static/js/state.js": {
+    "mtime": 1788467842.8532507,
+    "ast_hash": "82c21c79d279e34422e03da7547d615f",
+    "semantic_hash": ""
+  },
+  "static/js/stream.js": {
+    "mtime": 1788467842.855215,
+    "ast_hash": "351dacbe6ae194864e9fd6bc66120822",
+    "semantic_hash": ""
+  },
+  "static/js/terminal.js": {
+    "mtime": 1788467842.8536606,
+    "ast_hash": "4c7f3ae9fa880ee92d13160fcf81a4f9",
+    "semantic_hash": ""
+  },
+  "static/js/utils.js": {
+    "mtime": 1788467842.8534749,
+    "ast_hash": "1cf47582fcdc082f6c9d5aff0d6d201e",
+    "semantic_hash": ""
+  },
+  "static/manifest.json": {
+    "mtime": 1788443840.6248536,
+    "ast_hash": "f359374f090d7cb1f50271d218829ddb",
+    "semantic_hash": ""
+  },
+  "static/push-helper.js": {
+    "mtime": 1788467384.5786073,
+    "ast_hash": "7e3898fdcfa99550aee76ca3d10d1f42",
+    "semantic_hash": ""
+  },
+  "static/sw.js": {
+    "mtime": 1788467384.5796092,
+    "ast_hash": "507d9de469495c6e0b1f4e1ba5fb673e",
+    "semantic_hash": ""
+  },
+  "static/vendor/addon-fit.js": {
+    "mtime": 1788441161.7165236,
+    "ast_hash": "f8d75700a8b8838b556c11d7e0a61845",
+    "semantic_hash": ""
+  },
+  "static/vendor/addon-web-links.js": {
+    "mtime": 1788441161.838744,
+    "ast_hash": "f9287ac86d4b00ebf2a35dfdd3293bb0",
+    "semantic_hash": ""
+  },
+  "static/vendor/xterm.js": {
+    "mtime": 1788441161.6342835,
+    "ast_hash": "7ab162c8b43e3d6590400143d9b4388f",
+    "semantic_hash": ""
+  },
+  "vapid_keys.json": {
+    "mtime": 1788467384.5803404,
+    "ast_hash": "94b4b683f7b735e190b1bfd29204a14c",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1788439357.360865,
+    "ast_hash": "12bfdf40104d17f800c8b2f1b58e55a7",
+    "semantic_hash": ""
+  },
+  "static/index.html": {
+    "mtime": 1788467871.9233747,
+    "ast_hash": "37fb822b13551feb152c119e463de64d",
+    "semantic_hash": ""
+  },
+  "static/login.html": {
+    "mtime": 1788444252.7787204,
+    "ast_hash": "a453942691db8026d5856fd3081e81ec",
+    "semantic_hash": ""
+  },
+  "static/apple-touch-icon.png": {
+    "mtime": 1788440170.8320243,
+    "ast_hash": "c6926c2de9a1a2b1ddbd94a4214238cd",
+    "semantic_hash": ""
+  },
+  "static/favicon.svg": {
+    "mtime": 1788368748.5209177,
+    "ast_hash": "5f23fcc6d038a72319c7a44c765318cd",
+    "semantic_hash": ""
+  },
+  "static/icon-180.png": {
+    "mtime": 1788443828.8124223,
+    "ast_hash": "c6926c2de9a1a2b1ddbd94a4214238cd",
+    "semantic_hash": ""
+  },
+  "static/icon-192.png": {
+    "mtime": 1788440170.8576612,
+    "ast_hash": "85ab8ce436fc1ced2ee4dba09ce314ed",
+    "semantic_hash": ""
+  },
+  "static/icon-512.png": {
+    "mtime": 1788440171.0209517,
+    "ast_hash": "5e483f494c0e705261aaeed2e48e7a41",
+    "semantic_hash": ""
+  }
+}
