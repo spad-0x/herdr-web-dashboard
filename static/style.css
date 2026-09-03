@@ -1503,12 +1503,12 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: rgba(22, 22, 38, 0.94);
+    background: rgba(22, 22, 38, 0.95);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border-top: 1px solid var(--border-subtle);
-    padding-top: 7px;
-    padding-bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 8px));
+    padding-top: 8px;
+    padding-bottom: max(32px, calc(env(safe-area-inset-bottom, 24px) + 14px));
     flex-shrink: 0;
     z-index: 50;
 }
@@ -1518,16 +1518,16 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
     background: transparent;
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    padding: 2px 14px;
+    padding: 3px 18px;
     border-radius: 8px;
     transition: color 0.15s ease, transform 0.1s ease;
     flex: 1;
-    max-width: 90px;
+    max-width: 110px;
 }
 
 .tabbar-item:active {
@@ -1539,12 +1539,12 @@ html, body {
 }
 
 .tabbar-icon {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 1.1;
 }
 
 .tabbar-label {
-    font-size: 10.5px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: -0.1px;
 }
@@ -1552,7 +1552,7 @@ html, body {
 .tabbar-badge {
     position: absolute;
     top: 0px;
-    right: 20px;
+    right: 26px;
     min-width: 16px;
     height: 16px;
     padding: 0 4px;

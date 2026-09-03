@@ -31,7 +31,7 @@ const State = {
     isAtBottom: true,
     pendingAttachment: null,
     currentScreen: 'chat-active', // 'chat-active' or 'chats-list'
-    chatsFilter: 'all', // 'all', 'workspaces', 'panes'
+    chatsFilter: 'panes', // 'panes', 'workspaces'
     chatMessages: [] // Local user-sent message cache
 };
 
@@ -43,7 +43,8 @@ const DOM = {
     screenChatsList: document.getElementById('screen-chats-list'),
     chatsViewTitle: document.getElementById('chats-view-title'),
     badgeAgentCount: document.getElementById('badge-agent-count'),
-    btnTabbarInfo: document.getElementById('btn-tabbar-info'),
+    btnTabbarSettings: document.getElementById('btn-tabbar-settings'),
+    btnTabbarInfo: document.getElementById('btn-tabbar-settings'),
     screenChatActive: document.getElementById('screen-chat-active'),
     btnNewChat: document.getElementById('btn-new-chat'),
     chatsListScroll: document.getElementById('chats-list-scroll'),
@@ -397,13 +398,12 @@ function renderChatsList() {
     if (!DOM.chatsListScroll) return;
     DOM.chatsListScroll.innerHTML = '';
 
-    const filter = State.chatsFilter || 'all';
+    const filter = State.chatsFilter || 'panes';
 
     // Update Header title based on active tab
     if (DOM.chatsViewTitle) {
-        if (filter === 'panes') DOM.chatsViewTitle.textContent = 'Agenti';
-        else if (filter === 'workspaces') DOM.chatsViewTitle.textContent = 'Spazi di Lavoro';
-        else DOM.chatsViewTitle.textContent = 'Chat';
+        if (filter === 'workspaces') DOM.chatsViewTitle.textContent = 'Spazi';
+        else DOM.chatsViewTitle.textContent = 'Agenti';
     }
 
     // Sync tabbar active state
@@ -1241,7 +1241,7 @@ function setupEventListeners() {
             const item = e.target.closest('.tabbar-item');
             if (!item) return;
 
-            if (item.id === 'btn-tabbar-info') {
+            if (item.id === 'btn-tabbar-settings' || item.id === 'btn-tabbar-info') {
                 triggerHaptic('light');
                 openContactInfo();
                 return;
@@ -1250,7 +1250,7 @@ function setupEventListeners() {
             triggerHaptic('light');
             DOM.chatsFilterChips.querySelectorAll('.tabbar-item').forEach(c => c.classList.remove('active'));
             item.classList.add('active');
-            State.chatsFilter = item.dataset.filter || 'all';
+            State.chatsFilter = item.dataset.filter || 'panes';
             renderChatsList();
         });
     }

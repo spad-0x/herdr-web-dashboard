@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/vendor/xterm.css">
     
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css?v=20260903_1712">
+    <link rel="stylesheet" href="/style.css?v=20260903_1717">
 </head>
 <body>
     <div class="app-root" id="app-root">
@@ -39,7 +39,7 @@
                 <div class="chats-header-left">
                     <span class="chats-header-brand">Herdr</span>
                 </div>
-                <h1 class="chats-screen-title" id="chats-view-title">Chat</h1>
+                <h1 class="chats-screen-title" id="chats-view-title">Agenti</h1>
                 <div class="chats-header-right">
                     <button class="btn-new-chat" id="btn-new-chat" title="Nuovo Spazio di Lavoro">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round">
@@ -57,11 +57,7 @@
 
             <!-- iOS BOTTOM NAVIGATION TAB BAR -->
             <nav class="ios-bottom-tabbar" id="chats-filter-chips">
-                <button type="button" class="tabbar-item active" data-filter="all">
-                    <span class="tabbar-icon">💬</span>
-                    <span class="tabbar-label">Chat</span>
-                </button>
-                <button type="button" class="tabbar-item" data-filter="panes">
+                <button type="button" class="tabbar-item active" data-filter="panes">
                     <span class="tabbar-icon">🤖</span>
                     <span class="tabbar-label">Agenti</span>
                     <span class="tabbar-badge" id="badge-agent-count" style="display: none;">0</span>
@@ -70,9 +66,9 @@
                     <span class="tabbar-icon">📁</span>
                     <span class="tabbar-label">Spazi</span>
                 </button>
-                <button type="button" class="tabbar-item" id="btn-tabbar-info">
-                    <span class="tabbar-icon">ℹ️</span>
-                    <span class="tabbar-label">Info</span>
+                <button type="button" class="tabbar-item" id="btn-tabbar-settings">
+                    <span class="tabbar-icon">⚙️</span>
+                    <span class="tabbar-label">Impostazioni</span>
                 </button>
             </nav>
         </div>
@@ -85,10 +81,10 @@
             <!-- TOP HEADER -->
             <header class="chat-header" id="chat-header">
                 <div class="header-left">
-                    <!-- Back to Chats List Button (WhatsApp style: < Chat) -->
-                    <button class="btn-header-back" id="btn-ws-picker" title="Tutte le Chat" aria-label="Tutte le Chat">
+                    <!-- Back to Agents List Button (WhatsApp style: < Agenti) -->
+                    <button class="btn-header-back" id="btn-ws-picker" title="Tutti gli Agenti" aria-label="Tutti gli Agenti">
                         <span class="back-chevron">‹</span>
-                        <span class="back-label">Chat</span>
+                        <span class="back-label">Agenti</span>
                     </button>
 
                     <!-- Agent & Workspace Info (Click opens WhatsApp Contact Card) -->
@@ -422,6 +418,6 @@
     <script src="/vendor/addon-web-links.js"></script>
 
     <!-- Main Controller -->
-    <script src="/app.js?v=20260903_1712"></script>
+    <script src="/app.js?v=20260903_1717"></script>
 </body>
 </html>
