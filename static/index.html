@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/vendor/xterm.css">
     
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css?v=20260903_1640">
+    <link rel="stylesheet" href="/style.css?v=20260903_1648">
 </head>
 <body>
     <div class="app-root" id="app-root">
@@ -306,13 +306,13 @@
                     </div>
                     <div class="sheet-row-controls">
                         <span class="control-label">Tema Visivo:</span>
-                        <select class="theme-select" id="theme-select" disabled tabindex="-1">
-                            <option value="cyber-dark">Cyber Dark</option>
-                            <option value="tokyo-night">Tokyo Night</option>
-                            <option value="obsidian-oled">Obsidian OLED</option>
-                            <option value="synthwave">Synthwave</option>
-                            <option value="matrix">Matrix</option>
-                        </select>
+                        <div class="theme-chips-list" id="theme-chips-list">
+                            <button type="button" class="theme-chip-btn" data-theme="cyber-dark">Cyber Dark</button>
+                            <button type="button" class="theme-chip-btn" data-theme="tokyo-night">Tokyo Night</button>
+                            <button type="button" class="theme-chip-btn" data-theme="obsidian-oled">Obsidian</button>
+                            <button type="button" class="theme-chip-btn" data-theme="synthwave">Synthwave</button>
+                            <button type="button" class="theme-chip-btn" data-theme="matrix">Matrix</button>
+                        </div>
                     </div>
                 </div>
 
@@ -353,6 +353,6 @@
     <script src="/vendor/addon-web-links.js"></script>
 
     <!-- Main Controller -->
-    <script src="/app.js?v=20260903_1640"></script>
+    <script src="/app.js?v=20260903_1648"></script>
 </body>
 </html>

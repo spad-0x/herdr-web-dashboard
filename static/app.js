@@ -103,7 +103,7 @@ const DOM = {
     btnFontDec: document.getElementById('btn-font-dec'),
     btnFontInc: document.getElementById('btn-font-inc'),
     fontSizeDisplay: document.getElementById('font-size-display'),
-    themeSelect: document.getElementById('theme-select'),
+    themeChipsList: document.getElementById('theme-chips-list'),
     sheetDaemonVersion: document.getElementById('sheet-daemon-version'),
     sheetSocketPath: document.getElementById('sheet-socket-path'),
     btnLogout: document.getElementById('btn-logout'),
@@ -262,6 +262,7 @@ const TERMINAL_THEMES = {
 };
 
 function initTerminal() {
+    if (State.term) return; // already initialized
     const selectedTheme = TERMINAL_THEMES[State.theme] || TERMINAL_THEMES['cyber-dark'];
 
     State.term = new Terminal({
@@ -283,14 +284,6 @@ function initTerminal() {
     State.term.loadAddon(State.webLinksAddon);
 
     State.term.open(DOM.terminalContainer);
-    
-    // Disable xterm internal helper textarea in Chat mode so Safari sees only 1 input
-    const helperTa = DOM.terminalContainer.querySelector('.xterm-helper-textarea');
-    if (helperTa && State.mode === 'chat') {
-        helperTa.disabled = true;
-        helperTa.tabIndex = -1;
-        helperTa.setAttribute('aria-hidden', 'true');
-    }
 
     setTimeout(() => {
         try { State.fitAddon.fit(); } catch (e) {}
@@ -318,13 +311,26 @@ function initTerminal() {
     });
 
     DOM.terminalContainer.addEventListener('click', () => {
-        State.term.focus();
+        if (State.term) State.term.focus();
     });
 
     DOM.btnScrollBottom.addEventListener('click', () => {
-        State.term.scrollToBottom();
-        DOM.btnScrollBottom.style.display = 'none';
+        if (State.term) {
+            State.term.scrollToBottom();
+            DOM.btnScrollBottom.style.display = 'none';
+        }
     });
+}
+
+function destroyTerminal() {
+    if (!State.term) return;
+    try { State.term.dispose(); } catch (e) {}
+    State.term = null;
+    State.fitAddon = null;
+    State.webLinksAddon = null;
+    if (DOM.terminalContainer) {
+        DOM.terminalContainer.innerHTML = '';
+    }
 }
 
 // =============================================================================
@@ -338,18 +344,13 @@ function toggleMode() {
 
 function setMode(mode) {
     State.mode = mode;
-    const xtermTextarea = DOM.terminalContainer ? DOM.terminalContainer.querySelector('.xterm-helper-textarea') : null;
     if (mode === 'chat') {
         DOM.chatViewport.style.display = 'flex';
         DOM.terminalViewport.style.display = 'none';
         DOM.modeIcon.textContent = '💻';
         DOM.modeLabel.textContent = 'Terminale';
         DOM.btnToggleActions.style.display = 'flex';
-        if (xtermTextarea) {
-            xtermTextarea.disabled = true;
-            xtermTextarea.tabIndex = -1;
-            xtermTextarea.setAttribute('aria-hidden', 'true');
-        }
+        destroyTerminal(); // Clean DOM: removes xterm helper textarea completely
         scrollChatToBottom();
     } else {
         DOM.chatViewport.style.display = 'none';
@@ -358,18 +359,17 @@ function setMode(mode) {
         DOM.modeLabel.textContent = 'Chat';
         DOM.cliKeysDrawer.style.display = 'flex'; // Auto show CLI keys in terminal mode
         DOM.btnToggleActions.classList.add('active');
-        if (xtermTextarea) {
-            xtermTextarea.disabled = false;
-            xtermTextarea.tabIndex = 0;
-            xtermTextarea.removeAttribute('aria-hidden');
+        initTerminal();
+        if (State.lastText && State.term) {
+            State.term.write(State.lastText);
         }
         if (State.fitAddon) {
             setTimeout(() => {
                 try {
                     State.fitAddon.fit();
-                    State.term.focus();
+                    if (State.term) State.term.focus();
                 } catch (e) {}
-            }, 30);
+            }, 60);
         }
     }
 }
@@ -495,9 +495,14 @@ function updateConfirmationBanner(pane) {
 }
 
 function updateTerminalContent(pane, paneChanged) {
-    if (!State.term) return;
     const rawText = pane.raw_text || '';
     const revision = pane.revision || 0;
+
+    if (!State.term) {
+        State.lastText = rawText;
+        State.lastRevision = revision;
+        return;
+    }
 
     if (paneChanged) {
         State.term.reset();
@@ -865,11 +870,7 @@ function openBottomSheet() {
     renderSheetWorkspaces();
     renderSheetPanes();
     DOM.fontSizeDisplay.textContent = `${State.fontSize}px`;
-    DOM.themeSelect.value = State.theme;
-    if (DOM.themeSelect) {
-        DOM.themeSelect.disabled = false;
-        DOM.themeSelect.tabIndex = 0;
-    }
+    renderThemeChips();
 
     DOM.sheetBackdrop.classList.add('active');
     DOM.bottomSheet.classList.add('active');
@@ -878,10 +879,14 @@ function openBottomSheet() {
 function closeBottomSheet() {
     DOM.sheetBackdrop.classList.remove('active');
     DOM.bottomSheet.classList.remove('active');
-    if (DOM.themeSelect) {
-        DOM.themeSelect.disabled = true;
-        DOM.themeSelect.tabIndex = -1;
-    }
+}
+
+function renderThemeChips() {
+    if (!DOM.themeChipsList) return;
+    const chips = DOM.themeChipsList.querySelectorAll('.theme-chip-btn');
+    chips.forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.theme === State.theme);
+    });
 }
 
 function renderSheetWorkspaces() {
@@ -947,6 +952,7 @@ function updateTheme(newTheme) {
     State.theme = newTheme;
     localStorage.setItem('herdr_theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
+    renderThemeChips();
 
     if (State.term) {
         const t = TERMINAL_THEMES[newTheme] || TERMINAL_THEMES['cyber-dark'];
@@ -1116,7 +1122,15 @@ function setupEventListeners() {
 
     DOM.btnFontDec.addEventListener('click', () => updateFontSize(-1));
     DOM.btnFontInc.addEventListener('click', () => updateFontSize(1));
-    DOM.themeSelect.addEventListener('change', (e) => updateTheme(e.target.value));
+    if (DOM.themeChipsList) {
+        DOM.themeChipsList.addEventListener('click', (e) => {
+            const btn = e.target.closest('.theme-chip-btn');
+            if (btn && btn.dataset.theme) {
+                triggerHaptic('light');
+                updateTheme(btn.dataset.theme);
+            }
+        });
+    }
 
     DOM.btnLogout.addEventListener('click', async () => {
         await apiCall('/api/logout');
@@ -1282,11 +1296,23 @@ function fixIosSafeAreaAndChinGap() {
 // =============================================================================
 document.addEventListener('DOMContentLoaded', () => {
     updateTheme(State.theme);
-    initTerminal();
+    if (State.mode === 'terminal') {
+        initTerminal();
+    }
     initSpeechRecognition();
     setupEventListeners();
     updateInputState();
     connectStateStream();
+
+    // Diagnostic focus listener to catch any focus transitions
+    document.addEventListener('focusin', (e) => {
+        const el = e.target;
+        if (el && el !== DOM.promptInput) {
+            const desc = `${el.tagName}${el.id ? '#' + el.id : ''}${el.className ? '.' + String(el.className).split(' ').join('.') : ''}`;
+            console.warn('[FocusIn]', desc);
+            showToast(`Focus su: ${desc}`);
+        }
+    });
 
     // iOS PWA Fullscreen & Safe Area Stabilization
     fixIosSafeAreaAndChinGap();

@@ -1285,15 +1285,31 @@ html, body {
     text-align: center;
 }
 
-.theme-select {
-    padding: 6px 12px;
+.theme-chips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+    max-width: 65%;
+}
+
+.theme-chip-btn {
+    padding: 5px 9px;
     background: var(--bg-surface-elevated);
     border: 1px solid var(--border-subtle);
     border-radius: 8px;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     font-family: var(--font-sans);
-    font-size: 13px;
-    outline: none;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.theme-chip-btn.active {
+    background: var(--accent-subtle);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 600;
 }
 
 .sheet-row-info {
