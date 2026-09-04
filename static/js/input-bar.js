@@ -371,6 +371,13 @@ function updateTheme(newTheme) {
     document.documentElement.setAttribute('data-theme', newTheme);
     renderThemeChips();
 
+    // Dynamically update browser/iOS status bar meta theme-color
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+        const bgBase = getComputedStyle(document.documentElement).getPropertyValue('--bg-base').trim();
+        if (bgBase) metaTheme.setAttribute('content', bgBase);
+    }
+
     if (State.term) {
         const t = TERMINAL_THEMES[newTheme] || TERMINAL_THEMES['cyber-dark'];
         State.term.options.theme = t;

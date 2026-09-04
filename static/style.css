@@ -32,6 +32,12 @@
     --term-bg: #07080c;
     --term-fg: #f0f4fc;
     --term-cursor: #00f0ff;
+
+    --bg-app: var(--bg-base);
+    --bg-header: color-mix(in srgb, var(--bg-base) 92%, transparent);
+    --bg-footer: color-mix(in srgb, var(--bg-base) 94%, transparent);
+    --bg-surface-translucent: color-mix(in srgb, var(--bg-surface) 88%, transparent);
+    --accent-subtle: var(--accent-dim);
 }
 
 /* Tokyo Night */
@@ -446,7 +452,7 @@ html, body {
     padding-left: max(12px, env(safe-area-inset-left, 12px));
     padding-right: max(12px, env(safe-area-inset-right, 12px));
     padding-bottom: 8px;
-    background: rgba(26, 26, 46, 0.98);
+    background: var(--bg-header);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border-bottom: 1px solid var(--border-subtle);
@@ -604,7 +610,9 @@ html, body {
     display: flex;
     align-items: center;
     height: 34px;
-    background: rgba(10, 12, 16, 0.75);
+    background: var(--bg-surface-translucent);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-subtle);
     padding: 0 10px;
     gap: 6px;
@@ -1238,7 +1246,9 @@ html, body {
 .chat-footer {
     display: flex;
     flex-direction: column;
-    background: var(--bg-base);
+    background: var(--bg-footer);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border-top: 1px solid var(--border-subtle);
     padding-top: 8px;
     padding-left: max(10px, env(safe-area-inset-left, 10px));
@@ -1793,11 +1803,11 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: var(--bg-app);
+    background: var(--bg-base);
 }
 
 #screen-chats-list {
-    background: var(--bg-app);
+    background: var(--bg-base);
     z-index: 10;
 }
 
@@ -1805,10 +1815,13 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 10px 16px;
-    background: var(--bg-surface-translucent);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    padding-top: max(8px, env(safe-area-inset-top, 8px));
+    padding-left: max(16px, env(safe-area-inset-left, 16px));
+    padding-right: max(16px, env(safe-area-inset-right, 16px));
+    padding-bottom: 8px;
+    background: var(--bg-header);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border-bottom: 1px solid var(--border-subtle);
     flex-shrink: 0;
 }
@@ -1852,9 +1865,9 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: rgba(22, 22, 38, 0.95);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    background: var(--bg-footer);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border-top: 1px solid var(--border-subtle);
     padding-top: 8px;
     padding-bottom: max(32px, calc(env(safe-area-inset-bottom, 24px) + 14px));
@@ -1962,7 +1975,7 @@ html, body {
     height: 10px;
     border-radius: 50%;
     background: var(--success);
-    border: 2px solid var(--bg-app);
+    border: 2px solid var(--bg-base);
 }
 
 .chat-item-content {
