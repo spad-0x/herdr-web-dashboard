@@ -317,7 +317,7 @@
       "label": "send_web_push()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L40",
+      "source_location": "L41",
       "_origin": "ast",
       "id": "server_send_web_push",
       "community": 6,
@@ -327,7 +327,7 @@
       "label": "ensure_ssl_certificates()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L95",
+      "source_location": "L96",
       "_origin": "ast",
       "id": "server_ensure_ssl_certificates",
       "community": 6,
@@ -337,7 +337,7 @@
       "label": "ensure_auth_credentials()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L157",
+      "source_location": "L158",
       "_origin": "ast",
       "id": "server_ensure_auth_credentials",
       "community": 6,
@@ -347,7 +347,7 @@
       "label": "load_sessions()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L181",
+      "source_location": "L182",
       "_origin": "ast",
       "id": "server_load_sessions",
       "community": 6,
@@ -357,7 +357,7 @@
       "label": "save_sessions()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L190",
+      "source_location": "L191",
       "_origin": "ast",
       "id": "server_save_sessions",
       "community": 6,
@@ -367,7 +367,7 @@
       "label": "create_session()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L198",
+      "source_location": "L199",
       "_origin": "ast",
       "id": "server_create_session",
       "community": 6,
@@ -377,7 +377,7 @@
       "label": "invalidate_session()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L210",
+      "source_location": "L211",
       "_origin": "ast",
       "id": "server_invalidate_session",
       "community": 6,
@@ -387,7 +387,7 @@
       "label": "is_valid_session()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L216",
+      "source_location": "L217",
       "_origin": "ast",
       "id": "server_is_valid_session",
       "community": 6,
@@ -397,7 +397,7 @@
       "label": "verify_user_password()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L229",
+      "source_location": "L230",
       "_origin": "ast",
       "id": "server_verify_user_password",
       "community": 6,
@@ -407,7 +407,7 @@
       "label": "get_git_branch()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L243",
+      "source_location": "L244",
       "_origin": "ast",
       "id": "server_get_git_branch",
       "community": 6,
@@ -417,7 +417,7 @@
       "label": "load_herdr_config()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L277",
+      "source_location": "L278",
       "_origin": "ast",
       "id": "server_load_herdr_config",
       "community": 6,
@@ -427,7 +427,7 @@
       "label": "save_herdr_config()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L288",
+      "source_location": "L289",
       "_origin": "ast",
       "id": "server_save_herdr_config",
       "community": 6,
@@ -437,7 +437,7 @@
       "label": "get_herdr_integrations()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L365",
+      "source_location": "L366",
       "_origin": "ast",
       "id": "server_get_herdr_integrations",
       "community": 6,
@@ -447,7 +447,7 @@
       "label": "get_herdr_plugins()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L396",
+      "source_location": "L397",
       "_origin": "ast",
       "id": "server_get_herdr_plugins",
       "community": 6,
@@ -457,7 +457,7 @@
       "label": "check_is_agent()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L418",
+      "source_location": "L419",
       "_origin": "ast",
       "id": "server_check_is_agent",
       "community": 6,
@@ -467,7 +467,7 @@
       "label": "get_all_slash_commands()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L440",
+      "source_location": "L441",
       "_origin": "ast",
       "id": "server_get_all_slash_commands",
       "community": 6,
@@ -477,7 +477,7 @@
       "label": "get_aggregated_state()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L570",
+      "source_location": "L611",
       "_origin": "ast",
       "id": "server_get_aggregated_state",
       "community": 6,
@@ -487,7 +487,7 @@
       "label": "DashboardHandler",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L716",
+      "source_location": "L757",
       "_origin": "ast",
       "id": "server_dashboardhandler",
       "community": 6,
@@ -507,7 +507,7 @@
       "label": ".handle()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L719",
+      "source_location": "L760",
       "_origin": "ast",
       "id": "server_dashboardhandler_handle",
       "community": 6,
@@ -517,7 +517,7 @@
       "label": ".get_token_from_request()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L725",
+      "source_location": "L766",
       "_origin": "ast",
       "id": "server_dashboardhandler_get_token_from_request",
       "community": 6,
@@ -527,7 +527,7 @@
       "label": ".check_auth()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L758",
+      "source_location": "L799",
       "_origin": "ast",
       "id": "server_dashboardhandler_check_auth",
       "community": 6,
@@ -537,7 +537,7 @@
       "label": ".send_json()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L775",
+      "source_location": "L816",
       "_origin": "ast",
       "id": "server_dashboardhandler_send_json",
       "community": 6,
@@ -547,7 +547,7 @@
       "label": ".do_OPTIONS()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L793",
+      "source_location": "L834",
       "_origin": "ast",
       "id": "server_dashboardhandler_do_options",
       "community": 6,
@@ -557,7 +557,7 @@
       "label": ".do_HEAD()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L801",
+      "source_location": "L842",
       "_origin": "ast",
       "id": "server_dashboardhandler_do_head",
       "community": 6,
@@ -567,7 +567,7 @@
       "label": ".do_GET()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L804",
+      "source_location": "L845",
       "_origin": "ast",
       "id": "server_dashboardhandler_do_get",
       "community": 6,
@@ -577,7 +577,7 @@
       "label": ".do_POST()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L995",
+      "source_location": "L1036",
       "_origin": "ast",
       "id": "server_dashboardhandler_do_post",
       "community": 6,
@@ -587,7 +587,7 @@
       "label": ".serve_static_file()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1282",
+      "source_location": "L1323",
       "_origin": "ast",
       "id": "server_dashboardhandler_serve_static_file",
       "community": 6,
@@ -597,7 +597,7 @@
       "label": "monitor_agents_background()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1323",
+      "source_location": "L1364",
       "_origin": "ast",
       "id": "server_monitor_agents_background",
       "community": 6,
@@ -607,7 +607,7 @@
       "label": "run_server()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1376",
+      "source_location": "L1417",
       "_origin": "ast",
       "id": "server_run_server",
       "community": 6,
@@ -617,9 +617,9 @@
       "label": "Send push notification to all registered subscriptions using pywebpush.",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L41",
+      "source_location": "L42",
       "_origin": "ast",
-      "id": "server_rationale_41",
+      "id": "server_rationale_42",
       "community": 6,
       "norm_label": "send push notification to all registered subscriptions using pywebpush."
     },
@@ -627,9 +627,9 @@
       "label": "Generate Root CA and SAN SSL certificates if they don't already exist.",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L96",
+      "source_location": "L97",
       "_origin": "ast",
-      "id": "server_rationale_96",
+      "id": "server_rationale_97",
       "community": 6,
       "norm_label": "generate root ca and san ssl certificates if they don't already exist."
     },
@@ -637,9 +637,9 @@
       "label": "Generate admin credentials on first run if auth.json does not exist.",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L158",
+      "source_location": "L159",
       "_origin": "ast",
-      "id": "server_rationale_158",
+      "id": "server_rationale_159",
       "community": 6,
       "norm_label": "generate admin credentials on first run if auth.json does not exist."
     },
@@ -647,9 +647,9 @@
       "label": "Fast lookup of current git branch from directory path without subprocess latency",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L244",
+      "source_location": "L245",
       "_origin": "ast",
-      "id": "server_rationale_244",
+      "id": "server_rationale_245",
       "community": 6,
       "norm_label": "fast lookup of current git branch from directory path without subprocess latency"
     },
@@ -657,9 +657,9 @@
       "label": "Load ~/.config/herdr/config.toml as dictionary.",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L278",
+      "source_location": "L279",
       "_origin": "ast",
-      "id": "server_rationale_278",
+      "id": "server_rationale_279",
       "community": 6,
       "norm_label": "load ~/.config/herdr/config.toml as dictionary."
     },
@@ -667,9 +667,9 @@
       "label": "Save dictionary to ~/.config/herdr/config.toml and trigger herdr server reload-c",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L289",
+      "source_location": "L290",
       "_origin": "ast",
-      "id": "server_rationale_289",
+      "id": "server_rationale_290",
       "community": 6,
       "norm_label": "save dictionary to ~/.config/herdr/config.toml and trigger herdr server reload-c"
     },
@@ -677,9 +677,9 @@
       "label": "Query herdr integration status for all supported AI agents.",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L366",
+      "source_location": "L367",
       "_origin": "ast",
-      "id": "server_rationale_366",
+      "id": "server_rationale_367",
       "community": 6,
       "norm_label": "query herdr integration status for all supported ai agents."
     },
@@ -687,9 +687,9 @@
       "label": "Query herdr plugin list and return list of installed plugins.",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L397",
+      "source_location": "L398",
       "_origin": "ast",
-      "id": "server_rationale_397",
+      "id": "server_rationale_398",
       "community": 6,
       "norm_label": "query herdr plugin list and return list of installed plugins."
     },
@@ -697,29 +697,29 @@
       "label": "Determine with high confidence whether a pane is running an AI agent or is a raw",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L419",
+      "source_location": "L420",
       "_origin": "ast",
-      "id": "server_rationale_419",
+      "id": "server_rationale_420",
       "community": 6,
       "norm_label": "determine with high confidence whether a pane is running an ai agent or is a raw"
     },
     {
-      "label": "Dynamically discover built-in agent commands, installed skills, and custom workf",
+      "label": "Dynamically discover built-in agent commands, installed skills, plugins, and cus",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L441",
+      "source_location": "L442",
       "_origin": "ast",
-      "id": "server_rationale_441",
+      "id": "server_rationale_442",
       "community": 6,
-      "norm_label": "dynamically discover built-in agent commands, installed skills, and custom workf"
+      "norm_label": "dynamically discover built-in agent commands, installed skills, plugins, and cus"
     },
     {
       "label": "Fetch full aggregated state of workspaces, tabs, panes, and detected agents.",
       "file_type": "rationale",
       "source_file": "server.py",
-      "source_location": "L571",
+      "source_location": "L612",
       "_origin": "ast",
-      "id": "server_rationale_571",
+      "id": "server_rationale_612",
       "community": 6,
       "norm_label": "fetch full aggregated state of workspaces, tabs, panes, and detected agents."
     },
@@ -1057,7 +1057,7 @@
       "label": "repositionSlashPalette()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L457",
+      "source_location": "L466",
       "_origin": "ast",
       "id": "js_input_bar_repositionslashpalette",
       "community": 4,
@@ -1067,7 +1067,7 @@
       "label": "openSlashPalette()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L480",
+      "source_location": "L489",
       "_origin": "ast",
       "id": "js_input_bar_openslashpalette",
       "community": 4,
@@ -1077,7 +1077,7 @@
       "label": "closeSlashPalette()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L497",
+      "source_location": "L506",
       "_origin": "ast",
       "id": "js_input_bar_closeslashpalette",
       "community": 4,
@@ -1087,7 +1087,7 @@
       "label": "isSlashPaletteOpen()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L504",
+      "source_location": "L513",
       "_origin": "ast",
       "id": "js_input_bar_isslashpaletteopen",
       "community": 4,
@@ -1097,7 +1097,7 @@
       "label": "selectSlashCommand()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L508",
+      "source_location": "L517",
       "_origin": "ast",
       "id": "js_input_bar_selectslashcommand",
       "community": 4,
@@ -1107,7 +1107,7 @@
       "label": "initSlashMenu()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L530",
+      "source_location": "L539",
       "_origin": "ast",
       "id": "js_input_bar_initslashmenu",
       "community": 4,
@@ -1117,7 +1117,7 @@
       "label": "sendQuickText()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L586",
+      "source_location": "L595",
       "_origin": "ast",
       "id": "js_input_bar_sendquicktext",
       "community": 4,
@@ -1127,7 +1127,7 @@
       "label": "initSpeechRecognition()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L600",
+      "source_location": "L609",
       "_origin": "ast",
       "id": "js_input_bar_initspeechrecognition",
       "community": 4,
@@ -1137,7 +1137,7 @@
       "label": "handleMicOrSendClick()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L638",
+      "source_location": "L647",
       "_origin": "ast",
       "id": "js_input_bar_handlemicorsendclick",
       "community": 4,
@@ -1147,7 +1147,7 @@
       "label": "openContactInfo()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L661",
+      "source_location": "L670",
       "_origin": "ast",
       "id": "js_input_bar_opencontactinfo",
       "community": 4,
@@ -1157,7 +1157,7 @@
       "label": "closeBottomSheet()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L705",
+      "source_location": "L714",
       "_origin": "ast",
       "id": "js_input_bar_closebottomsheet",
       "community": 4,
@@ -1167,7 +1167,7 @@
       "label": "renderSheetPanes()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L710",
+      "source_location": "L719",
       "_origin": "ast",
       "id": "js_input_bar_rendersheetpanes",
       "community": 4,
@@ -1177,7 +1177,7 @@
       "label": "renderThemeChips()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L749",
+      "source_location": "L758",
       "_origin": "ast",
       "id": "js_input_bar_renderthemechips",
       "community": 4,
@@ -1187,7 +1187,7 @@
       "label": "updateTheme()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L757",
+      "source_location": "L766",
       "_origin": "ast",
       "id": "js_input_bar_updatetheme",
       "community": 4,
@@ -1197,7 +1197,7 @@
       "label": "updateFontSize()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L776",
+      "source_location": "L785",
       "_origin": "ast",
       "id": "js_input_bar_updatefontsize",
       "community": 4,
@@ -6200,7 +6200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_resize",
-      "community": 40,
+      "community": 64,
       "norm_label": "resize()"
     },
     {
@@ -6740,7 +6740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_trimstart",
-      "community": 40,
+      "community": 64,
       "norm_label": ".trimstart()"
     },
     {
@@ -6750,7 +6750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_shiftelements",
-      "community": 43,
+      "community": 0,
       "norm_label": ".shiftelements()"
     },
     {
@@ -6880,7 +6880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_scroll",
-      "community": 55,
+      "community": 0,
       "norm_label": ".scroll()"
     },
     {
@@ -7190,7 +7190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_linefeed",
-      "community": 55,
+      "community": 40,
       "norm_label": ".linefeed()"
     },
     {
@@ -7490,7 +7490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_insertlines",
-      "community": 43,
+      "community": 40,
       "norm_label": ".insertlines()"
     },
     {
@@ -7500,7 +7500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_deletelines",
-      "community": 43,
+      "community": 40,
       "norm_label": ".deletelines()"
     },
     {
@@ -7530,7 +7530,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_scrollup",
-      "community": 43,
+      "community": 40,
       "norm_label": ".scrollup()"
     },
     {
@@ -7540,7 +7540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_scrolldown",
-      "community": 43,
+      "community": 40,
       "norm_label": ".scrolldown()"
     },
     {
@@ -8030,7 +8030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_reverseindex",
-      "community": 43,
+      "community": 40,
       "norm_label": ".reverseindex()"
     },
     {
@@ -8080,7 +8080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_screenalignmentpattern",
-      "community": 43,
+      "community": 55,
       "norm_label": ".screenalignmentpattern()"
     },
     {
@@ -8090,7 +8090,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_requeststatusstring",
-      "community": 0,
+      "community": 55,
       "norm_label": ".requeststatusstring()"
     },
     {
@@ -8100,7 +8100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_markrangedirty",
-      "community": 43,
+      "community": 40,
       "norm_label": ".markrangedirty()"
     },
     {
@@ -8130,7 +8130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_markrangedirty",
-      "community": 43,
+      "community": 40,
       "norm_label": "markrangedirty()"
     },
     {
@@ -8140,7 +8140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_markalldirty",
-      "community": 43,
+      "community": 55,
       "norm_label": "markalldirty()"
     },
     {
@@ -8790,7 +8790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getblankline",
-      "community": 43,
+      "community": 40,
       "norm_label": "getblankline()"
     },
     {
@@ -8860,7 +8860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflow",
-      "community": 40,
+      "community": 64,
       "norm_label": "_reflow()"
     },
     {
@@ -8870,7 +8870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflowlarger",
-      "community": 40,
+      "community": 64,
       "norm_label": "_reflowlarger()"
     },
     {
@@ -8880,7 +8880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflowlargeradjustviewport",
-      "community": 40,
+      "community": 64,
       "norm_label": "_reflowlargeradjustviewport()"
     },
     {
@@ -9040,7 +9040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getfg",
-      "community": 55,
+      "community": 0,
       "norm_label": ".getfg()"
     },
     {
@@ -9050,7 +9050,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getbg",
-      "community": 55,
+      "community": 0,
       "norm_label": ".getbg()"
     },
     {
@@ -9100,7 +9100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_isprotected",
-      "community": 0,
+      "community": 55,
       "norm_label": ".isprotected()"
     },
     {
@@ -9120,7 +9120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_setcell",
-      "community": 0,
+      "community": 46,
       "norm_label": ".setcell()"
     },
     {
@@ -9130,7 +9130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_setcellfromcodepoint",
-      "community": 0,
+      "community": 46,
       "norm_label": ".setcellfromcodepoint()"
     },
     {
@@ -9150,7 +9150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_insertcells",
-      "community": 40,
+      "community": 46,
       "norm_label": ".insertcells()"
     },
     {
@@ -9170,7 +9170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_replacecells",
-      "community": 0,
+      "community": 46,
       "norm_label": ".replacecells()"
     },
     {
@@ -9200,7 +9200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_fill",
-      "community": 0,
+      "community": 55,
       "norm_label": ".fill()"
     },
     {
@@ -9210,7 +9210,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_copyfrom",
-      "community": 55,
+      "community": 0,
       "norm_label": ".copyfrom()"
     },
     {
@@ -9450,7 +9450,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_decode",
-      "community": 0,
+      "community": 55,
       "norm_label": "decode()"
     },
     {
@@ -9580,7 +9580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_a_setdefault",
-      "community": 0,
+      "community": 55,
       "norm_label": ".setdefault()"
     },
     {
@@ -10190,7 +10190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_scroll",
-      "community": 55,
+      "community": 0,
       "norm_label": "scroll()"
     },
     {
@@ -12241,21 +12241,21 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_41",
-      "target": "server_send_web_push"
+      "source": "server_rationale_42",
+      "target": "server_send_web_push",
+      "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L96",
+      "source_location": "L97",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_96",
-      "target": "server_ensure_ssl_certificates"
+      "source": "server_rationale_97",
+      "target": "server_ensure_ssl_certificates",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12272,11 +12272,11 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L158",
+      "source_location": "L159",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_158",
-      "target": "server_ensure_auth_credentials"
+      "source": "server_rationale_159",
+      "target": "server_ensure_auth_credentials",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12425,11 +12425,11 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L244",
+      "source_location": "L245",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_244",
-      "target": "server_get_git_branch"
+      "source": "server_rationale_245",
+      "target": "server_get_git_branch",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12457,11 +12457,11 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L278",
+      "source_location": "L279",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_278",
-      "target": "server_load_herdr_config"
+      "source": "server_rationale_279",
+      "target": "server_load_herdr_config",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12478,11 +12478,11 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L289",
+      "source_location": "L290",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_289",
-      "target": "server_save_herdr_config"
+      "source": "server_rationale_290",
+      "target": "server_save_herdr_config",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12499,11 +12499,11 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L366",
+      "source_location": "L367",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_366",
-      "target": "server_get_herdr_integrations"
+      "source": "server_rationale_367",
+      "target": "server_get_herdr_integrations",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12520,11 +12520,11 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L397",
+      "source_location": "L398",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_397",
-      "target": "server_get_herdr_plugins"
+      "source": "server_rationale_398",
+      "target": "server_get_herdr_plugins",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12541,11 +12541,11 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L419",
+      "source_location": "L420",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_419",
-      "target": "server_check_is_agent"
+      "source": "server_rationale_420",
+      "target": "server_check_is_agent",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12565,19 +12565,19 @@
       "source_file": "server.py",
       "source_location": "L1036",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_dashboardhandler_do_post",
-      "target": "server_get_all_slash_commands",
-      "confidence_score": 1.0
+      "target": "server_get_all_slash_commands"
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L441",
+      "source_location": "L442",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_441",
-      "target": "server_get_all_slash_commands"
+      "source": "server_rationale_442",
+      "target": "server_get_all_slash_commands",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -12605,11 +12605,11 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
-      "source_location": "L571",
+      "source_location": "L612",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "server_rationale_571",
-      "target": "server_get_aggregated_state"
+      "source": "server_rationale_612",
+      "target": "server_get_aggregated_state",
+      "confidence_score": 1.0
     },
     {
       "relation": "inherits",
@@ -13366,9 +13366,9 @@
       "source_file": "static/js/input-bar.js",
       "source_location": "L457",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_input_bar",
-      "target": "js_input_bar_repositionslashpalette",
-      "confidence_score": 1.0
+      "target": "js_input_bar_repositionslashpalette"
     },
     {
       "relation": "contains",
@@ -13753,9 +13753,9 @@
       "source_file": "static/js/input-bar.js",
       "source_location": "L487",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_input_bar_openslashpalette",
-      "target": "js_input_bar_repositionslashpalette",
-      "confidence_score": 1.0
+      "target": "js_input_bar_repositionslashpalette"
     },
     {
       "relation": "calls",
@@ -37769,5 +37769,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "2c89e799dc1cd3e74b6b0cebea23f38b77c73cb3"
+  "built_at_commit": "1ae6235fc148e62847902323b5bdefb1d003f740"
 }

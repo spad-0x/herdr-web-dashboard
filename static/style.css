@@ -1501,6 +1501,21 @@ html, body {
     color: var(--text-primary);
 }
 
+.slash-cmd-alias {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    opacity: 0.6;
+    margin-left: 3px;
+}
+
+.slash-cmd-item:hover .slash-cmd-alias,
+.slash-cmd-item.selected .slash-cmd-alias {
+    opacity: 0.9;
+    color: rgba(0, 210, 255, 0.75);
+}
+
 .slash-cmd-item:hover .slash-cmd-name,
 .slash-cmd-item.selected .slash-cmd-name {
     color: var(--accent);

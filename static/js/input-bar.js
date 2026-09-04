@@ -392,15 +392,21 @@ function renderSlashPalette(filterQuery = '') {
 
     filteredSlashCommands = State.slashCommands.filter(item => {
         // Category filter
-        if (State.activeSlashCat !== 'all' && item.category !== State.activeSlashCat) {
-            return false;
+        if (State.activeSlashCat !== 'all') {
+            if (State.activeSlashCat === 'skill') {
+                if (item.type !== 'skill' && item.category !== 'skill') return false;
+            } else if (item.category !== State.activeSlashCat) {
+                return false;
+            }
         }
         // Text filter
         if (!cleanQuery) return true;
         const nameMatch = item.name.toLowerCase().includes(cleanQuery);
         const cmdMatch = item.cmd.toLowerCase().includes(cleanQuery);
         const descMatch = (item.desc || '').toLowerCase().includes(cleanQuery);
-        return nameMatch || cmdMatch || descMatch;
+        const aliasMatch = (item.alias || '').toLowerCase().includes(cleanQuery);
+        const pluginMatch = (item.plugin || '').toLowerCase().includes(cleanQuery);
+        return nameMatch || cmdMatch || descMatch || aliasMatch || pluginMatch;
     });
 
     if (DOM.slashPaletteCount) {
@@ -419,6 +425,7 @@ function renderSlashPalette(filterQuery = '') {
         State.selectedSlashIndex = 0;
     }
 
+    const frag = document.createDocumentFragment();
     filteredSlashCommands.forEach((cmd, idx) => {
         const item = document.createElement('div');
         item.className = `slash-cmd-item ${idx === State.selectedSlashIndex ? 'selected' : ''}`;
@@ -426,17 +433,18 @@ function renderSlashPalette(filterQuery = '') {
         item.dataset.cmd = cmd.cmd;
 
         const badgeClass = cmd.type === 'skill' ? 'badge-skill' : (cmd.type === 'builtin' ? 'badge-builtin' : 'badge-custom');
-        const badgeLabel = cmd.type === 'skill' ? 'Skill' : (cmd.type === 'builtin' ? 'Core' : 'Custom');
+        const badgeLabel = cmd.type === 'skill' ? (cmd.plugin ? cmd.plugin.toUpperCase() : 'Skill') : (cmd.type === 'builtin' ? 'Core' : 'Custom');
 
         item.innerHTML = `
             <div class="slash-cmd-left">
                 <div class="slash-cmd-top">
                     <span class="slash-cmd-icon">${escapeHtml(cmd.icon || '⚡')}</span>
                     <span class="slash-cmd-name">${escapeHtml(cmd.cmd)}</span>
+                    ${cmd.alias ? `<span class="slash-cmd-alias">${escapeHtml(cmd.alias)}</span>` : ''}
                 </div>
                 <div class="slash-cmd-desc">${escapeHtml(cmd.desc || '')}</div>
             </div>
-            <span class="slash-cmd-badge ${badgeClass}">${badgeLabel}</span>
+            <span class="slash-cmd-badge ${badgeClass}">${escapeHtml(badgeLabel)}</span>
         `;
 
         item.addEventListener('click', (e) => {
@@ -444,8 +452,9 @@ function renderSlashPalette(filterQuery = '') {
             selectSlashCommand(cmd);
         });
 
-        DOM.slashPaletteList.appendChild(item);
+        frag.appendChild(item);
     });
+    DOM.slashPaletteList.appendChild(frag);
 
     // Auto-scroll selected item into view
     const selectedEl = DOM.slashPaletteList.children[State.selectedSlashIndex];

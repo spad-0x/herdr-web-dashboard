@@ -7,6 +7,7 @@ Directly integrates with Herdr's Unix Socket API.
 import os
 import sys
 import re
+import glob
 import json
 import time
 import ssl
@@ -434,52 +435,70 @@ def check_is_agent(p, p_title, agent_pane_ids):
             return True
     return False
 
-# In-memory cache for slash commands with 5s TTL
+# In-memory cache for slash commands with 10s TTL
 _SLASH_COMMANDS_CACHE = {"timestamp": 0, "cwd": None, "data": []}
 
 def get_all_slash_commands(project_cwd=None):
-    """Dynamically discover built-in agent commands, installed skills, and custom workflows."""
+    """Dynamically discover built-in agent commands, installed skills, plugins, and custom workflows."""
     global _SLASH_COMMANDS_CACHE
     now = time.time()
-    if now - _SLASH_COMMANDS_CACHE["timestamp"] < 5 and _SLASH_COMMANDS_CACHE["cwd"] == project_cwd:
+    if now - _SLASH_COMMANDS_CACHE["timestamp"] < 10 and _SLASH_COMMANDS_CACHE["cwd"] == project_cwd:
         return _SLASH_COMMANDS_CACHE["data"]
 
-    # 1. Standard Built-in Commands
+    # 1. Standard Built-in Commands (Antigravity & Claude Code core commands)
     core_commands = [
         {"cmd": "/plan", "name": "plan", "desc": "Pianifica passo-passo l'architettura prima di eseguire", "type": "builtin", "category": "strategy", "icon": "📋"},
         {"cmd": "/grill-me", "name": "grill-me", "desc": "Intervista interattiva per chiarire decisioni e requisiti", "type": "builtin", "category": "strategy", "icon": "🎯"},
         {"cmd": "/goal", "name": "goal", "desc": "Task a lungo termine in autonomia fino al completamento", "type": "builtin", "category": "strategy", "icon": "🏁"},
+        {"cmd": "/learn", "name": "learn", "desc": "Salva e fissa una nuova regola o pattern appreso", "type": "builtin", "category": "strategy", "icon": "🧠"},
+        {"cmd": "/boost", "name": "boost", "desc": "Esecuzione ad alto potenziale con molteplici prospettive", "type": "builtin", "category": "strategy", "icon": "🚀"},
+        {"cmd": "/teamwork-preview", "name": "teamwork-preview", "desc": "Anteprima di orchestrazione con team di agenti", "type": "builtin", "category": "strategy", "icon": "👥"},
         {"cmd": "/review", "name": "review", "desc": "Revisione del codice, diff e controlli di sicurezza", "type": "builtin", "category": "dev", "icon": "🔍"},
         {"cmd": "/test", "name": "test", "desc": "Esegui e verifica suite di test automatizzati", "type": "builtin", "category": "dev", "icon": "🧪"},
         {"cmd": "/commit", "name": "commit", "desc": "Crea un commit git strutturato e descrittivo", "type": "builtin", "category": "dev", "icon": "📦"},
         {"cmd": "/bug", "name": "bug", "desc": "Isola e riproduci un bug con test di regressione", "type": "builtin", "category": "dev", "icon": "🐛"},
+        {"cmd": "/browser", "name": "browser", "desc": "Navigazione web, ricerca e interazione automatica", "type": "builtin", "category": "dev", "icon": "🌐"},
         {"cmd": "/compact", "name": "compact", "desc": "Comprimi cronologia e contesto per risparmiare token", "type": "builtin", "category": "session", "icon": "🗜️"},
         {"cmd": "/cost", "name": "cost", "desc": "Mostra token utilizzati e costi stimati della sessione", "type": "builtin", "category": "session", "icon": "💰"},
         {"cmd": "/clear", "name": "clear", "desc": "Azzera cronologia e riavvia il contesto del terminale", "type": "builtin", "category": "session", "icon": "🧹"},
         {"cmd": "/doctor", "name": "doctor", "desc": "Diagnostica salute dell'ambiente e dipendenze", "type": "builtin", "category": "session", "icon": "🩺"},
+        {"cmd": "/resume", "name": "resume", "desc": "Ripristina o cambia sessione di conversazione", "type": "builtin", "category": "session", "icon": "🔄"},
+        {"cmd": "/schedule", "name": "schedule", "desc": "Imposta timer o cron job ricorrente in background", "type": "builtin", "category": "session", "icon": "⏰"},
         {"cmd": "/help", "name": "help", "desc": "Mostra documentazione e comandi supportati dall'agente", "type": "builtin", "category": "session", "icon": "❓"},
         {"cmd": "/init", "name": "init", "desc": "Inizializza impostazioni e regole nel repository", "type": "builtin", "category": "session", "icon": "⚡"},
-        {"cmd": "/learn", "name": "learn", "desc": "Salva e fissa una nuova regola o pattern appreso", "type": "builtin", "category": "strategy", "icon": "🧠"},
     ]
 
     commands_dict = {c["cmd"]: c for c in core_commands}
 
-    # 2. Dynamic Discovery of Skills
+    # 2. Dynamic Discovery of Skills across Global, Plugins, Builtins and Workspace
     skill_dirs = [
         os.path.expanduser("~/.gemini/config/skills"),
         os.path.expanduser("~/.gemini/skills"),
         os.path.expanduser("~/.claude/skills"),
+        *glob.glob(os.path.expanduser("~/.gemini/config/plugins/*/skills")),
+        *glob.glob(os.path.expanduser("~/.claude/plugins/*/skills")),
+        *glob.glob(os.path.expanduser("~/.gemini/antigravity-cli/builtin/skills")),
+        *glob.glob(os.path.expanduser("~/.gemini/antigravity/builtin/skills")),
     ]
     if project_cwd and os.path.isdir(project_cwd):
         skill_dirs.extend([
             os.path.join(project_cwd, ".skills"),
             os.path.join(project_cwd, ".claude", "skills"),
-            os.path.join(project_cwd, ".agents", "skills")
+            os.path.join(project_cwd, ".agents", "skills"),
+            os.path.join(project_cwd, ".gemini", "skills")
         ])
 
     for sdir in skill_dirs:
         if not os.path.isdir(sdir):
             continue
+
+        plugin_name = None
+        parts = sdir.split(os.sep)
+        if "plugins" in parts:
+            p_idx = parts.index("plugins")
+            if p_idx + 1 < len(parts):
+                plugin_name = parts[p_idx + 1]
+
         try:
             for item in sorted(os.listdir(sdir)):
                 item_path = os.path.join(sdir, item)
@@ -495,9 +514,9 @@ def get_all_slash_commands(project_cwd=None):
                     with open(skill_md, "r", encoding="utf-8", errors="ignore") as f:
                         frontmatter = f.read(1200)
                     if frontmatter.startswith("---"):
-                        parts = frontmatter.split("---", 2)
-                        if len(parts) >= 3:
-                            block = parts[1]
+                        parts_fm = frontmatter.split("---", 2)
+                        if len(parts_fm) >= 3:
+                            block = parts_fm[1]
                             n_match = re.search(r"^name:\s*(.+)$", block, re.MULTILINE)
                             if n_match:
                                 cmd_name = n_match.group(1).strip().strip("\"'")
@@ -508,14 +527,34 @@ def get_all_slash_commands(project_cwd=None):
                     pass
 
                 cmd_key = "/" + cmd_name
+
+                # Categorization & Icon Heuristics
+                text_blob = (cmd_name + " " + desc).lower()
+                if any(k in text_blob for k in ["session", "token", "cost", "budget", "billing", "compact", "memory", "clean", "cache"]):
+                    cat = "session"
+                    icon = "💰" if ("cost" in text_blob or "budget" in text_blob or "billing" in text_blob) else "⚙️"
+                elif any(k in text_blob for k in ["plan", "eval", "research", "architecture", "council", "decision", "agent", "lens", "harness", "study", "analysis"]):
+                    cat = "strategy"
+                    icon = "🧠"
+                elif any(k in text_blob for k in ["test", "tdd", "bug", "git", "review", "security", "code", "dev", "pattern", "python", "react", "vue", "rust", "go", "java", "deploy", "docker", "k8s", "ci/cd"]):
+                    cat = "dev"
+                    icon = "🧪" if "test" in text_blob else ("🛡️" if "security" in text_blob else "🛠️")
+                else:
+                    cat = "skill"
+                    icon = "🔌"
+
+                alias = f"/{plugin_name}:{cmd_name}" if plugin_name else None
+
                 if cmd_key not in commands_dict:
                     commands_dict[cmd_key] = {
                         "cmd": cmd_key,
                         "name": cmd_name,
                         "desc": desc or f"Skill {cmd_name}",
+                        "alias": alias,
+                        "plugin": plugin_name,
                         "type": "skill",
-                        "category": "skill",
-                        "icon": "🔌"
+                        "category": cat,
+                        "icon": icon
                     }
         except Exception:
             pass
@@ -523,6 +562,8 @@ def get_all_slash_commands(project_cwd=None):
     # 3. Dynamic Discovery of Custom Command Files (*.md)
     custom_dirs = [
         os.path.expanduser("~/.claude/commands"),
+        os.path.expanduser("~/.gemini/config/commands"),
+        *glob.glob(os.path.expanduser("~/.gemini/config/plugins/*/commands")),
     ]
     if project_cwd and os.path.isdir(project_cwd):
         custom_dirs.extend([
