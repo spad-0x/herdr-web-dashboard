@@ -1,7 +1,7 @@
 # Graph Report - herdr-web-dashboard  (2026-09-04)
 
 ## Corpus Check
-- 21 files · ~28,795 words
+- 21 files · ~28,816 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `461616a3`
+- Built from commit: `8ce91146`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -210,7 +210,7 @@ Cohesion: 0.29
 Nodes (3): getBlankLine(), markAllDirty(), markRangeDirty()
 
 ### Community 58 - "Community 58"
-Cohesion: 0.11
+Cohesion: 0.14
 Nodes (4): createInstance(), enable(), hasRenderer(), setService()
 
 ### Community 59 - "Community 59"

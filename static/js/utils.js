@@ -462,12 +462,13 @@ const AGENT_METADATA = {
             </svg>`
     },
     'pi': {
-        name: 'Inflection Pi',
-        color: '#10B981',
-        bgGradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(30, 58, 43, 0.4))',
+        name: 'Pi Agent',
+        color: '#FFFFFF',
+        bgGradient: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(24, 24, 27, 0.6))',
         getSvg: (size) => `
-            <svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 8H19M9 8V17M15 8V16C15 17 16 17.5 17 17" stroke="#10B981" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg viewBox="0 0 800 800" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#ffffff" fill-rule="evenodd" d="M165.29 165.29 H517.36 V400 H400 V517.36 H282.65 V634.72 H165.29 Z M282.65 282.65 V400 H400 V282.65 Z"/>
+                <path fill="#ffffff" d="M517.36 400 H634.72 V634.72 H517.36 Z"/>
             </svg>`
     },
     'omp': {
@@ -550,7 +551,7 @@ function detectAgentKey(identifier) {
     if (str.includes('qoder')) return 'qoder';
     if (str.includes('qwen') || str.includes('tongyi')) return 'qwen';
     if (str.includes('mastra')) return 'mastra';
-    if (str.includes('pi') || str.includes('inflection')) return 'pi';
+    if (str === 'pi' || /\bpi\b/i.test(str) || str.includes('pi-agent') || str.includes('pi agent') || str.includes('inflection')) return 'pi';
     if (str.includes('omp')) return 'omp';
     if (str.includes('grok') || str.includes('xai')) return 'grok';
     if (str.includes('aider')) return 'aider';

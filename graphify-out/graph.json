@@ -1527,7 +1527,7 @@
       "label": "detectAgentKey()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L535",
+      "source_location": "L536",
       "_origin": "ast",
       "id": "js_utils_detectagentkey",
       "community": 4,
@@ -1537,7 +1537,7 @@
       "label": "getAgentDefaultName()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L562",
+      "source_location": "L563",
       "_origin": "ast",
       "id": "js_utils_getagentdefaultname",
       "community": 4,
@@ -1547,7 +1547,7 @@
       "label": "getAgentMeta()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L567",
+      "source_location": "L568",
       "_origin": "ast",
       "id": "js_utils_getagentmeta",
       "community": 4,
@@ -1557,7 +1557,7 @@
       "label": "getAgentIconSvg()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L573",
+      "source_location": "L574",
       "_origin": "ast",
       "id": "js_utils_getagenticonsvg",
       "community": 4,
@@ -1567,7 +1567,7 @@
       "label": "openRenameAgentDialog()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L583",
+      "source_location": "L584",
       "_origin": "ast",
       "id": "js_utils_openrenameagentdialog",
       "community": 4,
@@ -1577,7 +1577,7 @@
       "label": "closeRenameAgentDialog()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L619",
+      "source_location": "L620",
       "_origin": "ast",
       "id": "js_utils_closerenameagentdialog",
       "community": 4,
@@ -1587,7 +1587,7 @@
       "label": "handleRenameAgentSubmit()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L630",
+      "source_location": "L631",
       "_origin": "ast",
       "id": "js_utils_handlerenameagentsubmit",
       "community": 4,
@@ -4690,7 +4690,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_blur",
-      "community": 24,
+      "community": 8,
       "norm_label": ".blur()"
     },
     {
@@ -4720,7 +4720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_initglobal",
-      "community": 58,
+      "community": 24,
       "norm_label": "._initglobal()"
     },
     {
@@ -4730,7 +4730,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_bindkeys",
-      "community": 58,
+      "community": 24,
       "norm_label": "._bindkeys()"
     },
     {
@@ -10920,7 +10920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_onrender",
-      "community": 58,
+      "community": 24,
       "norm_label": ".onrender()"
     },
     {
@@ -11080,7 +11080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_blur",
-      "community": 24,
+      "community": 8,
       "norm_label": ".blur()"
     },
     {
@@ -11673,9 +11673,9 @@
       "source_file": "herdr_client.py",
       "source_location": "L177",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "herdr_client_herdrclient",
-      "target": "herdr_client_herdrclient_agent_rename",
-      "confidence_score": 1.0
+      "target": "herdr_client_herdrclient_agent_rename"
     },
     {
       "relation": "method",
@@ -11743,9 +11743,9 @@
       "source_file": "herdr_client.py",
       "source_location": "L174",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "herdr_client_herdrclient",
-      "target": "herdr_client_herdrclient_pane_rename",
-      "confidence_score": 1.0
+      "target": "herdr_client_herdrclient_pane_rename"
     },
     {
       "relation": "method",
@@ -11916,9 +11916,9 @@
       "source_file": "herdr_client.py",
       "source_location": "L178",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "herdr_client_herdrclient_agent_rename",
-      "target": "herdr_client_herdrclient_call",
-      "confidence_score": 1.0
+      "target": "herdr_client_herdrclient_call"
     },
     {
       "relation": "calls",
@@ -11960,9 +11960,9 @@
       "source_file": "herdr_client.py",
       "source_location": "L175",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "herdr_client_herdrclient_pane_rename",
-      "target": "herdr_client_herdrclient_call",
-      "confidence_score": 1.0
+      "target": "herdr_client_herdrclient_call"
     },
     {
       "relation": "calls",
@@ -12173,9 +12173,9 @@
       "source_file": "herdr_client.py",
       "source_location": "L181",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "herdr_client_rationale_181",
-      "target": "herdr_client_herdrclient_resize_pane_pty",
-      "confidence_score": 1.0
+      "target": "herdr_client_herdrclient_resize_pane_pty"
     },
     {
       "relation": "contains",
@@ -12303,9 +12303,9 @@
       "source_file": "server.py",
       "source_location": "L97",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server",
-      "target": "server_load_custom_agent_names",
-      "confidence_score": 1.0
+      "target": "server_load_custom_agent_names"
     },
     {
       "relation": "contains",
@@ -12353,9 +12353,9 @@
       "source_file": "server.py",
       "source_location": "L106",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server",
-      "target": "server_save_custom_agent_names",
-      "confidence_score": 1.0
+      "target": "server_save_custom_agent_names"
     },
     {
       "relation": "contains",
@@ -12436,9 +12436,9 @@
       "source_file": "server.py",
       "source_location": "L1223",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_dashboardhandler_do_post",
-      "target": "server_load_custom_agent_names",
-      "confidence_score": 1.0
+      "target": "server_load_custom_agent_names"
     },
     {
       "relation": "calls",
@@ -12447,9 +12447,9 @@
       "source_file": "server.py",
       "source_location": "L654",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_get_aggregated_state",
-      "target": "server_load_custom_agent_names",
-      "confidence_score": 1.0
+      "target": "server_load_custom_agent_names"
     },
     {
       "relation": "calls",
@@ -12458,9 +12458,9 @@
       "source_file": "server.py",
       "source_location": "L1228",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_dashboardhandler_do_post",
-      "target": "server_save_custom_agent_names",
-      "confidence_score": 1.0
+      "target": "server_save_custom_agent_names"
     },
     {
       "relation": "rationale_for",
@@ -12468,9 +12468,9 @@
       "source_file": "server.py",
       "source_location": "L115",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_115",
-      "target": "server_ensure_ssl_certificates",
-      "confidence_score": 1.0
+      "target": "server_ensure_ssl_certificates"
     },
     {
       "relation": "calls",
@@ -12489,9 +12489,9 @@
       "source_file": "server.py",
       "source_location": "L177",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_177",
-      "target": "server_ensure_auth_credentials",
-      "confidence_score": 1.0
+      "target": "server_ensure_auth_credentials"
     },
     {
       "relation": "calls",
@@ -12642,9 +12642,9 @@
       "source_file": "server.py",
       "source_location": "L263",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_263",
-      "target": "server_get_git_branch",
-      "confidence_score": 1.0
+      "target": "server_get_git_branch"
     },
     {
       "relation": "calls",
@@ -12674,9 +12674,9 @@
       "source_file": "server.py",
       "source_location": "L297",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_297",
-      "target": "server_load_herdr_config",
-      "confidence_score": 1.0
+      "target": "server_load_herdr_config"
     },
     {
       "relation": "calls",
@@ -12695,9 +12695,9 @@
       "source_file": "server.py",
       "source_location": "L308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_308",
-      "target": "server_save_herdr_config",
-      "confidence_score": 1.0
+      "target": "server_save_herdr_config"
     },
     {
       "relation": "calls",
@@ -12727,9 +12727,9 @@
       "source_file": "server.py",
       "source_location": "L385",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_385",
-      "target": "server_get_herdr_integrations",
-      "confidence_score": 1.0
+      "target": "server_get_herdr_integrations"
     },
     {
       "relation": "calls",
@@ -12748,9 +12748,9 @@
       "source_file": "server.py",
       "source_location": "L416",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_416",
-      "target": "server_get_herdr_plugins",
-      "confidence_score": 1.0
+      "target": "server_get_herdr_plugins"
     },
     {
       "relation": "calls",
@@ -12769,9 +12769,9 @@
       "source_file": "server.py",
       "source_location": "L438",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_438",
-      "target": "server_check_is_agent",
-      "confidence_score": 1.0
+      "target": "server_check_is_agent"
     },
     {
       "relation": "calls",
@@ -12801,9 +12801,9 @@
       "source_file": "server.py",
       "source_location": "L460",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_460",
-      "target": "server_get_all_slash_commands",
-      "confidence_score": 1.0
+      "target": "server_get_all_slash_commands"
     },
     {
       "relation": "calls",
@@ -12833,9 +12833,9 @@
       "source_file": "server.py",
       "source_location": "L630",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_630",
-      "target": "server_get_aggregated_state",
-      "confidence_score": 1.0
+      "target": "server_get_aggregated_state"
     },
     {
       "relation": "inherits",
@@ -14458,9 +14458,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L287",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils",
-      "target": "js_utils_agent_metadata",
-      "confidence_score": 1.0
+      "target": "js_utils_agent_metadata"
     },
     {
       "relation": "contains",
@@ -14478,9 +14478,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L619",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils",
-      "target": "js_utils_closerenameagentdialog",
-      "confidence_score": 1.0
+      "target": "js_utils_closerenameagentdialog"
     },
     {
       "relation": "contains",
@@ -14488,9 +14488,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L535",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils",
-      "target": "js_utils_detectagentkey",
-      "confidence_score": 1.0
+      "target": "js_utils_detectagentkey"
     },
     {
       "relation": "contains",
@@ -14528,9 +14528,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L562",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils",
-      "target": "js_utils_getagentdefaultname",
-      "confidence_score": 1.0
+      "target": "js_utils_getagentdefaultname"
     },
     {
       "relation": "contains",
@@ -14538,9 +14538,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L573",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils",
-      "target": "js_utils_getagenticonsvg",
-      "confidence_score": 1.0
+      "target": "js_utils_getagenticonsvg"
     },
     {
       "relation": "contains",
@@ -14548,9 +14548,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L567",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils",
-      "target": "js_utils_getagentmeta",
-      "confidence_score": 1.0
+      "target": "js_utils_getagentmeta"
     },
     {
       "relation": "contains",
@@ -14558,9 +14558,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L630",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils",
-      "target": "js_utils_handlerenameagentsubmit",
-      "confidence_score": 1.0
+      "target": "js_utils_handlerenameagentsubmit"
     },
     {
       "relation": "contains",
@@ -14568,9 +14568,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L583",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils",
-      "target": "js_utils_openrenameagentdialog",
-      "confidence_score": 1.0
+      "target": "js_utils_openrenameagentdialog"
     },
     {
       "relation": "contains",
@@ -14609,9 +14609,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L635",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_handlerenameagentsubmit",
-      "target": "js_utils_triggerhaptic",
-      "confidence_score": 1.0
+      "target": "js_utils_triggerhaptic"
     },
     {
       "relation": "calls",
@@ -14620,9 +14620,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L642",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_handlerenameagentsubmit",
-      "target": "js_utils_showtoast",
-      "confidence_score": 1.0
+      "target": "js_utils_showtoast"
     },
     {
       "relation": "calls",
@@ -14631,9 +14631,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L636",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_handlerenameagentsubmit",
-      "target": "js_utils_apicall",
-      "confidence_score": 1.0
+      "target": "js_utils_apicall"
     },
     {
       "relation": "calls",
@@ -14642,9 +14642,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L563",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_getagentdefaultname",
-      "target": "js_utils_detectagentkey",
-      "confidence_score": 1.0
+      "target": "js_utils_detectagentkey"
     },
     {
       "relation": "calls",
@@ -14653,9 +14653,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L568",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_getagentmeta",
-      "target": "js_utils_detectagentkey",
-      "confidence_score": 1.0
+      "target": "js_utils_detectagentkey"
     },
     {
       "relation": "calls",
@@ -14664,9 +14664,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L587",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_openrenameagentdialog",
-      "target": "js_utils_getagentdefaultname",
-      "confidence_score": 1.0
+      "target": "js_utils_getagentdefaultname"
     },
     {
       "relation": "calls",
@@ -14675,9 +14675,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L574",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_getagenticonsvg",
-      "target": "js_utils_getagentmeta",
-      "confidence_score": 1.0
+      "target": "js_utils_getagentmeta"
     },
     {
       "relation": "calls",
@@ -14686,9 +14686,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L599",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_openrenameagentdialog",
-      "target": "js_utils_getagentmeta",
-      "confidence_score": 1.0
+      "target": "js_utils_getagentmeta"
     },
     {
       "relation": "calls",
@@ -14697,9 +14697,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L600",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_openrenameagentdialog",
-      "target": "js_utils_getagenticonsvg",
-      "confidence_score": 1.0
+      "target": "js_utils_getagenticonsvg"
     },
     {
       "relation": "calls",
@@ -14708,9 +14708,9 @@
       "source_file": "static/js/utils.js",
       "source_location": "L678",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "js_utils_handlerenameagentsubmit",
-      "target": "js_utils_closerenameagentdialog",
-      "confidence_score": 1.0
+      "target": "js_utils_closerenameagentdialog"
     },
     {
       "relation": "contains",
@@ -38284,5 +38284,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "461616a38ae211a68f1067430ff818ca39f02a6c"
+  "built_at_commit": "8ce91146d9497cc92585d66ef9d334b08ecc24ad"
 }

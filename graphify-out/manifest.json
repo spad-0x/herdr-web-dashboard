@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "static/js/utils.js": {
-    "mtime": 1788539513.9440422,
-    "ast_hash": "01dda4148cb5a0f1e4d66f0b0e704dc7",
+    "mtime": 1788540382.1294844,
+    "ast_hash": "45fedc81056234281b0cc46a327eccdf",
     "semantic_hash": ""
   },
   "static/manifest.json": {
@@ -100,8 +100,8 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788539755.9215517,
-    "ast_hash": "bd89f8a710633d78647213bc943d2af3",
+    "mtime": 1788540408.4344597,
+    "ast_hash": "5b68f78ebe0391cfcb54f4877e9c153e",
     "semantic_hash": ""
   },
   "static/login.html": {
