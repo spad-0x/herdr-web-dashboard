@@ -100,12 +100,7 @@
                     </div>
                 </div>
 
-                <div class="header-right">
-                    <!-- Mode Toggle (ONLY the icon: 💻 vs 💬) -->
-                    <button class="btn-mode-toggle" id="btn-mode-toggle" title="Passa tra Chat e Terminale Raw">
-                        <span id="mode-icon">💻</span>
-                    </button>
-                </div>
+                <div class="header-right"></div>
             </header>
 
         <!-- =================================================================
@@ -124,44 +119,10 @@
         </nav>
 
         <!-- =================================================================
-             3. MAIN VIEWPORTS: ACTIVE CHAT STREAM vs RAW TERMINAL
+             3. MAIN VIEWPORT: RAW TERMINAL (Full Xterm.js interactive canvas)
              ================================================================= -->
         <div class="viewport-wrapper" id="viewport-wrapper">
-            
-            <!-- VIEW A: ACTIVE CHAT (WhatsApp / iMessage layout) -->
-            <section class="chat-viewport active" id="chat-viewport">
-                <div class="chat-wallpaper"></div>
-                
-                <div class="chat-scroll-container" id="chat-scroll-container">
-                    <div class="chat-date-pill">Oggi</div>
-                    
-                    <!-- Dynamic Messages will render here -->
-                    <div class="chat-messages" id="chat-messages">
-                        <!-- Welcome message -->
-                        <div class="chat-bubble bubble-agent">
-                            <div class="bubble-avatar">🐏</div>
-                            <div class="bubble-body">
-                                <div class="bubble-sender">Herdr Agent</div>
-                                <div class="bubble-text">Pronto. Digita un prompt o invia un comando per iniziare a lavorare.</div>
-                                <div class="bubble-meta">
-                                    <span class="bubble-time">Adesso</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Floating Scroll-to-Bottom Button -->
-                <button class="btn-chat-scroll-bottom" id="btn-chat-scroll-bottom" style="display: none;" title="Vai ai messaggi più recenti">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <polyline points="19 12 12 19 5 12"></polyline>
-                    </svg>
-                </button>
-            </section>
-
-            <!-- VIEW B: RAW TERMINAL (Full Xterm.js interactive canvas) -->
-            <section class="terminal-viewport" id="terminal-viewport" style="display: none;">
+            <section class="terminal-viewport active" id="terminal-viewport">
                 <div class="terminal-container" id="terminal-container"></div>
                 
                 <button class="btn-scroll-bottom" id="btn-scroll-bottom" style="display: none;" title="Vai all'output più recente">
@@ -190,9 +151,9 @@
         </div>
 
         <!-- =================================================================
-             5. CLI KEYS DRAWER (Expandable with '+')
+             5. CLI KEYS DRAWER (Quick terminal input keys)
              ================================================================= -->
-        <div class="cli-keys-drawer" id="cli-keys-drawer" style="display: none;">
+        <div class="cli-keys-drawer" id="cli-keys-drawer">
             <div class="cli-keys-scroll">
                 <button class="cli-key key-primary" data-key="enter" title="Invia tasto Invio al terminale">↵ Invio</button>
                 <button class="cli-key key-ctrl-trigger" id="btn-ctrl-menu" title="Tieni premuto per scorciatoie Ctrl">
@@ -490,16 +451,16 @@
 
     <!-- Main Controller -->
     <!-- Modular Component Architecture -->
-    <script src="/js/state.js?v=20260904_slash_fix1"></script>
-    <script src="/js/utils.js?v=20260904_slash_fix1"></script>
-    <script src="/js/terminal.js?v=20260904_slash_fix1"></script>
-    <script src="/js/settings.js?v=20260904_slash_fix1"></script>
-    <script src="/js/chats-list.js?v=20260904_slash_fix1"></script>
-    <script src="/js/chat.js?v=20260904_slash_fix1"></script>
-    <script src="/js/input-bar.js?v=20260904_slash_fix1"></script>
-    <script src="/js/stream.js?v=20260904_slash_fix1"></script>
-    <script src="/js/app-init.js?v=20260904_slash_fix1"></script>
-    <script src="/push-helper.js?v=20260904_slash_fix1"></script>
-    <script src="/app.js?v=20260904_slash_fix1"></script>
+    <script src="/js/state.js?v=20260904_terminal_only"></script>
+    <script src="/js/utils.js?v=20260904_terminal_only"></script>
+    <script src="/js/terminal.js?v=20260904_terminal_only"></script>
+    <script src="/js/settings.js?v=20260904_terminal_only"></script>
+    <script src="/js/chats-list.js?v=20260904_terminal_only"></script>
+    <script src="/js/chat.js?v=20260904_terminal_only"></script>
+    <script src="/js/input-bar.js?v=20260904_terminal_only"></script>
+    <script src="/js/stream.js?v=20260904_terminal_only"></script>
+    <script src="/js/app-init.js?v=20260904_terminal_only"></script>
+    <script src="/push-helper.js?v=20260904_terminal_only"></script>
+    <script src="/app.js?v=20260904_terminal_only"></script>
 </body>
 </html>

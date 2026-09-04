@@ -1,43 +1,27 @@
 function toggleMode() {
-    triggerHaptic('light');
-    const newMode = State.mode === 'chat' ? 'terminal' : 'chat';
-    setMode(newMode);
+    // Mode toggle removed — Raw Terminal view is permanent
 }
 
-function setMode(mode) {
-    State.mode = mode;
-    if (mode === 'chat') {
-        DOM.chatViewport.style.display = 'flex';
-        DOM.terminalViewport.style.display = 'none';
-        DOM.modeIcon.textContent = '💻';
-        if (DOM.modeLabel) DOM.modeLabel.textContent = 'Terminale';
-        DOM.btnToggleActions.style.display = 'flex';
-        State.isChatUserScrolled = false;
-        scrollChatToBottom(false);
-    } else {
-        DOM.chatViewport.style.display = 'none';
-        DOM.terminalViewport.style.display = 'block';
-        DOM.modeIcon.textContent = '💬';
-        if (DOM.modeLabel) DOM.modeLabel.textContent = 'Chat';
-        DOM.cliKeysDrawer.style.display = 'flex'; // Auto show CLI keys in terminal mode
-        DOM.btnToggleActions.classList.add('active');
-        if (typeof ensureWebglAddon === 'function') ensureWebglAddon();
-        if (typeof initSubpixelScroll === 'function') initSubpixelScroll();
-        if (typeof initTouchScroll === 'function') initTouchScroll();
-        if (State.fitAddon) {
-            setTimeout(() => {
-                try {
-                    State.fitAddon.fit();
-                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
-                    if (typeof ensureWebglAddon === 'function') ensureWebglAddon();
-                    if (typeof initSubpixelScroll === 'function') initSubpixelScroll();
-                    if (typeof initTouchScroll === 'function') initTouchScroll();
-                    if (State.term && State.terminalAtBottom) {
-                        State.term.scrollToBottom();
-                    }
-                } catch (e) {}
-            }, 30);
-        }
+function setMode(mode = 'terminal') {
+    State.mode = 'terminal';
+    if (DOM.terminalViewport) DOM.terminalViewport.style.display = 'block';
+    if (DOM.cliKeysDrawer) DOM.cliKeysDrawer.style.display = 'flex';
+    if (typeof ensureWebglAddon === 'function') ensureWebglAddon();
+    if (typeof initSubpixelScroll === 'function') initSubpixelScroll();
+    if (typeof initTouchScroll === 'function') initTouchScroll();
+    if (State.fitAddon) {
+        setTimeout(() => {
+            try {
+                State.fitAddon.fit();
+                if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
+                if (typeof ensureWebglAddon === 'function') ensureWebglAddon();
+                if (typeof initSubpixelScroll === 'function') initSubpixelScroll();
+                if (typeof initTouchScroll === 'function') initTouchScroll();
+                if (State.term && State.terminalAtBottom) {
+                    State.term.scrollToBottom();
+                }
+            } catch (e) {}
+        }, 30);
     }
 }
 
@@ -53,19 +37,14 @@ function setScreen(screenName) {
     } else {
         if (DOM.screenChatsList) DOM.screenChatsList.style.display = 'none';
         if (DOM.screenChatActive) DOM.screenChatActive.style.display = 'flex';
-        if (State.mode === 'chat') {
-            State.isChatUserScrolled = false;
-            scrollChatToBottom(false);
-        } else if (State.mode === 'terminal') {
-            if (State.fitAddon) {
-                try {
-                    State.fitAddon.fit();
-                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
-                } catch (e) {}
-            }
-            if (State.term && State.terminalAtBottom) {
-                State.term.scrollToBottom();
-            }
+        if (State.fitAddon) {
+            try {
+                State.fitAddon.fit();
+                if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
+            } catch (e) {}
+        }
+        if (State.term && State.terminalAtBottom) {
+            State.term.scrollToBottom();
         }
     }
 }
@@ -306,7 +285,7 @@ function renderChatsList() {
                 State.activePaneId = pane.pane_id;
                 await apiCall('/api/pane/focus', { pane_id: pane.pane_id });
                 setScreen('chat-active');
-                if (State.mode === 'terminal' && typeof syncTerminalSizeWithBackend === 'function') {
+                if (typeof syncTerminalSizeWithBackend === 'function') {
                     syncTerminalSizeWithBackend(true);
                 }
             });

@@ -16,7 +16,7 @@ const State = {
     workspaces: [],
     tabs: [],
     panes: [],
-    mode: 'chat', // 'chat' or 'terminal'
+    mode: 'terminal', // Raw terminal canvas
     lastText: '',
     lastCleanText: '',
     lastRevision: -1,
@@ -72,20 +72,13 @@ const DOM = {
     socketDot: document.getElementById('socket-dot'),
     chatHeaderTitle: document.getElementById('chat-header-title'),
     agentStatusText: document.getElementById('agent-status-text'),
-    btnModeToggle: document.getElementById('btn-mode-toggle'),
-    modeIcon: document.getElementById('mode-icon'),
-    modeLabel: document.getElementById('mode-label'),
     btnOpenMenu: document.getElementById('btn-open-menu'),
     // Tab Strip
     tabStrip: document.getElementById('tab-strip'),
     tabsContainer: document.getElementById('tabs-container'),
     btnAddTab: document.getElementById('btn-add-tab'),
-    // Viewports
+    // Viewport
     viewportWrapper: document.getElementById('viewport-wrapper'),
-    chatViewport: document.getElementById('chat-viewport'),
-    chatScrollContainer: document.getElementById('chat-scroll-container'),
-    chatMessages: document.getElementById('chat-messages'),
-    btnChatScrollBottom: document.getElementById('btn-chat-scroll-bottom'),
     terminalViewport: document.getElementById('terminal-viewport'),
     terminalContainer: document.getElementById('terminal-container'),
     btnScrollBottom: document.getElementById('btn-scroll-bottom'),

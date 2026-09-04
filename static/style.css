@@ -581,27 +581,8 @@ html, body {
     flex-shrink: 0;
 }
 
-/* Mode Toggle Button (Icon ONLY: 💬 vs 💻) */
-.btn-mode-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: 50%;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    flex-shrink: 0;
-}
+/* Header right actions */
 
-.btn-mode-toggle:active {
-    transform: scale(0.92);
-    background: var(--accent);
-}
 
 /* =============================================================================
    2. SLIM TAB STRIP

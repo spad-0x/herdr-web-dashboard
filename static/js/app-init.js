@@ -2,8 +2,7 @@
 // SETUP EVENT LISTENERS
 // =============================================================================
 function setupEventListeners() {
-    // Mode Switcher (Icon ONLY)
-    DOM.btnModeToggle.addEventListener('click', toggleMode);
+    // Mode Switcher removed: Pure Terminal View active by default
 
     // WhatsApp Navigation: Back arrow navigates to Chats List
     DOM.btnWsPicker.addEventListener('click', () => {
@@ -139,7 +138,15 @@ function setupEventListeners() {
                     appRoot.style.top = `${window.visualViewport.offsetTop}px`;
                 }
             }
-            scrollChatToBottom();
+            if (State.fitAddon) {
+                try {
+                    State.fitAddon.fit();
+                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
+                } catch (e) {}
+            }
+            if (State.term && State.terminalAtBottom) {
+                State.term.scrollToBottom();
+            }
         }, 100);
     });
 
@@ -151,8 +158,11 @@ function setupEventListeners() {
                 appRoot.style.height = '100vh';
                 appRoot.style.top = '0px';
             }
-            if (State.fitAddon && State.mode === 'terminal') {
-                try { State.fitAddon.fit(); } catch (e) {}
+            if (State.fitAddon) {
+                try {
+                    State.fitAddon.fit();
+                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
+                } catch (e) {}
             }
         }, 100);
     });
@@ -315,10 +325,11 @@ function setupEventListeners() {
                 window.scrollTo(0, 0);
             }
 
-            if (State.mode === 'chat') {
-                scrollChatToBottom();
-            } else if (State.fitAddon && State.mode === 'terminal') {
-                try { State.fitAddon.fit(); } catch (e) {}
+            if (State.fitAddon) {
+                try {
+                    State.fitAddon.fit();
+                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend();
+                } catch (e) {}
             }
         }
 
@@ -328,8 +339,11 @@ function setupEventListeners() {
 
     window.addEventListener('resize', () => {
         if (!window.visualViewport) {
-            if (State.fitAddon && State.mode === 'terminal') {
-                try { State.fitAddon.fit(); } catch (e) {}
+            if (State.fitAddon) {
+                try {
+                    State.fitAddon.fit();
+                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend();
+                } catch (e) {}
             }
         }
     });
@@ -406,11 +420,8 @@ function fixIosSafeAreaAndChinGap() {
                 requestAnimationFrame(() => {
                     meta.setAttribute('content', original);
                     requestAnimationFrame(() => {
-                        if (State.fitAddon && State.mode === 'terminal') {
+                        if (State.fitAddon) {
                             try { State.fitAddon.fit(); } catch (e) {}
-                        }
-                        if (State.mode === 'chat') {
-                            scrollChatToBottom();
                         }
                     });
                 });

@@ -757,7 +757,7 @@
       "label": "fixIosSafeAreaAndChinGap()",
       "file_type": "code",
       "source_file": "static/js/app-init.js",
-      "source_location": "L392",
+      "source_location": "L406",
       "_origin": "ast",
       "id": "js_app_init_fixiossafeareaandchingap",
       "community": 47,
@@ -777,7 +777,7 @@
       "label": "initChatScroll()",
       "file_type": "code",
       "source_file": "static/js/chat.js",
-      "source_location": "L1",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "js_chat_initchatscroll",
       "community": 4,
@@ -787,7 +787,7 @@
       "label": "updateChatContent()",
       "file_type": "code",
       "source_file": "static/js/chat.js",
-      "source_location": "L29",
+      "source_location": "L6",
       "_origin": "ast",
       "id": "js_chat_updatechatcontent",
       "community": 4,
@@ -797,7 +797,7 @@
       "label": "renderActiveChatFromTerminal()",
       "file_type": "code",
       "source_file": "static/js/chat.js",
-      "source_location": "L41",
+      "source_location": "L7",
       "_origin": "ast",
       "id": "js_chat_renderactivechatfromterminal",
       "community": 4,
@@ -807,7 +807,7 @@
       "label": "appendUserBubble()",
       "file_type": "code",
       "source_file": "static/js/chat.js",
-      "source_location": "L84",
+      "source_location": "L8",
       "_origin": "ast",
       "id": "js_chat_appenduserbubble",
       "community": 4,
@@ -817,7 +817,7 @@
       "label": "scrollChatToBottom()",
       "file_type": "code",
       "source_file": "static/js/chat.js",
-      "source_location": "L114",
+      "source_location": "L9",
       "_origin": "ast",
       "id": "js_chat_scrollchattobottom",
       "community": 4,
@@ -847,7 +847,7 @@
       "label": "setMode()",
       "file_type": "code",
       "source_file": "static/js/chats-list.js",
-      "source_location": "L7",
+      "source_location": "L5",
       "_origin": "ast",
       "id": "js_chats_list_setmode",
       "community": 4,
@@ -857,7 +857,7 @@
       "label": "setScreen()",
       "file_type": "code",
       "source_file": "static/js/chats-list.js",
-      "source_location": "L47",
+      "source_location": "L31",
       "_origin": "ast",
       "id": "js_chats_list_setscreen",
       "community": 4,
@@ -867,7 +867,7 @@
       "label": "renderChatsList()",
       "file_type": "code",
       "source_file": "static/js/chats-list.js",
-      "source_location": "L73",
+      "source_location": "L52",
       "_origin": "ast",
       "id": "js_chats_list_renderchatslist",
       "community": 4,
@@ -7050,7 +7050,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_w",
-      "community": 44,
+      "community": 65,
       "norm_label": "w()"
     },
     {
@@ -7220,7 +7220,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_tab",
-      "community": 1,
+      "community": 66,
       "norm_label": ".tab()"
     },
     {
@@ -7420,7 +7420,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_cursorforwardtab",
-      "community": 1,
+      "community": 66,
       "norm_label": ".cursorforwardtab()"
     },
     {
@@ -7790,7 +7790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_windowoptions",
-      "community": 44,
+      "community": 65,
       "norm_label": ".windowoptions()"
     },
     {
@@ -7820,7 +7820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_settitle",
-      "community": 44,
+      "community": 65,
       "norm_label": ".settitle()"
     },
     {
@@ -7830,7 +7830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_seticonname",
-      "community": 44,
+      "community": 65,
       "norm_label": ".seticonname()"
     },
     {
@@ -8940,7 +8940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_nextstop",
-      "community": 1,
+      "community": 66,
       "norm_label": "nextstop()"
     },
     {
@@ -12243,9 +12243,9 @@
       "source_file": "server.py",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_42",
-      "target": "server_send_web_push",
-      "confidence_score": 1.0
+      "target": "server_send_web_push"
     },
     {
       "relation": "rationale_for",
@@ -12253,9 +12253,9 @@
       "source_file": "server.py",
       "source_location": "L97",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_97",
-      "target": "server_ensure_ssl_certificates",
-      "confidence_score": 1.0
+      "target": "server_ensure_ssl_certificates"
     },
     {
       "relation": "calls",
@@ -12274,9 +12274,9 @@
       "source_file": "server.py",
       "source_location": "L159",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_159",
-      "target": "server_ensure_auth_credentials",
-      "confidence_score": 1.0
+      "target": "server_ensure_auth_credentials"
     },
     {
       "relation": "calls",
@@ -12427,9 +12427,9 @@
       "source_file": "server.py",
       "source_location": "L245",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_245",
-      "target": "server_get_git_branch",
-      "confidence_score": 1.0
+      "target": "server_get_git_branch"
     },
     {
       "relation": "calls",
@@ -12459,9 +12459,9 @@
       "source_file": "server.py",
       "source_location": "L279",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_279",
-      "target": "server_load_herdr_config",
-      "confidence_score": 1.0
+      "target": "server_load_herdr_config"
     },
     {
       "relation": "calls",
@@ -12480,9 +12480,9 @@
       "source_file": "server.py",
       "source_location": "L290",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_290",
-      "target": "server_save_herdr_config",
-      "confidence_score": 1.0
+      "target": "server_save_herdr_config"
     },
     {
       "relation": "calls",
@@ -12501,9 +12501,9 @@
       "source_file": "server.py",
       "source_location": "L367",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_367",
-      "target": "server_get_herdr_integrations",
-      "confidence_score": 1.0
+      "target": "server_get_herdr_integrations"
     },
     {
       "relation": "calls",
@@ -12522,9 +12522,9 @@
       "source_file": "server.py",
       "source_location": "L398",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_398",
-      "target": "server_get_herdr_plugins",
-      "confidence_score": 1.0
+      "target": "server_get_herdr_plugins"
     },
     {
       "relation": "calls",
@@ -12543,9 +12543,9 @@
       "source_file": "server.py",
       "source_location": "L420",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_420",
-      "target": "server_check_is_agent",
-      "confidence_score": 1.0
+      "target": "server_check_is_agent"
     },
     {
       "relation": "calls",
@@ -12575,9 +12575,9 @@
       "source_file": "server.py",
       "source_location": "L442",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_442",
-      "target": "server_get_all_slash_commands",
-      "confidence_score": 1.0
+      "target": "server_get_all_slash_commands"
     },
     {
       "relation": "calls",
@@ -12607,9 +12607,9 @@
       "source_file": "server.py",
       "source_location": "L612",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_612",
-      "target": "server_get_aggregated_state",
-      "confidence_score": 1.0
+      "target": "server_get_aggregated_state"
     },
     {
       "relation": "inherits",
@@ -37769,5 +37769,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "1ae6235fc148e62847902323b5bdefb1d003f740"
+  "built_at_commit": "a775f61c48102127964e4f14b7ab029d968ea2dd"
 }
