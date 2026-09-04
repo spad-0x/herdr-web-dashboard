@@ -1767,7 +1767,7 @@
       "label": "shortcuts",
       "file_type": "code",
       "source_file": "static/manifest.json",
-      "source_location": "L43",
+      "source_location": "L62",
       "_origin": "ast",
       "id": "static_manifest_shortcuts",
       "community": 22,
@@ -3290,7 +3290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_p_constructor",
-      "community": 51,
+      "community": 31,
       "norm_label": ".constructor()"
     },
     {
@@ -3320,7 +3320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_m",
-      "community": 51,
+      "community": 31,
       "norm_label": "m()"
     },
     {
@@ -38649,5 +38649,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "1d3f81daf501c70c944f871e037564504b3b6514"
+  "built_at_commit": "d1468248ff72bdc028c0c91ec7a234485e0b810d"
 }

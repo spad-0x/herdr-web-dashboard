@@ -1,16 +1,16 @@
 # Graph Report - herdr-web-dashboard  (2026-09-04)
 
 ## Corpus Check
-- 21 files · ~33,720 words
+- 21 files · ~43,898 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1171 nodes · 2553 edges · 63 communities (40 shown, 23 thin omitted)
+- 1171 nodes · 2553 edges · 63 communities (41 shown, 22 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 51 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1d3f81da`
+- Built from commit: `d1468248`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -102,7 +102,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (63 total, 23 thin omitted)
+## Communities (63 total, 22 thin omitted)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.07
@@ -192,6 +192,10 @@ Nodes (4): get(), l, _measure(), syncScrollArea()
 Cohesion: 0.29
 Nodes (10): _applyScrollModifier(), _bubbleScroll(), _clearSmoothScrollState(), getLinesScrolled(), _getPixelsScrolled(), handleTouchMove(), handleWheel(), scrollLines() (+2 more)
 
+### Community 31 - "Community 31"
+Cohesion: 0.09
+Nodes (3): f, fire(), m()
+
 ### Community 32 - "Community 32"
 Cohesion: 0.22
 Nodes (3): addEscHandler(), registerEscHandler(), values()
@@ -251,7 +255,7 @@ Nodes (4): addDcsHandler(), addOscHandler(), registerDcsHandler(), registerOscHa
 ## Knowledge Gaps
 - **30 isolated node(s):** `filteredSlashCommands`, `State`, `DOM`, `TERMINAL_THEMES`, `AGENT_METADATA` (+25 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **23 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
