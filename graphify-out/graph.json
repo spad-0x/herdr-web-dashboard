@@ -587,7 +587,7 @@
       "label": ".serve_static_file()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1330",
+      "source_location": "L1352",
       "_origin": "ast",
       "id": "server_dashboardhandler_serve_static_file",
       "community": 6,
@@ -597,7 +597,7 @@
       "label": "monitor_agents_background()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1371",
+      "source_location": "L1393",
       "_origin": "ast",
       "id": "server_monitor_agents_background",
       "community": 6,
@@ -607,7 +607,7 @@
       "label": "run_server()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1424",
+      "source_location": "L1446",
       "_origin": "ast",
       "id": "server_run_server",
       "community": 6,
@@ -1860,7 +1860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_constructor",
-      "community": 31,
+      "community": 51,
       "norm_label": ".constructor()"
     },
     {
@@ -1950,7 +1950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h",
-      "community": 54,
+      "community": 51,
       "norm_label": "h"
     },
     {
@@ -1960,7 +1960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_constructor",
-      "community": 54,
+      "community": 51,
       "norm_label": ".constructor()"
     },
     {
@@ -3170,7 +3170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_register",
-      "community": 54,
+      "community": 51,
       "norm_label": "register()"
     },
     {
@@ -3940,7 +3940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_activate",
-      "community": 54,
+      "community": 51,
       "norm_label": ".activate()"
     },
     {
@@ -3950,7 +3950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_textureatlas",
-      "community": 54,
+      "community": 51,
       "norm_label": ".textureatlas()"
     },
     {
@@ -3960,7 +3960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_cleartextureatlas",
-      "community": 54,
+      "community": 51,
       "norm_label": ".cleartextureatlas()"
     },
     {
@@ -3980,7 +3980,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_constructor",
-      "community": 30,
+      "community": 20,
       "norm_label": "constructor()"
     },
     {
@@ -4040,7 +4040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_renderrows",
-      "community": 3,
+      "community": 17,
       "norm_label": "_renderrows()"
     },
     {
@@ -4050,7 +4050,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_announcecharacters",
-      "community": 3,
+      "community": 17,
       "norm_label": "_announcecharacters()"
     },
     {
@@ -4180,7 +4180,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_setcolor",
-      "community": 5,
+      "community": 23,
       "norm_label": "setcolor()"
     },
     {
@@ -4190,7 +4190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getcolor",
-      "community": 5,
+      "community": 23,
       "norm_label": "getcolor()"
     },
     {
@@ -4390,7 +4390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_dispose",
-      "community": 2,
+      "community": 43,
       "norm_label": "dispose()"
     },
     {
@@ -4470,7 +4470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_ona11ychar",
-      "community": 30,
+      "community": 20,
       "norm_label": ".ona11ychar()"
     },
     {
@@ -4480,7 +4480,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_ona11ytab",
-      "community": 30,
+      "community": 20,
       "norm_label": ".ona11ytab()"
     },
     {
@@ -4510,7 +4510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_handlecolorevent",
-      "community": 5,
+      "community": 49,
       "norm_label": "._handlecolorevent()"
     },
     {
@@ -4520,7 +4520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_setup",
-      "community": 18,
+      "community": 63,
       "norm_label": "._setup()"
     },
     {
@@ -4540,7 +4540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_focus",
-      "community": 18,
+      "community": 3,
       "norm_label": ".focus()"
     },
     {
@@ -4570,7 +4570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_blur",
-      "community": 18,
+      "community": 8,
       "norm_label": ".blur()"
     },
     {
@@ -4640,7 +4640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_bindmouse",
-      "community": 58,
+      "community": 30,
       "norm_label": ".bindmouse()"
     },
     {
@@ -4720,7 +4720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_registerlinkprovider",
-      "community": 58,
+      "community": 8,
       "norm_label": ".registerlinkprovider()"
     },
     {
@@ -4740,7 +4740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_deregistercharacterjoiner",
-      "community": 13,
+      "community": 43,
       "norm_label": ".deregistercharacterjoiner()"
     },
     {
@@ -4900,7 +4900,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_resize",
-      "community": 49,
+      "community": 28,
       "norm_label": ".resize()"
     },
     {
@@ -4910,7 +4910,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_afterresize",
-      "community": 49,
+      "community": 28,
       "norm_label": "._afterresize()"
     },
     {
@@ -4920,7 +4920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_clear",
-      "community": 28,
+      "community": 43,
       "norm_label": ".clear()"
     },
     {
@@ -4930,7 +4930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_reset",
-      "community": 18,
+      "community": 63,
       "norm_label": ".reset()"
     },
     {
@@ -4950,7 +4950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_reportfocus",
-      "community": 44,
+      "community": 18,
       "norm_label": "._reportfocus()"
     },
     {
@@ -4960,7 +4960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_reportwindowsoptions",
-      "community": 44,
+      "community": 18,
       "norm_label": "._reportwindowsoptions()"
     },
     {
@@ -4980,7 +4980,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlethemechange",
-      "community": 30,
+      "community": 20,
       "norm_label": "_handlethemechange()"
     },
     {
@@ -5000,7 +5000,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_syncscrollarea",
-      "community": 49,
+      "community": 28,
       "norm_label": "syncscrollarea()"
     },
     {
@@ -5150,7 +5150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_dorefreshdecorations",
-      "community": 62,
+      "community": 2,
       "norm_label": "_dorefreshdecorations()"
     },
     {
@@ -5160,7 +5160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_renderdecoration",
-      "community": 62,
+      "community": 2,
       "norm_label": "_renderdecoration()"
     },
     {
@@ -5170,7 +5170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_createelement",
-      "community": 62,
+      "community": 2,
       "norm_label": "_createelement()"
     },
     {
@@ -5180,7 +5180,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_refreshstyle",
-      "community": 62,
+      "community": 2,
       "norm_label": "_refreshstyle()"
     },
     {
@@ -5190,7 +5190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_refreshxposition",
-      "community": 62,
+      "community": 2,
       "norm_label": "_refreshxposition()"
     },
     {
@@ -5200,7 +5200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_removedecoration",
-      "community": 28,
+      "community": 43,
       "norm_label": "_removedecoration()"
     },
     {
@@ -5290,7 +5290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_registerbufferchangelisteners",
-      "community": 30,
+      "community": 20,
       "norm_label": "_registerbufferchangelisteners()"
     },
     {
@@ -5400,7 +5400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_compositionend",
-      "community": 2,
+      "community": 44,
       "norm_label": "compositionend()"
     },
     {
@@ -5410,7 +5410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_keydown",
-      "community": 2,
+      "community": 44,
       "norm_label": "keydown()"
     },
     {
@@ -5420,7 +5420,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_finalizecomposition",
-      "community": 2,
+      "community": 44,
       "norm_label": "_finalizecomposition()"
     },
     {
@@ -5430,7 +5430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handleanytextareachanges",
-      "community": 2,
+      "community": 44,
       "norm_label": "_handleanytextareachanges()"
     },
     {
@@ -5650,7 +5650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_applyminimumcontrast",
-      "community": 5,
+      "community": 23,
       "norm_label": "_applyminimumcontrast()"
     },
     {
@@ -5660,7 +5660,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getcontrastcache",
-      "community": 5,
+      "community": 23,
       "norm_label": "_getcontrastcache()"
     },
     {
@@ -5670,7 +5670,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addstyle",
-      "community": 5,
+      "community": 23,
       "norm_label": "_addstyle()"
     },
     {
@@ -5840,7 +5840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_validateandset",
-      "community": 49,
+      "community": 28,
       "norm_label": "._validateandset()"
     },
     {
@@ -5870,7 +5870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_l_measure",
-      "community": 49,
+      "community": 28,
       "norm_label": ".measure()"
     },
     {
@@ -5900,7 +5900,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_measure",
-      "community": 49,
+      "community": 28,
       "norm_label": ".measure()"
     },
     {
@@ -5980,7 +5980,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_deregister",
-      "community": 13,
+      "community": 43,
       "norm_label": "deregister()"
     },
     {
@@ -6180,7 +6180,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_registerintersectionobserver",
-      "community": 30,
+      "community": 20,
       "norm_label": "_registerintersectionobserver()"
     },
     {
@@ -6200,7 +6200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_resize",
-      "community": 64,
+      "community": 59,
       "norm_label": "resize()"
     },
     {
@@ -6480,7 +6480,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_fireeventifselectionchanged",
-      "community": 27,
+      "community": 13,
       "norm_label": "_fireeventifselectionchanged()"
     },
     {
@@ -6490,7 +6490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_fireonselectionchange",
-      "community": 27,
+      "community": 13,
       "norm_label": "_fireonselectionchange()"
     },
     {
@@ -6500,7 +6500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlebufferactivate",
-      "community": 28,
+      "community": 43,
       "norm_label": "_handlebufferactivate()"
     },
     {
@@ -6530,7 +6530,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_rightclickselect",
-      "community": 11,
+      "community": 13,
       "norm_label": "rightclickselect()"
     },
     {
@@ -6600,7 +6600,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_settheme",
-      "community": 30,
+      "community": 20,
       "norm_label": "_settheme()"
     },
     {
@@ -6610,7 +6610,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_restorecolor",
-      "community": 5,
+      "community": 49,
       "norm_label": "restorecolor()"
     },
     {
@@ -6620,7 +6620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_modifycolors",
-      "community": 5,
+      "community": 49,
       "norm_label": "modifycolors()"
     },
     {
@@ -6630,7 +6630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_updaterestorecolors",
-      "community": 30,
+      "community": 20,
       "norm_label": "_updaterestorecolors()"
     },
     {
@@ -6740,7 +6740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_trimstart",
-      "community": 64,
+      "community": 59,
       "norm_label": ".trimstart()"
     },
     {
@@ -6830,7 +6830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_constructor",
-      "community": 58,
+      "community": 20,
       "norm_label": ".constructor()"
     },
     {
@@ -6850,7 +6850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_writesync",
-      "community": 24,
+      "community": 54,
       "norm_label": ".writesync()"
     },
     {
@@ -6860,7 +6860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_input",
-      "community": 44,
+      "community": 18,
       "norm_label": ".input()"
     },
     {
@@ -6870,7 +6870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_resize",
-      "community": 49,
+      "community": 8,
       "norm_label": ".resize()"
     },
     {
@@ -6980,7 +6980,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_setup",
-      "community": 18,
+      "community": 63,
       "norm_label": "._setup()"
     },
     {
@@ -7040,7 +7040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clearlisteners",
-      "community": 2,
+      "community": 43,
       "norm_label": "clearlisteners()"
     },
     {
@@ -7050,7 +7050,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_w",
-      "community": 44,
+      "community": 59,
       "norm_label": "w()"
     },
     {
@@ -7080,7 +7080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_constructor",
-      "community": 10,
+      "community": 60,
       "norm_label": ".constructor()"
     },
     {
@@ -7100,7 +7100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_logslowresolvingasync",
-      "community": 59,
+      "community": 38,
       "norm_label": "._logslowresolvingasync()"
     },
     {
@@ -7120,7 +7120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_parse",
-      "community": 59,
+      "community": 38,
       "norm_label": ".parse()"
     },
     {
@@ -7130,7 +7130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_print",
-      "community": 14,
+      "community": 62,
       "norm_label": ".print()"
     },
     {
@@ -7190,7 +7190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_linefeed",
-      "community": 40,
+      "community": 0,
       "norm_label": ".linefeed()"
     },
     {
@@ -7610,7 +7610,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_senddeviceattributesprimary",
-      "community": 44,
+      "community": 18,
       "norm_label": ".senddeviceattributesprimary()"
     },
     {
@@ -7620,7 +7620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_senddeviceattributessecondary",
-      "community": 44,
+      "community": 18,
       "norm_label": ".senddeviceattributessecondary()"
     },
     {
@@ -7630,7 +7630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_is",
-      "community": 44,
+      "community": 18,
       "norm_label": "._is()"
     },
     {
@@ -7650,7 +7650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_setmodeprivate",
-      "community": 50,
+      "community": 59,
       "norm_label": ".setmodeprivate()"
     },
     {
@@ -7680,7 +7680,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_requestmode",
-      "community": 44,
+      "community": 18,
       "norm_label": ".requestmode()"
     },
     {
@@ -7740,7 +7740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_devicestatus",
-      "community": 44,
+      "community": 18,
       "norm_label": ".devicestatus()"
     },
     {
@@ -7750,7 +7750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_devicestatusprivate",
-      "community": 44,
+      "community": 18,
       "norm_label": ".devicestatusprivate()"
     },
     {
@@ -7790,7 +7790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_windowoptions",
-      "community": 44,
+      "community": 59,
       "norm_label": ".windowoptions()"
     },
     {
@@ -7800,7 +7800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_savecursor",
-      "community": 50,
+      "community": 59,
       "norm_label": ".savecursor()"
     },
     {
@@ -7820,7 +7820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_settitle",
-      "community": 44,
+      "community": 59,
       "norm_label": ".settitle()"
     },
     {
@@ -7830,7 +7830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_seticonname",
-      "community": 44,
+      "community": 59,
       "norm_label": ".seticonname()"
     },
     {
@@ -7960,7 +7960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_nextline",
-      "community": 40,
+      "community": 0,
       "norm_label": ".nextline()"
     },
     {
@@ -8010,7 +8010,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_index",
-      "community": 40,
+      "community": 0,
       "norm_label": ".index()"
     },
     {
@@ -8110,7 +8110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clearrange",
-      "community": 59,
+      "community": 38,
       "norm_label": "clearrange()"
     },
     {
@@ -8160,7 +8160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_value",
-      "community": 28,
+      "community": 43,
       "norm_label": "value()"
     },
     {
@@ -8200,7 +8200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_insert",
-      "community": 23,
+      "community": 43,
       "norm_label": "insert()"
     },
     {
@@ -8220,7 +8220,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getkeyiterator",
-      "community": 23,
+      "community": 43,
       "norm_label": "getkeyiterator()"
     },
     {
@@ -8230,7 +8230,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_foreachbykey",
-      "community": 23,
+      "community": 15,
       "norm_label": "foreachbykey()"
     },
     {
@@ -8240,7 +8240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_values",
-      "community": 32,
+      "community": 10,
       "norm_label": "values()"
     },
     {
@@ -8250,7 +8250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_search",
-      "community": 23,
+      "community": 43,
       "norm_label": "_search()"
     },
     {
@@ -8300,7 +8300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_process",
-      "community": 53,
+      "community": 54,
       "norm_label": "._process()"
     },
     {
@@ -8370,7 +8370,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_tocolorrgb",
-      "community": 5,
+      "community": 49,
       "norm_label": ".tocolorrgb()"
     },
     {
@@ -8460,7 +8460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isdim",
-      "community": 5,
+      "community": 23,
       "norm_label": ".isdim()"
     },
     {
@@ -8860,7 +8860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflow",
-      "community": 64,
+      "community": 40,
       "norm_label": "_reflow()"
     },
     {
@@ -8870,7 +8870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflowlarger",
-      "community": 64,
+      "community": 40,
       "norm_label": "_reflowlarger()"
     },
     {
@@ -8880,7 +8880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflowlargeradjustviewport",
-      "community": 64,
+      "community": 40,
       "norm_label": "_reflowlargeradjustviewport()"
     },
     {
@@ -8890,7 +8890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflowsmaller",
-      "community": 0,
+      "community": 40,
       "norm_label": "_reflowsmaller()"
     },
     {
@@ -8950,7 +8950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clearmarkers",
-      "community": 43,
+      "community": 40,
       "norm_label": "clearmarkers()"
     },
     {
@@ -8960,7 +8960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clearallmarkers",
-      "community": 28,
+      "community": 43,
       "norm_label": "clearallmarkers()"
     },
     {
@@ -8990,7 +8990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_constructor",
-      "community": 21,
+      "community": 0,
       "norm_label": ".constructor()"
     },
     {
@@ -9120,7 +9120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_setcell",
-      "community": 46,
+      "community": 40,
       "norm_label": ".setcell()"
     },
     {
@@ -9130,7 +9130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_setcellfromcodepoint",
-      "community": 46,
+      "community": 40,
       "norm_label": ".setcellfromcodepoint()"
     },
     {
@@ -9140,7 +9140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_addcodepointtocell",
-      "community": 14,
+      "community": 62,
       "norm_label": ".addcodepointtocell()"
     },
     {
@@ -9150,7 +9150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_insertcells",
-      "community": 46,
+      "community": 40,
       "norm_label": ".insertcells()"
     },
     {
@@ -9160,7 +9160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_deletecells",
-      "community": 46,
+      "community": 40,
       "norm_label": ".deletecells()"
     },
     {
@@ -9170,7 +9170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_replacecells",
-      "community": 46,
+      "community": 40,
       "norm_label": ".replacecells()"
     },
     {
@@ -9250,7 +9250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_copycellsfrom",
-      "community": 0,
+      "community": 62,
       "norm_label": ".copycellsfrom()"
     },
     {
@@ -9350,7 +9350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_o_fromchardata",
-      "community": 21,
+      "community": 0,
       "norm_label": ".fromchardata()"
     },
     {
@@ -9400,7 +9400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_o_setfromchardata",
-      "community": 21,
+      "community": 0,
       "norm_label": ".setfromchardata()"
     },
     {
@@ -9430,7 +9430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_dispose",
-      "community": 28,
+      "community": 43,
       "norm_label": ".dispose()"
     },
     {
@@ -9490,7 +9490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_writesync",
-      "community": 24,
+      "community": 54,
       "norm_label": ".writesync()"
     },
     {
@@ -9500,7 +9500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_write",
-      "community": 14,
+      "community": 39,
       "norm_label": ".write()"
     },
     {
@@ -9510,7 +9510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_innerwrite",
-      "community": 14,
+      "community": 39,
       "norm_label": "._innerwrite()"
     },
     {
@@ -9540,7 +9540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_sethandlerfallback",
-      "community": 10,
+      "community": 60,
       "norm_label": "sethandlerfallback()"
     },
     {
@@ -9620,7 +9620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_identtostring",
-      "community": 24,
+      "community": 10,
       "norm_label": ".identtostring()"
     },
     {
@@ -9630,7 +9630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_setprinthandler",
-      "community": 10,
+      "community": 60,
       "norm_label": ".setprinthandler()"
     },
     {
@@ -9670,7 +9670,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_seteschandlerfallback",
-      "community": 10,
+      "community": 60,
       "norm_label": ".seteschandlerfallback()"
     },
     {
@@ -9680,7 +9680,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_setexecutehandler",
-      "community": 10,
+      "community": 60,
       "norm_label": ".setexecutehandler()"
     },
     {
@@ -9700,7 +9700,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_setexecutehandlerfallback",
-      "community": 10,
+      "community": 60,
       "norm_label": ".setexecutehandlerfallback()"
     },
     {
@@ -9730,7 +9730,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_setcsihandlerfallback",
-      "community": 10,
+      "community": 60,
       "norm_label": ".setcsihandlerfallback()"
     },
     {
@@ -9760,7 +9760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_setdcshandlerfallback",
-      "community": 10,
+      "community": 60,
       "norm_label": ".setdcshandlerfallback()"
     },
     {
@@ -9790,7 +9790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_setoschandlerfallback",
-      "community": 10,
+      "community": 60,
       "norm_label": ".setoschandlerfallback()"
     },
     {
@@ -9800,7 +9800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_seterrorhandler",
-      "community": 10,
+      "community": 60,
       "norm_label": ".seterrorhandler()"
     },
     {
@@ -9820,7 +9820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_reset",
-      "community": 32,
+      "community": 10,
       "norm_label": ".reset()"
     },
     {
@@ -9830,7 +9830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_preservestack",
-      "community": 59,
+      "community": 38,
       "norm_label": "._preservestack()"
     },
     {
@@ -9890,7 +9890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_addparam",
-      "community": 32,
+      "community": 9,
       "norm_label": ".addparam()"
     },
     {
@@ -10220,7 +10220,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addprotocol",
-      "community": 30,
+      "community": 20,
       "norm_label": "addprotocol()"
     },
     {
@@ -10230,7 +10230,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addencoding",
-      "community": 30,
+      "community": 20,
       "norm_label": "addencoding()"
     },
     {
@@ -10270,7 +10270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_triggermouseevent",
-      "community": 59,
+      "community": 2,
       "norm_label": "triggermouseevent()"
     },
     {
@@ -10290,7 +10290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_equalevents",
-      "community": 59,
+      "community": 2,
       "norm_label": "_equalevents()"
     },
     {
@@ -10300,7 +10300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_triggerdataevent",
-      "community": 44,
+      "community": 18,
       "norm_label": "triggerdataevent()"
     },
     {
@@ -10310,7 +10310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_triggerbinaryevent",
-      "community": 59,
+      "community": 2,
       "norm_label": "triggerbinaryevent()"
     },
     {
@@ -10320,7 +10320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_decorations",
-      "community": 32,
+      "community": 10,
       "norm_label": ".decorations()"
     },
     {
@@ -10330,7 +10330,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_registerdecoration",
-      "community": 23,
+      "community": 43,
       "norm_label": ".registerdecoration()"
     },
     {
@@ -10340,7 +10340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_getdecorationsatcell",
-      "community": 23,
+      "community": 43,
       "norm_label": ".getdecorationsatcell()"
     },
     {
@@ -10350,7 +10350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_foreachdecorationatcell",
-      "community": 23,
+      "community": 15,
       "norm_label": ".foreachdecorationatcell()"
     },
     {
@@ -10460,7 +10460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_updateloglevel",
-      "community": 30,
+      "community": 20,
       "norm_label": "_updateloglevel()"
     },
     {
@@ -10520,7 +10520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_warn",
-      "community": 53,
+      "community": 54,
       "norm_label": "warn()"
     },
     {
@@ -10550,7 +10550,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_a_onmultipleoptionchange",
-      "community": 58,
+      "community": 20,
       "norm_label": ".onmultipleoptionchange()"
     },
     {
@@ -10780,7 +10780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_onkey",
-      "community": 30,
+      "community": 20,
       "norm_label": ".onkey()"
     },
     {
@@ -10820,7 +10820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_onscroll",
-      "community": 30,
+      "community": 20,
       "norm_label": ".onscroll()"
     },
     {
@@ -10960,7 +10960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_blur",
-      "community": 18,
+      "community": 8,
       "norm_label": ".blur()"
     },
     {
@@ -10970,7 +10970,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_focus",
-      "community": 18,
+      "community": 3,
       "norm_label": ".focus()"
     },
     {
@@ -10990,7 +10990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_resize",
-      "community": 49,
+      "community": 8,
       "norm_label": ".resize()"
     },
     {
@@ -11030,7 +11030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_registerlinkprovider",
-      "community": 58,
+      "community": 8,
       "norm_label": ".registerlinkprovider()"
     },
     {
@@ -11150,7 +11150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_dispose",
-      "community": 28,
+      "community": 43,
       "norm_label": ".dispose()"
     },
     {
@@ -12496,6 +12496,17 @@
       "target": "server_get_herdr_integrations"
     },
     {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "server.py",
+      "source_location": "L1284",
+      "weight": 1.0,
+      "source": "server_dashboardhandler_do_post",
+      "target": "server_get_herdr_integrations",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "server.py",
@@ -12607,9 +12618,9 @@
       "source_file": "server.py",
       "source_location": "L612",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_612",
-      "target": "server_get_aggregated_state",
-      "confidence_score": 1.0
+      "target": "server_get_aggregated_state"
     },
     {
       "relation": "inherits",
@@ -37769,5 +37780,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "0ebfffb666c8477c80cdad8c5f072f73090f4e71"
+  "built_at_commit": "ac5ac57edc71fe28ed45c581aa9b0ecacb29b33e"
 }

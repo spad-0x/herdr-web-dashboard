@@ -1280,9 +1280,31 @@ class DashboardHandler(BaseHTTPRequestHandler):
             if not name:
                 return self.send_json({"error": "Missing agent name"}, status=400)
             try:
+                # 1. Pre-create the agent's target integration directory if known from herdr integration status
+                integrations = get_herdr_integrations()
+                for item in integrations:
+                    if item.get("name") == name and item.get("path"):
+                        target_dir = os.path.dirname(os.path.expanduser(item["path"]))
+                        if target_dir:
+                            os.makedirs(target_dir, exist_ok=True)
+                        break
+
                 proc = subprocess.run(["herdr", "integration", "install", name], env=herdr_env, capture_output=True, text=True, timeout=15)
-                success = (proc.returncode == 0)
                 msg = (proc.stdout or proc.stderr or "").strip()
+
+                # 2. Auto-recovery: if Herdr reported a directory not found, extract directory path, create it and retry
+                if proc.returncode != 0 and "directory not found at " in msg:
+                    try:
+                        part = msg.split("directory not found at ", 1)[1]
+                        dir_path = part.split(". ", 1)[0].split(". install", 1)[0].strip()
+                        if dir_path:
+                            os.makedirs(os.path.expanduser(dir_path), exist_ok=True)
+                            proc = subprocess.run(["herdr", "integration", "install", name], env=herdr_env, capture_output=True, text=True, timeout=15)
+                            msg = (proc.stdout or proc.stderr or "").strip()
+                    except Exception as err:
+                        print(f"Directory auto-create retry failed: {err}")
+
+                success = (proc.returncode == 0)
                 return self.send_json({"success": success, "output": msg, "error": msg if not success else None})
             except Exception as e:
                 return self.send_json({"error": str(e)}, status=500)
