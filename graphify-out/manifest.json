@@ -1,12 +1,12 @@
 {
   "herdr_client.py": {
-    "mtime": 1788441181.6834273,
-    "ast_hash": "73f0a15eb06355a61890de05a57189ca",
+    "mtime": 1788520550.9895842,
+    "ast_hash": "52cfc07aea1cd8d859515c03574e6fd7",
     "semantic_hash": ""
   },
   "server.py": {
-    "mtime": 1788485463.1606703,
-    "ast_hash": "4ac0c152a28dbe13d1f73a33d8cb22e2",
+    "mtime": 1788487554.1304362,
+    "ast_hash": "028f6ebbf6fe7d3978e65c596828a386",
     "semantic_hash": ""
   },
   "static/app.js": {
@@ -20,13 +20,13 @@
     "semantic_hash": ""
   },
   "static/js/chat.js": {
-    "mtime": 1788485851.98159,
+    "mtime": 1788487286.8507206,
     "ast_hash": "2bb4184deeb56fce06de8b70901ed856",
     "semantic_hash": ""
   },
   "static/js/chats-list.js": {
-    "mtime": 1788486935.7622344,
-    "ast_hash": "19da12149e1c4c46234add0b09e8d9d1",
+    "mtime": 1788487625.2481937,
+    "ast_hash": "87cd40990a96f5d87d9c5f26f8e53893",
     "semantic_hash": ""
   },
   "static/js/input-bar.js": {
@@ -40,18 +40,18 @@
     "semantic_hash": ""
   },
   "static/js/state.js": {
-    "mtime": 1788486155.4442666,
+    "mtime": 1788487286.851706,
     "ast_hash": "88b1b22236a1460450ea9658b873ba8d",
     "semantic_hash": ""
   },
   "static/js/stream.js": {
-    "mtime": 1788486146.7314155,
-    "ast_hash": "e2293d31df3bbb06d5d4b6b9e6a9abaa",
+    "mtime": 1788487628.4659662,
+    "ast_hash": "ca36ad29ddeb54b7e5894d3509f547c9",
     "semantic_hash": ""
   },
   "static/js/terminal.js": {
-    "mtime": 1788486932.0823693,
-    "ast_hash": "f4483b00d178e0612b4597cace19f840",
+    "mtime": 1788487586.4605756,
+    "ast_hash": "5b716f60a87c39fd454263d8ef3a272c",
     "semantic_hash": ""
   },
   "static/js/utils.js": {
@@ -100,8 +100,8 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788486949.620241,
-    "ast_hash": "8a880ebd14b4cd2ee78ba0e76c23de39",
+    "mtime": 1788487633.7887952,
+    "ast_hash": "ef6cecc89fde3bd1fdb312a0476b5372",
     "semantic_hash": ""
   },
   "static/login.html": {
@@ -135,7 +135,7 @@
     "semantic_hash": ""
   },
   "static/vendor/addon-webgl.js": {
-    "mtime": 1788486120.709496,
+    "mtime": 1788487286.8536718,
     "ast_hash": "888cc5004f5111556bf8b3d8ed881799",
     "semantic_hash": ""
   }
