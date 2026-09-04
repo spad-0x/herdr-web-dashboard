@@ -1317,6 +1317,250 @@ html, body {
     }
 }
 
+.cli-key.key-slash-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: rgba(255, 179, 0, 0.1);
+    border: 1px solid rgba(255, 179, 0, 0.35);
+    color: #ffb300;
+    font-weight: 700;
+    touch-action: manipulation;
+}
+
+.cli-key.key-slash-trigger:active,
+.cli-key.key-slash-trigger.active {
+    background: #ffb300;
+    color: #000000;
+}
+
+/* =============================================================================
+   SLASH COMMANDS & SKILLS PALETTE (DYNAMIC DISCOVERY)
+   ============================================================================= */
+.slash-popup-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: rgba(0, 0, 0, 0.35);
+    animation: fadeInBackdrop 0.15s ease;
+}
+
+.slash-palette-popup {
+    position: fixed;
+    z-index: 999;
+    width: min(440px, calc(100vw - 20px));
+    max-height: min(380px, 60vh);
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-surface-elevated, #161b22);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.14));
+    border-radius: 14px;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    animation: ctrlPopupIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    overflow: hidden;
+}
+
+.slash-palette-header {
+    padding: 10px 12px 8px 12px;
+    border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.slash-palette-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.slash-palette-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffb300;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.slash-palette-count {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.btn-slash-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    line-height: 1;
+}
+
+.btn-slash-close:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.slash-categories-bar {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+}
+
+.slash-categories-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.slash-cat-pill {
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: var(--bg-surface, #0d1117);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.12s ease;
+    flex-shrink: 0;
+}
+
+.slash-cat-pill:hover,
+.slash-cat-pill.active {
+    background: rgba(255, 179, 0, 0.15);
+    border-color: rgba(255, 179, 0, 0.4);
+    color: #ffb300;
+}
+
+.slash-palette-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 260px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.slash-cmd-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--bg-surface, #0d1117);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.12s ease;
+}
+
+.slash-cmd-item:hover,
+.slash-cmd-item.selected {
+    background: rgba(0, 168, 132, 0.12);
+    border-color: rgba(0, 168, 132, 0.35);
+    transform: translateX(2px);
+}
+
+.slash-cmd-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+}
+
+.slash-cmd-top {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.slash-cmd-icon {
+    font-size: 13px;
+    line-height: 1;
+}
+
+.slash-cmd-name {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.slash-cmd-item:hover .slash-cmd-name,
+.slash-cmd-item.selected .slash-cmd-name {
+    color: var(--accent);
+}
+
+.slash-cmd-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.slash-cmd-badge {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.slash-cmd-badge.badge-skill {
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    color: #c084fc;
+}
+
+.slash-cmd-badge.badge-builtin {
+    background: rgba(0, 210, 255, 0.12);
+    border: 1px solid rgba(0, 210, 255, 0.3);
+    color: var(--cyan);
+}
+
+.slash-cmd-badge.badge-custom {
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #4ade80;
+}
+
+.slash-palette-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 10px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.slash-palette-empty {
+    padding: 20px 12px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
 /* =============================================================================
    6. ATTACHMENT PREVIEW BAR
    ============================================================================= */

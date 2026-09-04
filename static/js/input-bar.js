@@ -353,6 +353,236 @@ function initCtrlMenu() {
     });
 }
 
+// =============================================================================
+// SLASH COMMANDS & DYNAMIC SKILLS PALETTE
+// =============================================================================
+let filteredSlashCommands = [];
+
+async function loadSlashCommands() {
+    try {
+        const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId);
+        const cwd = activeWs ? activeWs.cwd : null;
+        const res = await apiCall('/api/slash-commands', { cwd: cwd });
+        if (res && res.commands && Array.isArray(res.commands)) {
+            State.slashCommands = res.commands;
+            if (DOM.slashPaletteCount) {
+                DOM.slashPaletteCount.textContent = `${res.commands.length} comandi`;
+            }
+            return res.commands;
+        }
+    } catch (e) {
+        console.error('Failed to load slash commands:', e);
+    }
+    return [];
+}
+
+function renderSlashPalette(filterQuery = '') {
+    if (!DOM.slashPaletteList) return;
+    DOM.slashPaletteList.innerHTML = '';
+
+    if (!State.slashCommands || State.slashCommands.length === 0) {
+        const loading = document.createElement('div');
+        loading.className = 'slash-palette-empty';
+        loading.textContent = 'Caricamento comandi e skill...';
+        DOM.slashPaletteList.appendChild(loading);
+        return;
+    }
+
+    const cleanQuery = filterQuery.startsWith('/') ? filterQuery.slice(1).toLowerCase().trim() : filterQuery.toLowerCase().trim();
+
+    filteredSlashCommands = State.slashCommands.filter(item => {
+        // Category filter
+        if (State.activeSlashCat !== 'all' && item.category !== State.activeSlashCat) {
+            return false;
+        }
+        // Text filter
+        if (!cleanQuery) return true;
+        const nameMatch = item.name.toLowerCase().includes(cleanQuery);
+        const cmdMatch = item.cmd.toLowerCase().includes(cleanQuery);
+        const descMatch = (item.desc || '').toLowerCase().includes(cleanQuery);
+        return nameMatch || cmdMatch || descMatch;
+    });
+
+    if (DOM.slashPaletteCount) {
+        DOM.slashPaletteCount.textContent = `${filteredSlashCommands.length} comandi`;
+    }
+
+    if (filteredSlashCommands.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'slash-palette-empty';
+        empty.textContent = cleanQuery ? `Nessuna skill o comando per "${cleanQuery}"` : 'Nessun comando in questa categoria';
+        DOM.slashPaletteList.appendChild(empty);
+        return;
+    }
+
+    if (State.selectedSlashIndex >= filteredSlashCommands.length) {
+        State.selectedSlashIndex = 0;
+    }
+
+    filteredSlashCommands.forEach((cmd, idx) => {
+        const item = document.createElement('div');
+        item.className = `slash-cmd-item ${idx === State.selectedSlashIndex ? 'selected' : ''}`;
+        item.dataset.index = idx.toString();
+        item.dataset.cmd = cmd.cmd;
+
+        const badgeClass = cmd.type === 'skill' ? 'badge-skill' : (cmd.type === 'builtin' ? 'badge-builtin' : 'badge-custom');
+        const badgeLabel = cmd.type === 'skill' ? 'Skill' : (cmd.type === 'builtin' ? 'Core' : 'Custom');
+
+        item.innerHTML = `
+            <div class="slash-cmd-left">
+                <div class="slash-cmd-top">
+                    <span class="slash-cmd-icon">${escapeHtml(cmd.icon || '⚡')}</span>
+                    <span class="slash-cmd-name">${escapeHtml(cmd.cmd)}</span>
+                </div>
+                <div class="slash-cmd-desc">${escapeHtml(cmd.desc || '')}</div>
+            </div>
+            <span class="slash-cmd-badge ${badgeClass}">${badgeLabel}</span>
+        `;
+
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectSlashCommand(cmd);
+        });
+
+        DOM.slashPaletteList.appendChild(item);
+    });
+
+    // Auto-scroll selected item into view
+    const selectedEl = DOM.slashPaletteList.children[State.selectedSlashIndex];
+    if (selectedEl && selectedEl.scrollIntoView) {
+        selectedEl.scrollIntoView({ block: 'nearest' });
+    }
+}
+
+function repositionSlashPalette() {
+    if (!DOM.slashPalettePopup || DOM.slashPalettePopup.style.display === 'none') return;
+
+    const drawerRect = DOM.cliKeysDrawer && DOM.cliKeysDrawer.style.display !== 'none'
+        ? DOM.cliKeysDrawer.getBoundingClientRect()
+        : DOM.chatFooter.getBoundingClientRect();
+
+    const popupWidth = DOM.slashPalettePopup.offsetWidth || 360;
+    let left = 12;
+    if (DOM.btnSlashMenu) {
+        const btnRect = DOM.btnSlashMenu.getBoundingClientRect();
+        left = btnRect.left;
+        if (left + popupWidth > window.innerWidth - 10) {
+            left = window.innerWidth - popupWidth - 10;
+        }
+    }
+    if (left < 10) left = 10;
+
+    const bottom = Math.max(10, window.innerHeight - drawerRect.top + 6);
+    DOM.slashPalettePopup.style.left = `${Math.round(left)}px`;
+    DOM.slashPalettePopup.style.bottom = `${Math.round(bottom)}px`;
+}
+
+async function openSlashPalette(filterQuery = '') {
+    if (!DOM.slashPalettePopup) return;
+
+    DOM.slashPalettePopup.style.display = 'flex';
+    if (DOM.slashPopupBackdrop) DOM.slashPopupBackdrop.style.display = 'block';
+    if (DOM.btnSlashMenu) DOM.btnSlashMenu.classList.add('active');
+
+    repositionSlashPalette();
+
+    if (!State.slashCommands || State.slashCommands.length === 0) {
+        renderSlashPalette(filterQuery);
+        await loadSlashCommands();
+    }
+    renderSlashPalette(filterQuery);
+    repositionSlashPalette();
+}
+
+function closeSlashPalette() {
+    if (!DOM.slashPalettePopup) return;
+    DOM.slashPalettePopup.style.display = 'none';
+    if (DOM.slashPopupBackdrop) DOM.slashPopupBackdrop.style.display = 'none';
+    if (DOM.btnSlashMenu) DOM.btnSlashMenu.classList.remove('active');
+}
+
+function isSlashPaletteOpen() {
+    return DOM.slashPalettePopup && DOM.slashPalettePopup.style.display === 'flex';
+}
+
+function selectSlashCommand(cmdObj) {
+    if (!cmdObj) return;
+    triggerHaptic('light');
+
+    const cmdText = cmdObj.cmd + ' ';
+    setPromptText(cmdText);
+    updateInputState();
+    closeSlashPalette();
+
+    DOM.promptInput.focus();
+    try {
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(DOM.promptInput);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    } catch (e) {}
+
+    showToast(`Comando ${cmdObj.cmd} selezionato`);
+}
+
+function initSlashMenu() {
+    if (!DOM.btnSlashMenu || !DOM.slashPalettePopup) return;
+
+    loadSlashCommands();
+
+    DOM.btnSlashMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+        triggerHaptic('light');
+        if (isSlashPaletteOpen()) {
+            closeSlashPalette();
+        } else {
+            const curText = getPromptText();
+            if (!curText || !curText.startsWith('/')) {
+                setPromptText('/');
+                updateInputState();
+            }
+            openSlashPalette(getPromptText());
+        }
+    });
+
+    if (DOM.slashCategoriesBar) {
+        DOM.slashCategoriesBar.addEventListener('click', (e) => {
+            const pill = e.target.closest('.slash-cat-pill');
+            if (!pill) return;
+            triggerHaptic('light');
+            DOM.slashCategoriesBar.querySelectorAll('.slash-cat-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            State.activeSlashCat = pill.dataset.cat || 'all';
+            renderSlashPalette(getPromptText());
+        });
+    }
+
+    if (DOM.slashPopupBackdrop) {
+        DOM.slashPopupBackdrop.addEventListener('click', closeSlashPalette);
+    }
+    if (DOM.btnSlashClose) {
+        DOM.btnSlashClose.addEventListener('click', closeSlashPalette);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isSlashPaletteOpen()) {
+            closeSlashPalette();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (isSlashPaletteOpen()) repositionSlashPalette();
+    });
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+            if (isSlashPaletteOpen()) repositionSlashPalette();
+        });
+    }
+}
+
 async function sendQuickText(text) {
     if (!State.activePaneId) return;
     triggerHaptic('light');

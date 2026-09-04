@@ -199,6 +199,9 @@
                     <span>⌃ Ctrl</span>
                     <span class="ctrl-caret">▾</span>
                 </button>
+                <button class="cli-key key-slash-trigger" id="btn-slash-menu" title="Comandi Slash / e Skill">
+                    <span>⚡ /</span>
+                </button>
                 <button class="cli-key" data-key="tab">Tab ⇥</button>
                 <button class="cli-key" data-key="esc">Esc</button>
                 <button class="cli-key" data-key="up">▲</button>
@@ -268,6 +271,32 @@
                     <span class="ctrl-key-label">^B</span>
                     <span class="ctrl-key-desc">Prefix / Back</span>
                 </button>
+            </div>
+        </div>
+
+        <!-- SLASH COMMANDS PALETTE (Appears on '/' in input or on '⚡ /' button) -->
+        <div class="slash-popup-backdrop" id="slash-popup-backdrop" style="display: none;"></div>
+        <div class="slash-palette-popup" id="slash-palette-popup" style="display: none;" role="dialog" aria-label="Comandi Slash e Skill">
+            <div class="slash-palette-header">
+                <div class="slash-palette-title-row">
+                    <span class="slash-palette-title">⚡ Comandi Agente & Skill</span>
+                    <span class="slash-palette-count" id="slash-palette-count">Caricamento...</span>
+                    <button class="btn-slash-close" id="btn-slash-close" title="Chiudi palette">✕</button>
+                </div>
+                <!-- Category Filter Pills -->
+                <div class="slash-categories-bar" id="slash-categories-bar">
+                    <button class="slash-cat-pill active" data-cat="all">Tutti</button>
+                    <button class="slash-cat-pill" data-cat="strategy">🧠 Strategia</button>
+                    <button class="slash-cat-pill" data-cat="dev">🛠️ Sviluppo</button>
+                    <button class="slash-cat-pill" data-cat="skill">🔌 Skill</button>
+                    <button class="slash-cat-pill" data-cat="session">⚙️ Sessione</button>
+                </div>
+            </div>
+            <div class="slash-palette-list" id="slash-palette-list">
+                <!-- Dynamically rendered commands here -->
+            </div>
+            <div class="slash-palette-footer">
+                <span>Tocca per inserire • Tab / Invio per completare</span>
             </div>
         </div>
 
@@ -461,16 +490,16 @@
 
     <!-- Main Controller -->
     <!-- Modular Component Architecture -->
-    <script src="/js/state.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/js/utils.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/js/terminal.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/js/settings.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/js/chats-list.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/js/chat.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/js/input-bar.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/js/stream.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/js/app-init.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/push-helper.js?v=20260904_ctrl_shortcuts"></script>
-    <script src="/app.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/state.js?v=20260904_slash_fix1"></script>
+    <script src="/js/utils.js?v=20260904_slash_fix1"></script>
+    <script src="/js/terminal.js?v=20260904_slash_fix1"></script>
+    <script src="/js/settings.js?v=20260904_slash_fix1"></script>
+    <script src="/js/chats-list.js?v=20260904_slash_fix1"></script>
+    <script src="/js/chat.js?v=20260904_slash_fix1"></script>
+    <script src="/js/input-bar.js?v=20260904_slash_fix1"></script>
+    <script src="/js/stream.js?v=20260904_slash_fix1"></script>
+    <script src="/js/app-init.js?v=20260904_slash_fix1"></script>
+    <script src="/push-helper.js?v=20260904_slash_fix1"></script>
+    <script src="/app.js?v=20260904_slash_fix1"></script>
 </body>
 </html>

@@ -38,6 +38,9 @@ const State = {
     chatMessages: [], // Local user-sent message cache
     herdrConfig: null,
     integrations: [],
+    slashCommands: [],
+    activeSlashCat: 'all',
+    selectedSlashIndex: 0,
     plugins: [],
     supportedThemes: [
         'catppuccin', 'gruvbox', 'dracula', 'nord', 'one-dark',
@@ -97,6 +100,13 @@ const DOM = {
     btnCtrlMenu: document.getElementById('btn-ctrl-menu'),
     ctrlShortcutsPopup: document.getElementById('ctrl-shortcuts-popup'),
     ctrlPopupBackdrop: document.getElementById('ctrl-popup-backdrop'),
+    btnSlashMenu: document.getElementById('btn-slash-menu'),
+    slashPalettePopup: document.getElementById('slash-palette-popup'),
+    slashPopupBackdrop: document.getElementById('slash-popup-backdrop'),
+    slashPaletteList: document.getElementById('slash-palette-list'),
+    slashPaletteCount: document.getElementById('slash-palette-count'),
+    btnSlashClose: document.getElementById('btn-slash-close'),
+    slashCategoriesBar: document.getElementById('slash-categories-bar'),
     // Attachment Preview Bar
     attachmentPreviewBar: document.getElementById('attachment-preview-bar'),
     attachmentThumbWrap: document.getElementById('attachment-thumb-wrap'),

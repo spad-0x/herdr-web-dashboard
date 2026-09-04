@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   "server.py": {
-    "mtime": 1788521936.202738,
-    "ast_hash": "fa39a766aeca4e279e191b42e4a54385",
+    "mtime": 1788522942.5086482,
+    "ast_hash": "1944b53bde76784bb87951df3d64646a",
     "semantic_hash": ""
   },
   "static/app.js": {
@@ -15,8 +15,8 @@
     "semantic_hash": ""
   },
   "static/js/app-init.js": {
-    "mtime": 1788522016.3106754,
-    "ast_hash": "c5a921dcfdd21cd0c0c656dad505adfa",
+    "mtime": 1788522678.275778,
+    "ast_hash": "419422098d382112c35435a9a129e98c",
     "semantic_hash": ""
   },
   "static/js/chat.js": {
@@ -30,8 +30,8 @@
     "semantic_hash": ""
   },
   "static/js/input-bar.js": {
-    "mtime": 1788521985.0209615,
-    "ast_hash": "4a93918093fe9af0a35d1b9cc032fd75",
+    "mtime": 1788522964.8166628,
+    "ast_hash": "a108317c2d97ef18bbbc44657487e2c4",
     "semantic_hash": ""
   },
   "static/js/settings.js": {
@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "static/js/state.js": {
-    "mtime": 1788521972.186141,
-    "ast_hash": "790468015d9df04fceca41c49c8fcabb",
+    "mtime": 1788522619.5058172,
+    "ast_hash": "31d489f3818dfb26c1e3437d6469532a",
     "semantic_hash": ""
   },
   "static/js/stream.js": {
@@ -100,8 +100,8 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788521954.4086742,
-    "ast_hash": "243488ff3a35604adcaf456dd39fd07a",
+    "mtime": 1788522969.6909056,
+    "ast_hash": "b04bca496015a4310e5a3555c33db0bc",
     "semantic_hash": ""
   },
   "static/login.html": {

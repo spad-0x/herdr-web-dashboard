@@ -94,7 +94,7 @@ function setupEventListeners() {
     DOM.cliKeysDrawer.addEventListener('click', (e) => {
         const btn = e.target.closest('button');
         if (!btn) return;
-        if (btn.id === 'btn-ctrl-menu' || btn.closest('#btn-ctrl-menu')) return;
+        if (btn.id === 'btn-ctrl-menu' || btn.closest('#btn-ctrl-menu') || btn.id === 'btn-slash-menu' || btn.closest('#btn-slash-menu')) return;
         if (btn.dataset.key) {
             sendKey(btn.dataset.key);
         } else if (btn.dataset.cmd) {
@@ -114,6 +114,19 @@ function setupEventListeners() {
     // Input changes & Send/Mic
     DOM.promptInput.addEventListener('input', () => {
         updateInputState();
+        const text = getPromptText();
+        if (text.startsWith('/')) {
+            const firstWord = text.split(/\s+/)[0];
+            if (!text.includes(' ') && firstWord.length > 0) {
+                openSlashPalette(firstWord);
+            } else if (text.includes(' ')) {
+                closeSlashPalette();
+            }
+        } else {
+            if (isSlashPaletteOpen()) {
+                closeSlashPalette();
+            }
+        }
     });
 
     DOM.promptInput.addEventListener('focus', () => {
@@ -147,6 +160,37 @@ function setupEventListeners() {
     // Enter behavior: Enter creates a newline (especially on iPhone/mobile virtual keyboard).
     // The prompt is sent exclusively via the action button on the side (or Ctrl/Cmd+Enter on desktop).
     DOM.promptInput.addEventListener('keydown', (e) => {
+        if (isSlashPaletteOpen()) {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (filteredSlashCommands && filteredSlashCommands.length > 0) {
+                    State.selectedSlashIndex = (State.selectedSlashIndex + 1) % filteredSlashCommands.length;
+                    renderSlashPalette(getPromptText());
+                }
+                return;
+            }
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (filteredSlashCommands && filteredSlashCommands.length > 0) {
+                    State.selectedSlashIndex = (State.selectedSlashIndex - 1 + filteredSlashCommands.length) % filteredSlashCommands.length;
+                    renderSlashPalette(getPromptText());
+                }
+                return;
+            }
+            if (e.key === 'Tab' || (e.key === 'Enter' && !e.ctrlKey && !e.metaKey)) {
+                if (filteredSlashCommands && filteredSlashCommands.length > 0 && filteredSlashCommands[State.selectedSlashIndex]) {
+                    e.preventDefault();
+                    selectSlashCommand(filteredSlashCommands[State.selectedSlashIndex]);
+                    return;
+                }
+            }
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeSlashPalette();
+                return;
+            }
+        }
+
         if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
             e.preventDefault();
             sendPrompt();
@@ -308,6 +352,8 @@ function setupEventListeners() {
             e.target.closest('.cli-keys-drawer') ||
             e.target.closest('.cli-keys-scroll') ||
             e.target.closest('.ctrl-shortcuts-popup') ||
+            e.target.closest('.slash-palette-popup') ||
+            e.target.closest('.slash-categories-bar') ||
             e.target.closest('.tabs-container')) {
             return;
         }
@@ -385,6 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try { initTerminal(); } catch (e) { console.error('Terminal error:', e); }
     try { initSpeechRecognition(); } catch (e) { console.error('Speech error:', e); }
     try { initCtrlMenu(); } catch (e) { console.error('Ctrl menu error:', e); }
+    try { initSlashMenu(); } catch (e) { console.error('Slash menu error:', e); }
     try { setupEventListeners(); } catch (e) { console.error('Listeners error:', e); }
     try { updateInputState(); } catch (e) { console.error('Input state error:', e); }
 

@@ -6,6 +6,7 @@ Directly integrates with Herdr's Unix Socket API.
 
 import os
 import sys
+import re
 import json
 import time
 import ssl
@@ -433,6 +434,139 @@ def check_is_agent(p, p_title, agent_pane_ids):
             return True
     return False
 
+# In-memory cache for slash commands with 5s TTL
+_SLASH_COMMANDS_CACHE = {"timestamp": 0, "cwd": None, "data": []}
+
+def get_all_slash_commands(project_cwd=None):
+    """Dynamically discover built-in agent commands, installed skills, and custom workflows."""
+    global _SLASH_COMMANDS_CACHE
+    now = time.time()
+    if now - _SLASH_COMMANDS_CACHE["timestamp"] < 5 and _SLASH_COMMANDS_CACHE["cwd"] == project_cwd:
+        return _SLASH_COMMANDS_CACHE["data"]
+
+    # 1. Standard Built-in Commands
+    core_commands = [
+        {"cmd": "/plan", "name": "plan", "desc": "Pianifica passo-passo l'architettura prima di eseguire", "type": "builtin", "category": "strategy", "icon": "📋"},
+        {"cmd": "/grill-me", "name": "grill-me", "desc": "Intervista interattiva per chiarire decisioni e requisiti", "type": "builtin", "category": "strategy", "icon": "🎯"},
+        {"cmd": "/goal", "name": "goal", "desc": "Task a lungo termine in autonomia fino al completamento", "type": "builtin", "category": "strategy", "icon": "🏁"},
+        {"cmd": "/review", "name": "review", "desc": "Revisione del codice, diff e controlli di sicurezza", "type": "builtin", "category": "dev", "icon": "🔍"},
+        {"cmd": "/test", "name": "test", "desc": "Esegui e verifica suite di test automatizzati", "type": "builtin", "category": "dev", "icon": "🧪"},
+        {"cmd": "/commit", "name": "commit", "desc": "Crea un commit git strutturato e descrittivo", "type": "builtin", "category": "dev", "icon": "📦"},
+        {"cmd": "/bug", "name": "bug", "desc": "Isola e riproduci un bug con test di regressione", "type": "builtin", "category": "dev", "icon": "🐛"},
+        {"cmd": "/compact", "name": "compact", "desc": "Comprimi cronologia e contesto per risparmiare token", "type": "builtin", "category": "session", "icon": "🗜️"},
+        {"cmd": "/cost", "name": "cost", "desc": "Mostra token utilizzati e costi stimati della sessione", "type": "builtin", "category": "session", "icon": "💰"},
+        {"cmd": "/clear", "name": "clear", "desc": "Azzera cronologia e riavvia il contesto del terminale", "type": "builtin", "category": "session", "icon": "🧹"},
+        {"cmd": "/doctor", "name": "doctor", "desc": "Diagnostica salute dell'ambiente e dipendenze", "type": "builtin", "category": "session", "icon": "🩺"},
+        {"cmd": "/help", "name": "help", "desc": "Mostra documentazione e comandi supportati dall'agente", "type": "builtin", "category": "session", "icon": "❓"},
+        {"cmd": "/init", "name": "init", "desc": "Inizializza impostazioni e regole nel repository", "type": "builtin", "category": "session", "icon": "⚡"},
+        {"cmd": "/learn", "name": "learn", "desc": "Salva e fissa una nuova regola o pattern appreso", "type": "builtin", "category": "strategy", "icon": "🧠"},
+    ]
+
+    commands_dict = {c["cmd"]: c for c in core_commands}
+
+    # 2. Dynamic Discovery of Skills
+    skill_dirs = [
+        os.path.expanduser("~/.gemini/config/skills"),
+        os.path.expanduser("~/.gemini/skills"),
+        os.path.expanduser("~/.claude/skills"),
+    ]
+    if project_cwd and os.path.isdir(project_cwd):
+        skill_dirs.extend([
+            os.path.join(project_cwd, ".skills"),
+            os.path.join(project_cwd, ".claude", "skills"),
+            os.path.join(project_cwd, ".agents", "skills")
+        ])
+
+    for sdir in skill_dirs:
+        if not os.path.isdir(sdir):
+            continue
+        try:
+            for item in sorted(os.listdir(sdir)):
+                item_path = os.path.join(sdir, item)
+                if not os.path.isdir(item_path):
+                    continue
+                skill_md = os.path.join(item_path, "SKILL.md")
+                if not os.path.isfile(skill_md):
+                    continue
+
+                cmd_name = item
+                desc = ""
+                try:
+                    with open(skill_md, "r", encoding="utf-8", errors="ignore") as f:
+                        frontmatter = f.read(1200)
+                    if frontmatter.startswith("---"):
+                        parts = frontmatter.split("---", 2)
+                        if len(parts) >= 3:
+                            block = parts[1]
+                            n_match = re.search(r"^name:\s*(.+)$", block, re.MULTILINE)
+                            if n_match:
+                                cmd_name = n_match.group(1).strip().strip("\"'")
+                            d_match = re.search(r"^description:\s*(.+)$", block, re.MULTILINE)
+                            if d_match:
+                                desc = d_match.group(1).strip().strip("\"'")
+                except Exception:
+                    pass
+
+                cmd_key = "/" + cmd_name
+                if cmd_key not in commands_dict:
+                    commands_dict[cmd_key] = {
+                        "cmd": cmd_key,
+                        "name": cmd_name,
+                        "desc": desc or f"Skill {cmd_name}",
+                        "type": "skill",
+                        "category": "skill",
+                        "icon": "🔌"
+                    }
+        except Exception:
+            pass
+
+    # 3. Dynamic Discovery of Custom Command Files (*.md)
+    custom_dirs = [
+        os.path.expanduser("~/.claude/commands"),
+    ]
+    if project_cwd and os.path.isdir(project_cwd):
+        custom_dirs.extend([
+            os.path.join(project_cwd, ".claude", "commands"),
+            os.path.join(project_cwd, ".agents", "workflows"),
+            os.path.join(project_cwd, ".agents", "commands")
+        ])
+
+    for cdir in custom_dirs:
+        if not os.path.isdir(cdir):
+            continue
+        try:
+            for file_name in sorted(os.listdir(cdir)):
+                if not file_name.endswith(".md"):
+                    continue
+                cmd_name = file_name[:-3]
+                full_file = os.path.join(cdir, file_name)
+                desc = ""
+                try:
+                    with open(full_file, "r", encoding="utf-8", errors="ignore") as f:
+                        lines = [l.strip() for l in f.readlines() if l.strip()]
+                        if lines:
+                            first = lines[0].lstrip("#").strip()
+                            desc = first
+                except Exception:
+                    pass
+
+                cmd_key = "/" + cmd_name
+                if cmd_key not in commands_dict:
+                    commands_dict[cmd_key] = {
+                        "cmd": cmd_key,
+                        "name": cmd_name,
+                        "desc": desc or f"Comando {cmd_name}",
+                        "type": "custom",
+                        "category": "dev",
+                        "icon": "🛠️"
+                    }
+        except Exception:
+            pass
+
+    result = list(commands_dict.values())
+    _SLASH_COMMANDS_CACHE = {"timestamp": now, "cwd": project_cwd, "data": result}
+    return result
+
 def get_aggregated_state(lines=1500, source="recent_unwrapped"):
     """Fetch full aggregated state of workspaces, tabs, panes, and detected agents."""
     connected, msg = herdr.is_connected()
@@ -809,6 +943,12 @@ class DashboardHandler(BaseHTTPRequestHandler):
             read_data = herdr.read_pane(pane_id, lines=lines, source=source)
             return self.send_json(read_data)
 
+        # API: Slash Commands & Dynamic Skills Discovery
+        if path == "/api/slash-commands":
+            cwd = query.get("cwd", [None])[0]
+            commands = get_all_slash_commands(cwd)
+            return self.send_json({"commands": commands, "count": len(commands)})
+
         # API: Aggregated state for mobile app
         if path == "/api/push/public-key":
             if os.path.exists("vapid_keys.json"):
@@ -889,6 +1029,12 @@ class DashboardHandler(BaseHTTPRequestHandler):
         # Protected POST routes
         if not self.check_auth():
             return self.send_json({"error": "Unauthorized"}, status=401)
+
+        # API: Slash Commands & Dynamic Skills Discovery
+        if parsed.path == "/api/slash-commands":
+            cwd = payload.get("cwd") if payload else None
+            commands = get_all_slash_commands(cwd)
+            return self.send_json({"commands": commands, "count": len(commands)})
 
         # Push Notifications Subscription & Test
         if parsed.path == "/api/push/subscribe":
