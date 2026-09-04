@@ -9,6 +9,8 @@ sessions.json
 sessions.json.*
 agent_names.json
 agent_names.json.*
+notification_settings.json
+notification_settings.json.*
 .env
 .env.*
 !.env.example

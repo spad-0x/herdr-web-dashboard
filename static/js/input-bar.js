@@ -720,6 +720,60 @@ function openContactInfo() {
         DOM.contactStatusVal.style.color = isWorking ? 'var(--warning)' : 'var(--success)';
     }
 
+    // Agent & Workspace Notification Status
+    const agentKey = (typeof detectAgentKey === 'function') ? detectAgentKey(activePane.agent || activePane.title || activePane.command) : 'generic';
+    const updateNotifUI = () => {
+        const isAgentMuted = (typeof isTargetMuted === 'function') ? (isTargetMuted('agent', agentKey) || isTargetMuted('pane', activePane.pane_id)) : false;
+        const isWsMuted = (typeof isTargetMuted === 'function') ? isTargetMuted('workspace', activeWs.id) : false;
+
+        if (DOM.btnQuickMute) {
+            DOM.btnQuickMute.classList.toggle('muted', isAgentMuted);
+            if (DOM.quickMuteIcon) DOM.quickMuteIcon.textContent = isAgentMuted ? '🔕' : '🔔';
+            if (DOM.quickMuteLabel) DOM.quickMuteLabel.textContent = isAgentMuted ? 'Muto' : 'Notifiche';
+        }
+        if (DOM.contactAgentNotifVal) {
+            DOM.contactAgentNotifVal.textContent = isAgentMuted ? '🔕 Disattivate (Muto)' : '🔔 Attive';
+            DOM.contactAgentNotifVal.style.color = isAgentMuted ? 'var(--danger)' : 'var(--success)';
+        }
+        if (DOM.contactWsNotifVal) {
+            DOM.contactWsNotifVal.textContent = isWsMuted ? '🔕 Disattivate (Muto)' : '🔔 Attive';
+            DOM.contactWsNotifVal.style.color = isWsMuted ? 'var(--danger)' : 'var(--success)';
+        }
+        return { isAgentMuted, isWsMuted };
+    };
+
+    updateNotifUI();
+
+    const toggleAgentMuteAction = async () => {
+        triggerHaptic('medium');
+        const { isAgentMuted } = updateNotifUI();
+        const shouldEnable = isAgentMuted; // Toggle: if currently muted, enable it
+        if (typeof toggleNotificationTarget === 'function') {
+            await toggleNotificationTarget('agent', agentKey, shouldEnable);
+        }
+        updateNotifUI();
+        if (typeof showToast === 'function') {
+            showToast(shouldEnable ? `🔔 Notifiche attivate per ${paneName}` : `🔕 Notifiche disattivate per ${paneName}`);
+        }
+    };
+
+    const toggleWsMuteAction = async () => {
+        triggerHaptic('medium');
+        const { isWsMuted } = updateNotifUI();
+        const shouldEnable = isWsMuted;
+        if (typeof toggleNotificationTarget === 'function') {
+            await toggleNotificationTarget('workspace', activeWs.id, shouldEnable);
+        }
+        updateNotifUI();
+        if (typeof showToast === 'function') {
+            showToast(shouldEnable ? `🔔 Notifiche attivate per ${wsName}` : `🔕 Notifiche disattivate per ${wsName}`);
+        }
+    };
+
+    if (DOM.btnQuickMute) DOM.btnQuickMute.onclick = toggleAgentMuteAction;
+    if (DOM.rowToggleAgentNotif) DOM.rowToggleAgentNotif.onclick = toggleAgentMuteAction;
+    if (DOM.rowToggleWsNotif) DOM.rowToggleWsNotif.onclick = toggleWsMuteAction;
+
     renderSheetPanes();
 
     DOM.sheetBackdrop.classList.add('active');

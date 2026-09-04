@@ -38,8 +38,140 @@ CA_KEY_FILE = os.path.join(CERTS_DIR, "ca_key.pem")
 
 herdr = HerdrClient()
 
+NOTIFICATION_SETTINGS_PATH = os.path.join(BASE_DIR, "notification_settings.json")
+
+DEFAULT_NOTIFICATION_SETTINGS = {
+    "enabled": True,
+    "events": {
+        "task_completed": True,
+        "waiting_confirm": True
+    },
+    "disabled_workspaces": [],
+    "disabled_agents": [],
+    "disabled_panes": []
+}
+
+def load_notification_settings():
+    if os.path.exists(NOTIFICATION_SETTINGS_PATH):
+        try:
+            with open(NOTIFICATION_SETTINGS_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                res = dict(DEFAULT_NOTIFICATION_SETTINGS)
+                res.update(data)
+                if "events" not in res or not isinstance(res.get("events"), dict):
+                    res["events"] = dict(DEFAULT_NOTIFICATION_SETTINGS["events"])
+                else:
+                    ev = dict(DEFAULT_NOTIFICATION_SETTINGS["events"])
+                    ev.update(res["events"])
+                    res["events"] = ev
+                return res
+        except Exception as e:
+            print(f"Error reading notification settings: {e}")
+            return dict(DEFAULT_NOTIFICATION_SETTINGS)
+    return dict(DEFAULT_NOTIFICATION_SETTINGS)
+
+def save_notification_settings(settings):
+    try:
+        current = load_notification_settings()
+        for k, v in settings.items():
+            if k == "events" and isinstance(v, dict):
+                current["events"].update(v)
+            else:
+                current[k] = v
+        with open(NOTIFICATION_SETTINGS_PATH, "w", encoding="utf-8") as f:
+            json.dump(current, f, indent=2, ensure_ascii=False)
+        return current
+    except Exception as e:
+        print(f"Error saving notification settings: {e}")
+        return settings
+
+def toggle_notification_target(target_type, target_id, enabled):
+    cfg = load_notification_settings()
+    target_id_str = str(target_id).strip()
+    
+    if target_type == "workspace":
+        disabled = set(str(x) for x in cfg.get("disabled_workspaces", []))
+        if enabled:
+            disabled.discard(target_id_str)
+        else:
+            disabled.add(target_id_str)
+        cfg["disabled_workspaces"] = sorted(list(disabled))
+        
+    elif target_type == "agent":
+        target_agent = target_id_str.lower()
+        disabled = set(str(x).lower() for x in cfg.get("disabled_agents", []))
+        if enabled:
+            disabled.discard(target_agent)
+        else:
+            disabled.add(target_agent)
+        cfg["disabled_agents"] = sorted(list(disabled))
+        
+    elif target_type == "pane":
+        disabled = set(str(x) for x in cfg.get("disabled_panes", []))
+        if enabled:
+            disabled.discard(target_id_str)
+        else:
+            disabled.add(target_id_str)
+        cfg["disabled_panes"] = sorted(list(disabled))
+        
+    return save_notification_settings(cfg)
+
+def is_notification_allowed(workspace_id=None, pane_id=None, agent_keys=None, event_type=None):
+    cfg = load_notification_settings()
+    if not cfg.get("enabled", True):
+        return False
+    
+    if event_type and not cfg.get("events", {}).get(event_type, True):
+        return False
+    
+    disabled_ws = [str(w).strip().lower() for w in cfg.get("disabled_workspaces", [])]
+    if workspace_id is not None:
+        ws_str = str(workspace_id).strip().lower()
+        if ws_str in disabled_ws:
+            return False
+
+    disabled_panes = [str(p).strip().lower() for p in cfg.get("disabled_panes", [])]
+    if pane_id is not None:
+        p_str = str(pane_id).strip().lower()
+        if p_str in disabled_panes:
+            return False
+
+    if agent_keys:
+        disabled_agents = [str(a).strip().lower() for a in cfg.get("disabled_agents", [])]
+        if isinstance(agent_keys, (list, tuple, set)):
+            for k in agent_keys:
+                if k and str(k).strip().lower() in disabled_agents:
+                    return False
+        else:
+            if str(agent_keys).strip().lower() in disabled_agents:
+                return False
+
+    return True
+
+def extract_agent_key(p_title, p_agent=None, p_command=None):
+    if p_agent:
+        return str(p_agent).lower().strip()
+    raw = f"{p_title or ''} {p_command or ''}".lower()
+    for kw in ["antigravity", "agy", "claude", "cursor", "codex", "gemini", "copilot", "devin", "droid", "kimi", "opencode", "kilo", "hermes", "qoder", "qwen", "mastra", "omp", "grok", "aider", "openhands", "goose"]:
+        if kw in raw:
+            return "agy" if kw == "antigravity" else kw
+    import re
+    if re.search(r'\bpi\b|pi-agent', raw):
+        return "pi"
+    return "generic"
+
 def send_web_push(title, body, data=None):
     """Send push notification to all registered subscriptions using pywebpush."""
+    data = data or {}
+    ws_id = data.get("workspaceId")
+    p_id = data.get("paneId")
+    agent = data.get("agent")
+    ev_type = data.get("event_type")
+    
+    # Check if notification is allowed
+    if not is_notification_allowed(workspace_id=ws_id, pane_id=p_id, agent_keys=agent, event_type=ev_type):
+        return 0
+
     v_path = os.path.join(BASE_DIR, "vapid_keys.json")
     s_path = os.path.join(BASE_DIR, "push_subscriptions.json")
     if not os.path.exists(v_path) or not os.path.exists(s_path):
@@ -50,6 +182,9 @@ def send_web_push(title, body, data=None):
             v_keys = json.load(f)
         with open(s_path) as f:
             subs = json.load(f)
+        
+        if not subs:
+            return 0
         
         priv_key = os.path.join(BASE_DIR, v_keys.get("private_key_file", "private_key.pem"))
         payload_data = json.dumps({
@@ -1022,6 +1157,11 @@ class DashboardHandler(BaseHTTPRequestHandler):
             commands = get_all_slash_commands(cwd)
             return self.send_json({"commands": commands, "count": len(commands)})
 
+        # API: Notification Settings
+        if path == "/api/notifications/settings":
+            notif_settings = load_notification_settings()
+            return self.send_json(notif_settings)
+
         # API: Aggregated state for mobile app
         if path == "/api/push/public-key":
             if os.path.exists("vapid_keys.json"):
@@ -1116,9 +1256,10 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 return self.send_json({"error": "Invalid subscription"}, status=400)
             
             subs = []
-            if os.path.exists("push_subscriptions.json"):
+            s_path = os.path.join(BASE_DIR, "push_subscriptions.json")
+            if os.path.exists(s_path):
                 try:
-                    with open("push_subscriptions.json") as f:
+                    with open(s_path) as f:
                         subs = json.load(f)
                 except Exception:
                     subs = []
@@ -1126,9 +1267,51 @@ class DashboardHandler(BaseHTTPRequestHandler):
             # Avoid duplicate endpoints
             subs = [s for s in subs if s.get("endpoint") != sub.get("endpoint")]
             subs.append(sub)
-            with open("push_subscriptions.json", "w") as f:
+            with open(s_path, "w") as f:
                 json.dump(subs, f, indent=2)
+            
+            # Automatically enable notifications when client subscribes
+            save_notification_settings({"enabled": True})
             return self.send_json({"success": True, "count": len(subs)})
+
+        if parsed.path == "/api/push/unsubscribe":
+            endpoint = payload.get("endpoint")
+            clear_all = payload.get("all", False)
+            subs = []
+            s_path = os.path.join(BASE_DIR, "push_subscriptions.json")
+            if os.path.exists(s_path):
+                try:
+                    with open(s_path) as f:
+                        subs = json.load(f)
+                except Exception:
+                    subs = []
+            
+            if clear_all or not endpoint:
+                subs = []
+            else:
+                subs = [s for s in subs if s.get("endpoint") != endpoint]
+            
+            with open(s_path, "w") as f:
+                json.dump(subs, f, indent=2)
+            
+            # If all subscriptions are cleared or explicit, mark enabled false
+            if clear_all or len(subs) == 0:
+                save_notification_settings({"enabled": False})
+
+            return self.send_json({"success": True, "remaining": len(subs)})
+
+        if parsed.path == "/api/notifications/settings":
+            settings = save_notification_settings(payload)
+            return self.send_json({"success": True, "settings": settings})
+
+        if parsed.path == "/api/notifications/toggle":
+            target_type = payload.get("type")
+            target_id = payload.get("id")
+            enabled = bool(payload.get("enabled", True))
+            if not target_type or target_id is None:
+                return self.send_json({"error": "Missing target type or id"}, status=400)
+            settings = toggle_notification_target(target_type, target_id, enabled)
+            return self.send_json({"success": True, "settings": settings})
 
         if parsed.path == "/api/push/test":
             title = payload.get("title", "⚡ Herdr Test")
@@ -1452,6 +1635,11 @@ def monitor_agents_background():
     global _last_pane_states
     while True:
         try:
+            notif_cfg = load_notification_settings()
+            if not notif_cfg.get("enabled", True):
+                time.sleep(1.0)
+                continue
+
             state = get_aggregated_state(lines=100)
             workspaces = state.get("workspaces", [])
             current_states = {}
@@ -1469,12 +1657,14 @@ def monitor_agents_background():
                     pid = p.get("pane_id")
                     if not pid: continue
                     title = p.get("label") or p.get("custom_name") or p.get("agent") or p.get("title") or p.get("command") or f"Agente {pid}"
+                    agent_key = extract_agent_key(p.get("title") or p.get("command"), p.get("agent"), p.get("command"))
                     is_running = bool(p.get("is_running") or p.get("status") == "working")
                     waiting_confirm = bool(p.get("waiting_confirm") or p.get("status") in ("waiting_confirm", "confirm", "blocked"))
                     current_states[pid] = {
                         "title": title,
                         "ws_name": ws_name,
                         "ws_id": ws_id,
+                        "agent_key": agent_key,
                         "is_running": is_running,
                         "waiting_confirm": waiting_confirm
                     }
@@ -1484,17 +1674,30 @@ def monitor_agents_background():
                 if prev:
                     # Case 1: Agent asks confirmation
                     if not prev["waiting_confirm"] and curr["waiting_confirm"]:
-                        send_web_push(
-                            f"⚠️ Richiesta Conferma: {curr['title']}",
-                            "L agente richiede la tua autorizzazione per procedere.",
-                            {"paneId": pid, "workspaceId": curr["ws_id"]}
-                        )
+                        if is_notification_allowed(workspace_id=curr["ws_id"], pane_id=pid, agent_keys=[curr["agent_key"], curr["title"]], event_type="waiting_confirm"):
+                            send_web_push(
+                                f"⚠️ Richiesta Conferma: {curr['title']}",
+                                "L'agente richiede la tua autorizzazione per procedere.",
+                                {
+                                    "paneId": pid,
+                                    "workspaceId": curr["ws_id"],
+                                    "agent": curr["agent_key"],
+                                    "event_type": "waiting_confirm"
+                                }
+                            )
                     # Case 2: Agent completed task
                     elif prev["is_running"] and not curr["is_running"] and not curr["waiting_confirm"]:
-                        send_web_push(
-                            f"✅ Task Completato: {curr['title']}",
-                            "L agente ha terminato con successo!",
-                        )
+                        if is_notification_allowed(workspace_id=curr["ws_id"], pane_id=pid, agent_keys=[curr["agent_key"], curr["title"]], event_type="task_completed"):
+                            send_web_push(
+                                f"✅ Task Completato: {curr['title']}",
+                                "L'agente ha terminato con successo!",
+                                {
+                                    "paneId": pid,
+                                    "workspaceId": curr["ws_id"],
+                                    "agent": curr["agent_key"],
+                                    "event_type": "task_completed"
+                                }
+                            )
 
             _last_pane_states = current_states
         except Exception:

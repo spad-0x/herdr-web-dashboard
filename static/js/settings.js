@@ -154,6 +154,26 @@ function renderSettingsScreen(container) {
                             <option value="system" ${curToast === 'system' ? 'selected' : ''}>Sistema OS (system)</option>
                         </select>
                     </div>
+
+                    <!-- Filtro Notifiche per Spazio -->
+                    <div class="settings-subsection" style="margin-top: 14px; border-top: 1px solid var(--border-subtle); padding-top: 12px;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
+                            📁 Notifiche per Spazio di Lavoro
+                        </div>
+                        <div id="settings-workspaces-notif-list" style="display: flex; flex-direction: column; gap: 8px;">
+                            <!-- Popolato dinamicamente da JS -->
+                        </div>
+                    </div>
+
+                    <!-- Filtro Notifiche per Singolo Agente -->
+                    <div class="settings-subsection" style="margin-top: 14px; border-top: 1px solid var(--border-subtle); padding-top: 12px;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
+                            🤖 Notifiche per Singolo Agente AI
+                        </div>
+                        <div id="settings-agents-notif-list" style="display: flex; flex-direction: column; gap: 8px;">
+                            <!-- Popolato dinamicamente da JS -->
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 4. PANE & BORDERS -->
@@ -347,46 +367,64 @@ function renderSettingsScreen(container) {
 
             if (pushEl) {
                 const isPushSupported = ('Notification' in window);
-                const pushPref = localStorage.getItem('herdr_push_enabled') === 'true';
+                const notifCfg = State.notificationSettings || window.HerdrNotificationSettings || {};
+                const localPushPref = localStorage.getItem('herdr_push_enabled');
                 
+                // Real active status: Notification API granted AND global setting enabled AND localStorage not 'false'
+                const isPushActive = isPushSupported && 
+                                     (Notification.permission === 'granted') && 
+                                     (notifCfg.enabled !== false) && 
+                                     (localPushPref === 'true');
+
                 if (!isPushSupported) {
                     pushEl.disabled = true;
                     if (pushDesc) pushDesc.textContent = 'Notifiche non supportate da questo browser (installa come PWA per iOS).';
+                    if (testPushBtn) testPushBtn.style.display = 'none';
                 } else {
                     const currentPerm = Notification.permission;
-                    // Su iOS PWA se il permesso è granted, consideriamo attivo
-                    pushEl.checked = (currentPerm === 'granted') && (pushPref !== false);
-                    if (pushEl.checked) {
-                        localStorage.setItem('herdr_push_enabled', 'true');
-                    }
-                    if (currentPerm === 'granted') {
+                    pushEl.checked = isPushActive;
+
+                    if (currentPerm === 'denied') {
+                        pushEl.checked = false;
+                        if (testPushBtn) testPushBtn.style.display = 'none';
+                        if (pushDesc) pushDesc.textContent = 'Permesso notifiche bloccato nelle impostazioni di sistema del browser.';
+                    } else if (isPushActive) {
                         if (testPushBtn) testPushBtn.style.display = 'inline-block';
                         if (pushDesc) pushDesc.textContent = 'Notifiche attive. Riceverai avvisi quando un agente termina o aspetta conferma.';
-                    } else if (currentPerm === 'denied') {
-                        pushEl.checked = false;
-                        if (pushDesc) pushDesc.textContent = 'Permesso notifiche bloccato nelle impostazioni di sistema del browser.';
+                    } else {
+                        if (testPushBtn) testPushBtn.style.display = 'none';
+                        if (pushDesc) pushDesc.textContent = 'Notifiche push disattivate.';
                     }
 
                     pushEl.addEventListener('change', async (e) => {
                         if (e.target.checked) {
+                            triggerHaptic('medium');
+                            if (pushDesc) pushDesc.textContent = 'Attivazione notifiche in corso...';
                             const success = await window.subscribeUserToPush();
                             if (success) {
-                                localStorage.setItem('herdr_push_enabled', 'true');
+                                pushEl.checked = true;
                                 if (testPushBtn) testPushBtn.style.display = 'inline-block';
                                 if (pushDesc) pushDesc.textContent = 'Notifiche push attivate! Riceverai avvisi anche a schermo bloccato.';
                                 if (window.triggerServerPushTest) {
                                     window.triggerServerPushTest();
                                 }
+                                showToast('🔔 Notifiche push abilitate');
+                                renderSettingsScreen(settingsWrap.parentElement);
                             } else {
-                                e.target.checked = false;
-                                localStorage.setItem('herdr_push_enabled', 'false');
+                                pushEl.checked = false;
                                 if (testPushBtn) testPushBtn.style.display = 'none';
+                                if (pushDesc) pushDesc.textContent = 'Permesso notifiche non concesso o non supportato.';
                                 alert('Permesso notifiche non concesso o non supportato. Se sei su iPhone, assicurati che la pagina sia stata aggiunta alla Home e che le notifiche per la Web App siano consentite in Impostazioni iOS.');
                             }
                         } else {
-                            localStorage.setItem('herdr_push_enabled', 'false');
+                            triggerHaptic('medium');
+                            if (pushDesc) pushDesc.textContent = 'Disattivazione notifiche...';
+                            await window.unsubscribeUserFromPush();
+                            pushEl.checked = false;
                             if (testPushBtn) testPushBtn.style.display = 'none';
                             if (pushDesc) pushDesc.textContent = 'Notifiche push disattivate.';
+                            showToast('🔕 Notifiche push disattivate');
+                            renderSettingsScreen(settingsWrap.parentElement);
                         }
                     });
 
@@ -400,6 +438,76 @@ function renderSettingsScreen(container) {
                         });
                     }
                 }
+            }
+
+            // Populate Workspace Notifications List
+            const wsListEl = settingsWrap.querySelector('#settings-workspaces-notif-list');
+            if (wsListEl) {
+                wsListEl.innerHTML = '';
+                if (!State.workspaces || State.workspaces.length === 0) {
+                    wsListEl.innerHTML = '<div style="font-size: 12px; color: var(--text-muted); padding: 4px 0;">Nessun spazio attivo al momento</div>';
+                } else {
+                    State.workspaces.forEach(ws => {
+                        const isMuted = (typeof isTargetMuted === 'function') && isTargetMuted('workspace', ws.id);
+                        const row = document.createElement('div');
+                        row.className = 'settings-item-row';
+                        row.style.padding = '6px 0';
+                        row.innerHTML = `
+                            <div class="settings-item-left">
+                                <span class="settings-item-label" style="font-size: 13px;">📁 ${escapeHtml(ws.name || `Workspace ${ws.id}`)}</span>
+                                <span class="settings-item-desc">${isMuted ? '<span style="color:var(--danger); font-weight:600;">🔕 Disattivato</span>' : '<span style="color:var(--success); font-weight:600;">🔔 Attivo</span>'}</span>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" class="cfg-ws-notif-toggle" data-ws-id="${ws.id}" ${!isMuted ? 'checked' : ''}>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        `;
+                        row.querySelector('.cfg-ws-notif-toggle').addEventListener('change', async (e) => {
+                            triggerHaptic('light');
+                            await window.toggleNotificationTarget('workspace', ws.id, e.target.checked);
+                            showToast(e.target.checked ? `🔔 Notifiche attivate per ${ws.name || 'Spazio'}` : `🔕 Notifiche disattivate per ${ws.name || 'Spazio'}`);
+                            renderSettingsScreen(settingsWrap.parentElement);
+                        });
+                        wsListEl.appendChild(row);
+                    });
+                }
+            }
+
+            // Populate Agent Notifications List
+            const agentListEl = settingsWrap.querySelector('#settings-agents-notif-list');
+            if (agentListEl && typeof AGENT_METADATA !== 'undefined') {
+                agentListEl.innerHTML = '';
+                const agentKeys = Object.keys(AGENT_METADATA).filter(k => k !== 'generic');
+                agentKeys.forEach(k => {
+                    const meta = AGENT_METADATA[k];
+                    const isMuted = (typeof isTargetMuted === 'function') && isTargetMuted('agent', k);
+                    const iconSvg = (typeof getAgentIconSvg === 'function') ? getAgentIconSvg(k, 18) : '🤖';
+                    const row = document.createElement('div');
+                    row.className = 'settings-item-row';
+                    row.style.padding = '6px 0';
+                    row.innerHTML = `
+                        <div class="settings-item-left" style="display: flex; align-items: center; gap: 8px;">
+                            <div style="width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; background: ${meta.bgGradient}; border: 1px solid ${meta.color}40; flex-shrink: 0;">
+                                ${iconSvg}
+                            </div>
+                            <div>
+                                <span class="settings-item-label" style="font-size: 13px;">${escapeHtml(meta.name)}</span>
+                                <span class="settings-item-desc">${isMuted ? '<span style="color:var(--danger); font-weight:600;">🔕 Disattivato</span>' : '<span style="color:var(--success); font-weight:600;">🔔 Attivo</span>'}</span>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" class="cfg-agent-notif-toggle" data-agent-key="${k}" ${!isMuted ? 'checked' : ''}>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    `;
+                    row.querySelector('.cfg-agent-notif-toggle').addEventListener('change', async (e) => {
+                        triggerHaptic('light');
+                        await window.toggleNotificationTarget('agent', k, e.target.checked);
+                        showToast(e.target.checked ? `🔔 Notifiche attivate per ${meta.name}` : `🔕 Notifiche disattivate per ${meta.name}`);
+                        renderSettingsScreen(settingsWrap.parentElement);
+                    });
+                    agentListEl.appendChild(row);
+                });
             }
 
             // Sound

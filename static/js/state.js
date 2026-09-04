@@ -37,6 +37,7 @@ const State = {
     chatsFilter: 'panes', // 'panes', 'workspaces'
     chatMessages: [], // Local user-sent message cache
     herdrConfig: null,
+    notificationSettings: null,
     integrations: [],
     slashCommands: [],
     activeSlashCat: 'all',
@@ -165,6 +166,13 @@ const DOM = {
     renameAgentSubtitle: document.getElementById('rename-agent-subtitle'),
     btnEditContactName: document.getElementById('btn-edit-contact-name'),
     btnQuickRename: document.getElementById('btn-quick-rename'),
+    btnQuickMute: document.getElementById('btn-quick-mute'),
+    quickMuteIcon: document.getElementById('quick-mute-icon'),
+    quickMuteLabel: document.getElementById('quick-mute-label'),
+    rowToggleAgentNotif: document.getElementById('row-toggle-agent-notif'),
+    rowToggleWsNotif: document.getElementById('row-toggle-ws-notif'),
+    contactAgentNotifVal: document.getElementById('contact-agent-notif-val'),
+    contactWsNotifVal: document.getElementById('contact-ws-notif-val'),
     // Toast Shelf
     toastShelf: document.getElementById('toast-shelf')
 };

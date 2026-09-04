@@ -3003,3 +3003,52 @@ input:checked + .toggle-slider:before {
     opacity: 0.85;
 }
 
+/* Notification Mute Actions & Indicators */
+.btn-mute-agent-item {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: all 0.15s ease;
+}
+
+.btn-mute-agent-item:hover {
+    opacity: 1;
+    background: var(--bg-surface-elevated);
+}
+
+.btn-mute-agent-item.active-muted {
+    opacity: 1;
+    color: var(--danger);
+}
+
+.quick-action-pill.muted {
+    background: rgba(239, 68, 68, 0.12) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+}
+
+.quick-action-pill.muted .quick-action-label {
+    color: #ef4444 !important;
+}
+
+.clickable-row {
+    transition: background 0.15s ease;
+    padding: 4px 6px;
+    margin: -4px -6px;
+    border-radius: 8px;
+}
+
+.clickable-row:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.clickable-row:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+

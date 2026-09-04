@@ -192,6 +192,8 @@ function renderChatsList() {
             let statusSnippet = isRunning ? '⚡ In esecuzione...' : (ws.cwd ? ws.cwd : 'Pronto');
             if (lastCommand) statusSnippet = `▶ ${lastCommand}`;
 
+            const isWsMuted = (typeof isTargetMuted === 'function') && isTargetMuted('workspace', ws.id);
+
             item.innerHTML = `
                 <div class="chat-item-avatar">
                     <span>📁</span>
@@ -199,15 +201,39 @@ function renderChatsList() {
                 </div>
                 <div class="chat-item-content">
                     <div class="chat-item-top">
-                        <span class="chat-item-title">${escapeHtml(ws.name || `Workspace ${ws.id}`)}</span>
+                        <span class="chat-item-title">${escapeHtml(ws.name || `Workspace ${ws.id}`)}${isWsMuted ? ' <span title="Notifiche disattivate" style="font-size: 12px; opacity: 0.8;">🔕</span>' : ''}</span>
                         <span class="chat-item-time">Oggi</span>
                     </div>
                     <div class="chat-item-bottom">
                         <span class="chat-item-preview">${escapeHtml(statusSnippet)}</span>
-                        <span class="chat-item-badge">${totalTabs} tab</span>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            ${isWsMuted ? '<span class="chat-item-badge" style="background: rgba(239,68,68,0.15); color: #ef4444; border-color: rgba(239,68,68,0.3);">🔕 muto</span>' : ''}
+                            <span class="chat-item-badge">${totalTabs} tab</span>
+                        </div>
                     </div>
                 </div>
+                <div class="chat-item-actions" style="display: flex; align-items: center; gap: 4px;">
+                    <button class="btn-mute-agent-item ${isWsMuted ? 'active-muted' : ''}" title="${isWsMuted ? 'Riattiva notifiche spazio' : 'Silenzia notifiche spazio'}" aria-label="Muto spazio">
+                        <span>${isWsMuted ? '🔕' : '🔔'}</span>
+                    </button>
+                </div>
             `;
+
+            const btnWsMute = item.querySelector('.btn-mute-agent-item');
+            if (btnWsMute) {
+                btnWsMute.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    triggerHaptic('medium');
+                    const shouldEnable = isWsMuted;
+                    if (typeof toggleNotificationTarget === 'function') {
+                        await toggleNotificationTarget('workspace', ws.id, shouldEnable);
+                    }
+                    if (typeof showToast === 'function') {
+                        showToast(shouldEnable ? `🔔 Notifiche attivate per ${ws.name || 'Spazio'}` : `🔕 Notifiche disattivate per ${ws.name || 'Spazio'}`);
+                    }
+                    renderChatsList();
+                });
+            }
 
             item.addEventListener('click', async () => {
                 triggerHaptic('light');
@@ -252,6 +278,7 @@ function renderChatsList() {
             const defaultName = getAgentDefaultName(pane.agent || pane.title || pane.command);
             const displayName = pane.label || pane.custom_name || pane.agent || pane.title || defaultName || `Agente #${pane.pane_id}`;
             const agentIconSvg = getAgentIconSvg(pane.agent || pane.title || pane.command, 24);
+            const isAgentMuted = (typeof isTargetMuted === 'function') && (isTargetMuted('agent', agentMeta.key) || isTargetMuted('pane', pane.pane_id));
 
             const item = document.createElement('div');
             item.className = `chat-item-row ${isActive ? 'active' : ''}`;
@@ -267,21 +294,45 @@ function renderChatsList() {
                 </div>
                 <div class="chat-item-content">
                     <div class="chat-item-top">
-                        <span class="chat-item-title">${escapeHtml(displayName)}</span>
+                        <span class="chat-item-title">${escapeHtml(displayName)}${isAgentMuted ? ' <span title="Notifiche disattivate" style="font-size: 12px; opacity: 0.8;">🔕</span>' : ''}</span>
                         <span class="chat-item-time">${escapeHtml(pane.ws_name || 'Spazio')}</span>
                     </div>
                     <div class="chat-item-bottom">
                         <span class="chat-item-preview">${escapeHtml(preview)}</span>
-                        <span class="chat-item-badge">${escapeHtml(statusBadge)}</span>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            ${isAgentMuted ? '<span class="chat-item-badge badge-muted" style="background: rgba(239,68,68,0.15); color: #ef4444; border-color: rgba(239,68,68,0.3);">🔕 muto</span>' : ''}
+                            <span class="chat-item-badge">${escapeHtml(statusBadge)}</span>
+                        </div>
                     </div>
                 </div>
-                <button class="btn-rename-agent-item" data-pane-id="${pane.pane_id}" title="Rinomina ${escapeHtml(displayName)}" aria-label="Rinomina ${escapeHtml(displayName)}">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                    </svg>
-                </button>
+                <div class="chat-item-actions" style="display: flex; align-items: center; gap: 4px;">
+                    <button class="btn-mute-agent-item ${isAgentMuted ? 'active-muted' : ''}" data-pane-id="${pane.pane_id}" title="${isAgentMuted ? 'Riattiva notifiche per questo agente' : 'Silenzia notifiche per questo agente'}" aria-label="Mute/Unmute">
+                        <span>${isAgentMuted ? '🔕' : '🔔'}</span>
+                    </button>
+                    <button class="btn-rename-agent-item" data-pane-id="${pane.pane_id}" title="Rinomina ${escapeHtml(displayName)}" aria-label="Rinomina ${escapeHtml(displayName)}">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </button>
+                </div>
             `;
+
+            const btnMute = item.querySelector('.btn-mute-agent-item');
+            if (btnMute) {
+                btnMute.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    triggerHaptic('medium');
+                    const shouldEnable = isAgentMuted;
+                    if (typeof toggleNotificationTarget === 'function') {
+                        await toggleNotificationTarget('agent', agentMeta.key, shouldEnable);
+                    }
+                    if (typeof showToast === 'function') {
+                        showToast(shouldEnable ? `🔔 Notifiche attivate per ${displayName}` : `🔕 Notifiche disattivate per ${displayName}`);
+                    }
+                    renderChatsList();
+                });
+            }
 
             const btnRename = item.querySelector('.btn-rename-agent-item');
             if (btnRename) {

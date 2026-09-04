@@ -370,6 +370,10 @@
                         <span class="quick-action-icon">✏️</span>
                         <span class="quick-action-label">Rinomina</span>
                     </button>
+                    <button class="quick-action-pill" id="btn-quick-mute" title="Attiva/Disattiva notifiche per questo agente">
+                        <span class="quick-action-icon" id="quick-mute-icon">🔔</span>
+                        <span class="quick-action-label" id="quick-mute-label">Notifiche</span>
+                    </button>
                     <button class="quick-action-pill" id="btn-quick-chat">
                         <span class="quick-action-icon">💬</span>
                         <span class="quick-action-label">Chat</span>
@@ -412,6 +416,14 @@
                     <div class="info-group-row">
                         <span class="group-row-label">Stato Agente</span>
                         <span class="group-row-val" id="contact-status-val">Online</span>
+                    </div>
+                    <div class="info-group-row clickable-row" id="row-toggle-agent-notif" style="cursor: pointer;" title="Tocca per silenziare/abilitare notifiche agente">
+                        <span class="group-row-label">Notifiche Agente</span>
+                        <span class="group-row-val" id="contact-agent-notif-val">🔔 Attive</span>
+                    </div>
+                    <div class="info-group-row clickable-row" id="row-toggle-ws-notif" style="cursor: pointer;" title="Tocca per silenziare/abilitare notifiche spazio">
+                        <span class="group-row-label">Notifiche Spazio</span>
+                        <span class="group-row-val" id="contact-ws-notif-val">🔔 Attive</span>
                     </div>
                 </div>
 
@@ -484,16 +496,16 @@
 
     <!-- Main Controller -->
     <!-- Modular Component Architecture -->
-    <script src="/js/state.js?v=20260904_agent_icons"></script>
-    <script src="/js/utils.js?v=20260904_antigravity_icon"></script>
-    <script src="/js/terminal.js?v=20260904_agent_icons"></script>
-    <script src="/js/settings.js?v=20260904_agent_icons"></script>
-    <script src="/js/chats-list.js?v=20260904_agent_icons"></script>
-    <script src="/js/chat.js?v=20260904_agent_icons"></script>
-    <script src="/js/input-bar.js?v=20260904_agent_icons"></script>
-    <script src="/js/stream.js?v=20260904_agent_icons"></script>
-    <script src="/js/app-init.js?v=20260904_agent_icons"></script>
-    <script src="/push-helper.js?v=20260904_agent_icons"></script>
-    <script src="/app.js?v=20260904_agent_icons"></script>
+    <script src="/js/state.js?v=20260904_notifications_fix"></script>
+    <script src="/js/utils.js?v=20260904_notifications_fix"></script>
+    <script src="/push-helper.js?v=20260904_notifications_fix"></script>
+    <script src="/js/terminal.js?v=20260904_notifications_fix"></script>
+    <script src="/js/settings.js?v=20260904_notifications_fix"></script>
+    <script src="/js/chats-list.js?v=20260904_notifications_fix"></script>
+    <script src="/js/chat.js?v=20260904_notifications_fix"></script>
+    <script src="/js/input-bar.js?v=20260904_notifications_fix"></script>
+    <script src="/js/stream.js?v=20260904_notifications_fix"></script>
+    <script src="/js/app-init.js?v=20260904_notifications_fix"></script>
+    <script src="/app.js?v=20260904_notifications_fix"></script>
 </body>
 </html>
