@@ -1,16 +1,16 @@
 # Graph Report - herdr-web-dashboard  (2026-09-04)
 
 ## Corpus Check
-- 21 files · ~28,816 words
+- 21 files · ~31,488 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1161 nodes · 2528 edges · 53 communities (37 shown, 16 thin omitted)
+- 1161 nodes · 2528 edges · 53 communities (38 shown, 15 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 50 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `8ce91146`
+- Built from commit: `7de2462b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -91,7 +91,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (53 total, 16 thin omitted)
+## Communities (53 total, 15 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.12
@@ -119,7 +119,7 @@ Nodes (34): BaseHTTPRequestHandler, check_is_agent(), create_session(), Dashboar
 
 ### Community 7 - "Community 7"
 Cohesion: 0.06
-Nodes (26): C(), _cancelCallback(), clear(), clearListeners(), constructor(), debug(), dispose(), error() (+18 more)
+Nodes (25): C(), _cancelCallback(), clear(), clearListeners(), constructor(), debug(), dispose(), error() (+17 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.13
@@ -186,8 +186,12 @@ Cohesion: 0.22
 Nodes (3): addEscHandler(), registerEscHandler(), values()
 
 ### Community 34 - "Community 34"
-Cohesion: 0.12
-Nodes (5): h, n, register(), resolve(), w()
+Cohesion: 0.18
+Nodes (3): n, resolve(), w()
+
+### Community 35 - "Community 35"
+Cohesion: 0.13
+Nodes (4): L, pause(), restartBlinkAnimation(), resume()
 
 ### Community 38 - "Community 38"
 Cohesion: 0.17
@@ -210,7 +214,7 @@ Cohesion: 0.29
 Nodes (3): getBlankLine(), markAllDirty(), markRangeDirty()
 
 ### Community 58 - "Community 58"
-Cohesion: 0.14
+Cohesion: 0.11
 Nodes (4): createInstance(), enable(), hasRenderer(), setService()
 
 ### Community 59 - "Community 59"
@@ -224,7 +228,7 @@ Nodes (5): addDcsHandler(), addOscHandler(), registerDcsHandler(), registerOscHa
 ## Knowledge Gaps
 - **30 isolated node(s):** `filteredSlashCommands`, `State`, `DOM`, `TERMINAL_THEMES`, `AGENT_METADATA` (+25 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_

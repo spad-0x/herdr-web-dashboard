@@ -1527,7 +1527,7 @@
       "label": "detectAgentKey()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L536",
+      "source_location": "L522",
       "_origin": "ast",
       "id": "js_utils_detectagentkey",
       "community": 4,
@@ -1537,7 +1537,7 @@
       "label": "getAgentDefaultName()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L563",
+      "source_location": "L549",
       "_origin": "ast",
       "id": "js_utils_getagentdefaultname",
       "community": 4,
@@ -1547,7 +1547,7 @@
       "label": "getAgentMeta()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L568",
+      "source_location": "L554",
       "_origin": "ast",
       "id": "js_utils_getagentmeta",
       "community": 4,
@@ -1557,7 +1557,7 @@
       "label": "getAgentIconSvg()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L574",
+      "source_location": "L560",
       "_origin": "ast",
       "id": "js_utils_getagenticonsvg",
       "community": 4,
@@ -1567,7 +1567,7 @@
       "label": "openRenameAgentDialog()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L584",
+      "source_location": "L570",
       "_origin": "ast",
       "id": "js_utils_openrenameagentdialog",
       "community": 4,
@@ -1577,7 +1577,7 @@
       "label": "closeRenameAgentDialog()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L620",
+      "source_location": "L606",
       "_origin": "ast",
       "id": "js_utils_closerenameagentdialog",
       "community": 4,
@@ -1587,7 +1587,7 @@
       "label": "handleRenameAgentSubmit()",
       "file_type": "code",
       "source_file": "static/js/utils.js",
-      "source_location": "L631",
+      "source_location": "L617",
       "_origin": "ast",
       "id": "js_utils_handlerenameagentsubmit",
       "community": 4,
@@ -2070,7 +2070,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h",
-      "community": 34,
+      "community": 7,
       "norm_label": "h"
     },
     {
@@ -2080,7 +2080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_constructor",
-      "community": 34,
+      "community": 7,
       "norm_label": ".constructor()"
     },
     {
@@ -2330,7 +2330,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_l_handlecursormove",
-      "community": 7,
+      "community": 35,
       "norm_label": ".handlecursormove()"
     },
     {
@@ -2640,7 +2640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_a_handlecursormove",
-      "community": 7,
+      "community": 35,
       "norm_label": ".handlecursormove()"
     },
     {
@@ -2770,7 +2770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_n_constructor",
-      "community": 34,
+      "community": 7,
       "norm_label": ".constructor()"
     },
     {
@@ -2860,7 +2860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_restartblinkanimation",
-      "community": 7,
+      "community": 35,
       "norm_label": "restartblinkanimation()"
     },
     {
@@ -2880,7 +2880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_pause",
-      "community": 7,
+      "community": 35,
       "norm_label": "pause()"
     },
     {
@@ -2890,7 +2890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_resume",
-      "community": 7,
+      "community": 35,
       "norm_label": "resume()"
     },
     {
@@ -3290,7 +3290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_register",
-      "community": 34,
+      "community": 7,
       "norm_label": "register()"
     },
     {
@@ -4060,7 +4060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_activate",
-      "community": 34,
+      "community": 7,
       "norm_label": ".activate()"
     },
     {
@@ -4070,7 +4070,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_textureatlas",
-      "community": 34,
+      "community": 7,
       "norm_label": ".textureatlas()"
     },
     {
@@ -4080,7 +4080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_cleartextureatlas",
-      "community": 34,
+      "community": 7,
       "norm_label": ".cleartextureatlas()"
     },
     {
@@ -4690,7 +4690,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_blur",
-      "community": 8,
+      "community": 24,
       "norm_label": ".blur()"
     },
     {
@@ -4720,7 +4720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_initglobal",
-      "community": 24,
+      "community": 58,
       "norm_label": "._initglobal()"
     },
     {
@@ -4730,7 +4730,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_bindkeys",
-      "community": 24,
+      "community": 58,
       "norm_label": "._bindkeys()"
     },
     {
@@ -10920,7 +10920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_onrender",
-      "community": 24,
+      "community": 58,
       "norm_label": ".onrender()"
     },
     {
@@ -11080,7 +11080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_blur",
-      "community": 8,
+      "community": 24,
       "norm_label": ".blur()"
     },
     {
@@ -38284,5 +38284,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8ce91146d9497cc92585d66ef9d334b08ecc24ad"
+  "built_at_commit": "7de2462b287603d47287d1be8bae50636b7b91b6"
 }

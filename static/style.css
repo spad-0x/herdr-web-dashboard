@@ -2455,18 +2455,30 @@ html, body {
     transform: scale(1.05);
 }
 
-.chat-item-avatar svg {
+.chat-item-avatar svg,
+.chat-item-avatar img {
     display: block;
+    object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-.header-avatar-mini svg {
+.header-avatar-mini svg,
+.header-avatar-mini img {
     display: block;
+    object-fit: contain;
 }
 
-.avatar-large-emoji svg {
+.avatar-large-emoji svg,
+.avatar-large-emoji img {
     display: block;
+    object-fit: contain;
     filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
+#rename-agent-icon-slot svg,
+#rename-agent-icon-slot img {
+    display: block;
+    object-fit: contain;
 }
 
 .chat-item-content {

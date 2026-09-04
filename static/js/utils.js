@@ -288,20 +288,9 @@ const AGENT_METADATA = {
     'agy': {
         name: 'Google Antigravity',
         color: '#4285F4',
-        bgGradient: 'linear-gradient(135deg, rgba(66, 133, 244, 0.22), rgba(138, 43, 226, 0.3))',
+        bgGradient: 'linear-gradient(135deg, rgba(66, 133, 244, 0.18), rgba(234, 67, 53, 0.15))',
         getSvg: (size) => `
-            <svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="9.5" stroke="#4285F4" stroke-width="1.8" stroke-dasharray="3.5 2"/>
-                <path d="M12 4.5L16.5 13.5H7.5L12 4.5Z" fill="url(#grad-agy-${size})"/>
-                <circle cx="12" cy="16.5" r="1.8" fill="#00F0FF"/>
-                <defs>
-                    <linearGradient id="grad-agy-${size}" x1="7.5" y1="4.5" x2="16.5" y2="13.5" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#4285F4"/>
-                        <stop offset="0.6" stop-color="#8A2BE2"/>
-                        <stop offset="1" stop-color="#00F0FF"/>
-                    </linearGradient>
-                </defs>
-            </svg>`
+            <img src="/Google-Antigravity-Icon-Full-Color.png" width="${size}" height="${size}" alt="Google Antigravity" style="width:${size}px; height:${size}px; object-fit:contain; display:block;" />`
     },
     'claude': {
         name: 'Anthropic Claude',
@@ -466,10 +455,7 @@ const AGENT_METADATA = {
         color: '#FFFFFF',
         bgGradient: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(24, 24, 27, 0.6))',
         getSvg: (size) => `
-            <svg viewBox="0 0 800 800" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#ffffff" fill-rule="evenodd" d="M165.29 165.29 H517.36 V400 H400 V517.36 H282.65 V634.72 H165.29 Z M282.65 282.65 V400 H400 V282.65 Z"/>
-                <path fill="#ffffff" d="M517.36 400 H634.72 V634.72 H517.36 Z"/>
-            </svg>`
+            <img src="/pi.svg" width="${size}" height="${size}" alt="Pi Agent" style="width:${size}px; height:${size}px; object-fit:contain; display:block;" />`
     },
     'omp': {
         name: 'OMP Agent',

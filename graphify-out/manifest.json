@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "static/js/utils.js": {
-    "mtime": 1788540382.1294844,
-    "ast_hash": "45fedc81056234281b0cc46a327eccdf",
+    "mtime": 1788540764.0830421,
+    "ast_hash": "9a91830b197e0d61c411c6b2df77ffcf",
     "semantic_hash": ""
   },
   "static/manifest.json": {
@@ -100,8 +100,8 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788540408.4344597,
-    "ast_hash": "5b68f78ebe0391cfcb54f4877e9c153e",
+    "mtime": 1788540802.705814,
+    "ast_hash": "fc7d1aefd409d9ae5d5a72fd86519e81",
     "semantic_hash": ""
   },
   "static/login.html": {
@@ -137,6 +137,16 @@
   "static/vendor/addon-webgl.js": {
     "mtime": 1788487286.8536718,
     "ast_hash": "888cc5004f5111556bf8b3d8ed881799",
+    "semantic_hash": ""
+  },
+  "static/Google-Antigravity-Icon-Full-Color.png": {
+    "mtime": 1788540501.7146537,
+    "ast_hash": "e4a079be0aff31e46ac210e471911eaa",
+    "semantic_hash": ""
+  },
+  "static/pi.svg": {
+    "mtime": 1788540646.185914,
+    "ast_hash": "9d637b26ff317e576b2fe5ee63c8766a",
     "semantic_hash": ""
   }
 }
