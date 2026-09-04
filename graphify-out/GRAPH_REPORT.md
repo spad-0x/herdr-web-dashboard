@@ -1,16 +1,16 @@
 # Graph Report - herdr-web-dashboard  (2026-09-04)
 
 ## Corpus Check
-- 21 files · ~26,014 words
+- 21 files · ~28,795 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1149 nodes · 2492 edges · 64 communities (43 shown, 21 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 41 edges (avg confidence: 0.79)
+- 1161 nodes · 2528 edges · 53 communities (37 shown, 16 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 50 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ac5ac57e`
+- Built from commit: `461616a3`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -39,13 +39,10 @@
 - [[_COMMUNITY_Community 21|Community 21]]
 - [[_COMMUNITY_Community 22|Community 22]]
 - [[_COMMUNITY_Community 23|Community 23]]
-- [[_COMMUNITY_Community 24|Community 24]]
-- [[_COMMUNITY_Community 25|Community 25]]
 - [[_COMMUNITY_Community 26|Community 26]]
 - [[_COMMUNITY_Community 27|Community 27]]
 - [[_COMMUNITY_Community 28|Community 28]]
 - [[_COMMUNITY_Community 29|Community 29]]
-- [[_COMMUNITY_Community 30|Community 30]]
 - [[_COMMUNITY_Community 31|Community 31]]
 - [[_COMMUNITY_Community 32|Community 32]]
 - [[_COMMUNITY_Community 33|Community 33]]
@@ -53,26 +50,18 @@
 - [[_COMMUNITY_Community 35|Community 35]]
 - [[_COMMUNITY_Community 37|Community 37]]
 - [[_COMMUNITY_Community 38|Community 38]]
-- [[_COMMUNITY_Community 39|Community 39]]
 - [[_COMMUNITY_Community 40|Community 40]]
 - [[_COMMUNITY_Community 41|Community 41]]
 - [[_COMMUNITY_Community 42|Community 42]]
 - [[_COMMUNITY_Community 43|Community 43]]
-- [[_COMMUNITY_Community 44|Community 44]]
 - [[_COMMUNITY_Community 45|Community 45]]
-- [[_COMMUNITY_Community 46|Community 46]]
 - [[_COMMUNITY_Community 48|Community 48]]
-- [[_COMMUNITY_Community 49|Community 49]]
 - [[_COMMUNITY_Community 50|Community 50]]
 - [[_COMMUNITY_Community 51|Community 51]]
-- [[_COMMUNITY_Community 52|Community 52]]
-- [[_COMMUNITY_Community 53|Community 53]]
-- [[_COMMUNITY_Community 54|Community 54]]
 - [[_COMMUNITY_Community 55|Community 55]]
 - [[_COMMUNITY_Community 58|Community 58]]
 - [[_COMMUNITY_Community 59|Community 59]]
 - [[_COMMUNITY_Community 60|Community 60]]
-- [[_COMMUNITY_Community 61|Community 61]]
 - [[_COMMUNITY_Community 63|Community 63]]
 
 ## God Nodes (most connected - your core abstractions)
@@ -102,179 +91,155 @@
 ## Import Cycles
 - None detected.
 
-## Communities (64 total, 21 thin omitted)
+## Communities (53 total, 16 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.10
-Nodes (3): _batchedMemoryCleanup(), h(), scroll()
+Cohesion: 0.12
+Nodes (4): _batchedMemoryCleanup(), h(), _reflowSmaller(), scroll()
 
 ### Community 2 - "Community 2"
 Cohesion: 0.04
-Nodes (25): _(), _clearLiveRegion(), compositionupdate(), _createElement(), _doRefreshDecorations(), _equalEvents(), flush(), get() (+17 more)
+Nodes (33): _(), clearListeners(), _clearLiveRegion(), compositionend(), compositionupdate(), dispose(), _equalEvents(), _evalLazyOptionalParams() (+25 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.14
-Nodes (11): clearTextureAtlas(), _createAccessibilityTreeNode(), _createSelectionElement(), _fullRefresh(), _handleBoundaryFocus(), _handleResize(), handleSelectionChanged(), _refreshRowDimensions() (+3 more)
+Cohesion: 0.31
+Nodes (8): _createAccessibilityTreeNode(), _fullRefresh(), _handleBoundaryFocus(), _handleResize(), _refreshRowDimensions(), _refreshRowElements(), _refreshRowsDimensions(), setRenderer()
 
 ### Community 4 - "Community 4"
-Cohesion: 0.06
-Nodes (52): appendUserBubble(), renderActiveChatFromTerminal(), scrollChatToBottom(), updateChatContent(), renderChatsList(), setMode(), setScreen(), toggleMode() (+44 more)
+Cohesion: 0.05
+Nodes (60): appendUserBubble(), renderActiveChatFromTerminal(), scrollChatToBottom(), updateChatContent(), renderChatsList(), setMode(), setScreen(), toggleMode() (+52 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.09
-Nodes (3): createRow(), i(), v()
+Cohesion: 0.07
+Nodes (10): _addStyle(), _applyMinimumContrast(), createRow(), getColor(), _getContrastCache(), i(), modifyColors(), restoreColor() (+2 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.09
-Nodes (32): BaseHTTPRequestHandler, check_is_agent(), create_session(), DashboardHandler, ensure_auth_credentials(), ensure_ssl_certificates(), get_aggregated_state(), get_all_slash_commands() (+24 more)
+Nodes (34): BaseHTTPRequestHandler, check_is_agent(), create_session(), DashboardHandler, ensure_auth_credentials(), ensure_ssl_certificates(), get_aggregated_state(), get_all_slash_commands() (+26 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.08
-Nodes (23): _cancelCallback(), clear(), clearListeners(), constructor(), debug(), dispose(), error(), _evalLazyOptionalParams() (+15 more)
+Cohesion: 0.06
+Nodes (26): C(), _cancelCallback(), clear(), clearListeners(), constructor(), debug(), dispose(), error() (+18 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.12
-Nodes (4): c(), clearHandler(), registerHandler(), values()
+Cohesion: 0.13
+Nodes (3): c(), clearHandler(), registerHandler()
 
 ### Community 11 - "Community 11"
-Cohesion: 0.15
-Nodes (15): _addMouseDownListeners(), _areCoordsInSelection(), _getMouseBufferCoords(), getWrappedRangeForLine(), _handleDoubleClick(), _handleIncrementalClick(), _handleMouseDown(), _handleSingleClick() (+7 more)
+Cohesion: 0.10
+Nodes (24): _addMouseDownListeners(), _areCoordsInSelection(), areSelectionValuesReversed(), finalSelectionEnd(), finalSelectionStart(), _fireEventIfSelectionChanged(), _fireOnSelectionChange(), _getMouseBufferCoords() (+16 more)
 
 ### Community 12 - "Community 12"
 Cohesion: 0.11
 Nodes (17): 1. Clone & Start, 2. Access from Any Device, 3. Install as Native PWA, 🧭 Adaptive Navigation & Terminal Console, 💬 Conversational Experience & Semantic Parsing, Custom Port or Binding, 🔒 Enterprise-Grade Security, Herdr Web Dashboard 🐏 ⚡ 🔒 (+9 more)
 
 ### Community 13 - "Community 13"
-Cohesion: 0.14
-Nodes (12): clearSelection(), disable(), _dragScroll(), _fireEventIfSelectionChanged(), _fireOnSelectionChange(), handleTrim(), _refreshRows(), _removeMouseDownListeners() (+4 more)
+Cohesion: 0.12
+Nodes (11): clearSelection(), deregister(), disable(), _dragScroll(), _handleBufferActivate(), handleTrim(), _refreshRows(), _removeMouseDownListeners() (+3 more)
 
-### Community 15 - "Community 15"
-Cohesion: 0.18
-Nodes (6): _addCallbacks(), n(), o, provideLinks(), forEachByKey(), t()
+### Community 14 - "Community 14"
+Cohesion: 0.07
+Nodes (13): addLineToLink(), addMarker(), _cancelCallback(), charProperties(), _getEntryIdKey(), loadAddon(), n(), r() (+5 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.11
+Cohesion: 0.10
 Nodes (11): HerdrClient, Send plain text to a pane and optionally press Enter., Send key combinations like ['enter'], ['ctrl+c'], ['esc'], ['up'], ['down']., Send prompt to a designated agent., Resize the underlying PTY for a pane via ioctl(TIOCSWINSZ) with SIGWINCH., Remove ANSI escape sequences from terminal output., Check if Herdr Unix socket is available and responsive., Send a JSON-RPC request to Herdr socket and return parsed response. (+3 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.14
-Nodes (14): _announceCharacters(), _askForLink(), _checkLinkProviderResult(), getBufferElements(), getCss(), getLine(), getLinkData(), getService() (+6 more)
+Cohesion: 0.22
+Nodes (8): _announceCharacters(), _createSelectionElement(), getBufferElements(), handleSelectionChanged(), _renderRows(), selectionText(), translateBufferLineToString(), translateToString()
 
 ### Community 18 - "Community 18"
-Cohesion: 0.09
+Cohesion: 0.08
 Nodes (3): P, shouldColumnSelect(), triggerDataEvent()
 
+### Community 19 - "Community 19"
+Cohesion: 0.50
+Nodes (5): _createElement(), _doRefreshDecorations(), _refreshStyle(), _refreshXPosition(), _renderDecoration()
+
 ### Community 20 - "Community 20"
-Cohesion: 0.11
-Nodes (19): addEncoding(), addProtocol(), clear(), constructor(), _fireOnCanvasResize(), _getCorrectBufferLength(), handleCharSizeChanged(), handleDevicePixelRatioChange() (+11 more)
+Cohesion: 0.09
+Nodes (23): addEncoding(), addProtocol(), addRefreshCallback(), clear(), constructor(), _fireOnCanvasResize(), _getCorrectBufferLength(), handleCharSizeChanged() (+15 more)
 
 ### Community 21 - "Community 21"
-Cohesion: 0.16
-Nodes (3): fillViewportRows(), init(), o()
+Cohesion: 0.07
+Nodes (13): a(), _convertViewportColToCharacterIndex(), error(), fillViewportRows(), getCell(), getJoinedCharacters(), _getJoinedRanges(), _getWordAt() (+5 more)
 
 ### Community 22 - "Community 22"
 Cohesion: 0.15
 Nodes (12): background_color, categories, description, display, icons, name, orientation, scope (+4 more)
-
-### Community 23 - "Community 23"
-Cohesion: 0.40
-Nodes (5): _addStyle(), _applyMinimumContrast(), getColor(), _getContrastCache(), setColor()
-
-### Community 24 - "Community 24"
-Cohesion: 0.24
-Nodes (5): addLineToLink(), addMarker(), _getEntryIdKey(), loadAddon(), registerLink()
 
 ### Community 26 - "Community 26"
 Cohesion: 0.18
 Nodes (11): addDecoration(), _addLineToZone(), _lineAdjacentToZone(), _lineIntersectsZone(), _refreshCanvasDimensions(), _refreshColorZonePadding(), _refreshDecorations(), _refreshDrawConstants() (+3 more)
 
 ### Community 27 - "Community 27"
-Cohesion: 0.15
-Nodes (17): areSelectionValuesReversed(), _clearCurrentLink(), _createLinkUnderlineEvent(), finalSelectionEnd(), finalSelectionStart(), _fireUnderlineEvent(), getCoords(), _getMouseEventScrollAmount() (+9 more)
-
-### Community 28 - "Community 28"
 Cohesion: 0.13
-Nodes (4): compositionstart(), handleFocus(), l, syncScrollArea()
+Nodes (16): _askForLink(), _checkLinkProviderResult(), _clearCurrentLink(), compositionstart(), _createLinkUnderlineEvent(), _fireUnderlineEvent(), getCoords(), handleFocus() (+8 more)
 
 ### Community 29 - "Community 29"
 Cohesion: 0.29
 Nodes (10): _applyScrollModifier(), _bubbleScroll(), _clearSmoothScrollState(), getLinesScrolled(), _getPixelsScrolled(), handleTouchMove(), handleWheel(), scrollLines() (+2 more)
 
-### Community 30 - "Community 30"
-Cohesion: 0.16
-Nodes (5): addRefreshCallback(), _queueRefresh(), register(), _registerDecorationListeners(), _registerDimensionChangeListeners()
+### Community 32 - "Community 32"
+Cohesion: 0.22
+Nodes (3): addEscHandler(), registerEscHandler(), values()
 
-### Community 33 - "Community 33"
-Cohesion: 0.05
-Nodes (4): C(), i(), resolve(), s
+### Community 34 - "Community 34"
+Cohesion: 0.12
+Nodes (5): h, n, register(), resolve(), w()
 
 ### Community 38 - "Community 38"
-Cohesion: 0.19
-Nodes (7): clearRange(), end(), hook(), put(), reset(), _start(), unhook()
-
-### Community 39 - "Community 39"
-Cohesion: 0.18
-Nodes (4): _cancelCallback(), r(), _requestCallback(), set()
+Cohesion: 0.17
+Nodes (8): clearRange(), decode(), end(), hook(), put(), reset(), _start(), unhook()
 
 ### Community 40 - "Community 40"
-Cohesion: 0.15
-Nodes (9): clearMarkers(), getBlankLine(), getNullCell(), markDirty(), markRangeDirty(), _reflow(), _reflowLarger(), _reflowLargerAdjustViewport() (+1 more)
+Cohesion: 0.22
+Nodes (4): getLinkData(), getNullCell(), markDirty(), provideLinks()
 
 ### Community 41 - "Community 41"
 Cohesion: 0.60
 Nodes (3): initServiceWorker(), subscribeUserToPush(), urlBase64ToUint8Array()
 
 ### Community 43 - "Community 43"
-Cohesion: 0.10
-Nodes (15): clearAllMarkers(), clearListeners(), delete(), deregister(), dispose(), getKeyIterator(), _handleBufferActivate(), insert() (+7 more)
+Cohesion: 0.06
+Nodes (19): _addCallbacks(), n(), o, provideLinks(), clearAllMarkers(), clearMarkers(), delete(), forEachByKey() (+11 more)
 
-### Community 44 - "Community 44"
-Cohesion: 0.50
-Nodes (4): compositionend(), _finalizeComposition(), _handleAnyTextareaChanges(), keydown()
-
-### Community 46 - "Community 46"
-Cohesion: 0.30
-Nodes (6): _convertViewportColToCharacterIndex(), getCell(), getJoinedCharacters(), _getWordAt(), _isCharWordSeparator(), _stringRangesToCellRanges()
-
-### Community 51 - "Community 51"
-Cohesion: 0.15
-Nodes (4): h, m(), p, register()
-
-### Community 53 - "Community 53"
+### Community 55 - "Community 55"
 Cohesion: 0.29
-Nodes (7): error(), _evalLazyOptionalParams(), _getJoinedRanges(), info(), _log(), _mergeRanges(), trace()
+Nodes (3): getBlankLine(), markAllDirty(), markRangeDirty()
 
 ### Community 58 - "Community 58"
-Cohesion: 0.16
-Nodes (5): createInstance(), enable(), event(), hasRenderer(), setService()
+Cohesion: 0.11
+Nodes (4): createInstance(), enable(), hasRenderer(), setService()
 
 ### Community 59 - "Community 59"
-Cohesion: 0.12
-Nodes (6): activeProtocol(), debug(), fire(), _handleScroll(), resize(), w()
+Cohesion: 0.09
+Nodes (11): activeProtocol(), debug(), fire(), get(), _handleScroll(), _measure(), _reflow(), _reflowLarger() (+3 more)
 
 ### Community 60 - "Community 60"
-Cohesion: 0.15
-Nodes (3): addOscHandler(), registerOscHandler(), setHandlerFallback()
+Cohesion: 0.12
+Nodes (5): addDcsHandler(), addOscHandler(), registerDcsHandler(), registerOscHandler(), setHandlerFallback()
 
 ## Knowledge Gaps
-- **29 isolated node(s):** `filteredSlashCommands`, `State`, `DOM`, `TERMINAL_THEMES`, `name` (+24 more)
+- **30 isolated node(s):** `filteredSlashCommands`, `State`, `DOM`, `TERMINAL_THEMES`, `AGENT_METADATA` (+25 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `_()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 5`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 13`, `Community 14`, `Community 15`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`, `Community 30`, `Community 32`, `Community 38`, `Community 39`, `Community 40`, `Community 43`, `Community 44`, `Community 46`, `Community 49`, `Community 50`, `Community 52`, `Community 53`, `Community 54`, `Community 55`, `Community 58`, `Community 59`, `Community 60`, `Community 63`?**
-  _High betweenness centrality (0.312) - this node is a cross-community bridge._
-- **Why does `k` connect `Community 1` to `Community 0`, `Community 32`, `Community 2`, `Community 36`, `Community 38`, `Community 40`, `Community 46`, `Community 17`, `Community 18`, `Community 19`, `Community 52`, `Community 50`, `Community 55`, `Community 24`, `Community 59`, `Community 60`, `Community 62`, `Community 63`?**
-  _High betweenness centrality (0.078) - this node is a cross-community bridge._
-- **Why does `d` connect `Community 8` to `Community 2`, `Community 3`, `Community 38`, `Community 9`, `Community 43`, `Community 13`, `Community 18`, `Community 20`, `Community 24`, `Community 58`, `Community 28`, `Community 30`, `Community 63`?**
-  _High betweenness centrality (0.053) - this node is a cross-community bridge._
+- **Why does `_()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 5`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 13`, `Community 14`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 23`, `Community 26`, `Community 27`, `Community 28`, `Community 29`, `Community 32`, `Community 38`, `Community 40`, `Community 43`, `Community 50`, `Community 55`, `Community 58`, `Community 59`, `Community 60`, `Community 63`?**
+  _High betweenness centrality (0.313) - this node is a cross-community bridge._
+- **Why does `k` connect `Community 1` to `Community 32`, `Community 0`, `Community 2`, `Community 36`, `Community 38`, `Community 40`, `Community 18`, `Community 50`, `Community 55`, `Community 59`, `Community 60`, `Community 63`?**
+  _High betweenness centrality (0.095) - this node is a cross-community bridge._
+- **Why does `d` connect `Community 8` to `Community 2`, `Community 38`, `Community 9`, `Community 43`, `Community 13`, `Community 18`, `Community 20`, `Community 23`, `Community 24`, `Community 58`, `Community 59`, `Community 28`, `Community 63`?**
+  _High betweenness centrality (0.061) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `d` (e.g. with `.restoreIndexedColor()` and `.setOrReportIndexedColor()`) actually correct?**
   _`d` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Remove ANSI escape sequences from terminal output.`, `Check if Herdr Unix socket is available and responsive.`, `Send a JSON-RPC request to Herdr socket and return parsed response.` to the rest of the system?**
-  _49 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _50 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.09881422924901186 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1225296442687747 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.09659090909090909 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08097165991902834 - nodes in this community are weakly interconnected._

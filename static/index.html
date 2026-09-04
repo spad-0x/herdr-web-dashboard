@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/vendor/xterm.css">
     
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="/style.css?v=20260904_theme_sync">
+    <link rel="stylesheet" href="/style.css?v=20260904_agent_icons">
 </head>
 <body>
     <div class="app-root" id="app-root">
@@ -358,11 +358,18 @@
                     <span class="avatar-large-emoji">🐏</span>
                     <span class="avatar-online-ring"></span>
                 </div>
-                <h2 class="contact-hero-name" id="contact-hero-name">Herdr Agent</h2>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <h2 class="contact-hero-name" id="contact-hero-name">Herdr Agent</h2>
+                    <button class="btn-edit-contact-name" id="btn-edit-contact-name" title="Rinomina agente">✏️</button>
+                </div>
                 <div class="contact-hero-subtitle" id="contact-hero-subtitle">workspace • online</div>
 
                 <!-- Quick Action Buttons (WhatsApp Style) -->
                 <div class="contact-quick-actions">
+                    <button class="quick-action-pill" id="btn-quick-rename">
+                        <span class="quick-action-icon">✏️</span>
+                        <span class="quick-action-label">Rinomina</span>
+                    </button>
                     <button class="quick-action-pill" id="btn-quick-chat">
                         <span class="quick-action-icon">💬</span>
                         <span class="quick-action-label">Chat</span>
@@ -439,6 +446,32 @@
             </div>
         </dialog>
 
+        <!-- Rename Agent Dialog Modal -->
+        <dialog class="app-dialog" id="dialog-rename-agent">
+            <div class="dialog-content">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <h3 style="margin: 0; font-size: 16px; font-weight: 700;">Rinomina Agente</h3>
+                    <button type="button" class="btn-mini-action" id="btn-rename-dialog-x" style="font-size: 16px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; padding: 4px;">✕</button>
+                </div>
+                <div id="rename-agent-preview" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); border-radius: 10px; margin-top: 4px;">
+                    <div id="rename-agent-icon-slot" style="width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--border-strong); flex-shrink: 0;"></div>
+                    <div style="min-width: 0; flex: 1;">
+                        <div id="rename-agent-orig-name" style="font-size: 14px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Agente</div>
+                        <div id="rename-agent-subtitle" style="font-size: 11.5px; color: var(--text-secondary); font-family: var(--font-mono);">Pannello</div>
+                    </div>
+                </div>
+                <label for="input-rename-agent-name" style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Nome personalizzato:</label>
+                <input type="text" id="input-rename-agent-name" placeholder="Es. Claude Senior Dev, Jarvis..." maxlength="50" autocomplete="off" style="font-family: inherit;">
+                <div class="dialog-buttons" style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <button type="button" class="btn-dialog-cancel" id="btn-rename-reset" style="color: var(--warning); font-size: 12px; background: transparent; padding: 4px 0; cursor: pointer; text-decoration: underline;" title="Reimposta al nome predefinito">Ripristina originale</button>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" class="btn-dialog-cancel" id="btn-rename-cancel">Annulla</button>
+                        <button type="button" class="btn-dialog-confirm" id="btn-rename-confirm">Salva</button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+
         <!-- Toast Notifications Shelf -->
         <div class="toast-shelf" id="toast-shelf"></div>
     </div>
@@ -451,16 +484,16 @@
 
     <!-- Main Controller -->
     <!-- Modular Component Architecture -->
-    <script src="/js/state.js?v=20260904_terminal_only"></script>
-    <script src="/js/utils.js?v=20260904_terminal_only"></script>
-    <script src="/js/terminal.js?v=20260904_terminal_only"></script>
-    <script src="/js/settings.js?v=20260904_terminal_only"></script>
-    <script src="/js/chats-list.js?v=20260904_terminal_only"></script>
-    <script src="/js/chat.js?v=20260904_terminal_only"></script>
-    <script src="/js/input-bar.js?v=20260904_terminal_only"></script>
-    <script src="/js/stream.js?v=20260904_terminal_only"></script>
-    <script src="/js/app-init.js?v=20260904_terminal_only"></script>
-    <script src="/push-helper.js?v=20260904_terminal_only"></script>
-    <script src="/app.js?v=20260904_terminal_only"></script>
+    <script src="/js/state.js?v=20260904_agent_icons"></script>
+    <script src="/js/utils.js?v=20260904_agent_icons"></script>
+    <script src="/js/terminal.js?v=20260904_agent_icons"></script>
+    <script src="/js/settings.js?v=20260904_agent_icons"></script>
+    <script src="/js/chats-list.js?v=20260904_agent_icons"></script>
+    <script src="/js/chat.js?v=20260904_agent_icons"></script>
+    <script src="/js/input-bar.js?v=20260904_agent_icons"></script>
+    <script src="/js/stream.js?v=20260904_agent_icons"></script>
+    <script src="/js/app-init.js?v=20260904_agent_icons"></script>
+    <script src="/push-helper.js?v=20260904_agent_icons"></script>
+    <script src="/app.js?v=20260904_agent_icons"></script>
 </body>
 </html>

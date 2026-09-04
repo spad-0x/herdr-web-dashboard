@@ -171,6 +171,12 @@ class HerdrClient:
     def pane_focus(self, pane_id):
         return self.call("pane.focus", {"pane_id": pane_id})
 
+    def pane_rename(self, pane_id, label=None):
+        return self.call("pane.rename", {"pane_id": pane_id, "label": label})
+
+    def agent_rename(self, target, name=None):
+        return self.call("agent.rename", {"target": target, "name": name})
+
     def resize_pane_pty(self, pane_id, cols, rows):
         """Resize the underlying PTY for a pane via ioctl(TIOCSWINSZ) with SIGWINCH."""
         try:

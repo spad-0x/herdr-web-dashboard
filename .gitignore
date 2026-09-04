@@ -7,6 +7,8 @@ auth.json
 auth.json.*
 sessions.json
 sessions.json.*
+agent_names.json
+agent_names.json.*
 .env
 .env.*
 !.env.example

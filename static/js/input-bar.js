@@ -7,12 +7,14 @@ function renderTabs(tabs) {
         const pill = document.createElement('button');
         pill.className = `tab-pill ${tab.tab_id === State.activeTabId ? 'active' : ''}`;
         
-        let icon = '📑';
-        const hasAgent = tab.panes && tab.panes.some(p => p.agent || p.status === 'working' || p.status === 'blocked');
-        if (hasAgent) icon = '🤖';
+        let iconHtml = '<span>📑</span>';
+        const agentPane = tab.panes && tab.panes.find(p => p.agent || p.status === 'working' || p.status === 'blocked' || (typeof check_is_agent === 'function' && check_is_agent(p)));
+        if (agentPane && typeof getAgentIconSvg === 'function') {
+            iconHtml = `<span style="display:inline-flex; align-items:center;">${getAgentIconSvg(agentPane.agent || agentPane.title || agentPane.command, 14)}</span>`;
+        }
 
         pill.innerHTML = `
-            <span>${icon}</span>
+            ${iconHtml}
             <span>${tab.label || 'Tab'}</span>
             <span class="tab-close-btn" title="Chiudi">✕</span>
         `;
@@ -675,7 +677,8 @@ function openContactInfo() {
     
     // Find active pane
     const activePane = State.panes.find(p => p.pane_id === State.activePaneId) || State.panes[0] || {};
-    const paneName = activePane.agent || activePane.title || 'Herdr Agent';
+    const defaultName = (typeof getAgentDefaultName === 'function') ? getAgentDefaultName(activePane.agent || activePane.title || activePane.command) : 'Agente AI';
+    const paneName = activePane.label || activePane.custom_name || activePane.agent || activePane.title || defaultName || 'Herdr Agent';
     const cwd = activePane.cwd || activeWs.cwd || '~';
     const branch = activePane.branch || activeWs.branch || null;
     const cmd = activePane.command || activePane.title || '-';
@@ -683,6 +686,18 @@ function openContactInfo() {
     if (DOM.contactHeroName) {
         DOM.contactHeroName.textContent = paneName;
     }
+
+    const heroAvatar = DOM.bottomSheet ? DOM.bottomSheet.querySelector('.avatar-large-emoji') : null;
+    if (heroAvatar && typeof getAgentIconSvg === 'function') {
+        heroAvatar.innerHTML = getAgentIconSvg(activePane.agent || activePane.title || activePane.command, 46);
+        const meta = getAgentMeta(activePane.agent || activePane.title || activePane.command);
+        const heroAvatarWrap = DOM.bottomSheet.querySelector('.contact-hero-avatar');
+        if (heroAvatarWrap) {
+            heroAvatarWrap.style.background = meta.bgGradient;
+            heroAvatarWrap.style.borderColor = `${meta.color}60`;
+        }
+    }
+
     if (DOM.contactHeroSubtitle) {
         const isWorking = (activePane.status === 'working' || activePane.is_running);
         DOM.contactHeroSubtitle.textContent = `${wsName} • ${isWorking ? '⚡ in esecuzione' : (activePane.status || 'online')}`;
@@ -727,10 +742,15 @@ function renderSheetPanes() {
         const item = document.createElement('div');
         item.className = `sheet-list-item ${pane.pane_id === State.activePaneId ? 'active' : ''}`;
         const branchBadge = pane.branch ? `<span style="color: var(--cyan); margin-left: 6px; font-size: 11px;">🌿 ${escapeHtml(pane.branch)}</span>` : '';
+        const paneDisplayName = pane.label || pane.custom_name || pane.agent || pane.title || `Pannello ${pane.pane_id}`;
+        const paneIcon = (typeof getAgentIconSvg === 'function') ? getAgentIconSvg(pane.agent || pane.title || pane.command, 16) : '🤖';
         item.innerHTML = `
-            <div>
-                <strong>${escapeHtml(pane.agent || pane.title || `Pannello ${pane.pane_id}`)}</strong>${branchBadge}
-                <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${escapeHtml(pane.cwd || '~')}</div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="display: inline-flex; align-items: center;">${paneIcon}</span>
+                <div>
+                    <strong>${escapeHtml(paneDisplayName)}</strong>${branchBadge}
+                    <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">${escapeHtml(pane.cwd || '~')}</div>
+                </div>
             </div>
             <div style="display: flex; gap: 8px; align-items: center;">
                 <span style="font-size: 11px; text-transform: uppercase; color: var(--cyan);">${escapeHtml(pane.status || 'idle')}</span>

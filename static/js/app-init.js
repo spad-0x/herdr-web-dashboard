@@ -70,6 +70,52 @@ function setupEventListeners() {
         });
     }
 
+    // Rename Agent Actions
+    if (DOM.btnEditContactName) {
+        DOM.btnEditContactName.addEventListener('click', (e) => {
+            e.stopPropagation();
+            triggerHaptic('light');
+            const activePane = (State.panes && State.panes.find(p => p.pane_id === State.activePaneId)) || {};
+            const curName = activePane.label || activePane.custom_name || activePane.agent || activePane.title;
+            openRenameAgentDialog(State.activePaneId, curName, activePane.agent || activePane.title);
+        });
+    }
+
+    if (DOM.btnQuickRename) {
+        DOM.btnQuickRename.addEventListener('click', (e) => {
+            e.stopPropagation();
+            triggerHaptic('light');
+            closeBottomSheet();
+            const activePane = (State.panes && State.panes.find(p => p.pane_id === State.activePaneId)) || {};
+            const curName = activePane.label || activePane.custom_name || activePane.agent || activePane.title;
+            openRenameAgentDialog(State.activePaneId, curName, activePane.agent || activePane.title);
+        });
+    }
+
+    if (DOM.btnRenameConfirm) {
+        DOM.btnRenameConfirm.addEventListener('click', () => handleRenameAgentSubmit(false));
+    }
+    if (DOM.btnRenameReset) {
+        DOM.btnRenameReset.addEventListener('click', () => handleRenameAgentSubmit(true));
+    }
+    if (DOM.btnRenameCancel) {
+        DOM.btnRenameCancel.addEventListener('click', closeRenameAgentDialog);
+    }
+    if (DOM.btnRenameDialogX) {
+        DOM.btnRenameDialogX.addEventListener('click', closeRenameAgentDialog);
+    }
+    if (DOM.inputRenameAgentName) {
+        DOM.inputRenameAgentName.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleRenameAgentSubmit(false);
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                closeRenameAgentDialog();
+            }
+        });
+    }
+
     // Tab Add
     DOM.btnAddTab.addEventListener('click', () => {
         triggerHaptic('light');

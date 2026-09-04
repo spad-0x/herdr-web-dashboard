@@ -2385,6 +2385,90 @@ html, body {
     border: 2px solid var(--bg-base);
 }
 
+.chat-item-working-dot {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--warning);
+    color: #000;
+    font-size: 9px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-base);
+    animation: pulse-working-badge 1.4s infinite;
+}
+
+@keyframes pulse-working-badge {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 171, 0, 0.6); }
+    70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(255, 171, 0, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 171, 0, 0); }
+}
+
+.btn-rename-agent-item {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    opacity: 0.5;
+    margin-left: 6px;
+    flex-shrink: 0;
+}
+
+.btn-rename-agent-item:hover,
+.btn-rename-agent-item:active {
+    color: var(--cyan);
+    background: rgba(0, 240, 255, 0.12);
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.btn-edit-contact-name {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    padding: 2px 7px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-edit-contact-name:hover,
+.btn-edit-contact-name:active {
+    background: rgba(0, 240, 255, 0.15);
+    color: var(--cyan);
+    border-color: var(--cyan);
+    transform: scale(1.05);
+}
+
+.chat-item-avatar svg {
+    display: block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.header-avatar-mini svg {
+    display: block;
+}
+
+.avatar-large-emoji svg {
+    display: block;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
 .chat-item-content {
     flex: 1;
     min-width: 0;

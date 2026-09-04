@@ -89,8 +89,26 @@ def send_web_push(title, body, data=None):
             json.dump(valid_subs, f, indent=2)
         return success_count
     except Exception as e:
-        print("[WebPush Error]", e)
+        print(f"Error sending push: {e}")
         return 0
+
+CUSTOM_NAMES_PATH = os.path.join(BASE_DIR, "agent_names.json")
+
+def load_custom_agent_names():
+    if os.path.exists(CUSTOM_NAMES_PATH):
+        try:
+            with open(CUSTOM_NAMES_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            return {}
+    return {}
+
+def save_custom_agent_names(names):
+    try:
+        with open(CUSTOM_NAMES_PATH, "w", encoding="utf-8") as f:
+            json.dump(names, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"Error saving custom agent names: {e}")
 
 
 def ensure_ssl_certificates():
@@ -633,6 +651,7 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
 
     workspaces = []
     all_detected_agents = []
+    custom_names = load_custom_agent_names()
 
     for ws in raw_workspaces:
         ws_id = ws.get("workspace_id") or ws.get("id")
@@ -657,7 +676,8 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
             for p in raw_panes:
                 if p.get("workspace_id") == ws_id and (p.get("tab_id") == t_id or not p.get("tab_id")):
                     p_id = p.get("pane_id")
-                    p_title = p.get("terminal_title_stripped") or p.get("terminal_title") or f"Pane {p_id}"
+                    p_label = custom_names.get(str(p_id)) or custom_names.get(p_id) or p.get("label")
+                    p_title = p_label or p.get("terminal_title_stripped") or p.get("terminal_title") or f"Pane {p_id}"
                     p_status = p.get("agent_status", "idle")
                     p_agent = p.get("agent")
                     p_cwd = p.get("foreground_cwd") or p.get("cwd") or "~"
@@ -680,6 +700,8 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                         "workspace_id": ws_id,
                         "tab_id": t_id,
                         "title": p_title,
+                        "label": p_label,
+                        "custom_name": p_label,
                         "command": p.get("terminal_title_stripped") or p.get("terminal_title"),
                         "cwd": p_cwd,
                         "branch": p_branch,
@@ -706,7 +728,10 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                             "workspace_id": ws_id,
                             "tab_id": t_id,
                             "ws_name": ws_label,
-                            "name": p_agent or p_title,
+                            "name": p_label or p_agent or p_title,
+                            "label": p_label,
+                            "custom_name": p_label,
+                            "agent": p_agent,
                             "title": p_title,
                             "status": p_status,
                             "cwd": p_cwd,
@@ -1187,6 +1212,39 @@ class DashboardHandler(BaseHTTPRequestHandler):
             res = herdr.pane_close(pane_id)
             return self.send_json(res)
 
+        # API: Rename Pane / Agent
+        if parsed.path in ("/api/agent/rename", "/api/pane/rename"):
+            pane_id = payload.get("pane_id") or payload.get("target")
+            new_name = (payload.get("name") or payload.get("label") or "").strip()
+            if not pane_id:
+                return self.send_json({"error": "Missing pane_id"}, status=400)
+            
+            # Save custom display name locally
+            custom_names = load_custom_agent_names()
+            if new_name:
+                custom_names[str(pane_id)] = new_name
+            else:
+                custom_names.pop(str(pane_id), None)
+            save_custom_agent_names(custom_names)
+
+            # Update Herdr daemon pane label
+            res_pane = herdr.pane_rename(pane_id, label=new_name if new_name else None)
+            
+            # Attempt agent.rename if valid lowercase slug
+            slug = re.sub(r'[^a-z0-9_-]', '', new_name.lower().replace(' ', '-'))[:32]
+            if slug and slug[0].isalpha():
+                try:
+                    herdr.agent_rename(pane_id, name=slug)
+                except Exception:
+                    pass
+            elif not new_name:
+                try:
+                    herdr.agent_rename(pane_id, name=None)
+                except Exception:
+                    pass
+
+            return self.send_json({"success": True, "pane_id": pane_id, "name": new_name, "pane": res_pane.get("result", {}).get("pane")})
+
         # API: Resize Terminal PTY
         if parsed.path in ("/api/terminal/resize", "/api/pane/resize"):
             pane_id = payload.get("pane_id")
@@ -1410,7 +1468,7 @@ def monitor_agents_background():
                 for p in panes:
                     pid = p.get("pane_id")
                     if not pid: continue
-                    title = p.get("agent") or p.get("title") or p.get("command") or f"Agente {pid}"
+                    title = p.get("label") or p.get("custom_name") or p.get("agent") or p.get("title") or p.get("command") or f"Agente {pid}"
                     is_running = bool(p.get("is_running") or p.get("status") == "working")
                     waiting_confirm = bool(p.get("waiting_confirm") or p.get("status") in ("waiting_confirm", "confirm", "blocked"))
                     current_states[pid] = {

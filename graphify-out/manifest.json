@@ -1,12 +1,12 @@
 {
   "herdr_client.py": {
-    "mtime": 1788520550.9895842,
-    "ast_hash": "52cfc07aea1cd8d859515c03574e6fd7",
+    "mtime": 1788539353.6030781,
+    "ast_hash": "c938fb3784d60f9c7b2c332ffb3b39d3",
     "semantic_hash": ""
   },
   "server.py": {
-    "mtime": 1788530437.378751,
-    "ast_hash": "5bc9c47e75fa0b5e588cb472d82c66f1",
+    "mtime": 1788539959.9543386,
+    "ast_hash": "7a93d31f1f211423efca4569abc5e606",
     "semantic_hash": ""
   },
   "static/app.js": {
@@ -15,8 +15,8 @@
     "semantic_hash": ""
   },
   "static/js/app-init.js": {
-    "mtime": 1788527876.6296089,
-    "ast_hash": "0e488cd566db000aa103d7bd120fcdb4",
+    "mtime": 1788539708.2327044,
+    "ast_hash": "1dacc2caaaab783e31dc591920971c7c",
     "semantic_hash": ""
   },
   "static/js/chat.js": {
@@ -25,13 +25,13 @@
     "semantic_hash": ""
   },
   "static/js/chats-list.js": {
-    "mtime": 1788527898.2305546,
-    "ast_hash": "f4d6284e7c0ebb10834608d7b5b1d11d",
+    "mtime": 1788539610.2692804,
+    "ast_hash": "23b4505e394aee1df1501703ee2cb5b8",
     "semantic_hash": ""
   },
   "static/js/input-bar.js": {
-    "mtime": 1788527423.1616855,
-    "ast_hash": "5936f277cd7d8fd08276db72d7b95d65",
+    "mtime": 1788539677.2105021,
+    "ast_hash": "b3ba263847cf2d6b300c55c75f20f1cc",
     "semantic_hash": ""
   },
   "static/js/settings.js": {
@@ -40,13 +40,13 @@
     "semantic_hash": ""
   },
   "static/js/state.js": {
-    "mtime": 1788527922.5231364,
-    "ast_hash": "83070fee54fcc82085ff0a7f76867eb0",
+    "mtime": 1788539558.7032263,
+    "ast_hash": "e3dcca993c53c487e444d6df596b6480",
     "semantic_hash": ""
   },
   "static/js/stream.js": {
-    "mtime": 1788487628.4659662,
-    "ast_hash": "ca36ad29ddeb54b7e5894d3509f547c9",
+    "mtime": 1788539637.2670698,
+    "ast_hash": "ef4830cc62760c325e59adc9e3230208",
     "semantic_hash": ""
   },
   "static/js/terminal.js": {
@@ -55,8 +55,8 @@
     "semantic_hash": ""
   },
   "static/js/utils.js": {
-    "mtime": 1788485463.1675065,
-    "ast_hash": "1cf47582fcdc082f6c9d5aff0d6d201e",
+    "mtime": 1788539513.9440422,
+    "ast_hash": "01dda4148cb5a0f1e4d66f0b0e704dc7",
     "semantic_hash": ""
   },
   "static/manifest.json": {
@@ -100,8 +100,8 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788527933.1305215,
-    "ast_hash": "fbbaf3d596708db6e30fdd69be59ce97",
+    "mtime": 1788539755.9215517,
+    "ast_hash": "bd89f8a710633d78647213bc943d2af3",
     "semantic_hash": ""
   },
   "static/login.html": {

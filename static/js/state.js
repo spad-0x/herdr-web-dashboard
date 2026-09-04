@@ -153,6 +153,18 @@ const DOM = {
     inputNewWsLabel: document.getElementById('input-new-ws-label'),
     btnDialogCancel: document.getElementById('btn-dialog-cancel'),
     btnDialogConfirm: document.getElementById('btn-dialog-confirm'),
+    // Rename Agent Dialog
+    dialogRenameAgent: document.getElementById('dialog-rename-agent'),
+    inputRenameAgentName: document.getElementById('input-rename-agent-name'),
+    btnRenameConfirm: document.getElementById('btn-rename-confirm'),
+    btnRenameCancel: document.getElementById('btn-rename-cancel'),
+    btnRenameReset: document.getElementById('btn-rename-reset'),
+    btnRenameDialogX: document.getElementById('btn-rename-dialog-x'),
+    renameAgentIconSlot: document.getElementById('rename-agent-icon-slot'),
+    renameAgentOrigName: document.getElementById('rename-agent-orig-name'),
+    renameAgentSubtitle: document.getElementById('rename-agent-subtitle'),
+    btnEditContactName: document.getElementById('btn-edit-contact-name'),
+    btnQuickRename: document.getElementById('btn-quick-rename'),
     // Toast Shelf
     toastShelf: document.getElementById('toast-shelf')
 };

@@ -127,8 +127,16 @@ function updateActiveAgentsBadge() {
 }
 
 function updateHeaderInfo(pane) {
-    const title = pane.agent || pane.title || 'Herdr Agent';
+    const defaultName = (typeof getAgentDefaultName === 'function') ? getAgentDefaultName(pane.agent || pane.title || pane.command) : 'Agente AI';
+    const title = pane.label || pane.custom_name || pane.agent || pane.title || defaultName || 'Herdr Agent';
     DOM.chatHeaderTitle.textContent = title;
+
+    if (DOM.headerAvatarMini && typeof getAgentIconSvg === 'function') {
+        const meta = getAgentMeta(pane.agent || pane.title || pane.command);
+        DOM.headerAvatarMini.innerHTML = getAgentIconSvg(pane.agent || pane.title || pane.command, 20);
+        DOM.headerAvatarMini.style.background = meta.bgGradient;
+        DOM.headerAvatarMini.style.borderColor = `${meta.color}50`;
+    }
 
     const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId);
     const wsName = (activeWs && (activeWs.name || activeWs.label)) || `Workspace ${State.activeWorkspaceId || ''}`;

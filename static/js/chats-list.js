@@ -248,6 +248,11 @@ function renderChatsList() {
             const isWorking = (pane.status === 'working' || pane.is_running);
             const isBlocked = (pane.status === 'blocked' || pane.waiting_confirm);
 
+            const agentMeta = getAgentMeta(pane.agent || pane.title || pane.command);
+            const defaultName = getAgentDefaultName(pane.agent || pane.title || pane.command);
+            const displayName = pane.label || pane.custom_name || pane.agent || pane.title || defaultName || `Agente #${pane.pane_id}`;
+            const agentIconSvg = getAgentIconSvg(pane.agent || pane.title || pane.command, 24);
+
             const item = document.createElement('div');
             item.className = `chat-item-row ${isActive ? 'active' : ''}`;
             
@@ -256,13 +261,13 @@ function renderChatsList() {
             if (pane.command) preview = `▶ ${pane.command}`;
 
             item.innerHTML = `
-                <div class="chat-item-avatar">
-                    <span>${isWorking ? '⚡' : '🤖'}</span>
-                    ${isActive ? '<span class="chat-item-online-dot"></span>' : ''}
+                <div class="chat-item-avatar agent-avatar-${agentMeta.key}" style="background: ${agentMeta.bgGradient}; border-color: ${agentMeta.color}40;">
+                    ${agentIconSvg}
+                    ${isWorking ? '<span class="chat-item-working-dot" title="In esecuzione">⚡</span>' : (isActive ? '<span class="chat-item-online-dot"></span>' : '')}
                 </div>
                 <div class="chat-item-content">
                     <div class="chat-item-top">
-                        <span class="chat-item-title">${escapeHtml(pane.agent || pane.title || `Agente #${pane.pane_id}`)}</span>
+                        <span class="chat-item-title">${escapeHtml(displayName)}</span>
                         <span class="chat-item-time">${escapeHtml(pane.ws_name || 'Spazio')}</span>
                     </div>
                     <div class="chat-item-bottom">
@@ -270,7 +275,22 @@ function renderChatsList() {
                         <span class="chat-item-badge">${escapeHtml(statusBadge)}</span>
                     </div>
                 </div>
+                <button class="btn-rename-agent-item" data-pane-id="${pane.pane_id}" title="Rinomina ${escapeHtml(displayName)}" aria-label="Rinomina ${escapeHtml(displayName)}">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </button>
             `;
+
+            const btnRename = item.querySelector('.btn-rename-agent-item');
+            if (btnRename) {
+                btnRename.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    triggerHaptic('medium');
+                    openRenameAgentDialog(pane.pane_id, displayName, pane.agent || pane.title);
+                });
+            }
 
             item.addEventListener('click', async () => {
                 triggerHaptic('light');
