@@ -18,40 +18,16 @@ function ensureWebglAddon() {
 }
 
 function initSubpixelScroll() {
-    if (!State.term || !State.term.element) return;
-    const viewport = State.term.element.querySelector('.xterm-viewport');
-    const screen = State.term.element.querySelector('.xterm-screen');
-    if (!viewport || !screen) return;
-
-    if (screen._subpixelScrollActive) return;
-    screen._subpixelScrollActive = true;
-    screen.style.willChange = 'transform';
-
-    let rAF = null;
-    const updateScrollTransform = () => {
-        if (!State.term || !State.term._core) return;
-        const core = State.term._core;
-        const renderService = core._renderService;
-        if (!renderService || !renderService.dimensions) return;
-        const rowHeight = renderService.dimensions.css.cell.height;
-        if (!rowHeight || rowHeight <= 0) return;
-
-        const scrollTop = viewport.scrollTop;
-        const ydisp = core._bufferService.buffer.ydisp;
-
-        // Subpixel continuity: cancels the row-jumping artifact of xterm's character grid
-        const offsetPx = (ydisp * rowHeight) - scrollTop;
-        screen.style.transform = `translate3d(0, ${offsetPx}px, 0)`;
-    };
-
-    viewport.addEventListener('scroll', () => {
-        if (rAF) cancelAnimationFrame(rAF);
-        rAF = requestAnimationFrame(updateScrollTransform);
-    }, { passive: true });
-
-    State.term.onScroll(updateScrollTransform);
-    State.term.onRender(updateScrollTransform);
-    updateScrollTransform();
+    // Deprecated: Subpixel transform translations caused screen flickering and live stream scroll lock.
+    // Native xterm with smoothScrollDuration: 0 provides rock-solid, jitter-free scrolling.
+    if (State.term && State.term.element) {
+        const screen = State.term.element.querySelector('.xterm-screen');
+        if (screen) {
+            screen.style.transform = '';
+            screen.style.willChange = '';
+            screen._subpixelScrollActive = false;
+        }
+    }
 }
 
 function initTouchScroll() {
@@ -165,6 +141,24 @@ function initTouchScroll() {
 
     DOM.terminalContainer.addEventListener('touchend', stopTracking, { passive: true });
     DOM.terminalContainer.addEventListener('touchcancel', stopTracking, { passive: true });
+
+    // Desktop/Trackpad wheel handler
+    DOM.terminalContainer.addEventListener('wheel', (e) => {
+        if (e.deltaY < 0) {
+            State.terminalAtBottom = false;
+            if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'flex';
+        } else if (e.deltaY > 0) {
+            setTimeout(() => {
+                if (State.term) {
+                    const buffer = State.term.buffer.active;
+                    if (buffer.viewportY >= (buffer.baseY - 1)) {
+                        State.terminalAtBottom = true;
+                        if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'none';
+                    }
+                }
+            }, 50);
+        }
+    }, { passive: true });
 }
 
 let lastSyncedCols = null;
@@ -243,8 +237,8 @@ function initTerminal() {
         theme: selectedTheme,
         scrollback: 6000,
         convertEol: true,
-        smoothScrollDuration: 250, // Animates viewport transitions smoothly in milliseconds
-        scrollSensitivity: 0.8,    // Balanced and natural feel for Mac trackpads and wheel
+        smoothScrollDuration: 0,   // MUST BE 0: eliminates 250ms animation delay, lag, and jitter during live streaming
+        scrollSensitivity: 1,      // Natural feel for Mac trackpads and wheel
         fastScrollSensitivity: 4
     });
 
@@ -296,8 +290,14 @@ function initTerminal() {
     State.term.onScroll(() => {
         const buffer = State.term.buffer.active;
         const atBottom = buffer.viewportY >= (buffer.baseY - 1);
-        State.terminalAtBottom = atBottom;
-        if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = atBottom ? 'none' : 'flex';
+        // Only update to false if user triggered the scroll (not an active programmatic write)
+        if (!State._isWritingToTerminal) {
+            State.terminalAtBottom = atBottom;
+            if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = atBottom ? 'none' : 'flex';
+        } else if (atBottom) {
+            State.terminalAtBottom = true;
+            if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'none';
+        }
     });
 
     if (DOM.btnScrollBottom) {

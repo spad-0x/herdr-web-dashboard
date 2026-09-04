@@ -1447,7 +1447,7 @@
       "label": "initTouchScroll()",
       "file_type": "code",
       "source_file": "static/js/terminal.js",
-      "source_location": "L57",
+      "source_location": "L33",
       "_origin": "ast",
       "id": "js_terminal_inittouchscroll",
       "community": 4,
@@ -1457,7 +1457,7 @@
       "label": "syncTerminalSizeWithBackend()",
       "file_type": "code",
       "source_file": "static/js/terminal.js",
-      "source_location": "L174",
+      "source_location": "L168",
       "_origin": "ast",
       "id": "js_terminal_syncterminalsizewithbackend",
       "community": 4,
@@ -1467,7 +1467,7 @@
       "label": "initResizeObserver()",
       "file_type": "code",
       "source_file": "static/js/terminal.js",
-      "source_location": "L200",
+      "source_location": "L194",
       "_origin": "ast",
       "id": "js_terminal_initresizeobserver",
       "community": 4,
@@ -1477,7 +1477,7 @@
       "label": "initTerminal()",
       "file_type": "code",
       "source_file": "static/js/terminal.js",
-      "source_location": "L230",
+      "source_location": "L224",
       "_origin": "ast",
       "id": "js_terminal_initterminal",
       "community": 4,
@@ -12333,9 +12333,9 @@
       "source_file": "server.py",
       "source_location": "L151",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server",
-      "target": "server_extract_agent_key",
-      "confidence_score": 1.0
+      "target": "server_extract_agent_key"
     },
     {
       "relation": "contains",
@@ -12403,9 +12403,9 @@
       "source_file": "server.py",
       "source_location": "L119",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server",
-      "target": "server_is_notification_allowed",
-      "confidence_score": 1.0
+      "target": "server_is_notification_allowed"
     },
     {
       "relation": "contains",
@@ -12443,9 +12443,9 @@
       "source_file": "server.py",
       "source_location": "L54",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server",
-      "target": "server_load_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_load_notification_settings"
     },
     {
       "relation": "contains",
@@ -12503,9 +12503,9 @@
       "source_file": "server.py",
       "source_location": "L73",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server",
-      "target": "server_save_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_save_notification_settings"
     },
     {
       "relation": "contains",
@@ -12533,9 +12533,9 @@
       "source_file": "server.py",
       "source_location": "L88",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server",
-      "target": "server_toggle_notification_target",
-      "confidence_score": 1.0
+      "target": "server_toggle_notification_target"
     },
     {
       "relation": "contains",
@@ -12554,9 +12554,9 @@
       "source_file": "server.py",
       "source_location": "L1162",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_dashboardhandler_do_get",
-      "target": "server_load_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_load_notification_settings"
     },
     {
       "relation": "calls",
@@ -12565,9 +12565,9 @@
       "source_file": "server.py",
       "source_location": "L120",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_is_notification_allowed",
-      "target": "server_load_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_load_notification_settings"
     },
     {
       "relation": "calls",
@@ -12576,9 +12576,9 @@
       "source_file": "server.py",
       "source_location": "L1638",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_monitor_agents_background",
-      "target": "server_load_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_load_notification_settings"
     },
     {
       "relation": "calls",
@@ -12587,9 +12587,9 @@
       "source_file": "server.py",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_save_notification_settings",
-      "target": "server_load_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_load_notification_settings"
     },
     {
       "relation": "calls",
@@ -12598,9 +12598,9 @@
       "source_file": "server.py",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_toggle_notification_target",
-      "target": "server_load_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_load_notification_settings"
     },
     {
       "relation": "calls",
@@ -12609,9 +12609,9 @@
       "source_file": "server.py",
       "source_location": "L1274",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_dashboardhandler_do_post",
-      "target": "server_save_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_save_notification_settings"
     },
     {
       "relation": "calls",
@@ -12620,9 +12620,9 @@
       "source_file": "server.py",
       "source_location": "L117",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_toggle_notification_target",
-      "target": "server_save_notification_settings",
-      "confidence_score": 1.0
+      "target": "server_save_notification_settings"
     },
     {
       "relation": "calls",
@@ -12631,9 +12631,9 @@
       "source_file": "server.py",
       "source_location": "L1313",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_dashboardhandler_do_post",
-      "target": "server_toggle_notification_target",
-      "confidence_score": 1.0
+      "target": "server_toggle_notification_target"
     },
     {
       "relation": "calls",
@@ -12642,9 +12642,9 @@
       "source_file": "server.py",
       "source_location": "L1677",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_monitor_agents_background",
-      "target": "server_is_notification_allowed",
-      "confidence_score": 1.0
+      "target": "server_is_notification_allowed"
     },
     {
       "relation": "calls",
@@ -12653,9 +12653,9 @@
       "source_file": "server.py",
       "source_location": "L172",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_send_web_push",
-      "target": "server_is_notification_allowed",
-      "confidence_score": 1.0
+      "target": "server_is_notification_allowed"
     },
     {
       "relation": "calls",
@@ -12664,9 +12664,9 @@
       "source_file": "server.py",
       "source_location": "L1660",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_monitor_agents_background",
-      "target": "server_extract_agent_key",
-      "confidence_score": 1.0
+      "target": "server_extract_agent_key"
     },
     {
       "relation": "calls",
@@ -12696,9 +12696,9 @@
       "source_file": "server.py",
       "source_location": "L164",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_164",
-      "target": "server_send_web_push",
-      "confidence_score": 1.0
+      "target": "server_send_web_push"
     },
     {
       "relation": "calls",
@@ -12739,9 +12739,9 @@
       "source_file": "server.py",
       "source_location": "L250",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_250",
-      "target": "server_ensure_ssl_certificates",
-      "confidence_score": 1.0
+      "target": "server_ensure_ssl_certificates"
     },
     {
       "relation": "calls",
@@ -12760,9 +12760,9 @@
       "source_file": "server.py",
       "source_location": "L312",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_312",
-      "target": "server_ensure_auth_credentials",
-      "confidence_score": 1.0
+      "target": "server_ensure_auth_credentials"
     },
     {
       "relation": "calls",
@@ -12913,9 +12913,9 @@
       "source_file": "server.py",
       "source_location": "L398",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_398",
-      "target": "server_get_git_branch",
-      "confidence_score": 1.0
+      "target": "server_get_git_branch"
     },
     {
       "relation": "calls",
@@ -12945,9 +12945,9 @@
       "source_file": "server.py",
       "source_location": "L432",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_432",
-      "target": "server_load_herdr_config",
-      "confidence_score": 1.0
+      "target": "server_load_herdr_config"
     },
     {
       "relation": "calls",
@@ -12966,9 +12966,9 @@
       "source_file": "server.py",
       "source_location": "L443",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_443",
-      "target": "server_save_herdr_config",
-      "confidence_score": 1.0
+      "target": "server_save_herdr_config"
     },
     {
       "relation": "calls",
@@ -12998,9 +12998,9 @@
       "source_file": "server.py",
       "source_location": "L520",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_520",
-      "target": "server_get_herdr_integrations",
-      "confidence_score": 1.0
+      "target": "server_get_herdr_integrations"
     },
     {
       "relation": "calls",
@@ -13019,9 +13019,9 @@
       "source_file": "server.py",
       "source_location": "L551",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_551",
-      "target": "server_get_herdr_plugins",
-      "confidence_score": 1.0
+      "target": "server_get_herdr_plugins"
     },
     {
       "relation": "calls",
@@ -13040,9 +13040,9 @@
       "source_file": "server.py",
       "source_location": "L573",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_573",
-      "target": "server_check_is_agent",
-      "confidence_score": 1.0
+      "target": "server_check_is_agent"
     },
     {
       "relation": "calls",
@@ -13072,9 +13072,9 @@
       "source_file": "server.py",
       "source_location": "L595",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_595",
-      "target": "server_get_all_slash_commands",
-      "confidence_score": 1.0
+      "target": "server_get_all_slash_commands"
     },
     {
       "relation": "calls",
@@ -13104,9 +13104,9 @@
       "source_file": "server.py",
       "source_location": "L765",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "server_rationale_765",
-      "target": "server_get_aggregated_state",
-      "confidence_score": 1.0
+      "target": "server_get_aggregated_state"
     },
     {
       "relation": "inherits",
@@ -15130,9 +15130,9 @@
       "source_file": "static/push-helper.js",
       "source_location": "L90",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "static_push_helper",
-      "target": "static_push_helper_istargetmuted",
-      "confidence_score": 1.0
+      "target": "static_push_helper_istargetmuted"
     },
     {
       "relation": "contains",
@@ -15140,9 +15140,9 @@
       "source_file": "static/push-helper.js",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "static_push_helper",
-      "target": "static_push_helper_loadnotificationsettings",
-      "confidence_score": 1.0
+      "target": "static_push_helper_loadnotificationsettings"
     },
     {
       "relation": "contains",
@@ -15150,9 +15150,9 @@
       "source_file": "static/push-helper.js",
       "source_location": "L44",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "static_push_helper",
-      "target": "static_push_helper_savenotificationsettings",
-      "confidence_score": 1.0
+      "target": "static_push_helper_savenotificationsettings"
     },
     {
       "relation": "contains",
@@ -15170,9 +15170,9 @@
       "source_file": "static/push-helper.js",
       "source_location": "L67",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "static_push_helper",
-      "target": "static_push_helper_togglenotificationtarget",
-      "confidence_score": 1.0
+      "target": "static_push_helper_togglenotificationtarget"
     },
     {
       "relation": "contains",
@@ -15190,9 +15190,9 @@
       "source_file": "static/push-helper.js",
       "source_location": "L204",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "static_push_helper",
-      "target": "static_push_helper_unsubscribeuserfrompush",
-      "confidence_score": 1.0
+      "target": "static_push_helper_unsubscribeuserfrompush"
     },
     {
       "relation": "contains",
@@ -15222,9 +15222,9 @@
       "source_file": "static/push-helper.js",
       "source_location": "L114",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "static_push_helper_initserviceworker",
-      "target": "static_push_helper_loadnotificationsettings",
-      "confidence_score": 1.0
+      "target": "static_push_helper_loadnotificationsettings"
     },
     {
       "relation": "calls",
@@ -15233,9 +15233,9 @@
       "source_file": "static/push-helper.js",
       "source_location": "L192",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "static_push_helper_subscribeusertopush",
-      "target": "static_push_helper_savenotificationsettings",
-      "confidence_score": 1.0
+      "target": "static_push_helper_savenotificationsettings"
     },
     {
       "relation": "calls",
@@ -15244,9 +15244,9 @@
       "source_file": "static/push-helper.js",
       "source_location": "L225",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "static_push_helper_unsubscribeuserfrompush",
-      "target": "static_push_helper_savenotificationsettings",
-      "confidence_score": 1.0
+      "target": "static_push_helper_savenotificationsettings"
     },
     {
       "relation": "calls",
@@ -38649,5 +38649,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "48439a3fea7280e1b0ade99afd2f7ebb0a04df0c"
+  "built_at_commit": "1d3f81daf501c70c944f871e037564504b3b6514"
 }

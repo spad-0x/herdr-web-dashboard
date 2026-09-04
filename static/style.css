@@ -919,7 +919,6 @@ html, body {
 }
 
 .terminal-container .xterm-screen {
-    will-change: transform;
     touch-action: none;
 }
 

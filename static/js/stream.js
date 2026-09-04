@@ -174,7 +174,9 @@ function updateTerminalContent(pane, paneChanged) {
         if (typeof syncTerminalSizeWithBackend === 'function') {
             syncTerminalSizeWithBackend(true);
         }
+        State._isWritingToTerminal = true;
         State.term.write(rawText, () => {
+            State._isWritingToTerminal = false;
             State.terminalAtBottom = true;
             State.term.scrollToBottom();
             if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'none';
@@ -190,19 +192,22 @@ function updateTerminalContent(pane, paneChanged) {
     }
 
     const buffer = State.term.buffer.active;
-    const wasAtBottom = (State.terminalAtBottom !== false) && (buffer.baseY === 0 || buffer.viewportY >= buffer.baseY - 1);
+    const wasAtBottom = (State.terminalAtBottom !== false);
     const savedViewportY = buffer.viewportY;
 
     // 3. Streaming delta: new text appended to the end of the previous text
     if (rawText.startsWith(State.lastText)) {
         const delta = rawText.slice(State.lastText.length);
+        State._isWritingToTerminal = true;
         State.term.write(delta, () => {
-            if (!wasAtBottom) {
-                // Keep user at their current scrolled position without jumping
+            State._isWritingToTerminal = false;
+            if (wasAtBottom) {
+                State.terminalAtBottom = true;
+                State.term.scrollToBottom();
+                if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'none';
+            } else {
                 State.term.scrollToLine(savedViewportY);
                 if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'flex';
-            } else {
-                State.term.scrollToBottom();
             }
         });
         State.lastText = rawText;
@@ -211,7 +216,7 @@ function updateTerminalContent(pane, paneChanged) {
     }
 
     // 4. In-place tail update (agent thinking, spinners, progress indicators)
-    // Avoid full term.reset() which drops scroll height to 0 and breaks smooth user scrolling
+    // Avoid full term.reset() which drops scroll height to 0 and causes screen flashing
     const oldLines = State.lastText.split('\n');
     const newLines = rawText.split('\n');
 
@@ -222,7 +227,7 @@ function updateTerminalContent(pane, paneChanged) {
     }
 
     const linesBack = oldLines.length - 1 - diffIdx;
-    if (diffIdx > 0 && linesBack >= 0 && linesBack <= 4) {
+    if (diffIdx > 0 && linesBack >= 0 && linesBack <= 30) {
         let updateSeq = '';
         if (linesBack === 0) {
             // Only the active last line changed: erase line and write new tail
@@ -232,12 +237,16 @@ function updateTerminalContent(pane, paneChanged) {
             updateSeq = `\x1b[${linesBack}A\r\x1b[J` + newLines.slice(diffIdx).join('\n');
         }
 
+        State._isWritingToTerminal = true;
         State.term.write(updateSeq, () => {
-            if (!wasAtBottom) {
+            State._isWritingToTerminal = false;
+            if (wasAtBottom) {
+                State.terminalAtBottom = true;
+                State.term.scrollToBottom();
+                if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'none';
+            } else {
                 State.term.scrollToLine(savedViewportY);
                 if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'flex';
-            } else {
-                State.term.scrollToBottom();
             }
         });
         State.lastText = rawText;
@@ -246,13 +255,17 @@ function updateTerminalContent(pane, paneChanged) {
     }
 
     // 5. Significant divergence / screen clear
+    State._isWritingToTerminal = true;
     State.term.reset();
     State.term.write(rawText, () => {
-        if (!wasAtBottom) {
+        State._isWritingToTerminal = false;
+        if (wasAtBottom) {
+            State.terminalAtBottom = true;
+            State.term.scrollToBottom();
+            if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'none';
+        } else {
             State.term.scrollToLine(savedViewportY);
             if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'flex';
-        } else {
-            State.term.scrollToBottom();
         }
     });
     State.lastText = rawText;
