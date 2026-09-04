@@ -4,10 +4,8 @@
 
 function renderSettingsScreen(container) {
     if (!container) return;
-    // Dedicated App Settings Screen (Herdr Official Settings Suite)
-    if (filter === 'settings') {
-        const settingsWrap = document.createElement('div');
-        settingsWrap.className = 'settings-page-wrapper';
+    const settingsWrap = document.createElement('div');
+    settingsWrap.className = 'settings-page-wrapper';
         
         // Show loading skeleton while fetching fresh config
         settingsWrap.innerHTML = `

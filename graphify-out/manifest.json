@@ -5,57 +5,57 @@
     "semantic_hash": ""
   },
   "server.py": {
-    "mtime": 1788467384.56653,
+    "mtime": 1788479265.5296457,
     "ast_hash": "4ac0c152a28dbe13d1f73a33d8cb22e2",
     "semantic_hash": ""
   },
   "static/app.js": {
-    "mtime": 1788467865.6663718,
+    "mtime": 1788468551.3836238,
     "ast_hash": "6400d461fe8a6ee8eb86d10298cd6ba0",
     "semantic_hash": ""
   },
   "static/js/app-init.js": {
-    "mtime": 1788467842.8562994,
+    "mtime": 1788479265.5311143,
     "ast_hash": "dad5ce1f302c46098705ec0e4f97fff3",
     "semantic_hash": ""
   },
   "static/js/chat.js": {
-    "mtime": 1788467842.8554575,
+    "mtime": 1788479265.5320024,
     "ast_hash": "25db32bae8b61fb6e879c7fa26d56843",
     "semantic_hash": ""
   },
   "static/js/chats-list.js": {
-    "mtime": 1788467842.8548682,
+    "mtime": 1788468551.3852692,
     "ast_hash": "8fe2f5e8afb022f12e9ebb39c0fef547",
     "semantic_hash": ""
   },
   "static/js/input-bar.js": {
-    "mtime": 1788467842.8557394,
+    "mtime": 1788479265.5330472,
     "ast_hash": "62dd59146575bbaee69448e60842ab6b",
     "semantic_hash": ""
   },
   "static/js/settings.js": {
-    "mtime": 1788467842.8545413,
+    "mtime": 1788479586.8428416,
     "ast_hash": "7fff5a529c4f297941a7d48f5ef4a078",
     "semantic_hash": ""
   },
   "static/js/state.js": {
-    "mtime": 1788467842.8532507,
+    "mtime": 1788468551.3863811,
     "ast_hash": "82c21c79d279e34422e03da7547d615f",
     "semantic_hash": ""
   },
   "static/js/stream.js": {
-    "mtime": 1788467842.855215,
+    "mtime": 1788468551.3866916,
     "ast_hash": "351dacbe6ae194864e9fd6bc66120822",
     "semantic_hash": ""
   },
   "static/js/terminal.js": {
-    "mtime": 1788467842.8536606,
+    "mtime": 1788468551.3869836,
     "ast_hash": "4c7f3ae9fa880ee92d13160fcf81a4f9",
     "semantic_hash": ""
   },
   "static/js/utils.js": {
-    "mtime": 1788467842.8534749,
+    "mtime": 1788468551.387279,
     "ast_hash": "1cf47582fcdc082f6c9d5aff0d6d201e",
     "semantic_hash": ""
   },
@@ -65,12 +65,12 @@
     "semantic_hash": ""
   },
   "static/push-helper.js": {
-    "mtime": 1788467384.5786073,
+    "mtime": 1788468551.387875,
     "ast_hash": "7e3898fdcfa99550aee76ca3d10d1f42",
     "semantic_hash": ""
   },
   "static/sw.js": {
-    "mtime": 1788467384.5796092,
+    "mtime": 1788468551.3885038,
     "ast_hash": "507d9de469495c6e0b1f4e1ba5fb673e",
     "semantic_hash": ""
   },
@@ -90,7 +90,7 @@
     "semantic_hash": ""
   },
   "vapid_keys.json": {
-    "mtime": 1788467384.5803404,
+    "mtime": 1788468551.3891597,
     "ast_hash": "94b4b683f7b735e190b1bfd29204a14c",
     "semantic_hash": ""
   },
@@ -100,7 +100,7 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788467871.9233747,
+    "mtime": 1788479586.841874,
     "ast_hash": "37fb822b13551feb152c119e463de64d",
     "semantic_hash": ""
   },
