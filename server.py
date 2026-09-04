@@ -608,12 +608,8 @@ def get_all_slash_commands(project_cwd=None):
     _SLASH_COMMANDS_CACHE = {"timestamp": now, "cwd": project_cwd, "data": result}
     return result
 
-# In-memory bounded cache for pane output: (pane_id, revision, lines) -> {raw, tail, waiting}
-_PANE_CACHE = {}
-
 def get_aggregated_state(lines=1500, source="recent_unwrapped"):
-    """Fetch full aggregated state of workspaces, tabs, panes, and detected agents with high-throughput optimizations."""
-    global _PANE_CACHE
+    """Fetch full aggregated state of workspaces, tabs, panes, and detected agents."""
     connected, msg = herdr.is_connected()
     if not connected:
         return {
@@ -656,7 +652,6 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
             t_num = t.get("number", 1)
             t_label = t.get("label") or f"Tab {t_num}"
             t_focused = t.get("focused", False) or (t_id == focused_tab_id)
-            is_active_tab = is_active_ws and t_focused
             
             tab_panes = []
             for p in raw_panes:
@@ -669,35 +664,16 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                     p_branch = get_git_branch(p_cwd)
                     is_agent = check_is_agent(p, p_title, daemon_agent_pane_ids)
                     is_focused = p.get("focused", False) or (p_id == focused_pane_id)
-                    p_rev = p.get("revision", 0)
 
-                    # Revision-Aware Pane Cache: skip expensive socket read_pane if revision hasn't changed
-                    cache_key = (p_id, p_rev, lines)
-                    if cache_key in _PANE_CACHE:
-                        cached = _PANE_CACHE[cache_key]
-                        raw_content = cached["raw"]
-                        clean_tail = cached["tail"]
-                        waiting_confirm = cached["waiting"]
-                    else:
-                        p_read = herdr.read_pane(p_id, lines=lines, source=source, format="ansi")
-                        raw_content = p_read.get("raw_text", "")
-                        clean_content = p_read.get("clean_text", "")
-                        clean_tail = clean_content[-400:].lower() if clean_content else ""
-                        waiting_confirm = any(kw in clean_tail for kw in [
-                            "[y/n]", "(y/n)", "[y,n]", "approve?", "proceed?", "apply these changes", "(yes/no)", "enter to confirm"
-                        ])
-                        # Keep cache bounded to prevent memory creep
-                        if len(_PANE_CACHE) > 60:
-                            _PANE_CACHE.clear()
-                        _PANE_CACHE[cache_key] = {
-                            "raw": raw_content,
-                            "tail": clean_tail[-120:],
-                            "waiting": waiting_confirm
-                        }
+                    p_read = herdr.read_pane(p_id, lines=lines, source=source, format="ansi")
+                    raw_content = p_read.get("raw_text", "")
+                    clean_content = p_read.get("clean_text", "")
+                    revision = p_read.get("revision", 0)
 
-                    # Throughput optimization: full raw terminal buffer is only transmitted
-                    # for panes in the active tab. Background tabs receive empty raw_text to avoid streaming megabytes.
-                    pane_raw = raw_content if (is_active_tab or is_focused) else ""
+                    clean_tail = clean_content[-400:].lower() if clean_content else ""
+                    waiting_confirm = any(kw in clean_tail for kw in [
+                        "[y/n]", "(y/n)", "[y,n]", "approve?", "proceed?", "apply these changes", "(yes/no)", "enter to confirm"
+                    ])
 
                     pane_obj = {
                         "pane_id": p_id,
@@ -712,9 +688,9 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                         "status": p_status,
                         "status_label": p_status,
                         "focused": is_focused,
-                        "raw_text": pane_raw,
-                        "clean_text": clean_tail,
-                        "revision": p_rev,
+                        "raw_text": raw_content,
+                        "clean_text": clean_tail[-120:],
+                        "revision": revision,
                         "waiting_confirm": waiting_confirm
                     }
                     tab_panes.append(pane_obj)

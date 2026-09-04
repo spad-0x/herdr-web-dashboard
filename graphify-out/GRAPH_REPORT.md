@@ -1,16 +1,16 @@
 # Graph Report - herdr-web-dashboard  (2026-09-04)
 
 ## Corpus Check
-- 21 files · ~26,023 words
+- 21 files · ~25,904 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1149 nodes · 2491 edges · 63 communities (43 shown, 20 thin omitted)
+- 1149 nodes · 2491 edges · 65 communities (41 shown, 24 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 41 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `fb11c142`
+- Built from commit: `0ebfffb6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -67,10 +67,12 @@
 - [[_COMMUNITY_Community 51|Community 51]]
 - [[_COMMUNITY_Community 52|Community 52]]
 - [[_COMMUNITY_Community 53|Community 53]]
+- [[_COMMUNITY_Community 54|Community 54]]
 - [[_COMMUNITY_Community 55|Community 55]]
 - [[_COMMUNITY_Community 58|Community 58]]
 - [[_COMMUNITY_Community 59|Community 59]]
 - [[_COMMUNITY_Community 60|Community 60]]
+- [[_COMMUNITY_Community 61|Community 61]]
 - [[_COMMUNITY_Community 62|Community 62]]
 - [[_COMMUNITY_Community 63|Community 63]]
 - [[_COMMUNITY_Community 64|Community 64]]
@@ -102,7 +104,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (63 total, 20 thin omitted)
+## Communities (65 total, 24 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.13
@@ -130,15 +132,15 @@ Nodes (32): BaseHTTPRequestHandler, check_is_agent(), create_session(), Dashboar
 
 ### Community 7 - "Community 7"
 Cohesion: 0.08
-Nodes (19): clearListeners(), constructor(), debug(), dispose(), _evalLazyOptionalParams(), g(), get(), info() (+11 more)
+Nodes (23): _cancelCallback(), clear(), clearListeners(), constructor(), debug(), dispose(), error(), _evalLazyOptionalParams() (+15 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.10
 Nodes (4): c(), clearHandler(), registerHandler(), setHandlerFallback()
 
 ### Community 11 - "Community 11"
-Cohesion: 0.13
-Nodes (18): _addMouseDownListeners(), _areCoordsInSelection(), _fireEventIfSelectionChanged(), _fireOnSelectionChange(), _getMouseBufferCoords(), getWrappedRangeForLine(), _handleDoubleClick(), _handleIncrementalClick() (+10 more)
+Cohesion: 0.15
+Nodes (16): _addMouseDownListeners(), _areCoordsInSelection(), _getMouseBufferCoords(), getWrappedRangeForLine(), _handleDoubleClick(), _handleIncrementalClick(), _handleMouseDown(), _handleSingleClick() (+8 more)
 
 ### Community 12 - "Community 12"
 Cohesion: 0.11
@@ -185,8 +187,8 @@ Cohesion: 0.18
 Nodes (11): addDecoration(), _addLineToZone(), _lineAdjacentToZone(), _lineIntersectsZone(), _refreshCanvasDimensions(), _refreshColorZonePadding(), _refreshDecorations(), _refreshDrawConstants() (+3 more)
 
 ### Community 27 - "Community 27"
-Cohesion: 0.15
-Nodes (17): areSelectionValuesReversed(), _clearCurrentLink(), _createLinkUnderlineEvent(), finalSelectionEnd(), finalSelectionStart(), _fireUnderlineEvent(), getCoords(), _getMouseEventScrollAmount() (+9 more)
+Cohesion: 0.13
+Nodes (19): areSelectionValuesReversed(), _clearCurrentLink(), _createLinkUnderlineEvent(), finalSelectionEnd(), finalSelectionStart(), _fireEventIfSelectionChanged(), _fireOnSelectionChange(), _fireUnderlineEvent() (+11 more)
 
 ### Community 28 - "Community 28"
 Cohesion: 0.12
@@ -208,10 +210,6 @@ Nodes (3): addEscHandler(), registerEscHandler(), values()
 Cohesion: 0.05
 Nodes (4): C(), i(), resolve(), s
 
-### Community 34 - "Community 34"
-Cohesion: 0.09
-Nodes (5): h, n, register(), w(), x
-
 ### Community 38 - "Community 38"
 Cohesion: 0.27
 Nodes (6): end(), hook(), put(), reset(), _start(), unhook()
@@ -231,10 +229,6 @@ Nodes (3): initServiceWorker(), subscribeUserToPush(), urlBase64ToUint8Array()
 ### Community 43 - "Community 43"
 Cohesion: 0.33
 Nodes (6): clearMarkers(), delete(), _removeMarker(), _removeMarkerFromLink(), unregister(), _wrappedAddonDispose()
-
-### Community 45 - "Community 45"
-Cohesion: 0.19
-Nodes (6): _cancelCallback(), clear(), error(), r(), _requestCallback(), warn()
 
 ### Community 46 - "Community 46"
 Cohesion: 0.23
@@ -263,7 +257,7 @@ Nodes (4): _reflow(), _reflowLarger(), _reflowLargerAdjustViewport(), resize()
 ## Knowledge Gaps
 - **29 isolated node(s):** `filteredSlashCommands`, `State`, `DOM`, `TERMINAL_THEMES`, `name` (+24 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **24 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
