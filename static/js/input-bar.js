@@ -186,11 +186,170 @@ async function sendPrompt() {
 }
 
 async function sendKey(keyName) {
-    if (!State.activePaneId) return;
+    if (!State.activePaneId) {
+        const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId) || State.workspaces[0];
+        if (activeWs && activeWs.panes && activeWs.panes.length > 0) {
+            State.activePaneId = activeWs.panes[0].pane_id;
+        } else if (State.panes && State.panes.length > 0) {
+            State.activePaneId = State.panes[0].pane_id;
+        }
+    }
+    if (!State.activePaneId) {
+        showToast('Nessun terminale attivo');
+        return;
+    }
     triggerHaptic('light');
+    const normalizedKey = keyName.replace('-', '+');
     await apiCall('/api/pane/keys', {
         pane_id: State.activePaneId,
-        keys: [keyName]
+        keys: [normalizedKey]
+    });
+}
+
+// =============================================================================
+// CTRL SHORTCUTS POPUP (LONG-PRESS & TAP FLYOUT)
+// =============================================================================
+function initCtrlMenu() {
+    if (!DOM.btnCtrlMenu || !DOM.ctrlShortcutsPopup) return;
+
+    let pressTimer = null;
+    let isLongPress = false;
+    let isHolding = false;
+
+    function openCtrlPopup() {
+        if (!DOM.ctrlShortcutsPopup) return;
+
+        DOM.ctrlShortcutsPopup.style.display = 'block';
+        if (DOM.ctrlPopupBackdrop) DOM.ctrlPopupBackdrop.style.display = 'block';
+
+        const btnRect = DOM.btnCtrlMenu.getBoundingClientRect();
+        const drawerRect = DOM.cliKeysDrawer ? DOM.cliKeysDrawer.getBoundingClientRect() : btnRect;
+        const popupWidth = DOM.ctrlShortcutsPopup.offsetWidth || 320;
+
+        // Calculate horizontal position (align with button, bounded inside viewport)
+        let left = btnRect.left;
+        if (left + popupWidth > window.innerWidth - 10) {
+            left = window.innerWidth - popupWidth - 10;
+        }
+        if (left < 10) left = 10;
+
+        // Calculate bottom position (just above the drawer bar)
+        const bottom = Math.max(10, window.innerHeight - drawerRect.top + 6);
+
+        DOM.ctrlShortcutsPopup.style.left = `${Math.round(left)}px`;
+        DOM.ctrlShortcutsPopup.style.bottom = `${Math.round(bottom)}px`;
+        DOM.ctrlShortcutsPopup.classList.add('active');
+        DOM.btnCtrlMenu.classList.add('active');
+        triggerHaptic('medium');
+    }
+
+    function closeCtrlPopup() {
+        if (!DOM.ctrlShortcutsPopup) return;
+        DOM.ctrlShortcutsPopup.style.display = 'none';
+        DOM.ctrlShortcutsPopup.classList.remove('active');
+        if (DOM.ctrlPopupBackdrop) DOM.ctrlPopupBackdrop.style.display = 'none';
+        if (DOM.btnCtrlMenu) DOM.btnCtrlMenu.classList.remove('active');
+        DOM.ctrlShortcutsPopup.querySelectorAll('.ctrl-grid-item').forEach(el => el.classList.remove('drag-hover'));
+    }
+
+    function triggerShortcut(item) {
+        if (!item || !item.dataset.key) return;
+        const key = item.dataset.key;
+        const name = item.dataset.name || key;
+        triggerHaptic('light');
+        sendKey(key);
+        showToast(`Inviato ${name}`);
+        closeCtrlPopup();
+    }
+
+    // Pointerdown: start hold timer
+    DOM.btnCtrlMenu.addEventListener('pointerdown', () => {
+        isLongPress = false;
+        isHolding = false;
+        pressTimer = setTimeout(() => {
+            isLongPress = true;
+            isHolding = true;
+            openCtrlPopup();
+        }, 260);
+    });
+
+    // Window pointermove: if dragging finger/mouse after long-press, highlight hovered item
+    window.addEventListener('pointermove', (e) => {
+        if (!isHolding || DOM.ctrlShortcutsPopup.style.display !== 'block') return;
+        const target = document.elementFromPoint(e.clientX, e.clientY);
+        const gridItem = target ? target.closest('.ctrl-grid-item') : null;
+        DOM.ctrlShortcutsPopup.querySelectorAll('.ctrl-grid-item').forEach(el => {
+            el.classList.toggle('drag-hover', el === gridItem);
+        });
+    });
+
+    // Window pointerup: handle long-press release selection or tap
+    window.addEventListener('pointerup', (e) => {
+        if (pressTimer) {
+            clearTimeout(pressTimer);
+            pressTimer = null;
+        }
+        if (isHolding) {
+            isHolding = false;
+            const target = document.elementFromPoint(e.clientX, e.clientY);
+            const gridItem = target ? target.closest('.ctrl-grid-item') : null;
+            if (gridItem) {
+                triggerShortcut(gridItem);
+            }
+        }
+    });
+
+    window.addEventListener('pointercancel', () => {
+        if (pressTimer) {
+            clearTimeout(pressTimer);
+            pressTimer = null;
+        }
+        isHolding = false;
+    });
+
+    // Click on Ctrl button: short tap toggles menu
+    DOM.btnCtrlMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isLongPress) {
+            isLongPress = false;
+            return;
+        }
+        const isOpen = (DOM.ctrlShortcutsPopup.style.display === 'block');
+        if (isOpen) {
+            closeCtrlPopup();
+        } else {
+            openCtrlPopup();
+        }
+    });
+
+    // Click on individual grid items
+    DOM.ctrlShortcutsPopup.addEventListener('click', (e) => {
+        const item = e.target.closest('.ctrl-grid-item');
+        if (item) {
+            e.stopPropagation();
+            triggerShortcut(item);
+        }
+    });
+
+    // Backdrop click dismisses
+    if (DOM.ctrlPopupBackdrop) {
+        DOM.ctrlPopupBackdrop.addEventListener('click', () => {
+            closeCtrlPopup();
+        });
+    }
+
+    // Dismiss on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && DOM.ctrlShortcutsPopup && DOM.ctrlShortcutsPopup.style.display === 'block') {
+            closeCtrlPopup();
+        }
+    });
+
+    // Close on viewport resize / orientation change to prevent detached positioning
+    window.addEventListener('resize', () => {
+        if (DOM.ctrlShortcutsPopup && DOM.ctrlShortcutsPopup.style.display === 'block') {
+            closeCtrlPopup();
+        }
     });
 }
 

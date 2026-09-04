@@ -94,6 +94,7 @@ function setupEventListeners() {
     DOM.cliKeysDrawer.addEventListener('click', (e) => {
         const btn = e.target.closest('button');
         if (!btn) return;
+        if (btn.id === 'btn-ctrl-menu' || btn.closest('#btn-ctrl-menu')) return;
         if (btn.dataset.key) {
             sendKey(btn.dataset.key);
         } else if (btn.dataset.cmd) {
@@ -306,6 +307,7 @@ function setupEventListeners() {
             e.target.closest('.chats-list-scroll') ||
             e.target.closest('.cli-keys-drawer') ||
             e.target.closest('.cli-keys-scroll') ||
+            e.target.closest('.ctrl-shortcuts-popup') ||
             e.target.closest('.tabs-container')) {
             return;
         }
@@ -382,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try { updateTheme(State.theme); } catch (e) { console.error('Theme error:', e); }
     try { initTerminal(); } catch (e) { console.error('Terminal error:', e); }
     try { initSpeechRecognition(); } catch (e) { console.error('Speech error:', e); }
+    try { initCtrlMenu(); } catch (e) { console.error('Ctrl menu error:', e); }
     try { setupEventListeners(); } catch (e) { console.error('Listeners error:', e); }
     try { updateInputState(); } catch (e) { console.error('Input state error:', e); }
 

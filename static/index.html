@@ -195,9 +195,10 @@
         <div class="cli-keys-drawer" id="cli-keys-drawer" style="display: none;">
             <div class="cli-keys-scroll">
                 <button class="cli-key key-primary" data-key="enter" title="Invia tasto Invio al terminale">↵ Invio</button>
-                <button class="cli-key key-danger" data-key="ctrl-c">^C</button>
-                <button class="cli-key" data-key="ctrl-d">^D</button>
-                <button class="cli-key" data-key="ctrl-z">^Z</button>
+                <button class="cli-key key-ctrl-trigger" id="btn-ctrl-menu" title="Tieni premuto per scorciatoie Ctrl">
+                    <span>⌃ Ctrl</span>
+                    <span class="ctrl-caret">▾</span>
+                </button>
                 <button class="cli-key" data-key="tab">Tab ⇥</button>
                 <button class="cli-key" data-key="esc">Esc</button>
                 <button class="cli-key" data-key="up">▲</button>
@@ -208,6 +209,65 @@
                 <button class="cli-key key-chip" data-cmd="ls -la">ls</button>
                 <button class="cli-key key-chip" data-cmd="git status">git st</button>
                 <button class="cli-key key-chip" data-cmd="git diff">git diff</button>
+            </div>
+        </div>
+
+        <!-- CTRL SHORTCUTS POPUP (Appears on hold/tap of Ctrl button) -->
+        <div class="ctrl-popup-backdrop" id="ctrl-popup-backdrop" style="display: none;"></div>
+        <div class="ctrl-shortcuts-popup" id="ctrl-shortcuts-popup" style="display: none;" role="dialog" aria-label="Scorciatoie Ctrl">
+            <div class="ctrl-popup-header">
+                <span class="ctrl-popup-title">⌃ Scorciatoie Ctrl</span>
+                <span class="ctrl-popup-hint">Tocca o rilascia</span>
+            </div>
+            <div class="ctrl-popup-grid">
+                <button class="ctrl-grid-item item-danger" data-key="ctrl+c" data-name="^C (Interrompi)">
+                    <span class="ctrl-key-label">^C</span>
+                    <span class="ctrl-key-desc">Interrompi</span>
+                </button>
+                <button class="ctrl-grid-item item-accent" data-key="ctrl+o" data-name="^O (Output)">
+                    <span class="ctrl-key-label">^O</span>
+                    <span class="ctrl-key-desc">Output</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+d" data-name="^D (EOF/Esci)">
+                    <span class="ctrl-key-label">^D</span>
+                    <span class="ctrl-key-desc">EOF / Esci</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+z" data-name="^Z (Sospendi)">
+                    <span class="ctrl-key-label">^Z</span>
+                    <span class="ctrl-key-desc">Sospendi</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+l" data-name="^L (Pulisci)">
+                    <span class="ctrl-key-label">^L</span>
+                    <span class="ctrl-key-desc">Pulisci</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+r" data-name="^R (History)">
+                    <span class="ctrl-key-label">^R</span>
+                    <span class="ctrl-key-desc">History</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+a" data-name="^A (Inizio)">
+                    <span class="ctrl-key-label">^A</span>
+                    <span class="ctrl-key-desc">Inizio riga</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+e" data-name="^E (Fine)">
+                    <span class="ctrl-key-label">^E</span>
+                    <span class="ctrl-key-desc">Fine riga</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+u" data-name="^U (Cancella riga)">
+                    <span class="ctrl-key-label">^U</span>
+                    <span class="ctrl-key-desc">Canc. riga</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+w" data-name="^W (Cancella parola)">
+                    <span class="ctrl-key-label">^W</span>
+                    <span class="ctrl-key-desc">Canc. parola</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+k" data-name="^K (Taglia avanti)">
+                    <span class="ctrl-key-label">^K</span>
+                    <span class="ctrl-key-desc">Taglia avanti</span>
+                </button>
+                <button class="ctrl-grid-item" data-key="ctrl+b" data-name="^B (Prefix/Back)">
+                    <span class="ctrl-key-label">^B</span>
+                    <span class="ctrl-key-desc">Prefix / Back</span>
+                </button>
             </div>
         </div>
 
@@ -401,16 +461,16 @@
 
     <!-- Main Controller -->
     <!-- Modular Component Architecture -->
-    <script src="/js/state.js?v=20260904_theme_sync"></script>
-    <script src="/js/utils.js?v=20260904_theme_sync"></script>
-    <script src="/js/terminal.js?v=20260904_theme_sync"></script>
-    <script src="/js/settings.js?v=20260904_theme_sync"></script>
-    <script src="/js/chats-list.js?v=20260904_theme_sync"></script>
-    <script src="/js/chat.js?v=20260904_theme_sync"></script>
-    <script src="/js/input-bar.js?v=20260904_theme_sync"></script>
-    <script src="/js/stream.js?v=20260904_theme_sync"></script>
-    <script src="/js/app-init.js?v=20260904_theme_sync"></script>
-    <script src="/push-helper.js?v=20260904_theme_sync"></script>
-    <script src="/app.js?v=20260904_theme_sync"></script>
+    <script src="/js/state.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/utils.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/terminal.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/settings.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/chats-list.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/chat.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/input-bar.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/stream.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/js/app-init.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/push-helper.js?v=20260904_ctrl_shortcuts"></script>
+    <script src="/app.js?v=20260904_ctrl_shortcuts"></script>
 </body>
 </html>

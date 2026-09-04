@@ -577,7 +577,7 @@
       "label": ".serve_static_file()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1132",
+      "source_location": "L1136",
       "_origin": "ast",
       "id": "server_dashboardhandler_serve_static_file",
       "community": 6,
@@ -587,7 +587,7 @@
       "label": "monitor_agents_background()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1173",
+      "source_location": "L1177",
       "_origin": "ast",
       "id": "server_monitor_agents_background",
       "community": 6,
@@ -597,7 +597,7 @@
       "label": "run_server()",
       "file_type": "code",
       "source_file": "server.py",
-      "source_location": "L1226",
+      "source_location": "L1230",
       "_origin": "ast",
       "id": "server_run_server",
       "community": 6,
@@ -737,7 +737,7 @@
       "label": "fixIosSafeAreaAndChinGap()",
       "file_type": "code",
       "source_file": "static/js/app-init.js",
-      "source_location": "L344",
+      "source_location": "L346",
       "_origin": "ast",
       "id": "js_app_init_fixiossafeareaandchingap",
       "community": 47,
@@ -994,10 +994,20 @@
       "norm_label": "sendkey()"
     },
     {
+      "label": "initCtrlMenu()",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L212",
+      "_origin": "ast",
+      "id": "js_input_bar_initctrlmenu",
+      "community": 4,
+      "norm_label": "initctrlmenu()"
+    },
+    {
       "label": "sendQuickText()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L197",
+      "source_location": "L356",
       "_origin": "ast",
       "id": "js_input_bar_sendquicktext",
       "community": 4,
@@ -1007,7 +1017,7 @@
       "label": "initSpeechRecognition()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L211",
+      "source_location": "L370",
       "_origin": "ast",
       "id": "js_input_bar_initspeechrecognition",
       "community": 4,
@@ -1017,7 +1027,7 @@
       "label": "handleMicOrSendClick()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L249",
+      "source_location": "L408",
       "_origin": "ast",
       "id": "js_input_bar_handlemicorsendclick",
       "community": 4,
@@ -1027,7 +1037,7 @@
       "label": "openContactInfo()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L272",
+      "source_location": "L431",
       "_origin": "ast",
       "id": "js_input_bar_opencontactinfo",
       "community": 4,
@@ -1037,7 +1047,7 @@
       "label": "closeBottomSheet()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L316",
+      "source_location": "L475",
       "_origin": "ast",
       "id": "js_input_bar_closebottomsheet",
       "community": 4,
@@ -1047,7 +1057,7 @@
       "label": "renderSheetPanes()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L321",
+      "source_location": "L480",
       "_origin": "ast",
       "id": "js_input_bar_rendersheetpanes",
       "community": 4,
@@ -1057,7 +1067,7 @@
       "label": "renderThemeChips()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L360",
+      "source_location": "L519",
       "_origin": "ast",
       "id": "js_input_bar_renderthemechips",
       "community": 4,
@@ -1067,7 +1077,7 @@
       "label": "updateTheme()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L368",
+      "source_location": "L527",
       "_origin": "ast",
       "id": "js_input_bar_updatetheme",
       "community": 4,
@@ -1077,7 +1087,7 @@
       "label": "updateFontSize()",
       "file_type": "code",
       "source_file": "static/js/input-bar.js",
-      "source_location": "L387",
+      "source_location": "L546",
       "_origin": "ast",
       "id": "js_input_bar_updatefontsize",
       "community": 4,
@@ -1830,7 +1840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h",
-      "community": 34,
+      "community": 50,
       "norm_label": "h"
     },
     {
@@ -1840,7 +1850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_constructor",
-      "community": 34,
+      "community": 50,
       "norm_label": ".constructor()"
     },
     {
@@ -1980,7 +1990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_clear",
-      "community": 7,
+      "community": 17,
       "norm_label": "clear()"
     },
     {
@@ -2090,7 +2100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_l_handlecursormove",
-      "community": 35,
+      "community": 37,
       "norm_label": ".handlecursormove()"
     },
     {
@@ -2250,7 +2260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_x",
-      "community": 34,
+      "community": 45,
       "norm_label": "x"
     },
     {
@@ -2260,7 +2270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_x_constructor",
-      "community": 34,
+      "community": 45,
       "norm_label": ".constructor()"
     },
     {
@@ -2270,7 +2280,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_x_iscombined",
-      "community": 34,
+      "community": 45,
       "norm_label": ".iscombined()"
     },
     {
@@ -2280,7 +2290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_x_getwidth",
-      "community": 34,
+      "community": 45,
       "norm_label": ".getwidth()"
     },
     {
@@ -2290,7 +2300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_x_getchars",
-      "community": 34,
+      "community": 45,
       "norm_label": ".getchars()"
     },
     {
@@ -2300,7 +2310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_x_getcode",
-      "community": 34,
+      "community": 45,
       "norm_label": ".getcode()"
     },
     {
@@ -2310,7 +2320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_x_setfromchardata",
-      "community": 34,
+      "community": 45,
       "norm_label": ".setfromchardata()"
     },
     {
@@ -2340,7 +2350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r",
-      "community": 7,
+      "community": 17,
       "norm_label": "r()"
     },
     {
@@ -2380,7 +2390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_a_handleblur",
-      "community": 35,
+      "community": 37,
       "norm_label": ".handleblur()"
     },
     {
@@ -2390,7 +2400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_a_handlefocus",
-      "community": 35,
+      "community": 37,
       "norm_label": ".handlefocus()"
     },
     {
@@ -2400,7 +2410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_a_handlecursormove",
-      "community": 35,
+      "community": 37,
       "norm_label": ".handlecursormove()"
     },
     {
@@ -2460,7 +2470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_a_fillbottomlineatcells",
-      "community": 34,
+      "community": 37,
       "norm_label": "._fillbottomlineatcells()"
     },
     {
@@ -2550,7 +2560,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_n_reset",
-      "community": 35,
+      "community": 34,
       "norm_label": ".reset()"
     },
     {
@@ -2570,7 +2580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_n_handleshowlinkunderline",
-      "community": 34,
+      "community": 37,
       "norm_label": "._handleshowlinkunderline()"
     },
     {
@@ -2590,7 +2600,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_resolve",
-      "community": 34,
+      "community": 33,
       "norm_label": "resolve()"
     },
     {
@@ -2620,7 +2630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_restartblinkanimation",
-      "community": 35,
+      "community": 7,
       "norm_label": "restartblinkanimation()"
     },
     {
@@ -2640,7 +2650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_pause",
-      "community": 35,
+      "community": 7,
       "norm_label": "pause()"
     },
     {
@@ -2650,7 +2660,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_resume",
-      "community": 35,
+      "community": 7,
       "norm_label": "resume()"
     },
     {
@@ -2670,7 +2680,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_i_constructor",
-      "community": 7,
+      "community": 17,
       "norm_label": ".constructor()"
     },
     {
@@ -2700,7 +2710,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_i_iscellselected",
-      "community": 34,
+      "community": 33,
       "norm_label": ".iscellselected()"
     },
     {
@@ -2740,7 +2750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_dowarmup",
-      "community": 7,
+      "community": 17,
       "norm_label": "._dowarmup()"
     },
     {
@@ -2750,7 +2760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_cleartexture",
-      "community": 35,
+      "community": 17,
       "norm_label": ".cleartexture()"
     },
     {
@@ -2820,7 +2830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_getcolorfromansiindex",
-      "community": 33,
+      "community": 31,
       "norm_label": "._getcolorfromansiindex()"
     },
     {
@@ -2830,7 +2840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_getbackgroundcolor",
-      "community": 33,
+      "community": 31,
       "norm_label": "._getbackgroundcolor()"
     },
     {
@@ -2840,7 +2850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_getforegroundcolor",
-      "community": 33,
+      "community": 31,
       "norm_label": "._getforegroundcolor()"
     },
     {
@@ -2850,7 +2860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_resolvebackgroundrgba",
-      "community": 33,
+      "community": 31,
       "norm_label": "._resolvebackgroundrgba()"
     },
     {
@@ -2860,7 +2870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_resolveforegroundrgba",
-      "community": 33,
+      "community": 31,
       "norm_label": "._resolveforegroundrgba()"
     },
     {
@@ -2870,7 +2880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_getminimumcontrastcolor",
-      "community": 33,
+      "community": 31,
       "norm_label": "._getminimumcontrastcolor()"
     },
     {
@@ -2880,7 +2890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_getcontrastcache",
-      "community": 33,
+      "community": 31,
       "norm_label": "._getcontrastcache()"
     },
     {
@@ -2950,7 +2960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_p_constructor",
-      "community": 31,
+      "community": 51,
       "norm_label": ".constructor()"
     },
     {
@@ -2980,7 +2990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_m",
-      "community": 31,
+      "community": 51,
       "norm_label": "m()"
     },
     {
@@ -3050,7 +3060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_register",
-      "community": 34,
+      "community": 50,
       "norm_label": "register()"
     },
     {
@@ -3100,7 +3110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_set",
-      "community": 7,
+      "community": 17,
       "norm_label": "set()"
     },
     {
@@ -3110,7 +3120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_get",
-      "community": 7,
+      "community": 17,
       "norm_label": "get()"
     },
     {
@@ -3120,7 +3130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_constructor",
-      "community": 7,
+      "community": 17,
       "norm_label": ".constructor()"
     },
     {
@@ -3130,7 +3140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_enqueue",
-      "community": 7,
+      "community": 17,
       "norm_label": ".enqueue()"
     },
     {
@@ -3140,7 +3150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_flush",
-      "community": 7,
+      "community": 17,
       "norm_label": ".flush()"
     },
     {
@@ -3150,7 +3160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_clear",
-      "community": 7,
+      "community": 17,
       "norm_label": ".clear()"
     },
     {
@@ -3160,7 +3170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_start",
-      "community": 7,
+      "community": 17,
       "norm_label": "._start()"
     },
     {
@@ -3170,7 +3180,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_process",
-      "community": 7,
+      "community": 17,
       "norm_label": "._process()"
     },
     {
@@ -3220,7 +3230,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_requestcallback",
-      "community": 7,
+      "community": 17,
       "norm_label": "_requestcallback()"
     },
     {
@@ -3230,7 +3240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_cancelcallback",
-      "community": 7,
+      "community": 17,
       "norm_label": "_cancelcallback()"
     },
     {
@@ -3250,7 +3260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_i_tocolorrgb",
-      "community": 33,
+      "community": 31,
       "norm_label": ".tocolorrgb()"
     },
     {
@@ -3800,7 +3810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_warn",
-      "community": 7,
+      "community": 17,
       "norm_label": "warn()"
     },
     {
@@ -3810,7 +3820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_error",
-      "community": 7,
+      "community": 17,
       "norm_label": "error()"
     },
     {
@@ -3820,7 +3830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_activate",
-      "community": 34,
+      "community": 50,
       "norm_label": ".activate()"
     },
     {
@@ -3830,7 +3840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_textureatlas",
-      "community": 34,
+      "community": 50,
       "norm_label": ".textureatlas()"
     },
     {
@@ -3840,7 +3850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_cleartextureatlas",
-      "community": 34,
+      "community": 50,
       "norm_label": ".cleartextureatlas()"
     },
     {
@@ -3910,7 +3920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_refreshrows",
-      "community": 30,
+      "community": 13,
       "norm_label": "_refreshrows()"
     },
     {
@@ -3950,7 +3960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handleselectionchange",
-      "community": 8,
+      "community": 53,
       "norm_label": "_handleselectionchange()"
     },
     {
@@ -4020,7 +4030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r",
-      "community": 24,
+      "community": 14,
       "norm_label": "r()"
     },
     {
@@ -4050,7 +4060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getcss",
-      "community": 40,
+      "community": 2,
       "norm_label": "getcss()"
     },
     {
@@ -4080,7 +4090,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clear",
-      "community": 30,
+      "community": 20,
       "norm_label": "clear()"
     },
     {
@@ -4120,7 +4130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_askforlink",
-      "community": 27,
+      "community": 40,
       "norm_label": "_askforlink()"
     },
     {
@@ -4130,7 +4140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_removeintersectinglinks",
-      "community": 54,
+      "community": 40,
       "norm_label": "_removeintersectinglinks()"
     },
     {
@@ -4140,7 +4150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_checklinkproviderresult",
-      "community": 27,
+      "community": 40,
       "norm_label": "_checklinkproviderresult()"
     },
     {
@@ -4150,7 +4160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlemousedown",
-      "community": 27,
+      "community": 11,
       "norm_label": "_handlemousedown()"
     },
     {
@@ -4250,7 +4260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_providelinks",
-      "community": 46,
+      "community": 40,
       "norm_label": "providelinks()"
     },
     {
@@ -4280,7 +4290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addrefreshcallback",
-      "community": 2,
+      "community": 39,
       "norm_label": "addrefreshcallback()"
     },
     {
@@ -4330,7 +4340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_onfocus",
-      "community": 17,
+      "community": 39,
       "norm_label": ".onfocus()"
     },
     {
@@ -4340,7 +4350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_onblur",
-      "community": 17,
+      "community": 39,
       "norm_label": ".onblur()"
     },
     {
@@ -4380,7 +4390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_constructor",
-      "community": 17,
+      "community": 30,
       "norm_label": ".constructor()"
     },
     {
@@ -4390,7 +4400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_handlecolorevent",
-      "community": 62,
+      "community": 13,
       "norm_label": "._handlecolorevent()"
     },
     {
@@ -4400,7 +4410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_setup",
-      "community": 63,
+      "community": 18,
       "norm_label": "._setup()"
     },
     {
@@ -4430,7 +4440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_handlescreenreadermodeoptionchange",
-      "community": 17,
+      "community": 30,
       "norm_label": "._handlescreenreadermodeoptionchange()"
     },
     {
@@ -4440,7 +4450,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_handletextareafocus",
-      "community": 45,
+      "community": 18,
       "norm_label": "._handletextareafocus()"
     },
     {
@@ -4450,7 +4460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_blur",
-      "community": 18,
+      "community": 64,
       "norm_label": ".blur()"
     },
     {
@@ -4500,7 +4510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_open",
-      "community": 17,
+      "community": 39,
       "norm_label": ".open()"
     },
     {
@@ -4510,7 +4520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_createrenderer",
-      "community": 17,
+      "community": 30,
       "norm_label": "._createrenderer()"
     },
     {
@@ -4550,7 +4560,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_showcursor",
-      "community": 45,
+      "community": 18,
       "norm_label": "._showcursor()"
     },
     {
@@ -4600,7 +4610,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_registerlinkprovider",
-      "community": 17,
+      "community": 30,
       "norm_label": ".registerlinkprovider()"
     },
     {
@@ -4610,7 +4620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_registercharacterjoiner",
-      "community": 39,
+      "community": 13,
       "norm_label": ".registercharacterjoiner()"
     },
     {
@@ -4620,7 +4630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_deregistercharacterjoiner",
-      "community": 54,
+      "community": 18,
       "norm_label": ".deregistercharacterjoiner()"
     },
     {
@@ -4640,7 +4650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_registermarker",
-      "community": 18,
+      "community": 14,
       "norm_label": ".registermarker()"
     },
     {
@@ -4650,7 +4660,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_registerdecoration",
-      "community": 8,
+      "community": 24,
       "norm_label": ".registerdecoration()"
     },
     {
@@ -4710,7 +4720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_selectall",
-      "community": 18,
+      "community": 65,
       "norm_label": ".selectall()"
     },
     {
@@ -4720,7 +4730,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_selectlines",
-      "community": 8,
+      "community": 54,
       "norm_label": ".selectlines()"
     },
     {
@@ -4730,7 +4740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_keydown",
-      "community": 45,
+      "community": 18,
       "norm_label": "._keydown()"
     },
     {
@@ -4740,7 +4750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_isthirdlevelshift",
-      "community": 45,
+      "community": 18,
       "norm_label": "._isthirdlevelshift()"
     },
     {
@@ -4760,7 +4770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_keypress",
-      "community": 45,
+      "community": 18,
       "norm_label": "._keypress()"
     },
     {
@@ -4770,7 +4780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_inputevent",
-      "community": 45,
+      "community": 18,
       "norm_label": "._inputevent()"
     },
     {
@@ -4800,7 +4810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_clear",
-      "community": 50,
+      "community": 55,
       "norm_label": ".clear()"
     },
     {
@@ -4810,7 +4820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_reset",
-      "community": 63,
+      "community": 18,
       "norm_label": ".reset()"
     },
     {
@@ -4820,7 +4830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_cleartextureatlas",
-      "community": 18,
+      "community": 3,
       "norm_label": ".cleartextureatlas()"
     },
     {
@@ -4830,7 +4840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_reportfocus",
-      "community": 45,
+      "community": 18,
       "norm_label": "._reportfocus()"
     },
     {
@@ -4840,7 +4850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_reportwindowsoptions",
-      "community": 45,
+      "community": 18,
       "norm_label": "._reportwindowsoptions()"
     },
     {
@@ -4850,7 +4860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_cancel",
-      "community": 45,
+      "community": 18,
       "norm_label": ".cancel()"
     },
     {
@@ -4890,7 +4900,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlescroll",
-      "community": 50,
+      "community": 13,
       "norm_label": "_handlescroll()"
     },
     {
@@ -5020,7 +5030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_queuerefresh",
-      "community": 2,
+      "community": 39,
       "norm_label": "_queuerefresh()"
     },
     {
@@ -5080,7 +5090,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_removedecoration",
-      "community": 54,
+      "community": 23,
       "norm_label": "_removedecoration()"
     },
     {
@@ -5260,7 +5270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_compositionstart",
-      "community": 25,
+      "community": 28,
       "norm_label": "compositionstart()"
     },
     {
@@ -5280,7 +5290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_compositionend",
-      "community": 2,
+      "community": 61,
       "norm_label": "compositionend()"
     },
     {
@@ -5290,7 +5300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_keydown",
-      "community": 2,
+      "community": 61,
       "norm_label": "keydown()"
     },
     {
@@ -5300,7 +5310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_finalizecomposition",
-      "community": 2,
+      "community": 61,
       "norm_label": "_finalizecomposition()"
     },
     {
@@ -5310,7 +5320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handleanytextareachanges",
-      "community": 2,
+      "community": 61,
       "norm_label": "_handleanytextareachanges()"
     },
     {
@@ -5360,7 +5370,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_updatedimensions",
-      "community": 30,
+      "community": 20,
       "norm_label": "_updatedimensions()"
     },
     {
@@ -5370,7 +5380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_injectcss",
-      "community": 30,
+      "community": 20,
       "norm_label": "_injectcss()"
     },
     {
@@ -5380,7 +5390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_setdefaultspacing",
-      "community": 30,
+      "community": 20,
       "norm_label": "_setdefaultspacing()"
     },
     {
@@ -5390,7 +5400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handledevicepixelratiochange",
-      "community": 30,
+      "community": 20,
       "norm_label": "handledevicepixelratiochange()"
     },
     {
@@ -5410,7 +5420,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlecharsizechanged",
-      "community": 30,
+      "community": 20,
       "norm_label": "handlecharsizechanged()"
     },
     {
@@ -5430,7 +5440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlefocus",
-      "community": 25,
+      "community": 28,
       "norm_label": "handlefocus()"
     },
     {
@@ -5470,7 +5480,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handleoptionschanged",
-      "community": 30,
+      "community": 20,
       "norm_label": "_handleoptionschanged()"
     },
     {
@@ -5580,7 +5590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_setfont",
-      "community": 30,
+      "community": 20,
       "norm_label": "setfont()"
     },
     {
@@ -5610,7 +5620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_constructor",
-      "community": 30,
+      "community": 20,
       "norm_label": ".constructor()"
     },
     {
@@ -5860,7 +5870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_deregister",
-      "community": 54,
+      "community": 18,
       "norm_label": "deregister()"
     },
     {
@@ -5880,7 +5890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getjoinedranges",
-      "community": 53,
+      "community": 46,
       "norm_label": "_getjoinedranges()"
     },
     {
@@ -5900,7 +5910,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_mergeranges",
-      "community": 53,
+      "community": 46,
       "norm_label": "_mergeranges()"
     },
     {
@@ -6010,7 +6020,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_constructor",
-      "community": 24,
+      "community": 14,
       "norm_label": ".constructor()"
     },
     {
@@ -6020,7 +6030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_registerlinkprovider",
-      "community": 24,
+      "community": 14,
       "norm_label": ".registerlinkprovider()"
     },
     {
@@ -6090,7 +6100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_fireoncanvasresize",
-      "community": 30,
+      "community": 20,
       "norm_label": "_fireoncanvasresize()"
     },
     {
@@ -6100,7 +6110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_hasrenderer",
-      "community": 17,
+      "community": 39,
       "norm_label": "hasrenderer()"
     },
     {
@@ -6130,7 +6140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_cleartextureatlas",
-      "community": 18,
+      "community": 3,
       "norm_label": "cleartextureatlas()"
     },
     {
@@ -6150,7 +6160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_enable",
-      "community": 17,
+      "community": 39,
       "norm_label": "enable()"
     },
     {
@@ -6250,7 +6260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getmousebuffercoords",
-      "community": 27,
+      "community": 11,
       "norm_label": "_getmousebuffercoords()"
     },
     {
@@ -6270,7 +6280,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_shouldforceselection",
-      "community": 27,
+      "community": 11,
       "norm_label": "shouldforceselection()"
     },
     {
@@ -6280,7 +6290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addmousedownlisteners",
-      "community": 27,
+      "community": 11,
       "norm_label": "_addmousedownlisteners()"
     },
     {
@@ -6300,7 +6310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handleincrementalclick",
-      "community": 27,
+      "community": 11,
       "norm_label": "_handleincrementalclick()"
     },
     {
@@ -6310,7 +6320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlesingleclick",
-      "community": 27,
+      "community": 11,
       "norm_label": "_handlesingleclick()"
     },
     {
@@ -6330,7 +6340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handletripleclick",
-      "community": 27,
+      "community": 11,
       "norm_label": "_handletripleclick()"
     },
     {
@@ -6380,7 +6390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlebufferactivate",
-      "community": 28,
+      "community": 13,
       "norm_label": "_handlebufferactivate()"
     },
     {
@@ -6460,7 +6470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_selectlineat",
-      "community": 27,
+      "community": 11,
       "norm_label": "_selectlineat()"
     },
     {
@@ -6490,7 +6500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_restorecolor",
-      "community": 62,
+      "community": 13,
       "norm_label": "restorecolor()"
     },
     {
@@ -6500,7 +6510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_modifycolors",
-      "community": 62,
+      "community": 13,
       "norm_label": "modifycolors()"
     },
     {
@@ -6570,7 +6580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_push",
-      "community": 24,
+      "community": 14,
       "norm_label": ".push()"
     },
     {
@@ -6610,7 +6620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_splice",
-      "community": 54,
+      "community": 55,
       "norm_label": ".splice()"
     },
     {
@@ -6630,7 +6640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_shiftelements",
-      "community": 20,
+      "community": 55,
       "norm_label": ".shiftelements()"
     },
     {
@@ -6710,7 +6720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_constructor",
-      "community": 17,
+      "community": 30,
       "norm_label": ".constructor()"
     },
     {
@@ -6720,7 +6730,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_write",
-      "community": 8,
+      "community": 62,
       "norm_label": ".write()"
     },
     {
@@ -6730,7 +6740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_writesync",
-      "community": 24,
+      "community": 14,
       "norm_label": ".writesync()"
     },
     {
@@ -6740,7 +6750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_input",
-      "community": 45,
+      "community": 18,
       "norm_label": ".input()"
     },
     {
@@ -6760,7 +6770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_scroll",
-      "community": 20,
+      "community": 9,
       "norm_label": ".scroll()"
     },
     {
@@ -6830,7 +6840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_registerdcshandler",
-      "community": 60,
+      "community": 19,
       "norm_label": ".registerdcshandler()"
     },
     {
@@ -6850,7 +6860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_registeroschandler",
-      "community": 19,
+      "community": 60,
       "norm_label": ".registeroschandler()"
     },
     {
@@ -6860,7 +6870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_setup",
-      "community": 63,
+      "community": 18,
       "norm_label": "._setup()"
     },
     {
@@ -6910,7 +6920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_fire",
-      "community": 50,
+      "community": 13,
       "norm_label": "fire()"
     },
     {
@@ -6930,7 +6940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_w",
-      "community": 50,
+      "community": 13,
       "norm_label": "w()"
     },
     {
@@ -6990,7 +7000,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_getcurrentlinkid",
-      "community": 36,
+      "community": 0,
       "norm_label": "._getcurrentlinkid()"
     },
     {
@@ -7030,7 +7040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_registerdcshandler",
-      "community": 60,
+      "community": 19,
       "norm_label": ".registerdcshandler()"
     },
     {
@@ -7050,7 +7060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_registeroschandler",
-      "community": 19,
+      "community": 60,
       "norm_label": ".registeroschandler()"
     },
     {
@@ -7060,7 +7070,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_bell",
-      "community": 50,
+      "community": 13,
       "norm_label": ".bell()"
     },
     {
@@ -7070,7 +7080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_linefeed",
-      "community": 20,
+      "community": 40,
       "norm_label": ".linefeed()"
     },
     {
@@ -7430,7 +7440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_scrollleft",
-      "community": 55,
+      "community": 40,
       "norm_label": ".scrollleft()"
     },
     {
@@ -7440,7 +7450,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_scrollright",
-      "community": 55,
+      "community": 40,
       "norm_label": ".scrollright()"
     },
     {
@@ -7450,7 +7460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_insertcolumns",
-      "community": 55,
+      "community": 40,
       "norm_label": ".insertcolumns()"
     },
     {
@@ -7460,7 +7470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_deletecolumns",
-      "community": 55,
+      "community": 40,
       "norm_label": ".deletecolumns()"
     },
     {
@@ -7480,7 +7490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_repeatprecedingcharacter",
-      "community": 46,
+      "community": 14,
       "norm_label": ".repeatprecedingcharacter()"
     },
     {
@@ -7560,7 +7570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_requestmode",
-      "community": 45,
+      "community": 18,
       "norm_label": ".requestmode()"
     },
     {
@@ -7620,7 +7630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_devicestatus",
-      "community": 45,
+      "community": 18,
       "norm_label": ".devicestatus()"
     },
     {
@@ -7630,7 +7640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_devicestatusprivate",
-      "community": 45,
+      "community": 18,
       "norm_label": ".devicestatusprivate()"
     },
     {
@@ -7640,7 +7650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_softreset",
-      "community": 36,
+      "community": 38,
       "norm_label": ".softreset()"
     },
     {
@@ -7670,7 +7680,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_windowoptions",
-      "community": 50,
+      "community": 13,
       "norm_label": ".windowoptions()"
     },
     {
@@ -7700,7 +7710,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_settitle",
-      "community": 50,
+      "community": 13,
       "norm_label": ".settitle()"
     },
     {
@@ -7710,7 +7720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_seticonname",
-      "community": 50,
+      "community": 13,
       "norm_label": ".seticonname()"
     },
     {
@@ -7720,7 +7730,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_setorreportindexedcolor",
-      "community": 24,
+      "community": 14,
       "norm_label": ".setorreportindexedcolor()"
     },
     {
@@ -7800,7 +7810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_restoreindexedcolor",
-      "community": 24,
+      "community": 14,
       "norm_label": ".restoreindexedcolor()"
     },
     {
@@ -7810,7 +7820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_restorefgcolor",
-      "community": 50,
+      "community": 13,
       "norm_label": ".restorefgcolor()"
     },
     {
@@ -7820,7 +7830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_restorebgcolor",
-      "community": 50,
+      "community": 13,
       "norm_label": ".restorebgcolor()"
     },
     {
@@ -7830,7 +7840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_restorecursorcolor",
-      "community": 50,
+      "community": 13,
       "norm_label": ".restorecursorcolor()"
     },
     {
@@ -7840,7 +7850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_nextline",
-      "community": 20,
+      "community": 40,
       "norm_label": ".nextline()"
     },
     {
@@ -7890,7 +7900,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_index",
-      "community": 20,
+      "community": 40,
       "norm_label": ".index()"
     },
     {
@@ -7940,7 +7950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_eraseattrdata",
-      "community": 55,
+      "community": 40,
       "norm_label": "._eraseattrdata()"
     },
     {
@@ -7960,7 +7970,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_screenalignmentpattern",
-      "community": 1,
+      "community": 55,
       "norm_label": ".screenalignmentpattern()"
     },
     {
@@ -7980,7 +7990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_markrangedirty",
-      "community": 1,
+      "community": 55,
       "norm_label": ".markrangedirty()"
     },
     {
@@ -8020,7 +8030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_markalldirty",
-      "community": 1,
+      "community": 55,
       "norm_label": "markalldirty()"
     },
     {
@@ -8030,7 +8040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_unregister",
-      "community": 54,
+      "community": 2,
       "norm_label": "unregister()"
     },
     {
@@ -8040,7 +8050,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_value",
-      "community": 28,
+      "community": 13,
       "norm_label": "value()"
     },
     {
@@ -8070,7 +8080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_set",
-      "community": 40,
+      "community": 14,
       "norm_label": "set()"
     },
     {
@@ -8090,7 +8100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_delete",
-      "community": 54,
+      "community": 23,
       "norm_label": "delete()"
     },
     {
@@ -8140,7 +8150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_enqueue",
-      "community": 40,
+      "community": 14,
       "norm_label": ".enqueue()"
     },
     {
@@ -8150,7 +8160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_flush",
-      "community": 30,
+      "community": 20,
       "norm_label": ".flush()"
     },
     {
@@ -8160,7 +8170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_clear",
-      "community": 24,
+      "community": 14,
       "norm_label": ".clear()"
     },
     {
@@ -8170,7 +8180,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_start",
-      "community": 24,
+      "community": 14,
       "norm_label": "._start()"
     },
     {
@@ -8180,7 +8190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_process",
-      "community": 24,
+      "community": 38,
       "norm_label": "._process()"
     },
     {
@@ -8220,7 +8230,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_requestcallback",
-      "community": 24,
+      "community": 14,
       "norm_label": "_requestcallback()"
     },
     {
@@ -8230,7 +8240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_cancelcallback",
-      "community": 24,
+      "community": 14,
       "norm_label": "_cancelcallback()"
     },
     {
@@ -8250,7 +8260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_tocolorrgb",
-      "community": 62,
+      "community": 5,
       "norm_label": ".tocolorrgb()"
     },
     {
@@ -8340,7 +8350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isdim",
-      "community": 58,
+      "community": 5,
       "norm_label": ".isdim()"
     },
     {
@@ -8420,7 +8430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isfgpalette",
-      "community": 5,
+      "community": 66,
       "norm_label": ".isfgpalette()"
     },
     {
@@ -8540,7 +8550,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isunderlinecolorpalette",
-      "community": 5,
+      "community": 66,
       "norm_label": ".isunderlinecolorpalette()"
     },
     {
@@ -8700,7 +8710,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getcorrectbufferlength",
-      "community": 30,
+      "community": 20,
       "norm_label": "_getcorrectbufferlength()"
     },
     {
@@ -8770,7 +8780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflowsmaller",
-      "community": 40,
+      "community": 0,
       "norm_label": "_reflowsmaller()"
     },
     {
@@ -8790,7 +8800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getwrappedrangeforline",
-      "community": 27,
+      "community": 11,
       "norm_label": "getwrappedrangeforline()"
     },
     {
@@ -8830,7 +8840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clearmarkers",
-      "community": 28,
+      "community": 55,
       "norm_label": "clearmarkers()"
     },
     {
@@ -8840,7 +8850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clearallmarkers",
-      "community": 50,
+      "community": 55,
       "norm_label": "clearallmarkers()"
     },
     {
@@ -8850,7 +8860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addmarker",
-      "community": 61,
+      "community": 14,
       "norm_label": "addmarker()"
     },
     {
@@ -8860,7 +8870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_removemarker",
-      "community": 54,
+      "community": 2,
       "norm_label": "_removemarker()"
     },
     {
@@ -8870,7 +8880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_constructor",
-      "community": 0,
+      "community": 21,
       "norm_label": ".constructor()"
     },
     {
@@ -8910,7 +8920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_haswidth",
-      "community": 27,
+      "community": 11,
       "norm_label": ".haswidth()"
     },
     {
@@ -8920,7 +8930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getfg",
-      "community": 20,
+      "community": 55,
       "norm_label": ".getfg()"
     },
     {
@@ -8930,7 +8940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getbg",
-      "community": 20,
+      "community": 55,
       "norm_label": ".getbg()"
     },
     {
@@ -8950,7 +8960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getcodepoint",
-      "community": 46,
+      "community": 0,
       "norm_label": ".getcodepoint()"
     },
     {
@@ -8970,7 +8980,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getstring",
-      "community": 46,
+      "community": 14,
       "norm_label": ".getstring()"
     },
     {
@@ -9090,7 +9100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_copyfrom",
-      "community": 20,
+      "community": 55,
       "norm_label": ".copyfrom()"
     },
     {
@@ -9110,7 +9120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_gettrimmedlength",
-      "community": 46,
+      "community": 0,
       "norm_label": ".gettrimmedlength()"
     },
     {
@@ -9120,7 +9130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getnobgtrimmedlength",
-      "community": 5,
+      "community": 0,
       "norm_label": ".getnobgtrimmedlength()"
     },
     {
@@ -9140,7 +9150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_translatetostring",
-      "community": 46,
+      "community": 0,
       "norm_label": ".translatetostring()"
     },
     {
@@ -9190,7 +9200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_o_activatenormalbuffer",
-      "community": 50,
+      "community": 55,
       "norm_label": ".activatenormalbuffer()"
     },
     {
@@ -9310,7 +9320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_dispose",
-      "community": 28,
+      "community": 13,
       "norm_label": ".dispose()"
     },
     {
@@ -9330,7 +9340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_decode",
-      "community": 38,
+      "community": 0,
       "norm_label": "decode()"
     },
     {
@@ -9370,7 +9380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_writesync",
-      "community": 24,
+      "community": 14,
       "norm_label": ".writesync()"
     },
     {
@@ -9380,7 +9390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_write",
-      "community": 24,
+      "community": 14,
       "norm_label": ".write()"
     },
     {
@@ -9390,7 +9400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_innerwrite",
-      "community": 24,
+      "community": 14,
       "norm_label": "._innerwrite()"
     },
     {
@@ -9460,7 +9470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_a_setdefault",
-      "community": 25,
+      "community": 0,
       "norm_label": ".setdefault()"
     },
     {
@@ -9470,7 +9480,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_a_add",
-      "community": 25,
+      "community": 28,
       "norm_label": ".add()"
     },
     {
@@ -9500,7 +9510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_identtostring",
-      "community": 24,
+      "community": 10,
       "norm_label": ".identtostring()"
     },
     {
@@ -9750,7 +9760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_fromarray",
-      "community": 32,
+      "community": 9,
       "norm_label": ".fromarray()"
     },
     {
@@ -9760,7 +9770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_toarray",
-      "community": 24,
+      "community": 14,
       "norm_label": ".toarray()"
     },
     {
@@ -9770,7 +9780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_addparam",
-      "community": 32,
+      "community": 9,
       "norm_label": ".addparam()"
     },
     {
@@ -9780,7 +9790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_addsubparam",
-      "community": 32,
+      "community": 9,
       "norm_label": ".addsubparam()"
     },
     {
@@ -9830,7 +9840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_loadaddon",
-      "community": 24,
+      "community": 14,
       "norm_label": "loadaddon()"
     },
     {
@@ -9840,7 +9850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_wrappedaddondispose",
-      "community": 54,
+      "community": 2,
       "norm_label": "_wrappedaddondispose()"
     },
     {
@@ -9910,7 +9920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getline",
-      "community": 40,
+      "community": 2,
       "norm_label": "getline()"
     },
     {
@@ -9980,7 +9990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_registerdcshandler",
-      "community": 60,
+      "community": 19,
       "norm_label": "registerdcshandler()"
     },
     {
@@ -9990,7 +10000,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_adddcshandler",
-      "community": 60,
+      "community": 19,
       "norm_label": "adddcshandler()"
     },
     {
@@ -10020,7 +10030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_registeroschandler",
-      "community": 19,
+      "community": 60,
       "norm_label": "registeroschandler()"
     },
     {
@@ -10030,7 +10040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addoschandler",
-      "community": 19,
+      "community": 60,
       "norm_label": "addoschandler()"
     },
     {
@@ -10070,7 +10080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_scroll",
-      "community": 20,
+      "community": 55,
       "norm_label": "scroll()"
     },
     {
@@ -10120,7 +10130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_activeprotocol",
-      "community": 50,
+      "community": 13,
       "norm_label": "activeprotocol()"
     },
     {
@@ -10180,7 +10190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_triggerdataevent",
-      "community": 45,
+      "community": 18,
       "norm_label": "triggerdataevent()"
     },
     {
@@ -10270,7 +10280,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_l_dispose",
-      "community": 28,
+      "community": 13,
       "norm_label": ".dispose()"
     },
     {
@@ -10280,7 +10290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_foreach",
-      "community": 27,
+      "community": 14,
       "norm_label": ".foreach()"
     },
     {
@@ -10290,7 +10300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_has",
-      "community": 54,
+      "community": 40,
       "norm_label": ".has()"
     },
     {
@@ -10300,7 +10310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_setservice",
-      "community": 17,
+      "community": 30,
       "norm_label": "setservice()"
     },
     {
@@ -10310,7 +10320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getservice",
-      "community": 40,
+      "community": 2,
       "norm_label": "getservice()"
     },
     {
@@ -10320,7 +10330,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_createinstance",
-      "community": 17,
+      "community": 30,
       "norm_label": "createinstance()"
     },
     {
@@ -10350,7 +10360,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_evallazyoptionalparams",
-      "community": 53,
+      "community": 2,
       "norm_label": "_evallazyoptionalparams()"
     },
     {
@@ -10360,7 +10370,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_log",
-      "community": 53,
+      "community": 2,
       "norm_label": "_log()"
     },
     {
@@ -10370,7 +10380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_trace",
-      "community": 53,
+      "community": 2,
       "norm_label": "trace()"
     },
     {
@@ -10390,7 +10400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_info",
-      "community": 53,
+      "community": 2,
       "norm_label": "info()"
     },
     {
@@ -10400,7 +10410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_warn",
-      "community": 24,
+      "community": 14,
       "norm_label": "warn()"
     },
     {
@@ -10430,7 +10440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_a_onmultipleoptionchange",
-      "community": 17,
+      "community": 30,
       "norm_label": ".onmultipleoptionchange()"
     },
     {
@@ -10460,7 +10470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_registerlink",
-      "community": 61,
+      "community": 14,
       "norm_label": "registerlink()"
     },
     {
@@ -10470,7 +10480,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addlinetolink",
-      "community": 61,
+      "community": 14,
       "norm_label": "addlinetolink()"
     },
     {
@@ -10480,7 +10490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getlinkdata",
-      "community": 46,
+      "community": 40,
       "norm_label": "getlinkdata()"
     },
     {
@@ -10490,7 +10500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getentryidkey",
-      "community": 61,
+      "community": 14,
       "norm_label": "_getentryidkey()"
     },
     {
@@ -10500,7 +10510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_removemarkerfromlink",
-      "community": 54,
+      "community": 23,
       "norm_label": "_removemarkerfromlink()"
     },
     {
@@ -10610,7 +10620,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_checkproposedapi",
-      "community": 8,
+      "community": 24,
       "norm_label": "._checkproposedapi()"
     },
     {
@@ -10640,7 +10650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_oncursormove",
-      "community": 17,
+      "community": 39,
       "norm_label": ".oncursormove()"
     },
     {
@@ -10690,7 +10700,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_onresize",
-      "community": 17,
+      "community": 30,
       "norm_label": ".onresize()"
     },
     {
@@ -10710,7 +10720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_onselectionchange",
-      "community": 17,
+      "community": 39,
       "norm_label": ".onselectionchange()"
     },
     {
@@ -10760,7 +10770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_unicode",
-      "community": 8,
+      "community": 24,
       "norm_label": ".unicode()"
     },
     {
@@ -10810,7 +10820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_markers",
-      "community": 8,
+      "community": 24,
       "norm_label": ".markers()"
     },
     {
@@ -10840,7 +10850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_blur",
-      "community": 18,
+      "community": 64,
       "norm_label": ".blur()"
     },
     {
@@ -10910,7 +10920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_registerlinkprovider",
-      "community": 17,
+      "community": 30,
       "norm_label": ".registerlinkprovider()"
     },
     {
@@ -10920,7 +10930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_registercharacterjoiner",
-      "community": 8,
+      "community": 24,
       "norm_label": ".registercharacterjoiner()"
     },
     {
@@ -10930,7 +10940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_deregistercharacterjoiner",
-      "community": 8,
+      "community": 24,
       "norm_label": ".deregistercharacterjoiner()"
     },
     {
@@ -10940,7 +10950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_registermarker",
-      "community": 8,
+      "community": 54,
       "norm_label": ".registermarker()"
     },
     {
@@ -10950,7 +10960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_registerdecoration",
-      "community": 8,
+      "community": 24,
       "norm_label": ".registerdecoration()"
     },
     {
@@ -10970,7 +10980,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_select",
-      "community": 8,
+      "community": 53,
       "norm_label": ".select()"
     },
     {
@@ -10980,7 +10990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_getselection",
-      "community": 8,
+      "community": 53,
       "norm_label": ".getselection()"
     },
     {
@@ -11010,7 +11020,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_selectall",
-      "community": 18,
+      "community": 65,
       "norm_label": ".selectall()"
     },
     {
@@ -11020,7 +11030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_selectlines",
-      "community": 8,
+      "community": 54,
       "norm_label": ".selectlines()"
     },
     {
@@ -11030,7 +11040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_dispose",
-      "community": 28,
+      "community": 13,
       "norm_label": ".dispose()"
     },
     {
@@ -11050,7 +11060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_scrollpages",
-      "community": 8,
+      "community": 54,
       "norm_label": ".scrollpages()"
     },
     {
@@ -11070,7 +11080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_scrolltobottom",
-      "community": 45,
+      "community": 18,
       "norm_label": ".scrolltobottom()"
     },
     {
@@ -11080,7 +11090,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_scrolltoline",
-      "community": 8,
+      "community": 54,
       "norm_label": ".scrolltoline()"
     },
     {
@@ -11090,7 +11100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_clear",
-      "community": 30,
+      "community": 20,
       "norm_label": ".clear()"
     },
     {
@@ -11100,7 +11110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_write",
-      "community": 8,
+      "community": 62,
       "norm_label": ".write()"
     },
     {
@@ -11110,7 +11120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_writeln",
-      "community": 8,
+      "community": 62,
       "norm_label": ".writeln()"
     },
     {
@@ -11150,7 +11160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_cleartextureatlas",
-      "community": 18,
+      "community": 3,
       "norm_label": ".cleartextureatlas()"
     },
     {
@@ -11180,7 +11190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_verifyintegers",
-      "community": 8,
+      "community": 54,
       "norm_label": "._verifyintegers()"
     },
     {
@@ -11190,7 +11200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_verifypositiveintegers",
-      "community": 8,
+      "community": 24,
       "norm_label": "._verifypositiveintegers()"
     },
     {
@@ -13062,6 +13072,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "static/js/input-bar.js",
+      "source_location": "L212",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_initctrlmenu",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
       "source_location": "L211",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -13395,6 +13415,17 @@
       "weight": 1.0,
       "source": "js_input_bar_sendkey",
       "target": "js_utils_apicall"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L198",
+      "weight": 1.0,
+      "source": "js_input_bar_sendkey",
+      "target": "js_utils_showtoast"
     },
     {
       "relation": "calls",
@@ -37386,5 +37417,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "058cf446449a51065f5807a721016d7901432032"
+  "built_at_commit": "d75665d0720276af96206d94c8afa18a1f4095df"
 }

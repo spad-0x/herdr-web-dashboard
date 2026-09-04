@@ -935,7 +935,11 @@ class DashboardHandler(BaseHTTPRequestHandler):
             if not pane_id or not keys:
                 return self.send_json({"error": "Missing pane_id or keys"}, status=400)
                 
-            res = herdr.send_keys(pane_id, keys)
+            normalized_keys = [
+                k.replace("-", "+") if ("-" in k and any(k.startswith(p) for p in ["ctrl", "alt", "cmd", "meta", "shift"])) else k
+                for k in keys
+            ]
+            res = herdr.send_keys(pane_id, normalized_keys)
             return self.send_json(res)
 
         # Workspace Management

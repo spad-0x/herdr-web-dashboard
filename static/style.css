@@ -1150,6 +1150,173 @@ html, body {
     color: var(--cyan);
 }
 
+.cli-key.key-ctrl-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0, 168, 132, 0.08);
+    border: 1px solid rgba(0, 168, 132, 0.35);
+    color: var(--accent);
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.cli-key.key-ctrl-trigger:active,
+.cli-key.key-ctrl-trigger.active {
+    background: var(--accent);
+    color: #000000;
+}
+
+.cli-key.key-ctrl-trigger .ctrl-caret {
+    font-size: 10px;
+    opacity: 0.75;
+    transition: transform 0.15s ease;
+}
+
+.cli-key.key-ctrl-trigger.active .ctrl-caret {
+    transform: rotate(180deg);
+}
+
+/* =============================================================================
+   CTRL SHORTCUTS POPUP (Long-press / Tap flyout)
+   ============================================================================= */
+.ctrl-popup-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: rgba(0, 0, 0, 0.3);
+    animation: fadeInBackdrop 0.15s ease;
+}
+
+@keyframes fadeInBackdrop {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.ctrl-shortcuts-popup {
+    position: fixed;
+    z-index: 999;
+    width: min(340px, calc(100vw - 20px));
+    background: var(--bg-surface-elevated, #161b22);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.12));
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    padding: 10px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    animation: ctrlPopupIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+@keyframes ctrlPopupIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.ctrl-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 4px 8px 4px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+}
+
+.ctrl-popup-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+}
+
+.ctrl-popup-hint {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.ctrl-popup-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+
+.ctrl-grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 3px;
+    background: var(--bg-surface, #0d1117);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    touch-action: none;
+    transition: all 0.1s ease;
+    min-height: 48px;
+}
+
+.ctrl-grid-item .ctrl-key-label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.ctrl-grid-item .ctrl-key-desc {
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.ctrl-grid-item.item-danger .ctrl-key-label {
+    color: var(--danger);
+}
+
+.ctrl-grid-item.item-accent .ctrl-key-label {
+    color: var(--cyan);
+}
+
+.ctrl-grid-item:hover,
+.ctrl-grid-item:active,
+.ctrl-grid-item.drag-hover {
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+    transform: scale(0.96);
+}
+
+.ctrl-grid-item:hover .ctrl-key-label,
+.ctrl-grid-item:active .ctrl-key-label,
+.ctrl-grid-item.drag-hover .ctrl-key-label {
+    color: #000000 !important;
+}
+
+.ctrl-grid-item:hover .ctrl-key-desc,
+.ctrl-grid-item:active .ctrl-key-desc,
+.ctrl-grid-item.drag-hover .ctrl-key-desc {
+    color: rgba(0, 0, 0, 0.75) !important;
+    font-weight: 600;
+}
+
+@media (max-width: 320px) {
+    .ctrl-popup-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 /* =============================================================================
    6. ATTACHMENT PREVIEW BAR
    ============================================================================= */

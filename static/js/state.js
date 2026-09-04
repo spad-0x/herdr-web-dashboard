@@ -94,6 +94,9 @@ const DOM = {
     btnConfirmStop: document.getElementById('btn-confirm-stop'),
     // CLI Keys Drawer
     cliKeysDrawer: document.getElementById('cli-keys-drawer'),
+    btnCtrlMenu: document.getElementById('btn-ctrl-menu'),
+    ctrlShortcutsPopup: document.getElementById('ctrl-shortcuts-popup'),
+    ctrlPopupBackdrop: document.getElementById('ctrl-popup-backdrop'),
     // Attachment Preview Bar
     attachmentPreviewBar: document.getElementById('attachment-preview-bar'),
     attachmentThumbWrap: document.getElementById('attachment-thumb-wrap'),
