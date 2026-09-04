@@ -1,16 +1,16 @@
 # Graph Report - herdr-web-dashboard  (2026-09-04)
 
 ## Corpus Check
-- 21 files · ~23,785 words
+- 21 files · ~23,809 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1137 nodes · 2466 edges · 64 communities (49 shown, 15 thin omitted)
+- 1137 nodes · 2466 edges · 64 communities (48 shown, 16 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 37 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `05a35069`
+- Built from commit: `058cf446`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -103,14 +103,10 @@
 ## Import Cycles
 - None detected.
 
-## Communities (64 total, 15 thin omitted)
-
-### Community 0 - "Community 0"
-Cohesion: 0.16
-Nodes (5): _batchedMemoryCleanup(), getLinkData(), h(), provideLinks(), _reflowSmaller()
+## Communities (64 total, 16 thin omitted)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.06
+Cohesion: 0.07
 Nodes (5): k, markAllDirty(), nextStop(), setgCharset(), setgLevel()
 
 ### Community 2 - "Community 2"
@@ -142,8 +138,8 @@ Cohesion: 0.12
 Nodes (4): c(), clearHandler(), registerHandler(), values()
 
 ### Community 11 - "Community 11"
-Cohesion: 0.13
-Nodes (18): _addMouseDownListeners(), _areCoordsInSelection(), _fireEventIfSelectionChanged(), _fireOnSelectionChange(), _getMouseBufferCoords(), getWrappedRangeForLine(), _handleDoubleClick(), _handleIncrementalClick() (+10 more)
+Cohesion: 0.22
+Nodes (9): _areCoordsInSelection(), _fireEventIfSelectionChanged(), _fireOnSelectionChange(), _handleDoubleClick(), _isCellInSelection(), _isClickInSelection(), rightClickSelect(), _selectWordAt() (+1 more)
 
 ### Community 12 - "Community 12"
 Cohesion: 0.11
@@ -198,8 +194,8 @@ Cohesion: 0.18
 Nodes (11): addDecoration(), _addLineToZone(), _lineAdjacentToZone(), _lineIntersectsZone(), _refreshCanvasDimensions(), _refreshColorZonePadding(), _refreshDecorations(), _refreshDrawConstants() (+3 more)
 
 ### Community 27 - "Community 27"
-Cohesion: 0.13
-Nodes (19): areSelectionValuesReversed(), _askForLink(), _checkLinkProviderResult(), _clearCurrentLink(), _createLinkUnderlineEvent(), finalSelectionEnd(), finalSelectionStart(), _fireUnderlineEvent() (+11 more)
+Cohesion: 0.09
+Nodes (28): _addMouseDownListeners(), areSelectionValuesReversed(), _askForLink(), _checkLinkProviderResult(), _clearCurrentLink(), _createLinkUnderlineEvent(), finalSelectionEnd(), finalSelectionStart() (+20 more)
 
 ### Community 28 - "Community 28"
 Cohesion: 0.18
@@ -212,6 +208,10 @@ Nodes (10): _applyScrollModifier(), _bubbleScroll(), _clearSmoothScrollState(), 
 ### Community 30 - "Community 30"
 Cohesion: 0.11
 Nodes (20): addEncoding(), addProtocol(), clear(), constructor(), _fireOnCanvasResize(), _getCorrectBufferLength(), handleCharSizeChanged(), handleDevicePixelRatioChange() (+12 more)
+
+### Community 31 - "Community 31"
+Cohesion: 0.10
+Nodes (3): f, fire(), m()
 
 ### Community 33 - "Community 33"
 Cohesion: 0.06
@@ -234,8 +234,8 @@ Cohesion: 0.15
 Nodes (4): event(), register(), _registerDecorationListeners(), _registerDimensionChangeListeners()
 
 ### Community 40 - "Community 40"
-Cohesion: 0.20
-Nodes (7): getBlankLine(), getCss(), getLine(), getNullCell(), getService(), markDirty(), markRangeDirty()
+Cohesion: 0.18
+Nodes (11): getCss(), getLine(), getNullCell(), getService(), markDirty(), _reflow(), _reflowLarger(), _reflowLargerAdjustViewport() (+3 more)
 
 ### Community 41 - "Community 41"
 Cohesion: 0.60
@@ -250,8 +250,8 @@ Cohesion: 0.50
 Nodes (5): _createElement(), _doRefreshDecorations(), _refreshStyle(), _refreshXPosition(), _renderDecoration()
 
 ### Community 46 - "Community 46"
-Cohesion: 0.27
-Nodes (6): _convertViewportColToCharacterIndex(), getCell(), getJoinedCharacters(), _getWordAt(), _isCharWordSeparator(), _stringRangesToCellRanges()
+Cohesion: 0.19
+Nodes (8): _convertViewportColToCharacterIndex(), getCell(), getJoinedCharacters(), getLinkData(), _getWordAt(), _isCharWordSeparator(), provideLinks(), _stringRangesToCellRanges()
 
 ### Community 49 - "Community 49"
 Cohesion: 0.20
@@ -269,10 +269,6 @@ Nodes (7): error(), _evalLazyOptionalParams(), _getJoinedRanges(), info(), _log(
 Cohesion: 0.20
 Nodes (8): delete(), deregister(), _removeDecoration(), _removeIntersectingLinks(), _removeMarker(), _removeMarkerFromLink(), unregister(), _wrappedAddonDispose()
 
-### Community 55 - "Community 55"
-Cohesion: 0.29
-Nodes (5): _reflow(), _reflowLarger(), _reflowLargerAdjustViewport(), resize(), set()
-
 ### Community 58 - "Community 58"
 Cohesion: 0.40
 Nodes (5): _addStyle(), _applyMinimumContrast(), getColor(), _getContrastCache(), setColor()
@@ -288,14 +284,14 @@ Nodes (4): addLineToLink(), addMarker(), _getEntryIdKey(), registerLink()
 ## Knowledge Gaps
 - **28 isolated node(s):** `State`, `DOM`, `TERMINAL_THEMES`, `name`, `short_name` (+23 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **15 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `_()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 5`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 13`, `Community 14`, `Community 15`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`, `Community 30`, `Community 32`, `Community 38`, `Community 39`, `Community 40`, `Community 43`, `Community 44`, `Community 45`, `Community 46`, `Community 49`, `Community 50`, `Community 52`, `Community 53`, `Community 54`, `Community 55`, `Community 58`, `Community 59`, `Community 60`, `Community 61`, `Community 62`, `Community 63`?**
   _High betweenness centrality (0.322) - this node is a cross-community bridge._
-- **Why does `k` connect `Community 1` to `Community 0`, `Community 32`, `Community 2`, `Community 36`, `Community 38`, `Community 40`, `Community 45`, `Community 46`, `Community 50`, `Community 19`, `Community 52`, `Community 20`, `Community 24`, `Community 59`, `Community 60`, `Community 63`?**
+- **Why does `k` connect `Community 1` to `Community 0`, `Community 32`, `Community 2`, `Community 36`, `Community 38`, `Community 40`, `Community 45`, `Community 46`, `Community 50`, `Community 19`, `Community 52`, `Community 20`, `Community 55`, `Community 24`, `Community 59`, `Community 60`, `Community 63`?**
   _High betweenness centrality (0.087) - this node is a cross-community bridge._
 - **Why does `P` connect `Community 18` to `Community 2`, `Community 39`, `Community 8`, `Community 9`, `Community 45`, `Community 13`, `Community 49`, `Community 50`, `Community 17`, `Community 54`, `Community 30`, `Community 62`, `Community 63`?**
   _High betweenness centrality (0.059) - this node is a cross-community bridge._
@@ -304,6 +300,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `Remove ANSI escape sequences from terminal output.`, `Check if Herdr Unix socket is available and responsive.`, `Send a JSON-RPC request to Herdr socket and return parsed response.` to the rest of the system?**
   _47 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.06431372549019608 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06612244897959184 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
   _Cohesion score 0.043859649122807015 - nodes in this community are weakly interconnected._
