@@ -28,6 +28,7 @@ function setMode(mode) {
             setTimeout(() => {
                 try {
                     State.fitAddon.fit();
+                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
                     if (typeof ensureWebglAddon === 'function') ensureWebglAddon();
                     if (typeof initSubpixelScroll === 'function') initSubpixelScroll();
                     if (typeof initTouchScroll === 'function') initTouchScroll();
@@ -55,8 +56,16 @@ function setScreen(screenName) {
         if (State.mode === 'chat') {
             State.isChatUserScrolled = false;
             scrollChatToBottom(false);
-        } else if (State.mode === 'terminal' && State.term && State.terminalAtBottom) {
-            State.term.scrollToBottom();
+        } else if (State.mode === 'terminal') {
+            if (State.fitAddon) {
+                try {
+                    State.fitAddon.fit();
+                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
+                } catch (e) {}
+            }
+            if (State.term && State.terminalAtBottom) {
+                State.term.scrollToBottom();
+            }
         }
     }
 }
@@ -297,6 +306,9 @@ function renderChatsList() {
                 State.activePaneId = pane.pane_id;
                 await apiCall('/api/pane/focus', { pane_id: pane.pane_id });
                 setScreen('chat-active');
+                if (State.mode === 'terminal' && typeof syncTerminalSizeWithBackend === 'function') {
+                    syncTerminalSizeWithBackend(true);
+                }
             });
 
             DOM.chatsListScroll.appendChild(item);

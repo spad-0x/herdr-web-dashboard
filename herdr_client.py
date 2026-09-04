@@ -10,6 +10,14 @@ import json
 import socket
 import re
 import uuid
+import signal
+
+# Avoid SIGTTOU / SIGTTIN when manipulating slave PTYs from background threads
+try:
+    signal.signal(signal.SIGTTOU, signal.SIG_IGN)
+    signal.signal(signal.SIGTTIN, signal.SIG_IGN)
+except Exception:
+    pass
 
 DEFAULT_SOCKET_PATH = os.path.expanduser("~/.config/herdr/herdr.sock")
 
@@ -162,6 +170,33 @@ class HerdrClient:
 
     def pane_focus(self, pane_id):
         return self.call("pane.focus", {"pane_id": pane_id})
+
+    def resize_pane_pty(self, pane_id, cols, rows):
+        """Resize the underlying PTY for a pane via ioctl(TIOCSWINSZ) with SIGWINCH."""
+        try:
+            import os, fcntl, termios, struct, subprocess
+            proc_info = self.call("pane.process_info", {"pane_id": pane_id})
+            shell_pid = proc_info.get("result", {}).get("process_info", {}).get("shell_pid")
+            if not shell_pid:
+                fg_procs = proc_info.get("result", {}).get("process_info", {}).get("foreground_processes", [])
+                if fg_procs:
+                    shell_pid = fg_procs[0].get("pid")
+            
+            if shell_pid:
+                out = subprocess.check_output(["ps", "-p", str(shell_pid), "-o", "tty="]).decode().strip()
+                if out and out != "?":
+                    dev_path = f"/dev/{out}"
+                    if os.path.exists(dev_path):
+                        fd = os.open(dev_path, os.O_RDWR | os.O_NONBLOCK | os.O_NOCTTY)
+                        try:
+                            new_ws = struct.pack("HHHH", int(rows), int(cols), 0, 0)
+                            fcntl.ioctl(fd, termios.TIOCSWINSZ, new_ws)
+                            return True, f"Resized {dev_path} to {cols}x{rows}"
+                        finally:
+                            os.close(fd)
+            return False, f"Could not determine tty for pane {pane_id}"
+        except Exception as e:
+            return False, str(e)
 
 if __name__ == "__main__":
     client = HerdrClient()

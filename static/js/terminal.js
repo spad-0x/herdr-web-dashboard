@@ -167,6 +167,66 @@ function initTouchScroll() {
     DOM.terminalContainer.addEventListener('touchcancel', stopTracking, { passive: true });
 }
 
+let lastSyncedCols = null;
+let lastSyncedRows = null;
+let syncDebounceTimer = null;
+
+function syncTerminalSizeWithBackend(force = false) {
+    if (!State.term) return;
+    const cols = State.term.cols;
+    const rows = State.term.rows;
+
+    if (!cols || !rows || cols <= 0 || rows <= 0) return;
+    if (!force && cols === lastSyncedCols && rows === lastSyncedRows) return;
+
+    if (syncDebounceTimer) clearTimeout(syncDebounceTimer);
+    syncDebounceTimer = setTimeout(() => {
+        lastSyncedCols = cols;
+        lastSyncedRows = rows;
+        const payload = {
+            type: 'resize',
+            pane_id: State.activePaneId || null,
+            cols: cols,
+            rows: rows
+        };
+        apiCall('/api/terminal/resize', payload).then((res) => {
+            console.log(`📡 PTY winsize synchronized: ${cols} cols x ${rows} rows`, res);
+        }).catch(err => {
+            console.warn('[Terminal Resize] PTY sync error:', err);
+        });
+    }, 60);
+}
+
+function initResizeObserver() {
+    if (!DOM.terminalContainer || DOM.terminalContainer._resizeObserver) return;
+
+    let resizeTimeout = null;
+    const handleResize = () => {
+        if (!State.term || !State.fitAddon) return;
+        // Avoid fitting when viewport is hidden (0 dimensions)
+        if (DOM.terminalViewport && DOM.terminalViewport.style.display === 'none') return;
+
+        try {
+            State.fitAddon.fit();
+            syncTerminalSizeWithBackend();
+            if (typeof initSubpixelScroll === 'function') initSubpixelScroll();
+        } catch (e) {
+            console.warn('[Terminal Resize] fit error:', e);
+        }
+    };
+
+    DOM.terminalContainer._resizeObserver = new ResizeObserver(() => {
+        if (resizeTimeout) clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(handleResize, 40);
+    });
+    DOM.terminalContainer._resizeObserver.observe(DOM.terminalContainer);
+
+    window.addEventListener('resize', handleResize);
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleResize);
+    }
+}
+
 function initTerminal() {
     if (!DOM.terminalContainer) return;
 
@@ -190,14 +250,6 @@ function initTerminal() {
 
     if (window.FitAddon && FitAddon.FitAddon) {
         State.fitAddon = new FitAddon.FitAddon();
-        const origPropose = State.fitAddon.proposeDimensions.bind(State.fitAddon);
-        State.fitAddon.proposeDimensions = function() {
-            const dims = origPropose();
-            if (dims && dims.rows) {
-                dims.rows += 2; // Extra buffer rows so fractional subpixel scroll never exposes gap
-            }
-            return dims;
-        };
         State.term.loadAddon(State.fitAddon);
     }
 
@@ -226,15 +278,18 @@ function initTerminal() {
     ensureWebglAddon();
     initSubpixelScroll();
     initTouchScroll();
-    
+    initResizeObserver();
+
+    // Initial mount: compute dimensions and synchronize with PTY backend immediately
     setTimeout(() => {
         try {
             if (State.fitAddon) State.fitAddon.fit();
+            syncTerminalSizeWithBackend(true);
             ensureWebglAddon();
             initSubpixelScroll();
             initTouchScroll();
         } catch (e) {}
-    }, 60);
+    }, 40);
 
     State.terminalAtBottom = true;
 

@@ -989,6 +989,29 @@ class DashboardHandler(BaseHTTPRequestHandler):
             res = herdr.pane_close(pane_id)
             return self.send_json(res)
 
+        # API: Resize Terminal PTY
+        if parsed.path in ("/api/terminal/resize", "/api/pane/resize"):
+            pane_id = payload.get("pane_id")
+            cols = payload.get("cols")
+            rows = payload.get("rows")
+            if not cols or not rows:
+                return self.send_json({"error": "Missing cols or rows"}, status=400)
+            
+            if not pane_id:
+                snap = herdr.get_snapshot()
+                pane_id = snap.get("focused_pane_id")
+                
+            if pane_id:
+                success, msg = herdr.resize_pane_pty(pane_id, cols, rows)
+                return self.send_json({
+                    "success": success,
+                    "message": msg,
+                    "pane_id": pane_id,
+                    "cols": cols,
+                    "rows": rows
+                })
+            return self.send_json({"error": "No pane_id found"}, status=404)
+
         # Upload Management (Images/Files)
         if parsed.path == "/api/upload":
             image_data = payload.get("image")

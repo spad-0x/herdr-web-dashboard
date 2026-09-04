@@ -163,6 +163,9 @@ function updateTerminalContent(pane, paneChanged) {
     // 1. Pane switched: full reset and scroll to bottom
     if (paneChanged) {
         State.term.reset();
+        if (typeof syncTerminalSizeWithBackend === 'function') {
+            syncTerminalSizeWithBackend(true);
+        }
         State.term.write(rawText, () => {
             State.terminalAtBottom = true;
             State.term.scrollToBottom();
