@@ -1,16 +1,16 @@
 # Graph Report - herdr-web-dashboard  (2026-09-04)
 
 ## Corpus Check
-- 21 files · ~25,855 words
+- 21 files · ~26,023 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1149 nodes · 2491 edges · 67 communities (41 shown, 26 thin omitted)
+- 1149 nodes · 2491 edges · 63 communities (43 shown, 20 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 41 edges (avg confidence: 0.79)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `a775f61c`
+- Built from commit: `fb11c142`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -67,17 +67,13 @@
 - [[_COMMUNITY_Community 51|Community 51]]
 - [[_COMMUNITY_Community 52|Community 52]]
 - [[_COMMUNITY_Community 53|Community 53]]
-- [[_COMMUNITY_Community 54|Community 54]]
 - [[_COMMUNITY_Community 55|Community 55]]
 - [[_COMMUNITY_Community 58|Community 58]]
 - [[_COMMUNITY_Community 59|Community 59]]
 - [[_COMMUNITY_Community 60|Community 60]]
-- [[_COMMUNITY_Community 61|Community 61]]
 - [[_COMMUNITY_Community 62|Community 62]]
 - [[_COMMUNITY_Community 63|Community 63]]
 - [[_COMMUNITY_Community 64|Community 64]]
-- [[_COMMUNITY_Community 65|Community 65]]
-- [[_COMMUNITY_Community 66|Community 66]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `_()` - 296 edges
@@ -106,7 +102,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (67 total, 26 thin omitted)
+## Communities (63 total, 20 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.13
@@ -134,7 +130,7 @@ Nodes (32): BaseHTTPRequestHandler, check_is_agent(), create_session(), Dashboar
 
 ### Community 7 - "Community 7"
 Cohesion: 0.08
-Nodes (23): _cancelCallback(), clear(), clearListeners(), constructor(), debug(), dispose(), error(), _evalLazyOptionalParams() (+15 more)
+Nodes (19): clearListeners(), constructor(), debug(), dispose(), _evalLazyOptionalParams(), g(), get(), info() (+11 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.10
@@ -212,6 +208,10 @@ Nodes (3): addEscHandler(), registerEscHandler(), values()
 Cohesion: 0.05
 Nodes (4): C(), i(), resolve(), s
 
+### Community 34 - "Community 34"
+Cohesion: 0.09
+Nodes (5): h, n, register(), w(), x
+
 ### Community 38 - "Community 38"
 Cohesion: 0.27
 Nodes (6): end(), hook(), put(), reset(), _start(), unhook()
@@ -231,6 +231,10 @@ Nodes (3): initServiceWorker(), subscribeUserToPush(), urlBase64ToUint8Array()
 ### Community 43 - "Community 43"
 Cohesion: 0.33
 Nodes (6): clearMarkers(), delete(), _removeMarker(), _removeMarkerFromLink(), unregister(), _wrappedAddonDispose()
+
+### Community 45 - "Community 45"
+Cohesion: 0.19
+Nodes (6): _cancelCallback(), clear(), error(), r(), _requestCallback(), warn()
 
 ### Community 46 - "Community 46"
 Cohesion: 0.23
@@ -259,14 +263,14 @@ Nodes (4): _reflow(), _reflowLarger(), _reflowLargerAdjustViewport(), resize()
 ## Knowledge Gaps
 - **29 isolated node(s):** `filteredSlashCommands`, `State`, `DOM`, `TERMINAL_THEMES`, `name` (+24 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **26 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **20 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `_()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 5`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 13`, `Community 14`, `Community 15`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`, `Community 30`, `Community 32`, `Community 38`, `Community 39`, `Community 40`, `Community 43`, `Community 44`, `Community 46`, `Community 49`, `Community 50`, `Community 52`, `Community 53`, `Community 55`, `Community 58`, `Community 59`, `Community 60`, `Community 62`, `Community 63`, `Community 64`, `Community 65`, `Community 66`?**
+- **Why does `_()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 5`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 13`, `Community 14`, `Community 15`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`, `Community 30`, `Community 32`, `Community 38`, `Community 39`, `Community 40`, `Community 43`, `Community 44`, `Community 46`, `Community 49`, `Community 50`, `Community 52`, `Community 53`, `Community 55`, `Community 58`, `Community 59`, `Community 60`, `Community 62`, `Community 63`, `Community 64`?**
   _High betweenness centrality (0.312) - this node is a cross-community bridge._
-- **Why does `k` connect `Community 1` to `Community 2`, `Community 10`, `Community 14`, `Community 17`, `Community 19`, `Community 24`, `Community 32`, `Community 36`, `Community 38`, `Community 40`, `Community 44`, `Community 46`, `Community 50`, `Community 52`, `Community 55`, `Community 59`, `Community 60`, `Community 63`, `Community 65`, `Community 66`?**
+- **Why does `k` connect `Community 1` to `Community 32`, `Community 2`, `Community 36`, `Community 38`, `Community 40`, `Community 10`, `Community 44`, `Community 14`, `Community 46`, `Community 17`, `Community 50`, `Community 19`, `Community 52`, `Community 55`, `Community 24`, `Community 59`, `Community 60`, `Community 63`?**
   _High betweenness centrality (0.078) - this node is a cross-community bridge._
 - **Why does `d` connect `Community 8` to `Community 2`, `Community 3`, `Community 38`, `Community 9`, `Community 13`, `Community 49`, `Community 18`, `Community 20`, `Community 24`, `Community 58`, `Community 28`, `Community 30`, `Community 63`?**
   _High betweenness centrality (0.053) - this node is a cross-community bridge._
@@ -277,4 +281,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.1286549707602339 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.10804597701149425 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09659090909090909 - nodes in this community are weakly interconnected._
