@@ -25,10 +25,13 @@ const State = {
     term: null,
     fitAddon: null,
     webLinksAddon: null,
+    webglAddon: null,
     sseSource: null,
     isRecordingVoice: false,
     speechRecognition: null,
     isAtBottom: true,
+    terminalAtBottom: true,
+    isChatUserScrolled: false,
     pendingAttachment: null,
     currentScreen: 'chat-active', // 'chat-active' or 'chats-list'
     chatsFilter: 'panes', // 'panes', 'workspaces'

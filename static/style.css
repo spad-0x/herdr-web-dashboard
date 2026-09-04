@@ -707,6 +707,8 @@ html, body {
     overflow-y: auto;
     padding: 12px 14px 24px 14px;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    scroll-behavior: smooth;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -886,6 +888,15 @@ html, body {
     justify-content: center;
     cursor: pointer;
     z-index: 10;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.btn-chat-scroll-bottom:hover {
+    transform: translateY(-2px);
+}
+
+.btn-chat-scroll-bottom:active {
+    transform: scale(0.95);
 }
 
 /* VIEW B: TERMINAL VIEW */
@@ -902,6 +913,49 @@ html, body {
     height: 100%;
     padding: 4px 6px;
     overflow: hidden;
+    position: relative;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+.terminal-container .xterm-helper-textarea {
+    display: none !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+.terminal-container .xterm-screen {
+    will-change: transform;
+    touch-action: none;
+}
+
+.terminal-container .xterm-viewport {
+    touch-action: none;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain;
+    scroll-behavior: auto;
+}
+
+.terminal-container .xterm-viewport::-webkit-scrollbar {
+    width: 6px;
+}
+
+.terminal-container .xterm-viewport::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.terminal-container .xterm-viewport::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 4px;
+}
+
+.terminal-container .xterm-viewport::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.32);
 }
 
 .btn-scroll-bottom {
@@ -923,6 +977,15 @@ html, body {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
     cursor: pointer;
     z-index: 10;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.btn-scroll-bottom:hover {
+    transform: translateY(-2px);
+}
+
+.btn-scroll-bottom:active {
+    transform: scale(0.95);
 }
 
 /* =============================================================================

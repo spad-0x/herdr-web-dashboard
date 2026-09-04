@@ -12,7 +12,8 @@ function setMode(mode) {
         DOM.modeIcon.textContent = '💻';
         if (DOM.modeLabel) DOM.modeLabel.textContent = 'Terminale';
         DOM.btnToggleActions.style.display = 'flex';
-        scrollChatToBottom();
+        State.isChatUserScrolled = false;
+        scrollChatToBottom(false);
     } else {
         DOM.chatViewport.style.display = 'none';
         DOM.terminalViewport.style.display = 'block';
@@ -20,11 +21,19 @@ function setMode(mode) {
         if (DOM.modeLabel) DOM.modeLabel.textContent = 'Chat';
         DOM.cliKeysDrawer.style.display = 'flex'; // Auto show CLI keys in terminal mode
         DOM.btnToggleActions.classList.add('active');
+        if (typeof ensureWebglAddon === 'function') ensureWebglAddon();
+        if (typeof initSubpixelScroll === 'function') initSubpixelScroll();
+        if (typeof initTouchScroll === 'function') initTouchScroll();
         if (State.fitAddon) {
             setTimeout(() => {
                 try {
                     State.fitAddon.fit();
-                    State.term.focus();
+                    if (typeof ensureWebglAddon === 'function') ensureWebglAddon();
+                    if (typeof initSubpixelScroll === 'function') initSubpixelScroll();
+                    if (typeof initTouchScroll === 'function') initTouchScroll();
+                    if (State.term && State.terminalAtBottom) {
+                        State.term.scrollToBottom();
+                    }
                 } catch (e) {}
             }, 30);
         }
@@ -44,7 +53,10 @@ function setScreen(screenName) {
         if (DOM.screenChatsList) DOM.screenChatsList.style.display = 'none';
         if (DOM.screenChatActive) DOM.screenChatActive.style.display = 'flex';
         if (State.mode === 'chat') {
-            scrollChatToBottom();
+            State.isChatUserScrolled = false;
+            scrollChatToBottom(false);
+        } else if (State.mode === 'terminal' && State.term && State.terminalAtBottom) {
+            State.term.scrollToBottom();
         }
     }
 }

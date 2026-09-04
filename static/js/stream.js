@@ -160,25 +160,92 @@ function updateTerminalContent(pane, paneChanged) {
     const rawText = pane.raw_text || '';
     const revision = pane.revision || 0;
 
+    // 1. Pane switched: full reset and scroll to bottom
     if (paneChanged) {
         State.term.reset();
-        State.term.write(rawText);
+        State.term.write(rawText, () => {
+            State.terminalAtBottom = true;
+            State.term.scrollToBottom();
+            if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'none';
+        });
         State.lastText = rawText;
         State.lastRevision = revision;
         return;
     }
 
-    if (rawText !== State.lastText || revision !== State.lastRevision) {
-        if (rawText.startsWith(State.lastText)) {
-            const delta = rawText.slice(State.lastText.length);
-            State.term.write(delta);
-        } else {
-            State.term.reset();
-            State.term.write(rawText);
-        }
+    // 2. Unchanged content
+    if (rawText === State.lastText && revision === State.lastRevision) {
+        return;
+    }
+
+    const buffer = State.term.buffer.active;
+    const wasAtBottom = (State.terminalAtBottom !== false) && (buffer.baseY === 0 || buffer.viewportY >= buffer.baseY - 1);
+    const savedViewportY = buffer.viewportY;
+
+    // 3. Streaming delta: new text appended to the end of the previous text
+    if (rawText.startsWith(State.lastText)) {
+        const delta = rawText.slice(State.lastText.length);
+        State.term.write(delta, () => {
+            if (!wasAtBottom) {
+                // Keep user at their current scrolled position without jumping
+                State.term.scrollToLine(savedViewportY);
+                if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'flex';
+            } else {
+                State.term.scrollToBottom();
+            }
+        });
         State.lastText = rawText;
         State.lastRevision = revision;
+        return;
     }
+
+    // 4. In-place tail update (agent thinking, spinners, progress indicators)
+    // Avoid full term.reset() which drops scroll height to 0 and breaks smooth user scrolling
+    const oldLines = State.lastText.split('\n');
+    const newLines = rawText.split('\n');
+
+    let diffIdx = 0;
+    const minLen = Math.min(oldLines.length, newLines.length);
+    while (diffIdx < minLen && oldLines[diffIdx] === newLines[diffIdx]) {
+        diffIdx++;
+    }
+
+    const linesBack = oldLines.length - 1 - diffIdx;
+    if (diffIdx > 0 && linesBack >= 0 && linesBack <= 4) {
+        let updateSeq = '';
+        if (linesBack === 0) {
+            // Only the active last line changed: erase line and write new tail
+            updateSeq = '\r\x1b[2K' + newLines.slice(diffIdx).join('\n');
+        } else {
+            // Move cursor up linesBack, carriage return, clear to end of screen, write new tail
+            updateSeq = `\x1b[${linesBack}A\r\x1b[J` + newLines.slice(diffIdx).join('\n');
+        }
+
+        State.term.write(updateSeq, () => {
+            if (!wasAtBottom) {
+                State.term.scrollToLine(savedViewportY);
+                if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'flex';
+            } else {
+                State.term.scrollToBottom();
+            }
+        });
+        State.lastText = rawText;
+        State.lastRevision = revision;
+        return;
+    }
+
+    // 5. Significant divergence / screen clear
+    State.term.reset();
+    State.term.write(rawText, () => {
+        if (!wasAtBottom) {
+            State.term.scrollToLine(savedViewportY);
+            if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'flex';
+        } else {
+            State.term.scrollToBottom();
+        }
+    });
+    State.lastText = rawText;
+    State.lastRevision = revision;
 }
 
 // =============================================================================

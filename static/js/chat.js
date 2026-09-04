@@ -1,5 +1,36 @@
+function initChatScroll() {
+    if (!DOM.chatScrollContainer) return;
+
+    DOM.chatScrollContainer.addEventListener('scroll', () => {
+        const c = DOM.chatScrollContainer;
+        const distanceToBottom = c.scrollHeight - c.scrollTop - c.clientHeight;
+        State.isChatUserScrolled = distanceToBottom > 60;
+        if (DOM.btnChatScrollBottom) {
+            DOM.btnChatScrollBottom.style.display = State.isChatUserScrolled ? 'flex' : 'none';
+        }
+    }, { passive: true });
+
+    if (DOM.btnChatScrollBottom) {
+        DOM.btnChatScrollBottom.addEventListener('click', () => {
+            State.isChatUserScrolled = false;
+            scrollChatToBottom(true);
+            DOM.btnChatScrollBottom.style.display = 'none';
+        });
+    }
+}
+
+// Auto-initialize chat scroll listeners on load
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChatScroll);
+} else {
+    initChatScroll();
+}
+
 function updateChatContent(pane, paneChanged) {
     const cleanText = pane.clean_text || '';
+    if (paneChanged) {
+        State.isChatUserScrolled = false;
+    }
     if (!cleanText || cleanText === State.lastCleanText) return;
     State.lastCleanText = cleanText;
 
@@ -42,7 +73,12 @@ function renderActiveChatFromTerminal(cleanText, pane) {
         </div>
     `;
 
-    scrollChatToBottom();
+    // Only auto-scroll if user has not scrolled up to inspect previous history
+    if (!State.isChatUserScrolled) {
+        scrollChatToBottom(true);
+    } else if (DOM.btnChatScrollBottom) {
+        DOM.btnChatScrollBottom.style.display = 'flex';
+    }
 }
 
 function appendUserBubble(text, imagePath = null) {
@@ -71,9 +107,21 @@ function appendUserBubble(text, imagePath = null) {
     }
 
     DOM.chatMessages.appendChild(bubble);
-    scrollChatToBottom();
+    State.isChatUserScrolled = false;
+    scrollChatToBottom(true);
 }
 
-function scrollChatToBottom() {
-    DOM.chatScrollContainer.scrollTop = DOM.chatScrollContainer.scrollHeight;
+function scrollChatToBottom(smooth = false) {
+    if (!DOM.chatScrollContainer) return;
+    if (smooth) {
+        DOM.chatScrollContainer.scrollTo({
+            top: DOM.chatScrollContainer.scrollHeight,
+            behavior: 'smooth'
+        });
+    } else {
+        DOM.chatScrollContainer.scrollTop = DOM.chatScrollContainer.scrollHeight;
+    }
+    if (DOM.btnChatScrollBottom && !State.isChatUserScrolled) {
+        DOM.btnChatScrollBottom.style.display = 'none';
+    }
 }
