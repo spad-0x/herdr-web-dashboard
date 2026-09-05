@@ -1138,7 +1138,7 @@ html, body {
     background: rgba(0, 168, 132, 0.08);
     border: 1px solid rgba(0, 168, 132, 0.35);
     color: var(--accent);
-    touch-action: pan-x pan-y;
+    touch-action: none;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -1241,7 +1241,7 @@ html, body {
     border-radius: 8px;
     color: var(--text-primary);
     cursor: pointer;
-    touch-action: pan-x pan-y;
+    touch-action: none;
     transition: all 0.1s ease;
     min-height: 48px;
 }
