@@ -1,0 +1,7 @@
+name = "Herdr Web Dashboard"
+id = "herdr-web-dashboard"
+description = "A high-performance, universal Web Dashboard featuring a sleek Cyber-Dark / Linear design and a zero-dependency Progressive Web App (PWA) architecture."
+version = "1.0.0"
+author = "Leonardo"
+platforms = ["macos", "linux", "windows"]
+min_herdr_version = "0.1.0"
