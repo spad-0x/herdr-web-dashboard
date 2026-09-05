@@ -951,10 +951,7 @@ function updateFontSize(delta) {
             const cmd = item.dataset.cmd;
             const name = item.dataset.name || cmd;
             triggerHaptic('light');
-            // send key directly? No, it's a command. We append and send.
-            if (State.ws && State.ws.readyState === WebSocket.OPEN) {
-                State.ws.send(JSON.stringify({ type: 'pty_input', input: cmd + '\r' }));
-            }
+            sendQuickText(cmd);
             showToast(`Eseguito ${name}`);
             closeCustomPopup();
         }
