@@ -818,9 +818,16 @@ def get_aggregated_state(lines=1500, source="recent_unwrapped"):
                     p_cwd = p.get("foreground_cwd") or p.get("cwd") or "~"
                     p_branch = get_git_branch(p_cwd)
                     is_agent = check_is_agent(p, p_title, daemon_agent_pane_ids)
-                    is_focused = p.get("focused", False) or (p_id == focused_pane_id)
+                    
+                    # A pane might be 'focused' within its own background tab/workspace.
+                    # We ONLY want to fetch the heavy 1500 lines if it's the globally focused pane 
+                    # that the user is actively viewing.
+                    is_globally_focused = (p_id == focused_pane_id)
 
-                    p_read = herdr.read_pane(p_id, lines=lines, source=source, format="ansi")
+                    # Optimize: only fetch 1500 lines for the globally focused pane.
+                    # For background panes, fetch only 20 lines (enough to detect waiting_confirm).
+                    fetch_lines = lines if is_globally_focused else 20
+                    p_read = herdr.read_pane(p_id, lines=fetch_lines, source=source, format="ansi")
                     raw_content = p_read.get("raw_text", "")
                     clean_content = p_read.get("clean_text", "")
                     revision = p_read.get("revision", 0)

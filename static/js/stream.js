@@ -67,11 +67,28 @@ function handleStateUpdate(data) {
                     State.workspaces[0];
 
     State.activeWorkspaceId = activeWs.id;
-    if (DOM.currentWsName) DOM.currentWsName.textContent = activeWs.name || `Workspace ${activeWs.id}`;
+    if (DOM.currentWsName && DOM.currentWsName.textContent !== (activeWs.name || `Workspace ${activeWs.id}`)) {
+        DOM.currentWsName.textContent = activeWs.name || `Workspace ${activeWs.id}`;
+    }
 
     // Tabs for active workspace
     State.tabs = activeWs.tabs || [];
-    renderTabs(State.tabs);
+    
+    // Check if tabs visually changed before rendering
+    const tabsSignature = JSON.stringify(State.tabs.map(t => {
+        const agentPane = t.panes && t.panes.find(p => p.agent || p.status === 'working' || p.status === 'blocked');
+        return {
+            id: t.tab_id, 
+            label: t.label, 
+            active: t.tab_id === State.activeTabId,
+            agentIcon: agentPane ? (agentPane.agent || agentPane.title || agentPane.command) : null
+        };
+    }));
+    
+    if (State._lastTabsSignature !== tabsSignature) {
+        State._lastTabsSignature = tabsSignature;
+        renderTabs(State.tabs);
+    }
 
     // Active tab
     let activeTab = State.tabs.find(t => t.tab_id === State.activeTabId) ||
@@ -107,7 +124,12 @@ function handleStateUpdate(data) {
 
     // Real-time update for home chats list and active agents counter
     if (State.currentScreen === 'chats-list' && State.chatsFilter !== 'settings') {
-        renderChatsList();
+        if (!State._chatsListRenderTimer) {
+            State._chatsListRenderTimer = setTimeout(() => {
+                State._chatsListRenderTimer = null;
+                renderChatsList();
+            }, 500);
+        }
     } else {
         updateActiveAgentsBadge();
     }
@@ -144,6 +166,20 @@ function updateActiveAgentsBadge() {
 }
 
 function updateHeaderInfo(pane) {
+    const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId);
+    const wsName = (activeWs && (activeWs.name || activeWs.label)) || `Workspace ${State.activeWorkspaceId || ''}`;
+    const status = (pane.status || 'idle').toLowerCase();
+    const isWaiting = !!pane.waiting_confirm || (pane.status === 'blocked');
+    
+    const headerSignature = JSON.stringify({
+        agent: pane.agent, title: pane.title, command: pane.command,
+        label: pane.label, custom_name: pane.custom_name,
+        wsName: wsName, status: status, isWaiting: isWaiting
+    });
+    
+    if (State._lastHeaderSignature === headerSignature) return;
+    State._lastHeaderSignature = headerSignature;
+
     const defaultName = (typeof getAgentDefaultName === 'function') ? getAgentDefaultName(pane.agent || pane.title || pane.command) : 'Agente AI';
     const title = pane.label || pane.custom_name || pane.agent || pane.title || defaultName || 'Herdr Agent';
     DOM.chatHeaderTitle.textContent = title;
@@ -155,14 +191,10 @@ function updateHeaderInfo(pane) {
         DOM.headerAvatarMini.style.borderColor = `${meta.color}50`;
     }
 
-    const activeWs = State.workspaces.find(w => w.id === State.activeWorkspaceId);
-    const wsName = (activeWs && (activeWs.name || activeWs.label)) || `Workspace ${State.activeWorkspaceId || ''}`;
-
-    const status = (pane.status || 'idle').toLowerCase();
     if (status === 'working') {
         DOM.agentStatusText.textContent = `${wsName} • ⚡ lavora...`;
         DOM.agentStatusText.style.color = 'var(--cyan)';
-    } else if (status === 'blocked' || pane.waiting_confirm) {
+    } else if (status === 'blocked' || isWaiting) {
         DOM.agentStatusText.textContent = `${wsName} • ⚠️ conferma`;
         DOM.agentStatusText.style.color = 'var(--warning)';
     } else {
@@ -244,6 +276,53 @@ function updateTerminalContent(pane) {
     const minLen = Math.min(oldLines.length, newLines.length);
     while (diffIdx < minLen && oldLines[diffIdx] === newLines[diffIdx]) {
         diffIdx++;
+    }
+
+    // Check for buffer shift (lines dropped from top due to server limit)
+    if (diffIdx === 0 && oldLines.length >= 1000) {
+        let shift = -1;
+        // Search for the new start in the old lines
+        for (let i = 1; i <= 200; i++) {
+            if (i + 2 < oldLines.length && oldLines[i] === newLines[0] && oldLines[i+1] === newLines[1] && oldLines[i+2] === newLines[2]) {
+                shift = i;
+                break;
+            }
+        }
+        
+        if (shift !== -1) {
+            const adjustedOldLines = oldLines.slice(shift);
+            let diffIdx2 = 0;
+            const minLen2 = Math.min(adjustedOldLines.length, newLines.length);
+            while (diffIdx2 < minLen2 && adjustedOldLines[diffIdx2] === newLines[diffIdx2]) {
+                diffIdx2++;
+            }
+            
+            const linesBack2 = adjustedOldLines.length - 1 - diffIdx2;
+            if (diffIdx2 > 0 && linesBack2 >= 0 && linesBack2 <= 30) {
+                let updateSeq = '';
+                if (linesBack2 === 0) {
+                    updateSeq = '\r\x1b[2K' + newLines.slice(diffIdx2).join('\n');
+                } else {
+                    updateSeq = `\x1b[${linesBack2}A\r\x1b[J` + newLines.slice(diffIdx2).join('\n');
+                }
+                
+                State._isWritingToTerminal = true;
+                State.term.write(updateSeq, () => {
+                    State._isWritingToTerminal = false;
+                    if (wasAtBottom) {
+                        State.terminalAtBottom = true;
+                        State.term.scrollToBottom();
+                        if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'none';
+                    } else {
+                        State.term.scrollToLine(savedViewportY);
+                        if (DOM.btnScrollBottom) DOM.btnScrollBottom.style.display = 'flex';
+                    }
+                });
+                State.lastText = rawText;
+                State.lastRevision = revision;
+                return;
+            }
+        }
     }
 
     const linesBack = oldLines.length - 1 - diffIdx;
