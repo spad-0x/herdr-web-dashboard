@@ -419,6 +419,8 @@ html, body {
     -webkit-overscroll-behavior: none;
     touch-action: pan-x pan-y;
     -webkit-text-size-adjust: 100%;
+    -webkit-user-select: none;
+    user-select: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -903,8 +905,8 @@ html, body {
     overflow: hidden;
     position: relative;
     touch-action: none;
-    -webkit-user-select: none;
-    user-select: none;
+    -webkit-user-select: text;
+    user-select: text;
     cursor: default;
 }
 
@@ -3065,3 +3067,9 @@ input:checked + .toggle-slider:before {
     background: rgba(255, 255, 255, 0.08);
 }
 
+
+/* Enable text selection inside chat bubbles */
+.bubble-content {
+    -webkit-user-select: text;
+    user-select: text;
+}
