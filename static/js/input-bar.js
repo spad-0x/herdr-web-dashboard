@@ -272,19 +272,28 @@ function initCtrlMenu() {
     }
 
     // Pointerdown: start hold timer
-    DOM.btnCtrlMenu.addEventListener('pointerdown', () => {
+    let ctrlStartX = 0, ctrlStartY = 0;
+    DOM.btnCtrlMenu.addEventListener('pointerdown', (e) => {
         isLongPress = false;
         isHolding = false;
+        ctrlStartX = e.clientX;
+        ctrlStartY = e.clientY;
         pressTimer = setTimeout(() => {
             isLongPress = true;
             isHolding = true;
             openCtrlPopup();
         }, 260);
-    });
+    }, { passive: true });
 
     // Window pointermove: if dragging finger/mouse after long-press, highlight hovered item
     window.addEventListener('pointermove', (e) => {
-        if (!isHolding || DOM.ctrlShortcutsPopup.style.display !== 'block') return;
+        if (!isHolding || DOM.ctrlShortcutsPopup.style.display !== 'block') {
+            if (pressTimer && (Math.abs(e.clientX - ctrlStartX) > 10 || Math.abs(e.clientY - ctrlStartY) > 10)) {
+                clearTimeout(pressTimer);
+                pressTimer = null;
+            }
+            return;
+        }
         const target = document.elementFromPoint(e.clientX, e.clientY);
         const gridItem = target ? target.closest('.ctrl-grid-item') : null;
         DOM.ctrlShortcutsPopup.querySelectorAll('.ctrl-grid-item').forEach(el => {
@@ -956,18 +965,27 @@ function updateFontSize(delta) {
             closeCustomPopup();
         }
 
-        btnCustomMenu.addEventListener('pointerdown', () => {
+        let customStartX = 0, customStartY = 0;
+        btnCustomMenu.addEventListener('pointerdown', (e) => {
             isLongPressCustom = false;
             isHoldingCustom = false;
+            customStartX = e.clientX;
+            customStartY = e.clientY;
             pressTimerCustom = setTimeout(() => {
                 isLongPressCustom = true;
                 isHoldingCustom = true;
                 openCustomPopup();
             }, 260);
-        });
+        }, { passive: true });
 
         window.addEventListener('pointermove', (e) => {
-            if (!isHoldingCustom || customShortcutsPopup.style.display !== 'block') return;
+            if (!isHoldingCustom || customShortcutsPopup.style.display !== 'block') {
+                if (pressTimerCustom && (Math.abs(e.clientX - customStartX) > 10 || Math.abs(e.clientY - customStartY) > 10)) {
+                    clearTimeout(pressTimerCustom);
+                    pressTimerCustom = null;
+                }
+                return;
+            }
             const target = document.elementFromPoint(e.clientX, e.clientY);
             const gridItem = target ? target.closest('.ctrl-grid-item') : null;
             customShortcutsPopup.querySelectorAll('.ctrl-grid-item').forEach(el => {
@@ -1069,19 +1087,28 @@ function updateFontSize(delta) {
         }
 
         // Pointerdown: start hold timer
+        let navStartX = 0, navStartY = 0;
         btnNavMenu.addEventListener('pointerdown', (e) => {
             isLongPressNav = false;
             isHoldingNav = false;
+            navStartX = e.clientX;
+            navStartY = e.clientY;
             pressTimerNav = setTimeout(() => {
                 isLongPressNav = true;
                 isHoldingNav = true;
                 openNavPopup();
             }, 260);
-        });
+        }, { passive: true });
 
         // Window pointermove: if dragging finger/mouse after long-press, highlight hovered item
         window.addEventListener('pointermove', (e) => {
-            if (!isHoldingNav || navShortcutsPopup.style.display !== 'block') return;
+            if (!isHoldingNav || navShortcutsPopup.style.display !== 'block') {
+                if (pressTimerNav && (Math.abs(e.clientX - navStartX) > 10 || Math.abs(e.clientY - navStartY) > 10)) {
+                    clearTimeout(pressTimerNav);
+                    pressTimerNav = null;
+                }
+                return;
+            }
             const target = document.elementFromPoint(e.clientX, e.clientY);
             const gridItem = target ? target.closest('.ctrl-grid-item') : null;
             navShortcutsPopup.querySelectorAll('.ctrl-grid-item').forEach(el => {
