@@ -30,8 +30,8 @@
     "semantic_hash": ""
   },
   "static/js/input-bar.js": {
-    "mtime": 1788626651.8786018,
-    "ast_hash": "88a0b13bc386fb9690a6f22e45a0dccb",
+    "mtime": 1788627701.7565842,
+    "ast_hash": "716cbb1d4377117442eff778647586c6",
     "semantic_hash": ""
   },
   "static/js/settings.js": {
@@ -100,8 +100,8 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788626651.876547,
-    "ast_hash": "66934f00977bb20c489b1a36383633eb",
+    "mtime": 1788627361.2317615,
+    "ast_hash": "d26caf2413e834292a970dd08fcc1954",
     "semantic_hash": ""
   },
   "static/login.html": {
@@ -212,6 +212,21 @@
   "static/icons/icon-ram-1024.png": {
     "mtime": 1788606033.5619133,
     "ast_hash": "6afcab01b69dce5684e41350508c129f",
+    "semantic_hash": ""
+  },
+  "fix-scroll.js": {
+    "mtime": 1788627701.636259,
+    "ast_hash": "aacf69cf4dfe9bb8b060a2c659b950d5",
+    "semantic_hash": ""
+  },
+  "scratch-nav-logic.js": {
+    "mtime": 1788627555.5829647,
+    "ast_hash": "507ffc6240a6bb05ee938af4938b81e3",
+    "semantic_hash": ""
+  },
+  "scratch-nav-popup.html": {
+    "mtime": 1788627357.5155225,
+    "ast_hash": "5ca569fd3bd5b319ba86564d6fd42627",
     "semantic_hash": ""
   }
 }
