@@ -240,11 +240,11 @@ function renderSettingsScreen(container) {
                             <span class="settings-item-label">🛠️ Aggiungi Scorciatoia</span>
                             <span class="settings-item-desc">I comandi saranno disponibili nel pulsante "Custom" della barra input</span>
                         </div>
-                        <div class="plugin-install-form" style="display: flex; gap: 6px;">
-                            <input type="text" class="plugin-input-field" id="input-custom-cmd-label" placeholder="Nome (es. Log)" style="flex: 1;" />
-                            <input type="text" class="plugin-input-field" id="input-custom-cmd-val" placeholder="Comando (es. git log)" style="flex: 2;" />
-                            <button class="btn-plugin-install" id="btn-custom-cmd-add">Aggiungi</button>
-                        </div>
+                        <form class="plugin-install-form" id="form-custom-cmd-add" style="display: flex; gap: 6px; width: 100%;">
+                            <input type="text" class="plugin-input-field" id="input-custom-cmd-label" placeholder="Nome" style="flex: 1; min-width: 0;" />
+                            <input type="text" class="plugin-input-field" id="input-custom-cmd-val" placeholder="Comando (es. git log)" style="flex: 2; min-width: 0;" />
+                            <button type="submit" class="btn-plugin-install" style="flex-shrink: 0;">Salva</button>
+                        </form>
                     </div>
                     <div id="custom-cmds-list-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-subtle);">
                     </div>
@@ -697,9 +697,10 @@ function renderSettingsScreen(container) {
                 });
             }
             
-            const btnAddCustom = settingsWrap.querySelector('#btn-custom-cmd-add');
-            if (btnAddCustom) {
-                btnAddCustom.addEventListener('click', () => {
+            const formAddCustom = settingsWrap.querySelector('#form-custom-cmd-add');
+            if (formAddCustom) {
+                formAddCustom.addEventListener('submit', (e) => {
+                    e.preventDefault();
                     const lblInput = settingsWrap.querySelector('#input-custom-cmd-label');
                     const valInput = settingsWrap.querySelector('#input-custom-cmd-val');
                     const label = lblInput.value.trim();
