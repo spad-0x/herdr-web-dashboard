@@ -232,6 +232,24 @@ function renderSettingsScreen(container) {
                     </div>
                 </div>
 
+                <!-- 4.5. CUSTOM COMMANDS -->
+                <div class="settings-section-card">
+                    <div class="settings-section-title">Comandi Personalizzati Rapidi</div>
+                    <div class="settings-item-row column">
+                        <div class="settings-item-left" style="margin-bottom: 6px;">
+                            <span class="settings-item-label">🛠️ Aggiungi Scorciatoia</span>
+                            <span class="settings-item-desc">I comandi saranno disponibili nel pulsante "Custom" della barra input</span>
+                        </div>
+                        <div class="plugin-install-form" style="display: flex; gap: 6px;">
+                            <input type="text" class="plugin-input-field" id="input-custom-cmd-label" placeholder="Nome (es. Log)" style="flex: 1;" />
+                            <input type="text" class="plugin-input-field" id="input-custom-cmd-val" placeholder="Comando (es. git log)" style="flex: 2;" />
+                            <button class="btn-plugin-install" id="btn-custom-cmd-add">Aggiungi</button>
+                        </div>
+                    </div>
+                    <div id="custom-cmds-list-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-subtle);">
+                    </div>
+                </div>
+
                 <!-- 5. AGENT INTEGRATIONS -->
                 <div class="settings-section-card">
                     <div class="settings-section-title">Integrazioni Agenti Ufficiali (integrations)</div>
@@ -637,6 +655,78 @@ function renderSettingsScreen(container) {
             });
 
             // Logout
+
+            // Custom Commands Logic
+            function renderCustomCommandsList() {
+                const listContainer = settingsWrap.querySelector('#custom-cmds-list-container');
+                if (!listContainer) return;
+                
+                let cmds = [];
+                try {
+                    cmds = JSON.parse(localStorage.getItem('herdr_custom_commands') || '[]');
+                } catch(e) {}
+                
+                if (cmds.length === 0) {
+                    listContainer.innerHTML = '<span class="settings-item-desc">Nessun comando personalizzato.</span>';
+                    return;
+                }
+                
+                listContainer.innerHTML = '';
+                cmds.forEach((cmd, idx) => {
+                    const row = document.createElement('div');
+                    row.className = 'settings-item-row';
+                    row.style.padding = '8px 12px';
+                    row.innerHTML = `
+                        <div class="settings-item-left" style="overflow: hidden;">
+                            <span class="settings-item-label" style="font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${escapeHtml(cmd.label)}</span>
+                            <span class="settings-item-desc mono" style="font-size: 11px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${escapeHtml(cmd.command)}</span>
+                        </div>
+                        <button class="btn-action-sm uninstall btn-remove-custom-cmd" data-idx="${idx}" style="flex-shrink: 0;">Rimuovi</button>
+                    `;
+                    listContainer.appendChild(row);
+                });
+                
+                listContainer.querySelectorAll('.btn-remove-custom-cmd').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const idx = parseInt(e.target.dataset.idx, 10);
+                        cmds.splice(idx, 1);
+                        localStorage.setItem('herdr_custom_commands', JSON.stringify(cmds));
+                        renderCustomCommandsList();
+                        showToast('Comando rimosso');
+                    });
+                });
+            }
+            
+            const btnAddCustom = settingsWrap.querySelector('#btn-custom-cmd-add');
+            if (btnAddCustom) {
+                btnAddCustom.addEventListener('click', () => {
+                    const lblInput = settingsWrap.querySelector('#input-custom-cmd-label');
+                    const valInput = settingsWrap.querySelector('#input-custom-cmd-val');
+                    const label = lblInput.value.trim();
+                    const command = valInput.value.trim();
+                    
+                    if (!label || !command) {
+                        showToast('Compila nome e comando');
+                        return;
+                    }
+                    
+                    let cmds = [];
+                    try {
+                        cmds = JSON.parse(localStorage.getItem('herdr_custom_commands') || '[]');
+                    } catch(e) {}
+                    
+                    cmds.push({ label, command });
+                    localStorage.setItem('herdr_custom_commands', JSON.stringify(cmds));
+                    
+                    lblInput.value = '';
+                    valInput.value = '';
+                    renderCustomCommandsList();
+                    showToast('Comando aggiunto');
+                    triggerHaptic('light');
+                });
+            }
+            
+            renderCustomCommandsList();
             const logoutBtn = settingsWrap.querySelector('#btn-settings-logout');
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', () => {

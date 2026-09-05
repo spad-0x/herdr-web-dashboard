@@ -874,3 +874,156 @@ function updateFontSize(delta) {
         try { State.fitAddon.fit(); } catch (e) {}
     }
 }
+
+    // --- Custom Commands Popup Logic ---
+    const btnCustomMenu = document.getElementById('btn-custom-menu');
+    const customShortcutsPopup = document.getElementById('custom-shortcuts-popup');
+    const customPopupBackdrop = document.getElementById('custom-popup-backdrop');
+    const customCommandsGrid = document.getElementById('custom-commands-grid');
+    
+    if (btnCustomMenu && customShortcutsPopup) {
+        let pressTimerCustom = null;
+        let isLongPressCustom = false;
+        let isHoldingCustom = false;
+        
+        function populateCustomCommands() {
+            if (!customCommandsGrid) return;
+            const saved = localStorage.getItem('herdr_custom_commands');
+            let cmds = [];
+            if (saved) {
+                try { cmds = JSON.parse(saved); } catch(e){}
+            }
+            if (cmds.length === 0) {
+                customCommandsGrid.innerHTML = '<div style="grid-column: span 4; text-align: center; color: var(--text-muted); font-size: 12px; padding: 10px;">Nessun comando. Aggiungili nelle Impostazioni.</div>';
+                return;
+            }
+            
+            customCommandsGrid.innerHTML = '';
+            cmds.forEach(cmd => {
+                const btn = document.createElement('button');
+                btn.className = 'ctrl-grid-item';
+                btn.dataset.cmd = cmd.command;
+                btn.dataset.name = cmd.label;
+                btn.innerHTML = `
+                    <span class="ctrl-key-label" style="font-size: 11px;">${escapeHtml(cmd.label.substring(0, 3).toUpperCase())}</span>
+                    <span class="ctrl-key-desc">${escapeHtml(cmd.label)}</span>
+                `;
+                customCommandsGrid.appendChild(btn);
+            });
+        }
+
+        function openCustomPopup() {
+            if (!customShortcutsPopup) return;
+            populateCustomCommands();
+            customShortcutsPopup.style.display = 'block';
+            if (customPopupBackdrop) customPopupBackdrop.style.display = 'block';
+
+            const btnRect = btnCustomMenu.getBoundingClientRect();
+            const drawerRect = DOM.cliKeysDrawer ? DOM.cliKeysDrawer.getBoundingClientRect() : btnRect;
+            const popupWidth = customShortcutsPopup.offsetWidth || 320;
+
+            let left = btnRect.left;
+            if (left + popupWidth > window.innerWidth - 10) {
+                left = window.innerWidth - popupWidth - 10;
+            }
+            if (left < 10) left = 10;
+
+            const bottom = Math.max(10, window.innerHeight - drawerRect.top + 6);
+
+            customShortcutsPopup.style.left = `${Math.round(left)}px`;
+            customShortcutsPopup.style.bottom = `${Math.round(bottom)}px`;
+            customShortcutsPopup.classList.add('active');
+            btnCustomMenu.classList.add('active');
+            triggerHaptic('medium');
+        }
+
+        function closeCustomPopup() {
+            if (!customShortcutsPopup) return;
+            customShortcutsPopup.style.display = 'none';
+            customShortcutsPopup.classList.remove('active');
+            if (customPopupBackdrop) customPopupBackdrop.style.display = 'none';
+            btnCustomMenu.classList.remove('active');
+            customShortcutsPopup.querySelectorAll('.ctrl-grid-item').forEach(el => el.classList.remove('drag-hover'));
+        }
+
+        function triggerCustomCommand(item) {
+            if (!item || !item.dataset.cmd) return;
+            const cmd = item.dataset.cmd;
+            const name = item.dataset.name || cmd;
+            triggerHaptic('light');
+            // send key directly? No, it's a command. We append and send.
+            if (State.ws && State.ws.readyState === WebSocket.OPEN) {
+                State.ws.send(JSON.stringify({ type: 'pty_input', input: cmd + '\r' }));
+            }
+            showToast(`Eseguito ${name}`);
+            closeCustomPopup();
+        }
+
+        btnCustomMenu.addEventListener('pointerdown', () => {
+            isLongPressCustom = false;
+            isHoldingCustom = false;
+            pressTimerCustom = setTimeout(() => {
+                isLongPressCustom = true;
+                isHoldingCustom = true;
+                openCustomPopup();
+            }, 260);
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!isHoldingCustom || customShortcutsPopup.style.display !== 'block') return;
+            const target = document.elementFromPoint(e.clientX, e.clientY);
+            const gridItem = target ? target.closest('.ctrl-grid-item') : null;
+            customShortcutsPopup.querySelectorAll('.ctrl-grid-item').forEach(el => {
+                el.classList.toggle('drag-hover', el === gridItem);
+            });
+        });
+
+        window.addEventListener('pointerup', (e) => {
+            if (pressTimerCustom) {
+                clearTimeout(pressTimerCustom);
+                pressTimerCustom = null;
+            }
+            if (isHoldingCustom) {
+                isHoldingCustom = false;
+                const target = document.elementFromPoint(e.clientX, e.clientY);
+                const gridItem = target ? target.closest('.ctrl-grid-item') : null;
+                if (gridItem) triggerCustomCommand(gridItem);
+            }
+        });
+
+        window.addEventListener('pointercancel', () => {
+            if (pressTimerCustom) {
+                clearTimeout(pressTimerCustom);
+                pressTimerCustom = null;
+            }
+            isHoldingCustom = false;
+        });
+
+        btnCustomMenu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (isLongPressCustom) {
+                isLongPressCustom = false;
+                return;
+            }
+            if (customShortcutsPopup.style.display === 'block') {
+                closeCustomPopup();
+            } else {
+                openCustomPopup();
+            }
+        });
+
+        customShortcutsPopup.addEventListener('click', (e) => {
+            const item = e.target.closest('.ctrl-grid-item');
+            if (item) triggerCustomCommand(item);
+        });
+
+        if (customPopupBackdrop) {
+            customPopupBackdrop.addEventListener('click', closeCustomPopup);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && customShortcutsPopup.style.display === 'block') {
+                closeCustomPopup();
+            }
+        });
+    }

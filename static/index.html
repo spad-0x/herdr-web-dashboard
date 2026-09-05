@@ -178,10 +178,22 @@
                 <button class="cli-key" data-key="down">▼</button>
                 <button class="cli-key" data-key="left">◀</button>
                 <button class="cli-key" data-key="right">▶</button>
-                <button class="cli-key key-chip" data-cmd="clear">clear</button>
-                <button class="cli-key key-chip" data-cmd="ls -la">ls</button>
-                <button class="cli-key key-chip" data-cmd="git status">git st</button>
-                <button class="cli-key key-chip" data-cmd="git diff">git diff</button>
+                <button class="cli-key key-ctrl-trigger" id="btn-custom-menu" title="Tieni premuto per Comandi Personalizzati">
+                    <span>🛠️ Custom</span>
+                    <span class="ctrl-caret">▾</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- CUSTOM COMMANDS POPUP -->
+        <div class="ctrl-popup-backdrop" id="custom-popup-backdrop" style="display: none;"></div>
+        <div class="ctrl-shortcuts-popup" id="custom-shortcuts-popup" style="display: none;" role="dialog" aria-label="Comandi Personalizzati">
+            <div class="ctrl-popup-header">
+                <span class="ctrl-popup-title">🛠️ Comandi Personalizzati</span>
+                <span class="ctrl-popup-hint">Tocca o rilascia</span>
+            </div>
+            <div class="ctrl-popup-grid" id="custom-commands-grid">
+                <!-- Populated dynamically via JS -->
             </div>
         </div>
 
