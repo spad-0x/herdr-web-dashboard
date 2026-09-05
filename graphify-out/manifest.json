@@ -1,11 +1,11 @@
 {
   "herdr_client.py": {
-    "mtime": 1788539353.6030781,
+    "mtime": 1788606033.5439353,
     "ast_hash": "c938fb3784d60f9c7b2c332ffb3b39d3",
     "semantic_hash": ""
   },
   "server.py": {
-    "mtime": 1788541345.2468913,
+    "mtime": 1788606033.544778,
     "ast_hash": "8902856d931069b8dc17e077c827370f",
     "semantic_hash": ""
   },
@@ -15,57 +15,57 @@
     "semantic_hash": ""
   },
   "static/js/app-init.js": {
-    "mtime": 1788539708.2327044,
+    "mtime": 1788606033.5637221,
     "ast_hash": "1dacc2caaaab783e31dc591920971c7c",
     "semantic_hash": ""
   },
   "static/js/chat.js": {
-    "mtime": 1788527906.833064,
+    "mtime": 1788606033.5643983,
     "ast_hash": "da305d6aaf8a0a7eede7a868e4440ee8",
     "semantic_hash": ""
   },
   "static/js/chats-list.js": {
-    "mtime": 1788546405.6079004,
-    "ast_hash": "838239716dcf09c0dc3714d574d2cc7a",
+    "mtime": 1788609899.1662064,
+    "ast_hash": "208eaeb64699e88441f5bff48aa763e0",
     "semantic_hash": ""
   },
   "static/js/input-bar.js": {
-    "mtime": 1788546361.787806,
-    "ast_hash": "3071929a8bb3ab1230b6e0adefce798b",
+    "mtime": 1788608905.7275386,
+    "ast_hash": "88a0b13bc386fb9690a6f22e45a0dccb",
     "semantic_hash": ""
   },
   "static/js/settings.js": {
-    "mtime": 1788541527.1651776,
-    "ast_hash": "31a04bf4f2b9c79792d225834e6e1d9a",
+    "mtime": 1788608383.5764456,
+    "ast_hash": "822c9a0acf545c0792f805720a397d80",
     "semantic_hash": ""
   },
   "static/js/state.js": {
-    "mtime": 1788541401.589829,
+    "mtime": 1788606033.5674396,
     "ast_hash": "6dff94d472cccb831b22e92388ca0e56",
     "semantic_hash": ""
   },
   "static/js/stream.js": {
-    "mtime": 1788542024.1815648,
-    "ast_hash": "bc4e5ed0f5abc409fd6929761b9816ab",
+    "mtime": 1788609687.5785732,
+    "ast_hash": "c6feca7954ac4a83706ebe12476aa4e0",
     "semantic_hash": ""
   },
   "static/js/terminal.js": {
-    "mtime": 1788545999.6935477,
-    "ast_hash": "693496e865daaee35026a2bbae53da90",
+    "mtime": 1788609913.7483013,
+    "ast_hash": "e9d9e9e30ca3f23ac9d2ac41c51e7922",
     "semantic_hash": ""
   },
   "static/js/utils.js": {
-    "mtime": 1788540764.0830421,
+    "mtime": 1788606033.5695274,
     "ast_hash": "9a91830b197e0d61c411c6b2df77ffcf",
     "semantic_hash": ""
   },
   "static/manifest.json": {
-    "mtime": 1788542953.7362177,
+    "mtime": 1788606033.5707414,
     "ast_hash": "3457445e6bfb34006c9a53a8b02db68d",
     "semantic_hash": ""
   },
   "static/push-helper.js": {
-    "mtime": 1788541377.7104154,
+    "mtime": 1788606033.571918,
     "ast_hash": "fdd6beec5ba733d9f389004bd098c155",
     "semantic_hash": ""
   },
@@ -100,117 +100,117 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788546056.8846812,
-    "ast_hash": "641f296abd0d5731ae78b6b0ab35b03b",
+    "mtime": 1788607502.9091592,
+    "ast_hash": "66934f00977bb20c489b1a36383633eb",
     "semantic_hash": ""
   },
   "static/login.html": {
-    "mtime": 1788544762.4447854,
+    "mtime": 1788606033.5701644,
     "ast_hash": "1f16046f56cd72694e1b39bae7cb1dc1",
     "semantic_hash": ""
   },
   "static/apple-touch-icon.png": {
-    "mtime": 1788544762.4356022,
+    "mtime": 1788606033.5474005,
     "ast_hash": "13bb927971e91d67dcd0e3d909cc96ff",
     "semantic_hash": ""
   },
   "static/favicon.svg": {
-    "mtime": 1788542922.3023126,
+    "mtime": 1788606033.5483572,
     "ast_hash": "fdb8ffbea5c2fd4dd41010dbd49a665d",
     "semantic_hash": ""
   },
   "static/icon-180.png": {
-    "mtime": 1788542929.197358,
+    "mtime": 1788606033.5518563,
     "ast_hash": "bf5c580987ef78d3dbd9ce5bb6b3fc28",
     "semantic_hash": ""
   },
   "static/icon-192.png": {
-    "mtime": 1788544762.4380631,
+    "mtime": 1788606033.5526946,
     "ast_hash": "380cb09b2652905cba44cacd723cd22b",
     "semantic_hash": ""
   },
   "static/icon-512.png": {
-    "mtime": 1788544762.4387758,
+    "mtime": 1788606033.5538273,
     "ast_hash": "56cfc3ea6ed3fc7df7bca9e50d84388b",
     "semantic_hash": ""
   },
   "static/vendor/addon-webgl.js": {
-    "mtime": 1788487286.8536718,
+    "mtime": 1788606033.5747943,
     "ast_hash": "888cc5004f5111556bf8b3d8ed881799",
     "semantic_hash": ""
   },
   "static/Google-Antigravity-Icon-Full-Color.png": {
-    "mtime": 1788540501.7146537,
+    "mtime": 1788606033.5457566,
     "ast_hash": "e4a079be0aff31e46ac210e471911eaa",
     "semantic_hash": ""
   },
   "static/pi.svg": {
-    "mtime": 1788540646.185914,
+    "mtime": 1788606033.5713224,
     "ast_hash": "9d637b26ff317e576b2fe5ee63c8766a",
     "semantic_hash": ""
   },
   "static/icon-1024.png": {
-    "mtime": 1788544762.4373972,
+    "mtime": 1788606033.550893,
     "ast_hash": "1e0c850342dc295e6c2dca31f80821fd",
     "semantic_hash": ""
   },
   "static/icons/apple-touch-icon-180x180.png": {
-    "mtime": 1788544762.439949,
+    "mtime": 1788606033.5548043,
     "ast_hash": "a4068aebdede61dd1bfd5a607887f728",
     "semantic_hash": ""
   },
   "static/icons/icon-1024x1024.png": {
-    "mtime": 1788544762.4414368,
+    "mtime": 1788606033.5572455,
     "ast_hash": "b19e9c580b7a95628cf4ecd475719b10",
     "semantic_hash": ""
   },
   "static/icons/icon-192x192.png": {
-    "mtime": 1788544762.441898,
+    "mtime": 1788606033.5576475,
     "ast_hash": "380cb09b2652905cba44cacd723cd22b",
     "semantic_hash": ""
   },
   "static/icons/icon-256x256.png": {
-    "mtime": 1788542929.1676495,
+    "mtime": 1788606033.558305,
     "ast_hash": "0ffcfbd1b895c46441c6b661e9c25d0c",
     "semantic_hash": ""
   },
   "static/icons/icon-384x384.png": {
-    "mtime": 1788542929.1635835,
+    "mtime": 1788606033.55898,
     "ast_hash": "c3e3ab9a8e6690bee4768ac1dcc39927",
     "semantic_hash": ""
   },
   "static/icons/icon-512x512.png": {
-    "mtime": 1788544762.4425228,
+    "mtime": 1788606033.559551,
     "ast_hash": "56cfc3ea6ed3fc7df7bca9e50d84388b",
     "semantic_hash": ""
   },
   "static/icons/icon-monochrome.svg": {
-    "mtime": 1788542922.2894623,
+    "mtime": 1788606033.5600395,
     "ast_hash": "8aa82ac879a24b6b50c6067d42ba73c7",
     "semantic_hash": ""
   },
   "static/icons/icon.svg": {
-    "mtime": 1788542922.295098,
+    "mtime": 1788606033.5622249,
     "ast_hash": "fdb8ffbea5c2fd4dd41010dbd49a665d",
     "semantic_hash": ""
   },
   "static/ram.svg": {
-    "mtime": 1788542922.2815356,
+    "mtime": 1788606033.5724053,
     "ast_hash": "c2be1c80f1efc565208260819b6141e0",
     "semantic_hash": ""
   },
   "static/apple-touch-icon-ram-180.png": {
-    "mtime": 1788544762.4341636,
+    "mtime": 1788606033.54679,
     "ast_hash": "13bb927971e91d67dcd0e3d909cc96ff",
     "semantic_hash": ""
   },
   "static/icons/apple-touch-icon-ram.svg": {
-    "mtime": 1788544762.4402368,
+    "mtime": 1788606033.5554006,
     "ast_hash": "41c6826df063bc29d6816fb626b464f6",
     "semantic_hash": ""
   },
   "static/icons/icon-ram-1024.png": {
-    "mtime": 1788544762.4437933,
+    "mtime": 1788606033.5619133,
     "ast_hash": "6afcab01b69dce5684e41350508c129f",
     "semantic_hash": ""
   }

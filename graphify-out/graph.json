@@ -860,7 +860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_chat",
-      "community": 4,
+      "community": 46,
       "norm_label": "chat.js"
     },
     {
@@ -870,7 +870,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "js_chat_initchatscroll",
-      "community": 4,
+      "community": 46,
       "norm_label": "initchatscroll()"
     },
     {
@@ -880,7 +880,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "js_chat_updatechatcontent",
-      "community": 4,
+      "community": 46,
       "norm_label": "updatechatcontent()"
     },
     {
@@ -890,7 +890,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "js_chat_renderactivechatfromterminal",
-      "community": 4,
+      "community": 46,
       "norm_label": "renderactivechatfromterminal()"
     },
     {
@@ -900,7 +900,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "js_chat_appenduserbubble",
-      "community": 4,
+      "community": 46,
       "norm_label": "appenduserbubble()"
     },
     {
@@ -910,7 +910,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "js_chat_scrollchattobottom",
-      "community": 4,
+      "community": 46,
       "norm_label": "scrollchattobottom()"
     },
     {
@@ -920,7 +920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_chats_list",
-      "community": 4,
+      "community": 23,
       "norm_label": "chats-list.js"
     },
     {
@@ -930,7 +930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_chats_list_togglemode",
-      "community": 4,
+      "community": 23,
       "norm_label": "togglemode()"
     },
     {
@@ -940,7 +940,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "js_chats_list_setmode",
-      "community": 4,
+      "community": 23,
       "norm_label": "setmode()"
     },
     {
@@ -950,17 +950,17 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "js_chats_list_setscreen",
-      "community": 4,
+      "community": 23,
       "norm_label": "setscreen()"
     },
     {
       "label": "renderChatsList()",
       "file_type": "code",
       "source_file": "static/js/chats-list.js",
-      "source_location": "L52",
+      "source_location": "L68",
       "_origin": "ast",
       "id": "js_chats_list_renderchatslist",
-      "community": 4,
+      "community": 23,
       "norm_label": "renderchatslist()"
     },
     {
@@ -980,7 +980,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "js_input_bar_rendertabs",
-      "community": 4,
+      "community": 49,
       "norm_label": "rendertabs()"
     },
     {
@@ -990,7 +990,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "js_input_bar_setattachment",
-      "community": 4,
+      "community": 15,
       "norm_label": "setattachment()"
     },
     {
@@ -1000,7 +1000,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "js_input_bar_clearattachment",
-      "community": 4,
+      "community": 15,
       "norm_label": "clearattachment()"
     },
     {
@@ -1050,7 +1050,7 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "js_input_bar_getprompttext",
-      "community": 4,
+      "community": 15,
       "norm_label": "getprompttext()"
     },
     {
@@ -1060,7 +1060,7 @@
       "source_location": "L114",
       "_origin": "ast",
       "id": "js_input_bar_clearpromptinput",
-      "community": 4,
+      "community": 15,
       "norm_label": "clearpromptinput()"
     },
     {
@@ -1070,7 +1070,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "js_input_bar_setprompttext",
-      "community": 4,
+      "community": 15,
       "norm_label": "setprompttext()"
     },
     {
@@ -1080,7 +1080,7 @@
       "source_location": "L123",
       "_origin": "ast",
       "id": "js_input_bar_updateinputstate",
-      "community": 4,
+      "community": 15,
       "norm_label": "updateinputstate()"
     },
     {
@@ -1090,7 +1090,7 @@
       "source_location": "L138",
       "_origin": "ast",
       "id": "js_input_bar_sendprompt",
-      "community": 4,
+      "community": 15,
       "norm_label": "sendprompt()"
     },
     {
@@ -1100,7 +1100,7 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "js_input_bar_sendkey",
-      "community": 4,
+      "community": 15,
       "norm_label": "sendkey()"
     },
     {
@@ -1170,7 +1170,7 @@
       "source_location": "L515",
       "_origin": "ast",
       "id": "js_input_bar_closeslashpalette",
-      "community": 4,
+      "community": 15,
       "norm_label": "closeslashpalette()"
     },
     {
@@ -1190,7 +1190,7 @@
       "source_location": "L526",
       "_origin": "ast",
       "id": "js_input_bar_selectslashcommand",
-      "community": 4,
+      "community": 15,
       "norm_label": "selectslashcommand()"
     },
     {
@@ -1210,7 +1210,7 @@
       "source_location": "L604",
       "_origin": "ast",
       "id": "js_input_bar_sendquicktext",
-      "community": 4,
+      "community": 15,
       "norm_label": "sendquicktext()"
     },
     {
@@ -1230,7 +1230,7 @@
       "source_location": "L656",
       "_origin": "ast",
       "id": "js_input_bar_handlemicorsendclick",
-      "community": 4,
+      "community": 15,
       "norm_label": "handlemicorsendclick()"
     },
     {
@@ -1240,7 +1240,7 @@
       "source_location": "L679",
       "_origin": "ast",
       "id": "js_input_bar_opencontactinfo",
-      "community": 4,
+      "community": 39,
       "norm_label": "opencontactinfo()"
     },
     {
@@ -1260,7 +1260,7 @@
       "source_location": "L795",
       "_origin": "ast",
       "id": "js_input_bar_rendersheetpanes",
-      "community": 4,
+      "community": 39,
       "norm_label": "rendersheetpanes()"
     },
     {
@@ -1294,13 +1294,93 @@
       "norm_label": "updatefontsize()"
     },
     {
+      "label": "btnCustomMenu",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L879",
+      "_origin": "ast",
+      "id": "js_input_bar_btncustommenu",
+      "community": 4,
+      "norm_label": "btncustommenu"
+    },
+    {
+      "label": "customShortcutsPopup",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L880",
+      "_origin": "ast",
+      "id": "js_input_bar_customshortcutspopup",
+      "community": 4,
+      "norm_label": "customshortcutspopup"
+    },
+    {
+      "label": "customPopupBackdrop",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L881",
+      "_origin": "ast",
+      "id": "js_input_bar_custompopupbackdrop",
+      "community": 4,
+      "norm_label": "custompopupbackdrop"
+    },
+    {
+      "label": "customCommandsGrid",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L882",
+      "_origin": "ast",
+      "id": "js_input_bar_customcommandsgrid",
+      "community": 4,
+      "norm_label": "customcommandsgrid"
+    },
+    {
+      "label": "populateCustomCommands()",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L889",
+      "_origin": "ast",
+      "id": "js_input_bar_populatecustomcommands",
+      "community": 4,
+      "norm_label": "populatecustomcommands()"
+    },
+    {
+      "label": "openCustomPopup()",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L915",
+      "_origin": "ast",
+      "id": "js_input_bar_opencustompopup",
+      "community": 4,
+      "norm_label": "opencustompopup()"
+    },
+    {
+      "label": "closeCustomPopup()",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L940",
+      "_origin": "ast",
+      "id": "js_input_bar_closecustompopup",
+      "community": 15,
+      "norm_label": "closecustompopup()"
+    },
+    {
+      "label": "triggerCustomCommand()",
+      "file_type": "code",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L949",
+      "_origin": "ast",
+      "id": "js_input_bar_triggercustomcommand",
+      "community": 15,
+      "norm_label": "triggercustomcommand()"
+    },
+    {
       "label": "settings.js",
       "file_type": "code",
       "source_file": "static/js/settings.js",
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_settings",
-      "community": 4,
+      "community": 23,
       "norm_label": "settings.js"
     },
     {
@@ -1310,7 +1390,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "js_settings_rendersettingsscreen",
-      "community": 4,
+      "community": 23,
       "norm_label": "rendersettingsscreen()"
     },
     {
@@ -1350,7 +1430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_stream",
-      "community": 4,
+      "community": 49,
       "norm_label": "stream.js"
     },
     {
@@ -1360,57 +1440,57 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "js_stream_connectstatestream",
-      "community": 4,
+      "community": 49,
       "norm_label": "connectstatestream()"
     },
     {
       "label": "handleStateUpdate()",
       "file_type": "code",
       "source_file": "static/js/stream.js",
-      "source_location": "L31",
+      "source_location": "L48",
       "_origin": "ast",
       "id": "js_stream_handlestateupdate",
-      "community": 4,
+      "community": 49,
       "norm_label": "handlestateupdate()"
     },
     {
       "label": "updateActiveAgentsBadge()",
       "file_type": "code",
       "source_file": "static/js/stream.js",
-      "source_location": "L104",
+      "source_location": "L121",
       "_origin": "ast",
       "id": "js_stream_updateactiveagentsbadge",
-      "community": 4,
+      "community": 49,
       "norm_label": "updateactiveagentsbadge()"
     },
     {
       "label": "updateHeaderInfo()",
       "file_type": "code",
       "source_file": "static/js/stream.js",
-      "source_location": "L129",
+      "source_location": "L146",
       "_origin": "ast",
       "id": "js_stream_updateheaderinfo",
-      "community": 4,
+      "community": 49,
       "norm_label": "updateheaderinfo()"
     },
     {
       "label": "updateConfirmationBanner()",
       "file_type": "code",
       "source_file": "static/js/stream.js",
-      "source_location": "L157",
+      "source_location": "L174",
       "_origin": "ast",
       "id": "js_stream_updateconfirmationbanner",
-      "community": 4,
+      "community": 49,
       "norm_label": "updateconfirmationbanner()"
     },
     {
       "label": "updateTerminalContent()",
       "file_type": "code",
       "source_file": "static/js/stream.js",
-      "source_location": "L166",
+      "source_location": "L183",
       "_origin": "ast",
       "id": "js_stream_updateterminalcontent",
-      "community": 4,
+      "community": 49,
       "norm_label": "updateterminalcontent()"
     },
     {
@@ -1420,7 +1500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_terminal",
-      "community": 4,
+      "community": 23,
       "norm_label": "terminal.js"
     },
     {
@@ -1430,7 +1510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_terminal_ensurewebgladdon",
-      "community": 4,
+      "community": 23,
       "norm_label": "ensurewebgladdon()"
     },
     {
@@ -1440,7 +1520,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "js_terminal_initsubpixelscroll",
-      "community": 4,
+      "community": 23,
       "norm_label": "initsubpixelscroll()"
     },
     {
@@ -1450,7 +1530,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "js_terminal_inittouchscroll",
-      "community": 4,
+      "community": 23,
       "norm_label": "inittouchscroll()"
     },
     {
@@ -1460,7 +1540,7 @@
       "source_location": "L168",
       "_origin": "ast",
       "id": "js_terminal_syncterminalsizewithbackend",
-      "community": 4,
+      "community": 23,
       "norm_label": "syncterminalsizewithbackend()"
     },
     {
@@ -1470,7 +1550,7 @@
       "source_location": "L194",
       "_origin": "ast",
       "id": "js_terminal_initresizeobserver",
-      "community": 4,
+      "community": 23,
       "norm_label": "initresizeobserver()"
     },
     {
@@ -1480,7 +1560,7 @@
       "source_location": "L225",
       "_origin": "ast",
       "id": "js_terminal_initterminal",
-      "community": 4,
+      "community": 23,
       "norm_label": "initterminal()"
     },
     {
@@ -1490,7 +1570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_utils",
-      "community": 4,
+      "community": 39,
       "norm_label": "utils.js"
     },
     {
@@ -1500,7 +1580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "js_utils_triggerhaptic",
-      "community": 4,
+      "community": 15,
       "norm_label": "triggerhaptic()"
     },
     {
@@ -1510,7 +1590,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "js_utils_showtoast",
-      "community": 4,
+      "community": 15,
       "norm_label": "showtoast()"
     },
     {
@@ -1520,7 +1600,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "js_utils_formattime",
-      "community": 4,
+      "community": 46,
       "norm_label": "formattime()"
     },
     {
@@ -1530,7 +1610,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "js_utils_escapehtml",
-      "community": 4,
+      "community": 46,
       "norm_label": "escapehtml()"
     },
     {
@@ -1540,7 +1620,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "js_utils_formatbytes",
-      "community": 4,
+      "community": 39,
       "norm_label": "formatbytes()"
     },
     {
@@ -1550,7 +1630,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "js_utils_apicall",
-      "community": 4,
+      "community": 15,
       "norm_label": "apicall()"
     },
     {
@@ -1560,7 +1640,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "js_utils_terminal_themes",
-      "community": 4,
+      "community": 39,
       "norm_label": "terminal_themes"
     },
     {
@@ -1570,7 +1650,7 @@
       "source_location": "L287",
       "_origin": "ast",
       "id": "js_utils_agent_metadata",
-      "community": 4,
+      "community": 39,
       "norm_label": "agent_metadata"
     },
     {
@@ -1580,7 +1660,7 @@
       "source_location": "L522",
       "_origin": "ast",
       "id": "js_utils_detectagentkey",
-      "community": 4,
+      "community": 39,
       "norm_label": "detectagentkey()"
     },
     {
@@ -1590,7 +1670,7 @@
       "source_location": "L549",
       "_origin": "ast",
       "id": "js_utils_getagentdefaultname",
-      "community": 4,
+      "community": 39,
       "norm_label": "getagentdefaultname()"
     },
     {
@@ -1600,7 +1680,7 @@
       "source_location": "L554",
       "_origin": "ast",
       "id": "js_utils_getagentmeta",
-      "community": 4,
+      "community": 39,
       "norm_label": "getagentmeta()"
     },
     {
@@ -1610,7 +1690,7 @@
       "source_location": "L560",
       "_origin": "ast",
       "id": "js_utils_getagenticonsvg",
-      "community": 4,
+      "community": 39,
       "norm_label": "getagenticonsvg()"
     },
     {
@@ -1620,7 +1700,7 @@
       "source_location": "L570",
       "_origin": "ast",
       "id": "js_utils_openrenameagentdialog",
-      "community": 4,
+      "community": 39,
       "norm_label": "openrenameagentdialog()"
     },
     {
@@ -1630,7 +1710,7 @@
       "source_location": "L606",
       "_origin": "ast",
       "id": "js_utils_closerenameagentdialog",
-      "community": 4,
+      "community": 39,
       "norm_label": "closerenameagentdialog()"
     },
     {
@@ -1640,7 +1720,7 @@
       "source_location": "L617",
       "_origin": "ast",
       "id": "js_utils_handlerenameagentsubmit",
-      "community": 4,
+      "community": 39,
       "norm_label": "handlerenameagentsubmit()"
     },
     {
@@ -2160,7 +2240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_setdimensions",
-      "community": 31,
+      "community": 35,
       "norm_label": ".setdimensions()"
     },
     {
@@ -2170,7 +2250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h",
-      "community": 34,
+      "community": 53,
       "norm_label": "h"
     },
     {
@@ -2180,7 +2260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_constructor",
-      "community": 34,
+      "community": 53,
       "norm_label": ".constructor()"
     },
     {
@@ -2320,7 +2400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_clear",
-      "community": 7,
+      "community": 17,
       "norm_label": "clear()"
     },
     {
@@ -2430,7 +2510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_l_handlecursormove",
-      "community": 7,
+      "community": 37,
       "norm_label": ".handlecursormove()"
     },
     {
@@ -2680,7 +2760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r",
-      "community": 7,
+      "community": 17,
       "norm_label": "r()"
     },
     {
@@ -2740,7 +2820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_a_handlecursormove",
-      "community": 7,
+      "community": 37,
       "norm_label": ".handlecursormove()"
     },
     {
@@ -2880,7 +2960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_n_resize",
-      "community": 34,
+      "community": 35,
       "norm_label": ".resize()"
     },
     {
@@ -2930,7 +3010,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_resolve",
-      "community": 34,
+      "community": 33,
       "norm_label": "resolve()"
     },
     {
@@ -3010,7 +3090,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_i_constructor",
-      "community": 7,
+      "community": 17,
       "norm_label": ".constructor()"
     },
     {
@@ -3040,7 +3120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_i_iscellselected",
-      "community": 34,
+      "community": 33,
       "norm_label": ".iscellselected()"
     },
     {
@@ -3080,7 +3160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_dowarmup",
-      "community": 7,
+      "community": 17,
       "norm_label": "._dowarmup()"
     },
     {
@@ -3090,7 +3170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_cleartexture",
-      "community": 7,
+      "community": 17,
       "norm_label": ".cleartexture()"
     },
     {
@@ -3160,7 +3240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_getcolorfromansiindex",
-      "community": 33,
+      "community": 31,
       "norm_label": "._getcolorfromansiindex()"
     },
     {
@@ -3170,7 +3250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_getbackgroundcolor",
-      "community": 33,
+      "community": 31,
       "norm_label": "._getbackgroundcolor()"
     },
     {
@@ -3180,7 +3260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_getforegroundcolor",
-      "community": 33,
+      "community": 31,
       "norm_label": "._getforegroundcolor()"
     },
     {
@@ -3240,7 +3320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_f_findglyphboundingbox",
-      "community": 31,
+      "community": 33,
       "norm_label": "._findglyphboundingbox()"
     },
     {
@@ -3290,7 +3370,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_p_constructor",
-      "community": 31,
+      "community": 51,
       "norm_label": ".constructor()"
     },
     {
@@ -3310,7 +3390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_c",
-      "community": 7,
+      "community": 33,
       "norm_label": "c()"
     },
     {
@@ -3320,7 +3400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_m",
-      "community": 31,
+      "community": 51,
       "norm_label": "m()"
     },
     {
@@ -3390,7 +3470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_register",
-      "community": 34,
+      "community": 53,
       "norm_label": "register()"
     },
     {
@@ -3440,7 +3520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_set",
-      "community": 7,
+      "community": 17,
       "norm_label": "set()"
     },
     {
@@ -3450,7 +3530,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_get",
-      "community": 7,
+      "community": 17,
       "norm_label": "get()"
     },
     {
@@ -3460,7 +3540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_constructor",
-      "community": 7,
+      "community": 17,
       "norm_label": ".constructor()"
     },
     {
@@ -3470,7 +3550,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_enqueue",
-      "community": 7,
+      "community": 17,
       "norm_label": ".enqueue()"
     },
     {
@@ -3480,7 +3560,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_flush",
-      "community": 7,
+      "community": 17,
       "norm_label": ".flush()"
     },
     {
@@ -3490,7 +3570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_clear",
-      "community": 7,
+      "community": 17,
       "norm_label": ".clear()"
     },
     {
@@ -3500,7 +3580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_start",
-      "community": 7,
+      "community": 17,
       "norm_label": "._start()"
     },
     {
@@ -3510,7 +3590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_r_process",
-      "community": 7,
+      "community": 17,
       "norm_label": "._process()"
     },
     {
@@ -3560,7 +3640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_requestcallback",
-      "community": 7,
+      "community": 17,
       "norm_label": "_requestcallback()"
     },
     {
@@ -3570,7 +3650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_cancelcallback",
-      "community": 7,
+      "community": 17,
       "norm_label": "_cancelcallback()"
     },
     {
@@ -3590,7 +3670,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_i_tocolorrgb",
-      "community": 33,
+      "community": 31,
       "norm_label": ".tocolorrgb()"
     },
     {
@@ -3610,7 +3690,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_i_clone",
-      "community": 15,
+      "community": 33,
       "norm_label": ".clone()"
     },
     {
@@ -3840,7 +3920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_i_updateextended",
-      "community": 15,
+      "community": 33,
       "norm_label": ".updateextended()"
     },
     {
@@ -3910,7 +3990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_s",
-      "community": 15,
+      "community": 33,
       "norm_label": "s"
     },
     {
@@ -3920,7 +4000,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_s_ext",
-      "community": 15,
+      "community": 33,
       "norm_label": ".ext()"
     },
     {
@@ -3930,7 +4010,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_s_underlinestyle",
-      "community": 15,
+      "community": 33,
       "norm_label": ".underlinestyle()"
     },
     {
@@ -3940,7 +4020,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_s_underlinecolor",
-      "community": 15,
+      "community": 33,
       "norm_label": ".underlinecolor()"
     },
     {
@@ -3950,7 +4030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_s_urlid",
-      "community": 15,
+      "community": 33,
       "norm_label": ".urlid()"
     },
     {
@@ -3960,7 +4040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_s_constructor",
-      "community": 15,
+      "community": 33,
       "norm_label": ".constructor()"
     },
     {
@@ -3970,7 +4050,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_s_clone",
-      "community": 15,
+      "community": 33,
       "norm_label": ".clone()"
     },
     {
@@ -3980,7 +4060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_s_isempty",
-      "community": 15,
+      "community": 33,
       "norm_label": ".isempty()"
     },
     {
@@ -4140,7 +4220,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_warn",
-      "community": 7,
+      "community": 17,
       "norm_label": "warn()"
     },
     {
@@ -4150,7 +4230,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_error",
-      "community": 7,
+      "community": 17,
       "norm_label": "error()"
     },
     {
@@ -4160,7 +4240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_activate",
-      "community": 34,
+      "community": 53,
       "norm_label": ".activate()"
     },
     {
@@ -4170,7 +4250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_textureatlas",
-      "community": 34,
+      "community": 53,
       "norm_label": ".textureatlas()"
     },
     {
@@ -4180,7 +4260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_addon_webgl_h_cleartextureatlas",
-      "community": 34,
+      "community": 53,
       "norm_label": ".cleartextureatlas()"
     },
     {
@@ -4260,7 +4340,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_renderrows",
-      "community": 44,
+      "community": 3,
       "norm_label": "_renderrows()"
     },
     {
@@ -4270,7 +4350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_announcecharacters",
-      "community": 44,
+      "community": 3,
       "norm_label": "_announcecharacters()"
     },
     {
@@ -4360,7 +4440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r",
-      "community": 46,
+      "community": 14,
       "norm_label": "r()"
     },
     {
@@ -4400,7 +4480,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_setcolor",
-      "community": 50,
+      "community": 5,
       "norm_label": "setcolor()"
     },
     {
@@ -4410,7 +4490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getcolor",
-      "community": 50,
+      "community": 5,
       "norm_label": "getcolor()"
     },
     {
@@ -4460,7 +4540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_askforlink",
-      "community": 27,
+      "community": 40,
       "norm_label": "_askforlink()"
     },
     {
@@ -4470,7 +4550,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_removeintersectinglinks",
-      "community": 27,
+      "community": 40,
       "norm_label": "_removeintersectinglinks()"
     },
     {
@@ -4480,7 +4560,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_checklinkproviderresult",
-      "community": 27,
+      "community": 40,
       "norm_label": "_checklinkproviderresult()"
     },
     {
@@ -4500,7 +4580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlemouseup",
-      "community": 13,
+      "community": 27,
       "norm_label": "_handlemouseup()"
     },
     {
@@ -4570,7 +4650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_positionfrommouseevent",
-      "community": 13,
+      "community": 27,
       "norm_label": "_positionfrommouseevent()"
     },
     {
@@ -4590,7 +4670,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_providelinks",
-      "community": 27,
+      "community": 40,
       "norm_label": "providelinks()"
     },
     {
@@ -4620,7 +4700,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addrefreshcallback",
-      "community": 2,
+      "community": 20,
       "norm_label": "addrefreshcallback()"
     },
     {
@@ -4670,7 +4750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_onfocus",
-      "community": 58,
+      "community": 18,
       "norm_label": ".onfocus()"
     },
     {
@@ -4680,7 +4760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_onblur",
-      "community": 58,
+      "community": 20,
       "norm_label": ".onblur()"
     },
     {
@@ -4720,7 +4800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_constructor",
-      "community": 58,
+      "community": 20,
       "norm_label": ".constructor()"
     },
     {
@@ -4730,7 +4810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_handlecolorevent",
-      "community": 53,
+      "community": 5,
       "norm_label": "._handlecolorevent()"
     },
     {
@@ -4740,7 +4820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_setup",
-      "community": 63,
+      "community": 13,
       "norm_label": "._setup()"
     },
     {
@@ -4770,7 +4850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_handlescreenreadermodeoptionchange",
-      "community": 58,
+      "community": 20,
       "norm_label": "._handlescreenreadermodeoptionchange()"
     },
     {
@@ -4790,7 +4870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_blur",
-      "community": 18,
+      "community": 8,
       "norm_label": ".blur()"
     },
     {
@@ -4800,7 +4880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_handletextareablur",
-      "community": 13,
+      "community": 18,
       "norm_label": "._handletextareablur()"
     },
     {
@@ -4810,7 +4890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_synctextarea",
-      "community": 39,
+      "community": 40,
       "norm_label": "._synctextarea()"
     },
     {
@@ -4840,7 +4920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_open",
-      "community": 58,
+      "community": 20,
       "norm_label": ".open()"
     },
     {
@@ -4850,7 +4930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_createrenderer",
-      "community": 58,
+      "community": 20,
       "norm_label": "._createrenderer()"
     },
     {
@@ -5010,7 +5090,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_select",
-      "community": 18,
+      "community": 13,
       "norm_label": ".select()"
     },
     {
@@ -5150,7 +5230,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_reset",
-      "community": 63,
+      "community": 13,
       "norm_label": ".reset()"
     },
     {
@@ -5160,7 +5240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_p_cleartextureatlas",
-      "community": 23,
+      "community": 3,
       "norm_label": ".cleartextureatlas()"
     },
     {
@@ -5310,7 +5390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getbufferelements",
-      "community": 44,
+      "community": 40,
       "norm_label": "getbufferelements()"
     },
     {
@@ -5360,7 +5440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_queuerefresh",
-      "community": 2,
+      "community": 20,
       "norm_label": "_queuerefresh()"
     },
     {
@@ -5600,7 +5680,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_compositionstart",
-      "community": 27,
+      "community": 28,
       "norm_label": "compositionstart()"
     },
     {
@@ -5770,7 +5850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_handlefocus",
-      "community": 27,
+      "community": 28,
       "norm_label": "handlefocus()"
     },
     {
@@ -5860,7 +5940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_createrow",
-      "community": 17,
+      "community": 5,
       "norm_label": "createrow()"
     },
     {
@@ -5870,7 +5950,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_applyminimumcontrast",
-      "community": 50,
+      "community": 5,
       "norm_label": "_applyminimumcontrast()"
     },
     {
@@ -5880,7 +5960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getcontrastcache",
-      "community": 50,
+      "community": 5,
       "norm_label": "_getcontrastcache()"
     },
     {
@@ -5890,7 +5970,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addstyle",
-      "community": 50,
+      "community": 5,
       "norm_label": "_addstyle()"
     },
     {
@@ -5910,7 +5990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_v",
-      "community": 17,
+      "community": 5,
       "norm_label": "v()"
     },
     {
@@ -5930,7 +6010,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_get",
-      "community": 28,
+      "community": 2,
       "norm_label": "get()"
     },
     {
@@ -5940,7 +6020,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_measure",
-      "community": 28,
+      "community": 2,
       "norm_label": "_measure()"
     },
     {
@@ -6000,7 +6080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_finalselectionstart",
-      "community": 52,
+      "community": 11,
       "norm_label": "finalselectionstart()"
     },
     {
@@ -6010,7 +6090,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_finalselectionend",
-      "community": 52,
+      "community": 11,
       "norm_label": "finalselectionend()"
     },
     {
@@ -6020,7 +6100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_areselectionvaluesreversed",
-      "community": 52,
+      "community": 11,
       "norm_label": "areselectionvaluesreversed()"
     },
     {
@@ -6180,7 +6260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_getaschardata",
-      "community": 39,
+      "community": 21,
       "norm_label": ".getaschardata()"
     },
     {
@@ -6210,7 +6290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getjoinedcharacters",
-      "community": 44,
+      "community": 0,
       "norm_label": "getjoinedcharacters()"
     },
     {
@@ -6220,7 +6300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getjoinedranges",
-      "community": 43,
+      "community": 52,
       "norm_label": "_getjoinedranges()"
     },
     {
@@ -6230,7 +6310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_stringrangestocellranges",
-      "community": 43,
+      "community": 0,
       "norm_label": "_stringrangestocellranges()"
     },
     {
@@ -6240,7 +6320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_mergeranges",
-      "community": 43,
+      "community": 52,
       "norm_label": "_mergeranges()"
     },
     {
@@ -6350,7 +6430,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_constructor",
-      "community": 46,
+      "community": 14,
       "norm_label": ".constructor()"
     },
     {
@@ -6360,7 +6440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_registerlinkprovider",
-      "community": 46,
+      "community": 14,
       "norm_label": ".registerlinkprovider()"
     },
     {
@@ -6370,7 +6450,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getcoords",
-      "community": 13,
+      "community": 27,
       "norm_label": "getcoords()"
     },
     {
@@ -6440,7 +6520,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_hasrenderer",
-      "community": 58,
+      "community": 20,
       "norm_label": "hasrenderer()"
     },
     {
@@ -6450,7 +6530,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_setrenderer",
-      "community": 23,
+      "community": 3,
       "norm_label": "setrenderer()"
     },
     {
@@ -6460,7 +6540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_fullrefresh",
-      "community": 23,
+      "community": 3,
       "norm_label": "_fullrefresh()"
     },
     {
@@ -6470,7 +6550,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_cleartextureatlas",
-      "community": 23,
+      "community": 3,
       "norm_label": "cleartextureatlas()"
     },
     {
@@ -6490,7 +6570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_enable",
-      "community": 58,
+      "community": 20,
       "norm_label": "enable()"
     },
     {
@@ -6680,7 +6760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_shouldcolumnselect",
-      "community": 11,
+      "community": 18,
       "norm_label": "shouldcolumnselect()"
     },
     {
@@ -6700,7 +6780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_fireeventifselectionchanged",
-      "community": 13,
+      "community": 27,
       "norm_label": "_fireeventifselectionchanged()"
     },
     {
@@ -6710,7 +6790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_fireonselectionchange",
-      "community": 13,
+      "community": 27,
       "norm_label": "_fireonselectionchange()"
     },
     {
@@ -6730,7 +6810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_convertviewportcoltocharacterindex",
-      "community": 39,
+      "community": 0,
       "norm_label": "_convertviewportcoltocharacterindex()"
     },
     {
@@ -6760,7 +6840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getwordat",
-      "community": 39,
+      "community": 0,
       "norm_label": "_getwordat()"
     },
     {
@@ -6780,7 +6860,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_selecttowordat",
-      "community": 52,
+      "community": 11,
       "norm_label": "_selecttowordat()"
     },
     {
@@ -6790,7 +6870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_ischarwordseparator",
-      "community": 39,
+      "community": 0,
       "norm_label": "_ischarwordseparator()"
     },
     {
@@ -6830,7 +6910,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_restorecolor",
-      "community": 53,
+      "community": 5,
       "norm_label": "restorecolor()"
     },
     {
@@ -6840,7 +6920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_modifycolors",
-      "community": 53,
+      "community": 5,
       "norm_label": "modifycolors()"
     },
     {
@@ -6950,7 +7030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_splice",
-      "community": 43,
+      "community": 55,
       "norm_label": ".splice()"
     },
     {
@@ -6990,7 +7070,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_t",
-      "community": 27,
+      "community": 25,
       "norm_label": "t()"
     },
     {
@@ -7050,7 +7130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_constructor",
-      "community": 58,
+      "community": 20,
       "norm_label": ".constructor()"
     },
     {
@@ -7070,7 +7150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_writesync",
-      "community": 54,
+      "community": 14,
       "norm_label": ".writesync()"
     },
     {
@@ -7090,7 +7170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_resize",
-      "community": 9,
+      "community": 28,
       "norm_label": ".resize()"
     },
     {
@@ -7100,7 +7180,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_scroll",
-      "community": 44,
+      "community": 9,
       "norm_label": ".scroll()"
     },
     {
@@ -7190,7 +7270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_registeroschandler",
-      "community": 60,
+      "community": 54,
       "norm_label": ".registeroschandler()"
     },
     {
@@ -7200,7 +7280,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_s_setup",
-      "community": 63,
+      "community": 13,
       "norm_label": "._setup()"
     },
     {
@@ -7330,7 +7410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_getcurrentlinkid",
-      "community": 36,
+      "community": 1,
       "norm_label": "._getcurrentlinkid()"
     },
     {
@@ -7390,7 +7470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_registeroschandler",
-      "community": 60,
+      "community": 54,
       "norm_label": ".registeroschandler()"
     },
     {
@@ -7430,7 +7510,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_backspace",
-      "community": 40,
+      "community": 0,
       "norm_label": ".backspace()"
     },
     {
@@ -7470,7 +7550,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_restrictcursor",
-      "community": 40,
+      "community": 55,
       "norm_label": "._restrictcursor()"
     },
     {
@@ -7670,7 +7750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_eraseinbufferline",
-      "community": 40,
+      "community": 55,
       "norm_label": "._eraseinbufferline()"
     },
     {
@@ -7680,7 +7760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_resetbufferline",
-      "community": 40,
+      "community": 55,
       "norm_label": "._resetbufferline()"
     },
     {
@@ -7690,7 +7770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_eraseindisplay",
-      "community": 40,
+      "community": 55,
       "norm_label": ".eraseindisplay()"
     },
     {
@@ -7700,7 +7780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_eraseinline",
-      "community": 40,
+      "community": 55,
       "norm_label": ".eraseinline()"
     },
     {
@@ -7730,7 +7810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_insertchars",
-      "community": 40,
+      "community": 55,
       "norm_label": ".insertchars()"
     },
     {
@@ -7740,7 +7820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_deletechars",
-      "community": 40,
+      "community": 55,
       "norm_label": ".deletechars()"
     },
     {
@@ -7810,7 +7890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_erasechars",
-      "community": 40,
+      "community": 55,
       "norm_label": ".erasechars()"
     },
     {
@@ -7820,7 +7900,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_repeatprecedingcharacter",
-      "community": 49,
+      "community": 0,
       "norm_label": ".repeatprecedingcharacter()"
     },
     {
@@ -7890,7 +7970,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_resetmodeprivate",
-      "community": 1,
+      "community": 59,
       "norm_label": ".resetmodeprivate()"
     },
     {
@@ -7980,7 +8060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_softreset",
-      "community": 36,
+      "community": 38,
       "norm_label": ".softreset()"
     },
     {
@@ -8030,7 +8110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_restorecursor",
-      "community": 1,
+      "community": 59,
       "norm_label": ".restorecursor()"
     },
     {
@@ -8070,7 +8150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_sethyperlink",
-      "community": 36,
+      "community": 1,
       "norm_label": ".sethyperlink()"
     },
     {
@@ -8080,7 +8160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_createhyperlink",
-      "community": 36,
+      "community": 1,
       "norm_label": "._createhyperlink()"
     },
     {
@@ -8090,7 +8170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_finishhyperlink",
-      "community": 36,
+      "community": 1,
       "norm_label": "._finishhyperlink()"
     },
     {
@@ -8190,7 +8270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_keypadapplicationmode",
-      "community": 1,
+      "community": 59,
       "norm_label": ".keypadapplicationmode()"
     },
     {
@@ -8200,7 +8280,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_keypadnumericmode",
-      "community": 1,
+      "community": 59,
       "norm_label": ".keypadnumericmode()"
     },
     {
@@ -8300,7 +8380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_screenalignmentpattern",
-      "community": 1,
+      "community": 50,
       "norm_label": ".screenalignmentpattern()"
     },
     {
@@ -8310,7 +8390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_requeststatusstring",
-      "community": 0,
+      "community": 50,
       "norm_label": ".requeststatusstring()"
     },
     {
@@ -8320,7 +8400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_k_markrangedirty",
-      "community": 55,
+      "community": 1,
       "norm_label": ".markrangedirty()"
     },
     {
@@ -8340,7 +8420,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_markdirty",
-      "community": 40,
+      "community": 55,
       "norm_label": "markdirty()"
     },
     {
@@ -8360,7 +8440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_markalldirty",
-      "community": 55,
+      "community": 50,
       "norm_label": "markalldirty()"
     },
     {
@@ -8370,7 +8450,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_unregister",
-      "community": 43,
+      "community": 2,
       "norm_label": "unregister()"
     },
     {
@@ -8420,7 +8500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_insert",
-      "community": 43,
+      "community": 59,
       "norm_label": "insert()"
     },
     {
@@ -8450,7 +8530,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_foreachbykey",
-      "community": 27,
+      "community": 43,
       "norm_label": "foreachbykey()"
     },
     {
@@ -8500,7 +8580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_clear",
-      "community": 46,
+      "community": 14,
       "norm_label": ".clear()"
     },
     {
@@ -8510,7 +8590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_start",
-      "community": 46,
+      "community": 14,
       "norm_label": "._start()"
     },
     {
@@ -8520,7 +8600,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_r_process",
-      "community": 54,
+      "community": 14,
       "norm_label": "._process()"
     },
     {
@@ -8560,7 +8640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_requestcallback",
-      "community": 46,
+      "community": 14,
       "norm_label": "_requestcallback()"
     },
     {
@@ -8570,7 +8650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_cancelcallback",
-      "community": 46,
+      "community": 14,
       "norm_label": "_cancelcallback()"
     },
     {
@@ -8590,7 +8670,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_tocolorrgb",
-      "community": 53,
+      "community": 5,
       "norm_label": ".tocolorrgb()"
     },
     {
@@ -8620,7 +8700,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isinverse",
-      "community": 17,
+      "community": 5,
       "norm_label": ".isinverse()"
     },
     {
@@ -8630,7 +8710,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isbold",
-      "community": 17,
+      "community": 5,
       "norm_label": ".isbold()"
     },
     {
@@ -8660,7 +8740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isinvisible",
-      "community": 17,
+      "community": 5,
       "norm_label": ".isinvisible()"
     },
     {
@@ -8670,7 +8750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isitalic",
-      "community": 17,
+      "community": 5,
       "norm_label": ".isitalic()"
     },
     {
@@ -8680,7 +8760,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isdim",
-      "community": 50,
+      "community": 5,
       "norm_label": ".isdim()"
     },
     {
@@ -8690,7 +8770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isstrikethrough",
-      "community": 17,
+      "community": 5,
       "norm_label": ".isstrikethrough()"
     },
     {
@@ -8710,7 +8790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_isoverline",
-      "community": 17,
+      "community": 5,
       "norm_label": ".isoverline()"
     },
     {
@@ -8730,7 +8810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_getbgcolormode",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getbgcolormode()"
     },
     {
@@ -8810,7 +8890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_getfgcolor",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getfgcolor()"
     },
     {
@@ -8820,7 +8900,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_getbgcolor",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getbgcolor()"
     },
     {
@@ -8850,7 +8930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_i_getunderlinecolor",
-      "community": 17,
+      "community": 5,
       "norm_label": ".getunderlinecolor()"
     },
     {
@@ -8990,7 +9070,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getnullcell",
-      "community": 59,
+      "community": 55,
       "norm_label": "getnullcell()"
     },
     {
@@ -9060,7 +9140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_batchedmemorycleanup",
-      "community": 0,
+      "community": 40,
       "norm_label": "_batchedmemorycleanup()"
     },
     {
@@ -9110,7 +9190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_reflowsmaller",
-      "community": 59,
+      "community": 0,
       "norm_label": "_reflowsmaller()"
     },
     {
@@ -9170,7 +9250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clearmarkers",
-      "community": 43,
+      "community": 55,
       "norm_label": "clearmarkers()"
     },
     {
@@ -9180,7 +9260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_clearallmarkers",
-      "community": 43,
+      "community": 59,
       "norm_label": "clearallmarkers()"
     },
     {
@@ -9200,7 +9280,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_removemarker",
-      "community": 43,
+      "community": 2,
       "norm_label": "_removemarker()"
     },
     {
@@ -9210,7 +9290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_constructor",
-      "community": 0,
+      "community": 21,
       "norm_label": ".constructor()"
     },
     {
@@ -9290,7 +9370,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getcodepoint",
-      "community": 39,
+      "community": 0,
       "norm_label": ".getcodepoint()"
     },
     {
@@ -9310,7 +9390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getstring",
-      "community": 49,
+      "community": 0,
       "norm_label": ".getstring()"
     },
     {
@@ -9320,7 +9400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_isprotected",
-      "community": 0,
+      "community": 50,
       "norm_label": ".isprotected()"
     },
     {
@@ -9330,7 +9410,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_loadcell",
-      "community": 39,
+      "community": 0,
       "norm_label": ".loadcell()"
     },
     {
@@ -9390,7 +9470,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_replacecells",
-      "community": 0,
+      "community": 55,
       "norm_label": ".replacecells()"
     },
     {
@@ -9410,7 +9490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_cleanupmemory",
-      "community": 0,
+      "community": 40,
       "norm_label": ".cleanupmemory()"
     },
     {
@@ -9420,7 +9500,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_fill",
-      "community": 0,
+      "community": 50,
       "norm_label": ".fill()"
     },
     {
@@ -9460,7 +9540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_h_getnobgtrimmedlength",
-      "community": 17,
+      "community": 0,
       "norm_label": ".getnobgtrimmedlength()"
     },
     {
@@ -9530,7 +9610,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_o_activatenormalbuffer",
-      "community": 43,
+      "community": 59,
       "norm_label": ".activatenormalbuffer()"
     },
     {
@@ -9590,7 +9670,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_o_getwidth",
-      "community": 39,
+      "community": 0,
       "norm_label": ".getwidth()"
     },
     {
@@ -9600,7 +9680,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_o_getchars",
-      "community": 39,
+      "community": 0,
       "norm_label": ".getchars()"
     },
     {
@@ -9670,7 +9750,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_decode",
-      "community": 38,
+      "community": 50,
       "norm_label": "decode()"
     },
     {
@@ -9690,7 +9770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_charproperties",
-      "community": 49,
+      "community": 14,
       "norm_label": "charproperties()"
     },
     {
@@ -9710,7 +9790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_writesync",
-      "community": 54,
+      "community": 14,
       "norm_label": ".writesync()"
     },
     {
@@ -9720,7 +9800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_write",
-      "community": 46,
+      "community": 14,
       "norm_label": ".write()"
     },
     {
@@ -9730,7 +9810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_innerwrite",
-      "community": 46,
+      "community": 14,
       "norm_label": "._innerwrite()"
     },
     {
@@ -9770,7 +9850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_hook",
-      "community": 38,
+      "community": 36,
       "norm_label": "hook()"
     },
     {
@@ -9800,7 +9880,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_a_setdefault",
-      "community": 30,
+      "community": 50,
       "norm_label": ".setdefault()"
     },
     {
@@ -9810,7 +9890,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_a_add",
-      "community": 27,
+      "community": 28,
       "norm_label": ".add()"
     },
     {
@@ -10180,7 +10260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_wrappedaddondispose",
-      "community": 43,
+      "community": 2,
       "norm_label": "_wrappedaddondispose()"
     },
     {
@@ -10270,7 +10350,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getcell",
-      "community": 39,
+      "community": 0,
       "norm_label": "getcell()"
     },
     {
@@ -10280,7 +10360,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_translatetostring",
-      "community": 44,
+      "community": 40,
       "norm_label": "translatetostring()"
     },
     {
@@ -10360,7 +10440,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_registeroschandler",
-      "community": 60,
+      "community": 54,
       "norm_label": "registeroschandler()"
     },
     {
@@ -10370,7 +10450,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_addoschandler",
-      "community": 60,
+      "community": 54,
       "norm_label": "addoschandler()"
     },
     {
@@ -10550,7 +10630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_registerdecoration",
-      "community": 10,
+      "community": 59,
       "norm_label": ".registerdecoration()"
     },
     {
@@ -10560,7 +10640,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_getdecorationsatcell",
-      "community": 10,
+      "community": 43,
       "norm_label": ".getdecorationsatcell()"
     },
     {
@@ -10570,7 +10650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_c_foreachdecorationatcell",
-      "community": 17,
+      "community": 43,
       "norm_label": ".foreachdecorationatcell()"
     },
     {
@@ -10630,7 +10710,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_has",
-      "community": 27,
+      "community": 40,
       "norm_label": ".has()"
     },
     {
@@ -10640,7 +10720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_setservice",
-      "community": 58,
+      "community": 20,
       "norm_label": "setservice()"
     },
     {
@@ -10660,7 +10740,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_createinstance",
-      "community": 58,
+      "community": 20,
       "norm_label": "createinstance()"
     },
     {
@@ -10690,7 +10770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_evallazyoptionalparams",
-      "community": 2,
+      "community": 52,
       "norm_label": "_evallazyoptionalparams()"
     },
     {
@@ -10700,7 +10780,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_log",
-      "community": 2,
+      "community": 52,
       "norm_label": "_log()"
     },
     {
@@ -10710,7 +10790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_trace",
-      "community": 2,
+      "community": 52,
       "norm_label": "trace()"
     },
     {
@@ -10720,7 +10800,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_debug",
-      "community": 1,
+      "community": 59,
       "norm_label": "debug()"
     },
     {
@@ -10730,7 +10810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_info",
-      "community": 2,
+      "community": 52,
       "norm_label": "info()"
     },
     {
@@ -10740,7 +10820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_warn",
-      "community": 54,
+      "community": 14,
       "norm_label": "warn()"
     },
     {
@@ -10750,7 +10830,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_error",
-      "community": 8,
+      "community": 52,
       "norm_label": "error()"
     },
     {
@@ -10770,7 +10850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_a_onmultipleoptionchange",
-      "community": 58,
+      "community": 20,
       "norm_label": ".onmultipleoptionchange()"
     },
     {
@@ -10820,7 +10900,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_getlinkdata",
-      "community": 27,
+      "community": 40,
       "norm_label": "getlinkdata()"
     },
     {
@@ -10850,7 +10930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_extractshouldjoin",
-      "community": 49,
+      "community": 14,
       "norm_label": ".extractshouldjoin()"
     },
     {
@@ -10860,7 +10940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_extractwidth",
-      "community": 49,
+      "community": 0,
       "norm_label": ".extractwidth()"
     },
     {
@@ -10880,7 +10960,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_createpropertyvalue",
-      "community": 49,
+      "community": 14,
       "norm_label": ".createpropertyvalue()"
     },
     {
@@ -10910,7 +10990,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_wcwidth",
-      "community": 49,
+      "community": 14,
       "norm_label": ".wcwidth()"
     },
     {
@@ -10920,7 +11000,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_getstringcellwidth",
-      "community": 49,
+      "community": 14,
       "norm_label": ".getstringcellwidth()"
     },
     {
@@ -10930,7 +11010,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_n_charproperties",
-      "community": 49,
+      "community": 14,
       "norm_label": ".charproperties()"
     },
     {
@@ -10980,7 +11060,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_oncursormove",
-      "community": 58,
+      "community": 20,
       "norm_label": ".oncursormove()"
     },
     {
@@ -11030,7 +11110,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_onresize",
-      "community": 58,
+      "community": 20,
       "norm_label": ".onresize()"
     },
     {
@@ -11050,7 +11130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_onselectionchange",
-      "community": 58,
+      "community": 20,
       "norm_label": ".onselectionchange()"
     },
     {
@@ -11180,7 +11260,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_blur",
-      "community": 18,
+      "community": 8,
       "norm_label": ".blur()"
     },
     {
@@ -11210,7 +11290,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_resize",
-      "community": 1,
+      "community": 28,
       "norm_label": ".resize()"
     },
     {
@@ -11490,7 +11570,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "vendor_xterm_d_cleartextureatlas",
-      "community": 23,
+      "community": 3,
       "norm_label": ".cleartextureatlas()"
     },
     {
@@ -13652,6 +13732,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "static/js/input-bar.js",
+      "source_location": "L879",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_btncustommenu",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
       "source_location": "L55",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -13682,6 +13772,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "static/js/input-bar.js",
+      "source_location": "L940",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_closecustompopup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
       "source_location": "L69",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -13697,6 +13797,36 @@
       "confidence_score": 1.0,
       "source": "js_input_bar",
       "target": "js_input_bar_closeslashpalette"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L882",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_customcommandsgrid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L881",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_custompopupbackdrop",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L880",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_customshortcutspopup",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -13812,6 +13942,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "static/js/input-bar.js",
+      "source_location": "L915",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_opencustompopup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
       "source_location": "L63",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -13827,6 +13967,16 @@
       "confidence_score": 1.0,
       "source": "js_input_bar",
       "target": "js_input_bar_openslashpalette"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L889",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_populatecustomcommands",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -13937,6 +14087,16 @@
       "confidence_score": 1.0,
       "source": "js_input_bar",
       "target": "js_input_bar_setprompttext"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L949",
+      "weight": 1.0,
+      "source": "js_input_bar",
+      "target": "js_input_bar_triggercustomcommand",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -14323,6 +14483,17 @@
     {
       "relation": "calls",
       "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L954",
+      "weight": 1.0,
+      "source": "js_input_bar_triggercustomcommand",
+      "target": "js_input_bar_sendquicktext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "static/js/input-bar.js",
@@ -14429,6 +14600,61 @@
       "confidence_score": 1.0,
       "source": "js_input_bar_updatetheme",
       "target": "js_input_bar_renderthemechips"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L917",
+      "weight": 1.0,
+      "source": "js_input_bar_opencustompopup",
+      "target": "js_input_bar_populatecustomcommands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L937",
+      "weight": 1.0,
+      "source": "js_input_bar_opencustompopup",
+      "target": "js_utils_triggerhaptic"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L956",
+      "weight": 1.0,
+      "source": "js_input_bar_triggercustomcommand",
+      "target": "js_input_bar_closecustompopup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L955",
+      "weight": 1.0,
+      "source": "js_input_bar_triggercustomcommand",
+      "target": "js_utils_showtoast"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "static/js/input-bar.js",
+      "source_location": "L953",
+      "weight": 1.0,
+      "source": "js_input_bar_triggercustomcommand",
+      "target": "js_utils_triggerhaptic"
     },
     {
       "relation": "contains",
@@ -38649,5 +38875,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3137cc01a36e31b82ac6867bfb0900a5ce935f69"
+  "built_at_commit": "343ee7da2825a9b72436d82ced18a8e3ff08ca79"
 }
