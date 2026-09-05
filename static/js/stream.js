@@ -180,13 +180,16 @@ function updateConfirmationBanner(pane) {
     }
 }
 
-function updateTerminalContent(pane, paneChanged) {
+function updateTerminalContent(pane) {
     if (!State.term) return;
     const rawText = pane.raw_text || '';
     const revision = pane.revision || 0;
+    
+    const paneChanged = (State.lastRenderedPaneId !== pane.pane_id);
 
     // 1. Pane switched: full reset and scroll to bottom
     if (paneChanged) {
+        State.lastRenderedPaneId = pane.pane_id;
         State.term.reset();
         if (typeof syncTerminalSizeWithBackend === 'function') {
             syncTerminalSizeWithBackend(true);
