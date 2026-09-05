@@ -8,12 +8,29 @@ function connectStateStream() {
 
     State.sseSource = new EventSource('/api/stream');
 
+    let pendingStateStr = null;
+    let isRendering = false;
+
     State.sseSource.addEventListener('state', e => {
-        try {
-            const data = JSON.parse(e.data);
-            handleStateUpdate(data);
-        } catch (err) {
-            console.error('Failed to parse SSE state event', err);
+        pendingStateStr = e.data;
+        if (!isRendering) {
+            isRendering = true;
+            // Cede il controllo al thread principale (UI) per registrare i click
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    if (pendingStateStr) {
+                        const strToParse = pendingStateStr;
+                        pendingStateStr = null;
+                        try {
+                            const data = JSON.parse(strToParse);
+                            handleStateUpdate(data);
+                        } catch (err) {
+                            console.error('Failed to parse SSE state event', err);
+                        }
+                    }
+                    isRendering = false;
+                }, 16); // 16ms yield window (~1 frame) per l'input lag
+            });
         }
     });
 
