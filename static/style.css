@@ -1111,7 +1111,7 @@ html, body {
 }
 
 .cli-key:active {
-    transform: scale(0.92);
+    opacity: 0.7;
     background: var(--accent);
     color: #000;
 }
@@ -1149,7 +1149,7 @@ html, body {
     background: rgba(0, 168, 132, 0.08);
     border: 1px solid rgba(0, 168, 132, 0.35);
     color: var(--accent);
-    touch-action: none;
+    touch-action: manipulation;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -1252,7 +1252,7 @@ html, body {
     border-radius: 8px;
     color: var(--text-primary);
     cursor: pointer;
-    touch-action: none;
+    touch-action: manipulation;
     transition: all 0.1s ease;
     min-height: 48px;
 }
@@ -1793,7 +1793,7 @@ html, body {
 }
 
 .btn-action-mic-send:active {
-    transform: scale(0.92);
+    opacity: 0.7;
 }
 
 .btn-action-mic-send.recording {
@@ -2287,7 +2287,7 @@ html, body {
 }
 
 .btn-new-chat:active {
-    transform: scale(0.92);
+    opacity: 0.7;
 }
 
 /* iOS BOTTOM NAVIGATION TAB BAR */
@@ -2324,7 +2324,7 @@ html, body {
 }
 
 .tabbar-item:active {
-    transform: scale(0.92);
+    opacity: 0.7;
 }
 
 .tabbar-item.active {
@@ -2664,7 +2664,7 @@ html, body {
 }
 
 .quick-action-pill:active {
-    transform: scale(0.92);
+    opacity: 0.7;
     background: var(--accent-subtle);
 }
 
