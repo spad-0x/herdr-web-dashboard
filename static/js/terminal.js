@@ -270,7 +270,7 @@ function initTerminal() {
     // Stub focus to prevent any touch or programmatic focus attempt
     State.term.focus = function() {};
 
-    ensureWebglAddon();
+    // ensureWebglAddon();
     initSubpixelScroll();
     initTouchScroll();
     initResizeObserver();
@@ -280,7 +280,7 @@ function initTerminal() {
         try {
             if (State.fitAddon) State.fitAddon.fit();
             syncTerminalSizeWithBackend(true);
-            ensureWebglAddon();
+            // ensureWebglAddon();
             initSubpixelScroll();
             initTouchScroll();
         } catch (e) {}

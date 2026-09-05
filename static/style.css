@@ -904,7 +904,7 @@ html, body {
     padding: 4px 6px;
     overflow: hidden;
     position: relative;
-    touch-action: none;
+    touch-action: pan-x pan-y;
     -webkit-user-select: text;
     user-select: text;
     cursor: default;
@@ -920,11 +920,11 @@ html, body {
 }
 
 .terminal-container .xterm-screen {
-    touch-action: none;
+    touch-action: pan-x pan-y;
 }
 
 .terminal-container .xterm-viewport {
-    touch-action: none;
+    touch-action: pan-x pan-y;
     -webkit-overflow-scrolling: touch !important;
     overscroll-behavior-y: contain;
     scroll-behavior: auto;
@@ -1138,7 +1138,7 @@ html, body {
     background: rgba(0, 168, 132, 0.08);
     border: 1px solid rgba(0, 168, 132, 0.35);
     color: var(--accent);
-    touch-action: none;
+    touch-action: pan-x pan-y;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -1241,7 +1241,7 @@ html, body {
     border-radius: 8px;
     color: var(--text-primary);
     cursor: pointer;
-    touch-action: none;
+    touch-action: pan-x pan-y;
     transition: all 0.1s ease;
     min-height: 48px;
 }
@@ -3072,4 +3072,15 @@ input:checked + .toggle-slider:before {
 .bubble-content {
     -webkit-user-select: text;
     user-select: text;
+}
+
+/* Force allow text selection inside terminal */
+.terminal-container .xterm,
+.terminal-container .xterm-viewport,
+.terminal-container .xterm-screen,
+.terminal-container .xterm-rows,
+.terminal-container .xterm-row,
+.terminal-container span {
+    -webkit-user-select: text !important;
+    user-select: text !important;
 }
