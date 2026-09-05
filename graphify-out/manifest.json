@@ -25,13 +25,13 @@
     "semantic_hash": ""
   },
   "static/js/chats-list.js": {
-    "mtime": 1788541458.7035344,
-    "ast_hash": "743bdf1ad5fa3a0a7b475b00d1478fdd",
+    "mtime": 1788546405.6079004,
+    "ast_hash": "838239716dcf09c0dc3714d574d2cc7a",
     "semantic_hash": ""
   },
   "static/js/input-bar.js": {
-    "mtime": 1788541436.9609163,
-    "ast_hash": "78fbf698c9820ca2c228764b6e6315c2",
+    "mtime": 1788546361.787806,
+    "ast_hash": "3071929a8bb3ab1230b6e0adefce798b",
     "semantic_hash": ""
   },
   "static/js/settings.js": {
@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   "static/js/terminal.js": {
-    "mtime": 1788542011.1710725,
-    "ast_hash": "d3100bc3d4cc9502b0e7453d759c2821",
+    "mtime": 1788545999.6935477,
+    "ast_hash": "693496e865daaee35026a2bbae53da90",
     "semantic_hash": ""
   },
   "static/js/utils.js": {
@@ -100,18 +100,18 @@
     "semantic_hash": ""
   },
   "static/index.html": {
-    "mtime": 1788542971.648636,
-    "ast_hash": "3f8936a037660162beaf080e539ee3ed",
+    "mtime": 1788546056.8846812,
+    "ast_hash": "641f296abd0d5731ae78b6b0ab35b03b",
     "semantic_hash": ""
   },
   "static/login.html": {
-    "mtime": 1788542990.5155356,
-    "ast_hash": "1926f3a36efc3e9ef8781c6dfb2f20af",
+    "mtime": 1788544762.4447854,
+    "ast_hash": "1f16046f56cd72694e1b39bae7cb1dc1",
     "semantic_hash": ""
   },
   "static/apple-touch-icon.png": {
-    "mtime": 1788542929.2019145,
-    "ast_hash": "bf5c580987ef78d3dbd9ce5bb6b3fc28",
+    "mtime": 1788544762.4356022,
+    "ast_hash": "13bb927971e91d67dcd0e3d909cc96ff",
     "semantic_hash": ""
   },
   "static/favicon.svg": {
@@ -125,13 +125,13 @@
     "semantic_hash": ""
   },
   "static/icon-192.png": {
-    "mtime": 1788542929.1927226,
-    "ast_hash": "5bcf83db3bfc819d291671f7847af73e",
+    "mtime": 1788544762.4380631,
+    "ast_hash": "380cb09b2652905cba44cacd723cd22b",
     "semantic_hash": ""
   },
   "static/icon-512.png": {
-    "mtime": 1788542929.1874776,
-    "ast_hash": "a071e75def63a00b7b712851c981ff85",
+    "mtime": 1788544762.4387758,
+    "ast_hash": "56cfc3ea6ed3fc7df7bca9e50d84388b",
     "semantic_hash": ""
   },
   "static/vendor/addon-webgl.js": {
@@ -150,23 +150,23 @@
     "semantic_hash": ""
   },
   "static/icon-1024.png": {
-    "mtime": 1788542929.1818924,
-    "ast_hash": "5275c6671ce7d63eb11495f89f59ae18",
+    "mtime": 1788544762.4373972,
+    "ast_hash": "1e0c850342dc295e6c2dca31f80821fd",
     "semantic_hash": ""
   },
   "static/icons/apple-touch-icon-180x180.png": {
-    "mtime": 1788542929.176557,
-    "ast_hash": "bf5c580987ef78d3dbd9ce5bb6b3fc28",
+    "mtime": 1788544762.439949,
+    "ast_hash": "a4068aebdede61dd1bfd5a607887f728",
     "semantic_hash": ""
   },
   "static/icons/icon-1024x1024.png": {
-    "mtime": 1788542929.1532967,
-    "ast_hash": "5275c6671ce7d63eb11495f89f59ae18",
+    "mtime": 1788544762.4414368,
+    "ast_hash": "b19e9c580b7a95628cf4ecd475719b10",
     "semantic_hash": ""
   },
   "static/icons/icon-192x192.png": {
-    "mtime": 1788542929.1719503,
-    "ast_hash": "5bcf83db3bfc819d291671f7847af73e",
+    "mtime": 1788544762.441898,
+    "ast_hash": "380cb09b2652905cba44cacd723cd22b",
     "semantic_hash": ""
   },
   "static/icons/icon-256x256.png": {
@@ -180,8 +180,8 @@
     "semantic_hash": ""
   },
   "static/icons/icon-512x512.png": {
-    "mtime": 1788542929.1589625,
-    "ast_hash": "a071e75def63a00b7b712851c981ff85",
+    "mtime": 1788544762.4425228,
+    "ast_hash": "56cfc3ea6ed3fc7df7bca9e50d84388b",
     "semantic_hash": ""
   },
   "static/icons/icon-monochrome.svg": {
@@ -197,6 +197,21 @@
   "static/ram.svg": {
     "mtime": 1788542922.2815356,
     "ast_hash": "c2be1c80f1efc565208260819b6141e0",
+    "semantic_hash": ""
+  },
+  "static/apple-touch-icon-ram-180.png": {
+    "mtime": 1788544762.4341636,
+    "ast_hash": "13bb927971e91d67dcd0e3d909cc96ff",
+    "semantic_hash": ""
+  },
+  "static/icons/apple-touch-icon-ram.svg": {
+    "mtime": 1788544762.4402368,
+    "ast_hash": "41c6826df063bc29d6816fb626b464f6",
+    "semantic_hash": ""
+  },
+  "static/icons/icon-ram-1024.png": {
+    "mtime": 1788544762.4437933,
+    "ast_hash": "6afcab01b69dce5684e41350508c129f",
     "semantic_hash": ""
   }
 }

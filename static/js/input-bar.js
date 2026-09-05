@@ -26,8 +26,15 @@ function renderTabs(tabs) {
                 apiCall('/api/tab/close', { tab_id: tab.tab_id });
                 return;
             }
+            if (State.activeTabId === tab.tab_id) return;
+            
             triggerHaptic('light');
             State.activeTabId = tab.tab_id;
+            
+            // Optimistic UI update to remove perceived latency
+            renderTabs(State.tabs);
+            if (State.term) State.term.clear(); 
+            
             apiCall('/api/tab/focus', { tab_id: tab.tab_id });
         });
 

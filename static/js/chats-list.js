@@ -235,12 +235,13 @@ function renderChatsList() {
                 });
             }
 
-            item.addEventListener('click', async () => {
+            item.addEventListener('click', () => {
                 triggerHaptic('light');
                 if (ws.id !== State.activeWorkspaceId) {
                     State.activeWorkspaceId = ws.id;
-                    await apiCall('/api/workspace/focus', { workspace_id: ws.id });
+                    apiCall('/api/workspace/focus', { workspace_id: ws.id });
                 }
+                if (State.term) State.term.clear();
                 setScreen('chat-active');
             });
 
@@ -343,18 +344,20 @@ function renderChatsList() {
                 });
             }
 
-            item.addEventListener('click', async () => {
+            item.addEventListener('click', () => {
                 triggerHaptic('light');
                 if (pane.workspace_id && pane.workspace_id !== State.activeWorkspaceId) {
                     State.activeWorkspaceId = pane.workspace_id;
-                    await apiCall('/api/workspace/focus', { workspace_id: pane.workspace_id });
+                    apiCall('/api/workspace/focus', { workspace_id: pane.workspace_id });
                 }
                 if (pane.tab_id && pane.tab_id !== State.activeTabId) {
                     State.activeTabId = pane.tab_id;
-                    await apiCall('/api/tab/focus', { tab_id: pane.tab_id });
+                    apiCall('/api/tab/focus', { tab_id: pane.tab_id });
                 }
                 State.activePaneId = pane.pane_id;
-                await apiCall('/api/pane/focus', { pane_id: pane.pane_id });
+                apiCall('/api/pane/focus', { pane_id: pane.pane_id });
+                
+                if (State.term) State.term.clear();
                 setScreen('chat-active');
                 if (typeof syncTerminalSizeWithBackend === 'function') {
                     syncTerminalSizeWithBackend(true);

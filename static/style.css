@@ -590,13 +590,13 @@ html, body {
 .tab-strip {
     display: flex;
     align-items: center;
-    height: 34px;
+    height: 44px;
     background: var(--bg-surface-translucent);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-subtle);
-    padding: 0 10px;
-    gap: 6px;
+    padding: 0 12px;
+    gap: 8px;
     flex-shrink: 0;
     overflow-x: auto;
     scrollbar-width: none;
@@ -610,24 +610,23 @@ html, body {
 .tabs-container {
     display: flex;
     align-items: center;
-    gap: 6px;
-    flex-grow: 1;
-    overflow-x: auto;
-    scrollbar-width: none;
+    gap: 8px;
+    /* Removed flex-grow: 1 to let the container hug its children, 
+       attaching the + button to the right of the tabs */
 }
 
 .tab-pill {
     display: flex;
     align-items: center;
-    gap: 5px;
-    height: 26px;
-    padding: 0 9px;
+    gap: 6px;
+    height: 32px;
+    padding: 0 14px;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 6px;
+    border-radius: 8px;
     color: var(--text-secondary);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
     white-space: nowrap;
     cursor: pointer;
@@ -652,11 +651,11 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 6px;
+    border-radius: 8px;
     color: var(--text-secondary);
     cursor: pointer;
     flex-shrink: 0;
@@ -2218,6 +2217,7 @@ html, body {
 }
 
 .chats-screen-header {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2232,6 +2232,13 @@ html, body {
     flex-shrink: 0;
 }
 
+.chats-header-left,
+.chats-header-right {
+    display: flex;
+    align-items: center;
+    min-height: 34px;
+}
+
 .chats-header-brand {
     font-size: 13px;
     font-weight: 700;
@@ -2242,10 +2249,14 @@ html, body {
 }
 
 .chats-screen-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 19px;
     font-weight: 800;
     color: var(--text-primary);
     margin: 0;
+    pointer-events: none;
 }
 
 .btn-new-chat {
@@ -2286,16 +2297,17 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 4px;
     background: transparent;
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    padding: 3px 18px;
+    padding: 3px 0;
     border-radius: 8px;
     transition: color 0.15s ease, transform 0.1s ease;
     flex: 1;
-    max-width: 110px;
+    text-align: center;
 }
 
 .tabbar-item:active {
@@ -2315,12 +2327,14 @@ html, body {
     font-size: 11px;
     font-weight: 600;
     letter-spacing: -0.1px;
+    width: 100%;
+    text-align: center;
 }
 
 .tabbar-badge {
     position: absolute;
     top: 0px;
-    right: 26px;
+    right: calc(50% - 22px);
     min-width: 16px;
     height: 16px;
     padding: 0 4px;

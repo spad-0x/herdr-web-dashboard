@@ -198,7 +198,8 @@ function initResizeObserver() {
     const handleResize = () => {
         if (!State.term || !State.fitAddon) return;
         // Avoid fitting when viewport is hidden (0 dimensions)
-        if (DOM.terminalViewport && DOM.terminalViewport.style.display === 'none') return;
+        if (!DOM.terminalContainer || DOM.terminalContainer.offsetParent === null) return;
+        if (DOM.screenChatActive && DOM.screenChatActive.style.display === 'none') return;
 
         try {
             State.fitAddon.fit();
