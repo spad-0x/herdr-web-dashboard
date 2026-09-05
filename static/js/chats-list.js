@@ -37,15 +37,19 @@ function setScreen(screenName) {
     } else {
         if (DOM.screenChatsList) DOM.screenChatsList.style.display = 'none';
         if (DOM.screenChatActive) DOM.screenChatActive.style.display = 'flex';
-        if (State.fitAddon) {
-            try {
-                State.fitAddon.fit();
-                if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
-            } catch (e) {}
-        }
-        if (State.term && State.terminalAtBottom) {
-            State.term.scrollToBottom();
-        }
+        
+        // Defer terminal resize and scroll until after the browser paints the flex layout
+        setTimeout(() => {
+            if (State.fitAddon) {
+                try {
+                    State.fitAddon.fit();
+                    if (typeof syncTerminalSizeWithBackend === 'function') syncTerminalSizeWithBackend(true);
+                } catch (e) {}
+            }
+            if (State.term) {
+                State.term.scrollToBottom();
+            }
+        }, 50);
     }
 }
 
