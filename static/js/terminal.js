@@ -199,7 +199,7 @@ function initResizeObserver() {
         if (!State.term || !State.fitAddon) return;
         // Avoid fitting when viewport is hidden (0 dimensions)
         if (!DOM.terminalContainer || DOM.terminalContainer.offsetParent === null) return;
-        if (DOM.screenChatActive && DOM.screenChatActive.style.display === 'none') return;
+        if (DOM.screenChatActive && (DOM.screenChatActive.style.display === 'none' || DOM.screenChatActive.style.visibility === 'hidden')) return;
 
         try {
             State.fitAddon.fit();

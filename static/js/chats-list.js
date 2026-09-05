@@ -31,12 +31,24 @@ function setMode(mode = 'terminal') {
 function setScreen(screenName) {
     State.currentScreen = screenName;
     if (screenName === 'chats-list') {
-        if (DOM.screenChatsList) DOM.screenChatsList.style.display = 'flex';
-        if (DOM.screenChatActive) DOM.screenChatActive.style.display = 'none';
+        if (DOM.screenChatsList) {
+            DOM.screenChatsList.style.display = 'flex';
+            DOM.screenChatsList.style.zIndex = '10';
+        }
+        if (DOM.screenChatActive) {
+            // Use visibility to preserve xterm's layout box model so background text streaming doesn't break scroll coordinates
+            DOM.screenChatActive.style.visibility = 'hidden';
+            DOM.screenChatActive.style.zIndex = '1';
+        }
         renderChatsList();
     } else {
-        if (DOM.screenChatsList) DOM.screenChatsList.style.display = 'none';
-        if (DOM.screenChatActive) DOM.screenChatActive.style.display = 'flex';
+        if (DOM.screenChatsList) {
+            DOM.screenChatsList.style.display = 'none';
+        }
+        if (DOM.screenChatActive) {
+            DOM.screenChatActive.style.visibility = 'visible';
+            DOM.screenChatActive.style.zIndex = '10';
+        }
         
         // Defer terminal resize and scroll until after the browser paints the flex layout
         setTimeout(() => {
