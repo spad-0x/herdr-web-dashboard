@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   "server.py": {
-    "mtime": 1788606033.544778,
-    "ast_hash": "8902856d931069b8dc17e077c827370f",
+    "mtime": 1788612298.7177742,
+    "ast_hash": "4a5438b82dc88c7a765c47b769d59468",
     "semantic_hash": ""
   },
   "static/app.js": {
@@ -45,8 +45,8 @@
     "semantic_hash": ""
   },
   "static/js/stream.js": {
-    "mtime": 1788609687.5785732,
-    "ast_hash": "c6feca7954ac4a83706ebe12476aa4e0",
+    "mtime": 1788612557.4861784,
+    "ast_hash": "cffe490ab8b4ad869793510e1d6ff20f",
     "semantic_hash": ""
   },
   "static/js/terminal.js": {
